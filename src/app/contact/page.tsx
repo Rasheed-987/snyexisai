@@ -1,0 +1,66 @@
+import React from 'react';
+import ContactForm from '../../components/forms/ContactForm';
+import Button from '@/components/ui/Button';
+
+export default function ContactPage() {
+  return (
+    <div className="min-h-screen rounded-b-[80px] pb-12 border-2 relative z-50 bg-white border-red-600 bg-white overflow-visible">
+      {/* Main container with responsive two-column layout */}
+      <div className="relative mx-auto w-[1376px] min-h-[874.38px] overflow-visible">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 min-h-screen py-16 lg:py-20 overflow-visible">
+          
+          {/* Left Column - Hero Content */}
+          <div className="flex flex-col  pb-[185px] justify-center space-y-8">
+            {/* Main Heading */}
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <h1 className="text-6xl lg:text-7xl font-normal leading-tight tracking-tight text-[#0F1C3D] font-chillax">
+                  Tell us about
+                </h1>
+                <div className="flex items-center space-x-4">
+                  <span className="text-5xl lg:text-6xl font-normal leading-tight tracking-tight text-[#0F1C3D] font-chillax">
+                    your
+                  </span>
+                </div>
+                <h1 className="text-5xl lg:text-6xl font-normal leading-tight tracking-tight text-[#0F1C3D] font-chillax">
+                  project
+                </h1>
+              </div>
+            </div>
+
+            {/* Description */}
+            <div className="max-w-2xl">
+              <p className="text-lg lg:text-xl leading-relaxed text-[#0F1C3D] font-chillax">
+                At Synexis.ai, we believe in building intelligent collaborations, not just client relationships. We don't operate as a typical agency we integrate as your innovation partner, focused on scaling your vision with AI-driven solutions. From advanced digital platforms to smart brand experiences, we deliver end-to-end services that transform ideas into intelligent realities.
+              </p>
+            </div>
+
+            {/* CTA Section */}
+            <div className="space-y-6 pt-8 border-t border-[#E3E3E3]">
+              <p className="text-sm text-[#0F1C3D] font-chillax">
+                Hate forms? Chat now or schedule a call with our founder to discuss your project directly.
+              </p>
+              
+              <Button 
+                variant="nav-contact"
+                size="nav-contact"
+                className="bg-[#F9F9F9] border border-[#0F1C3D] text-[#0F1C3D] hover:bg-[#0F1C3D] hover:text-white rounded-full px-8 py-4 font-chillax transition-all duration-300"
+              >
+                Book A Meeting
+                <svg className="ml-2 w-4 h-4" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
+                  <path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
+                </svg>
+              </Button>
+            </div>
+          </div>
+
+          {/* Right Column - Contact Form */}
+          <div className="flex flex-col h-full w-full overflow-visible">
+            <ContactForm />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
