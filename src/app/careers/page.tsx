@@ -6,7 +6,7 @@ import { jobListings } from '@/lib/careers-data'
 
 export default function CareersPage() {
   return (
-    <div className="min-h-screen pb-24 rounded-b-[80px] border-2 relative z-50 bg-white border-red-600">
+    <div className="min-h-screen pb-24 rounded-b-[80px]  relative z-50 bg-white ">
       <div className="max-w-[100vw] mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-12 w-full max-w-xl mx-auto px-4 py-8 md:py-12 lg:py-16">

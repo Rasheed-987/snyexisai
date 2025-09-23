@@ -1,2 +1,2 @@
 export { default as Button } from './Button';
-export { default as Card } from './Card';
+export { Card, CardContent, JobCard } from './Card';

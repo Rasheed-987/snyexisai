@@ -4,10 +4,10 @@ import Button from '@/components/ui/Button';
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen rounded-b-[80px] pb-12 border-2 relative z-50 bg-white border-red-600 bg-white overflow-visible">
+    <div className="min-h-screen rounded-b-[80px] pb-12 border-2 relative z-50 bg-white border-red-600 overflow-visible">
       {/* Main container with responsive two-column layout */}
-      <div className="relative mx-auto w-[1376px] min-h-[874.38px] overflow-visible">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 min-h-screen py-16 lg:py-20 overflow-visible">
+      <div className="relative mx-auto w-full max-w-screen-xl min-h-[874.38px] px-4 sm:px-6 lg:px-8 overflow-visible">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 min-h-screen py-10 sm:py-16 lg:py-20 overflow-visible">
           
           {/* Left Column - Hero Content */}
           <div className="flex flex-col  pb-[185px] justify-center space-y-8">
