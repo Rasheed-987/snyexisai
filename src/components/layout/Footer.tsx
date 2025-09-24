@@ -13,7 +13,7 @@ export default function Footer({ className = "" }: FooterProps) {
           {/* Main Content Grid */}
           <div className="relative w-full max-w-[1200px] mx-auto">
             {/* Navigation Columns */}
-            <div className="grid grid-cols-3 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-16">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-16">
               
               {/* Explore Column */}
               <div className="space-y-6">
@@ -107,7 +107,7 @@ export default function Footer({ className = "" }: FooterProps) {
 
           
               {/* Location Column */}
-<div className="flex flex-col sm:flex-row gap-4 items-start min-h-0">
+<div className="flex flex-column  gap-4 items-start min-h-0">
   <div className="flex-shrink-0">
     <h3 className="font-chillax font-normal text-[color:var(--sidebar)] text-xs mb-4">
       Our Location

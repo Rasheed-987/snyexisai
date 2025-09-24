@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function CaseStudies() {
   return (
-    <main className="flex flex-col items-center min-h-screen bg-white pb-24 lg:pb-40">
+    <main className="flex flex-col items-center sm:mt-5 min-h-screen bg-white pb-24 lg:pb-40">
       {/* Hero Container */}
       <section className="w-full max-w-[1248px]  sm:mt-[180px] md:mt-[100px] lg:mt-[133px] px-4 sm:px-8 flex flex-col items-center  lg:gap-10  mb-16 lg:mb-10 ">
         {/* Company Tag */}
@@ -88,7 +88,7 @@ export default function CaseStudies() {
           />
         </div>
         {/* Phones row (img3_1 and img3_2) */}
-        <div className="flex flex-col md:flex-row gap-6 justify-center items-center w-full">
+        <div className="flex flex-row gap-6 justify-center items-center sm:gap-1 w-full">
           <Image src="/images/img3_1.jpg" width={624} height={918} alt="Phone 1" className="w-[40vw] h-auto" priority />
           <Image src="/images/img3_2.jpg" width={624} height={918} alt="Phone 2" className="w-[40vw] h-auto" priority />
         </div>
@@ -149,6 +149,97 @@ export default function CaseStudies() {
         </div>
       </section>
       
+      {/* Side-by-Side Images Section */}
+      <section className="w-full max-w-[1248px] mx-auto flex flex-row items-center justify-center gap-8 mt-16 px-4 sm:px-8">
+        {/* Image 1 */}
+        <div className="flex-1">
+          <Image
+            src="/images/img4_1.jpg"
+            alt="Image 4_1"
+            width={624}
+            height={442}
+            className="rounded-lg object-cover"
+          />
+        </div>
+        {/* Image 2 */}
+        <div className="flex-1">
+          <Image
+            src="/images/img4_2.jpg"
+            alt="Image 4_2"
+            width={624}
+            height={442}
+            className="rounded-lg object-cover"
+          />
+        </div>
+      </section>
+      {/* The Result Section */}
+<section className="relative w-full mt-3 max-w-[1280px] mx-auto px-4 sm:px-8 flex flex-col md:flex-row gap-16">
+  {/* Left Column */}
+  <div className="flex-1">
+    {/* Heading */}
+    <h2 className="text-[#0F1C3D] font-chillax font-normal text-[45px] leading-[48px] capitalize mb-6">
+      the Result
+    </h2>
+    {/* Paragraph 1 */}
+    <p className="text-[#0F1C3D] font-chillax font-normal text-[14.1953px] leading-[22px] mb-6">
+      The BEC project was more than a branding exercise—it was a collaborative
+      journey that merged our creative expertise with their bold ambitions.
+      Synexis transformed their vision into a scalable, professional identity
+      that positioned them as leaders in clean energy design. From crafting the
+      “+BE” logo to creating a vibrant, nature-inspired brand narrative, every
+      decision was made with BEC’s long-term goals in mind.
+    </p>
+    {/* Paragraph 2 */}
+    <p className="text-[#0F1C3D] font-chillax font-normal text-[14.0719px] leading-[22px] mb-6">
+      The result? A timeless brand that combines innovation and sustainability,
+      ready to power their growth for years to come. By trusting our process and
+      pushing creative boundaries together, we achieved a design solution that
+      truly reflects their values and aspirations.
+    </p>
+    {/* Paragraph 3 */}
+    <p className="text-[#0F1C3D] font-chillax font-normal text-[14.1953px] leading-[22px]">
+      At Synexis, we’re proud to have played a role in shaping BEC’s journey.
+      This case study showcases our ability to deliver impactful branding for
+      ambitious, mission-driven companies in emerging industries. If you’re
+      looking to elevate your own brand with a clean, timeless design, let’s
+      talk.
+    </p>
+  </div>
+
+  {/* Right Column (optional, e.g. for image/illustration) */}
+  <div className="flex-1">
+ {/* Heading */}
+    <h2 className="text-[#0F1C3D] font-chillax font-normal text-[45px] leading-[48px] capitalize mb-6">
+      the Result
+    </h2>
+    {/* Paragraph 1 */}
+    <p className="text-[#0F1C3D] font-chillax font-normal text-[14.1953px] leading-[22px] mb-6">
+      The BEC project was more than a branding exercise—it was a collaborative
+      journey that merged our creative expertise with their bold ambitions.
+      Synexis transformed their vision into a scalable, professional identity
+      that positioned them as leaders in clean energy design. From crafting the
+      “+BE” logo to creating a vibrant, nature-inspired brand narrative, every
+      decision was made with BEC’s long-term goals in mind.
+    </p>
+    {/* Paragraph 2 */}
+    <p className="text-[#0F1C3D] font-chillax font-normal text-[14.0719px] leading-[22px] mb-6">
+      The result? A timeless brand that combines innovation and sustainability,
+      ready to power their growth for years to come. By trusting our process and
+      pushing creative boundaries together, we achieved a design solution that
+      truly reflects their values and aspirations.
+    </p>
+    {/* Paragraph 3 */}
+    <p className="text-[#0F1C3D] font-chillax font-normal text-[14.1953px] leading-[22px]">
+      At Synexis, we’re proud to have played a role in shaping BEC’s journey.
+      This case study showcases our ability to deliver impactful branding for
+      ambitious, mission-driven companies in emerging industries. If you’re
+      looking to elevate your own brand with a clean, timeless design, let’s
+      talk.
+    </p>
+
+  </div>
+</section>
+
     </main>
   );
 }
