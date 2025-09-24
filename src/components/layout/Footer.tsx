@@ -1,11 +1,10 @@
-
 interface FooterProps {
   className?: string;
 }
 
 export default function Footer({ className = "" }: FooterProps) {
   return (
-    <footer className={`w-full min-h-[652px] -mt-20  bg-[#0F1C3D] overflow-hidden ${className}`}>
+<footer className={`w-full min-h-[652px] -mt-20  bg-[#0F1C3D] overflow-hidden ${className}`}>
       {/* Main Footer Container */}
       <div className="relative   w-full max-w-[1440px] mx-auto h-full">
         {/* Dark Blue Background Section */}
@@ -14,7 +13,6 @@ export default function Footer({ className = "" }: FooterProps) {
           <div className="relative w-full max-w-[1200px] mx-auto">
             {/* Navigation Columns */}
             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-16">
-              
               {/* Explore Column */}
               <div className="space-y-6">
                 <h3 className="font-chillax font-normal text-[color:var(--sidebar)] text-sm mb-4 sm:mb-8">
@@ -40,7 +38,7 @@ export default function Footer({ className = "" }: FooterProps) {
                   <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-[16.49px] leading-[28.14px] hover:text-gray-300 transition-colors">
                     Case Studies
                   </a>
-                  <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-[16.49px] leading-[28.14px] hover:text-gray-300 transition-colors">
+                  <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-sm sm:text-[16.49px] leading-relaxed sm:leading-[28.14px] hover:text-gray-300 transition-colors">
                     Quote Calculator
                   </a>
                 </div>
@@ -71,6 +69,64 @@ export default function Footer({ className = "" }: FooterProps) {
                   <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-[16.49px] leading-[28.14px] hover:text-gray-300 transition-colors">
                     Insights
                   </a>
+                </div>
+
+                {/* Follow Us Section - Only visible on small screens */}
+                <div className="space-y-6 mt-8 sm:block lg:hidden">
+                  <h3 className="font-chillax font-normal text-[color:var(--sidebar)] text-sm mb-4">
+                    Follow Us
+                  </h3>
+                  
+                  <div className="space-y-4">
+                    <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-[16.49px] leading-[28.14px] hover:text-gray-300 transition-colors">
+                      Instagram
+                    </a>
+                    <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-[16.49px] leading-[28.14px] hover:text-gray-300 transition-colors">
+                      Webflow
+                    </a>
+                    <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-[16.49px] leading-[28.14px] hover:text-gray-300 transition-colors">
+                      Dribbble
+                    </a>
+                    <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-[16.49px] leading-[28.14px] hover:text-gray-300 transition-colors">
+                      Behance
+                    </a>
+                    <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-[16.49px] leading-[28.14px] hover:text-gray-300 transition-colors">
+                      LinkedIn
+                    </a>
+                    <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-[16.49px] leading-[28.14px] hover:text-gray-300 transition-colors">
+                      Clutch
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Location Column for Small Screens - Positioned as 3rd item (below Explore) */}
+              <div className="space-y-6 sm:block lg:hidden">
+                <h3 className="font-chillax font-normal text-[color:var(--sidebar)] text-sm mb-4">
+                  Our Location
+                </h3>
+                <div className="space-y-3">
+                  <p className="font-chillax font-normal text-white text-xs leading-tight max-w-[300px]">
+                    That's us, creatives and visionaries turning your vision into our version regardless of the timezones. Our presence is worldwide with HQ in Dubai.
+                  </p>
+                  <div className="space-y-1">
+                    <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-sm leading-tight underline hover:text-gray-300">
+                      Privacy Policy
+                    </a>
+                    <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-sm leading-tight underline hover:text-gray-300">
+                      Terms and Condition
+                    </a>
+                  </div>
+                  <div className="flex flex-row items-center gap-2">
+                    <p className="font-chillax font-normal text-white text-xs">
+                      Dubai, UAE
+                    </p>
+                    <img
+                      src="/images/image.png"
+                      alt="Location dot"
+                      className="opacity-100 w-12 h-10 object-contain"
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -105,46 +161,35 @@ export default function Footer({ className = "" }: FooterProps) {
                 </div>
               </div>
 
-          
-              {/* Location Column */}
-<div className="flex flex-column  gap-4 items-start min-h-0">
-  <div className="flex-shrink-0">
-    <h3 className="font-chillax font-normal text-[color:var(--sidebar)] text-xs mb-4">
-      Our Location
-    </h3>
-  </div>
-  
-  <div className="flex-1 min-w-0">
-    <div className="space-y-3">
-      <p className="font-chillax font-normal text-white text-xs leading-tight max-w-[300px]">
-        That's us, creatives and visionaries turning your vision into our version regardless of the timezones. Our presence is worldwide with HQ in Dubai.
-      </p>
-      
-      <div className="space-y-1">
-        <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-sm sm:text-[16.49px] leading-tight underline hover:text-gray-300">
-          Privacy Policy
-        </a>
-        <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-sm sm:text-[16.49px] leading-tight underline hover:text-gray-300">
-          Terms and Condition
-        </a>
-      </div>
-      
-      {/* Dubai, UAE + Map */}
-      <div className="flex items-center gap-2">
-        <p className="font-chillax font-normal text-white text-xs">
-          Dubai, UAE
-        </p>
-        
-        {/* Dot image */}
-        <img
-          src="/images/image.png"
-          alt="Location dot"
-          className="opacity-100 w-12 h-10 object-contain"
-        />
-      </div>
-    </div>
-  </div>
-</div>
+              {/* Location Column for Large Screens - 4th position */}
+              <div className="space-y-6 hidden lg:block">
+                <h3 className="font-chillax font-normal text-[color:var(--sidebar)] text-sm mb-4">
+                  Our Location
+                </h3>
+                <div className="space-y-3">
+                  <p className="font-chillax font-normal text-white text-xs leading-tight max-w-[300px]">
+                    That's us, creatives and visionaries turning your vision into our version regardless of the timezones. Our presence is worldwide with HQ in Dubai.
+                  </p>
+                  <div className="space-y-1">
+                    <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-sm leading-tight underline hover:text-gray-300">
+                      Privacy Policy
+                    </a>
+                    <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-sm leading-tight underline hover:text-gray-300">
+                      Terms and Condition
+                    </a>
+                  </div>
+                  <div className="flex flex-row items-center gap-2">
+                    <p className="font-chillax font-normal text-white text-xs">
+                      Dubai, UAE
+                    </p>
+                    <img
+                      src="/images/image.png"
+                      alt="Location dot"
+                      className="opacity-100 w-12 h-10 object-contain"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

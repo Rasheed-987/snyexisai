@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function CaseStudies() {
   return (
-    <main className="flex flex-col items-center sm:mt-5 min-h-screen bg-white pb-24 lg:pb-40">
+    <main className="flex flex-col items-center sm:mt-5 min-h-screen  rounded-b-[80px] pb-12  relative z-50 bg-white pb-24 lg:pb-40">
       {/* Hero Container */}
       <section className="w-full max-w-[1248px]  sm:mt-[180px] md:mt-[100px] lg:mt-[133px] px-4 sm:px-8 flex flex-col items-center  lg:gap-10  mb-16 lg:mb-10 ">
         {/* Company Tag */}
@@ -95,7 +95,7 @@ export default function CaseStudies() {
       </section>
 
       {/* Problem Section */}
-      <section className="relative w-full max-w-[640px] mx-auto  px-4 sm:px-8">
+      <section className="relative w-full max-w-[640px] mx-auto mt-2  px-4 sm:px-8">
         {/* Heading */}
         <h2 className="text-[#0F1C3D] font-chillax font-normal text-[45px] leading-[48px] capitalize mb-6">
           the Problem
@@ -236,10 +236,134 @@ export default function CaseStudies() {
       looking to elevate your own brand with a clean, timeless design, let’s
       talk.
     </p>
-
-  </div>
+</div>
 </section>
+    <section className="w-full max-w-[1248px] mx-auto flex flex-row items-center justify-center gap-8 mt-16 px-4 sm:px-8">
 
-    </main>
+    <div className="flex-1 ">
+    {/* Background blur image */}
+    <Image
+      src="/images/img5_1.png"
+      alt="Background blur"
+      width={624}
+      height={810}
+      className="  rounded-2xl"
+    />
+    </div>
+    {/* Foreground mockup */}
+   <div className="flex-1">
+    <Image
+      src="/images/img5_2.png"
+      alt="iPhone mockup"
+       width={624}
+      height={810}
+      className=""
+      />
+  </div>
+
+
+</section>
+<section className="w-full bg-white flex justify-center px-6 py-16">
+      <div className="max-w-3xl text-center">
+        <p className="font-chillax text-base sm:text-lg leading-relaxed font-normal">
+          Design simplicity, ironically, was one of the most complex parts of the brief. 
+          The challenge was to create a timeless identity that wouldn’t require frequent 
+          updates but still stood out subtly in the clean energy sector. We also had to 
+          strike a delicate balance: making BEC distinctive without feeling too loud or 
+          disruptive.
+        </p>
+      </div>
+    </section>
+    
+    {/* Feature Section: Trade Journal for Smarter Decisions */}
+      <section className="w-full bg-[#EDEDED] py-12 flex mx-2  max-w-[1280px] justify-center items-center rounded-3xl my-8">
+        <div className="w-full max-w-6xl flex flex-col md:flex-row items-center gap-10 px-4">
+          {/* Left: App Screenshot */}
+          <div className="flex-1 flex justify-center">
+            <Image
+              src="/images/img6.png"
+              alt="App feature screenshot"
+              width={1143}
+              height={938}
+              className="rounded-2xl w-full "
+              priority
+            />
+          </div>
+                </div>
+      </section>
+       <section className="w-full max-w-[1248px] mx-auto flex flex-row items-center justify-center gap-8 mt-16 px-4 sm:px-8">
+        {/* Image 1 */}
+        <div className="flex-1">
+          <Image
+            src="/images/img7_1.png"
+            alt="Image 7_1"
+            width={624}
+            height={442}
+            className="rounded-lg object-cover"
+          />
+        </div>
+        {/* Image 2 */}
+        <div className="flex-1">
+          <Image
+            src="/images/img7_2.png"
+            alt="Image 7_2"
+            width={624}
+            height={442}
+            className="rounded-lg object-cover"
+          />
+        </div>
+      </section>
+      <section className="w-full bg-white flex justify-center px-6 py-8">
+        <div className="max-w-3xl w-full">
+          <p className="font-chillax font-normal text-[14.2px] leading-[22.05px] text-[#0F1C3D] align-middle">
+            The branding itself presented unique design hurdles. Developing a memorable logo for a two-letter company name, “BE,” required meticulous attention to detail. From exploring negative space to integrating abstract patterns and energy-related motifs, every iteration needed to reflect their ethos of “adding value” rather than disrupting the industry. The deliverables were extensive, requiring us to package everything into a cohesive, organized structure while staying true to the timeline.
+          </p>
+        </div>
+      </section>
+      {/* Trader 365 Logo Section */}
+      <section className="w-full flex justify-center items-center bg-[#B6F8FC] py-16 px-4 rounded-3xl my-12">
+        <div className="w-full max-w-6xl flex flex-col items-center">
+          <Image
+            src="/images/img8.png"
+            alt="Trader 365 Logo and Tagline"
+            width={1100}
+            height={600}
+            className="w-full max-w-[1100px] h-auto object-contain"
+            priority
+          />
+        </div>
+      </section>
+      <section className="w-full bg-white flex justify-center px-6 py-8">
+        <div className="max-w-3xl w-full">
+          <p className="font-chillax font-normal text-[14.07px] leading-[22.05px] text-[#0F1C3D] align-middle">
+            The “+” symbolized their commitment to adding value to existing resources rather than disrupting the industry. It encapsulated their mission to enhance renewable energy solutions while maintaining harmony with nature. The design resonated deeply with BEC, aligning perfectly with their brand philosophy.
+          </p>
+        </div>
+      </section>
+
+ <section className="w-full max-w-[1248px] mx-auto flex flex-row items-center justify-center gap-8 mt-16 px-4 sm:px-8">
+        {/* Image 1 */}
+        <div className="flex-1">
+          <Image
+            src="/images/img9_1.png"
+            alt="Image 7_1"
+            width={624}
+            height={442}
+            className="rounded-lg object-cover"
+          />
+        </div>
+        {/* Image 2 */}
+        <div className="flex-1">
+          <Image
+            src="/images/img9_2.png"
+            alt="Image 7_2"
+            width={624}
+            height={442}
+            className="rounded-lg object-cover"
+          />
+        </div>
+      </section>
+
+   </main>
   );
 }
