@@ -64,6 +64,7 @@ module.exports = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
+        sans: ["Chillax", "sans-serif"],
         chillax: ["Chillax", "sans-serif"],
         roboto: ["Roboto", "sans-serif"],
       },
