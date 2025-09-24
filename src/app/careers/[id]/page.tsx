@@ -21,7 +21,7 @@ export default function CareerDetailPage({ params }: PageProps) {
   }
 
   return (
-    <div className="min-h-screen pb-24 rounded-b-[80px] border-2 relative z-50 bg-white border-red-600">
+    <div className="min-h-screen pb-24 rounded-b-[80px] relative z-50 bg-white ">
       <CareerDetail job={job} />
     </div>
   );
