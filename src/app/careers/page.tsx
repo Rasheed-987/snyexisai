@@ -2,7 +2,7 @@
 'use client'
 
 import { JobCard } from '@/components/ui/Card'
-
+import { jobListings } from '@/lib/careers-data'
 export default function CareersPage() {
   return (
     <div className="min-h-screen pb-24 rounded-b-[80px]  relative z-50 bg-white ">
