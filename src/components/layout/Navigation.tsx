@@ -12,7 +12,7 @@ export const Navigation = () => {
 
   return (
     <nav className="w-full h-[68px] bg-background ">
-      <div className="max-w-[1440px] mx-auto px-6 h-full flex items-center justify-between gap-9">
+      <div className="max-w-[1440px] mx-auto px-6 h-full flex sm:flex-justifycontentend items-center justify-between gap-9">
         {/* Logo */}
         <div className="flex items-center mt-[9px]">
           <img 

@@ -1,4 +1,3 @@
-import { ArrowUpRight } from "lucide-react"
 
 interface FooterProps {
   className?: string;

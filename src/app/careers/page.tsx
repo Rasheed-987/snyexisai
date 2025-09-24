@@ -2,7 +2,6 @@
 'use client'
 
 import { JobCard } from '@/components/ui/Card'
-import { jobListings } from '@/lib/careers-data'
 
 export default function CareersPage() {
   return (

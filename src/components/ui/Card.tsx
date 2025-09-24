@@ -1,7 +1,6 @@
 
 'use client'
 
-import Button from "@/components/ui/Button"
 import { MapPin, Building, Clock } from "lucide-react"
 import Link from 'next/link'
 
