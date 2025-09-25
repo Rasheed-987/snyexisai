@@ -93,6 +93,8 @@ export default function AboutPage() {
 									We foster an open, inclusive culture where teamwork, smart thinking, and curiosity spark innovation—balancing growth, fun, and shared success.
 								</p>
 							</div>
+              {/* Other cards: images only */}
+            <GridTextCard title="Open & Inclusive" description="Everyone's voice matters, and ideas are welcomed from every corner of the team." />
 							<div className="rounded-xl overflow-hidden bg-[#22306A] min-h-[260px] flex">
 								<Image src="/images/grid_3.png" alt="Grid 3" width={400} height={260} className="w-full h-full object-cover" />
 							</div>
@@ -118,8 +120,14 @@ export default function AboutPage() {
 								<Image src="/images/grid_14.png" alt="Grid 14" width={400} height={260} className="w-full h-full object-cover" />
 							</div>
 																				
-																				
-													
+						{/* Text only card */}
+
+						<GridTextCard title="Client-Centric Approach" description="At Synexis.ai, our clients are at the heart of everything we do. We prioritize understanding your unique needs and challenges, delivering tailored solutions that drive real business value and foster long-term partnerships." />
+            <GridTextCard title="Excellence in Execution" description="We are committed to delivering excellence in every project we undertake. From initial concept to final deployment, our rigorous processes and attention to detail ensure that we exceed expectations and deliver high-quality, reliable solutions." />
+            <GridTextCard title="Empowering Through Technology" description="Our mission is to empower businesses through innovative technology solutions. By leveraging the latest advancements in AI and software development, we help our clients unlock new opportunities and achieve their strategic goals." />							
+            <GridTextCard title="Empowering Through Technology" description="Our mission is to empower businesses through innovative technology solutions. By leveraging the latest advancements in AI and software development, we help our clients unlock new opportunities and achieve their strategic goals." />							
+            <GridTextCard title="Empowering Through Technology" description="Our mission is to empower businesses through innovative technology solutions. By leveraging the latest advancements in AI and software development, we help our clients unlock new opportunities and achieve their strategic goals." />							
+
 						</div>
 					</div>
 				</section>
