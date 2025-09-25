@@ -1,9 +1,10 @@
+
 import Image from 'next/image';
 import GridTextCard from '@/components/ui/GridTextCard';
 
 export default function AboutPage() {
 	return (
-		<main className="min-h-screen bg-white font-chillax px-4 py-12">
+		<main className="min-h-screen bg-white pb-24 rounded-b-[80px] font-chillax px-4 py-12">
 			<section className="w-full flex justify-center items-center py-8 sm:py-12 bg-[#FAFAFA]">
 				<div className="text-center max-w-2xl mx-auto" style={{ fontFamily: 'Chillax, sans-serif' }}>
 					<h2 className="text-[#17214D] font-medium text-2xl sm:text-3xl lg:text-4xl tracking-tight leading-snug">
@@ -15,7 +16,7 @@ export default function AboutPage() {
 				</section>
 
 			{/* Team grid section */}
-			<section className="relative w-full h-[60vh] min-h-[400px] flex items-center justify-center  mt-8">
+			<section className="relative w-full h-[819px] flex items-center justify-center  mt-8">
 				{/* Background image grid */}
 				<div className="absolute  w-full h-full">
 					<Image
@@ -78,7 +79,7 @@ export default function AboutPage() {
 
 
 
-				{/* Collaboration & Creativity Section */}
+				
 				<section className="w-full bg-[#17214D] py-16">
 					<div className="max-w-screen-xl mx-auto px-4 sm:px-8 lg:px-16">
 						<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -96,7 +97,7 @@ export default function AboutPage() {
 								<Image src="/images/grid_3.png" alt="Grid 3" width={400} height={260} className="w-full h-full object-cover" />
 							</div>
 							<div className="rounded-xl overflow-hidden bg-[#263049] min-h-[260px] flex">
-								<Image src="/images/grid_5.jpg" alt="Grid 5" width={400} height={260} className="w-full h-full object-cover" />
+								<Image src="/images/grid_5.png" alt="Grid 5" width={400} height={260} className="w-full h-full object-cover" />
 							</div>
 							<div className="rounded-xl overflow-hidden bg-[#263049] min-h-[260px] flex">
 								<Image src="/images/grid_6.png" alt="Grid 6" width={400} height={260} className="w-full h-full object-cover" />
@@ -122,10 +123,57 @@ export default function AboutPage() {
 						</div>
 					</div>
 				</section>
-
+	{/* Expertise & Technologies Section */}
+					<section className="w-full py-16 bg-white">
+						<div className="max-w-screen-xl mx-auto flex flex-col lg:flex-row gap-12 px-4 sm:px-8 lg:px-16 items-center">
+							{/* Left: Text Content */}
+							<div className="flex-1 mb-10 lg:mb-0">
+								<h2 className="text-[#17214D] font-medium text-2xl sm:text-4xl lg:text-5xl mb-6" style={{ fontFamily: 'Chillax, sans-serif' }}>
+									Expertise across a range of technologies
+								</h2>
+								<p className="text-[#17214D] text-base sm:text-lg mb-6" style={{ fontFamily: 'Chillax, sans-serif' }}>
+									Markovate’s team of <span className="font-bold">generative AI experts</span> relies on an advanced suite of technologies like AI, ML, Generative AI, Blockchain, Web3, Mobile, and more to drive innovation. Incorporating machine learning frameworks, cloud computing, and data analytics tools, our tech stack is designed for scalability, reliability, and optimum performance. It’s the backbone that ensures each software solution we deliver meets industry standards and exceeds client expectations.
+								</p>
+								<button className="bg-[#2563eb] text-white rounded-full px-6 py-3 font-medium text-base shadow hover:bg-[#1741a3] transition flex items-center gap-2">
+									Case Studies <span className="text-xl">→</span>
+								</button>
+							</div>
+							{/* Right: 3x3 Grid */}
+									<div className="flex-1 grid grid-cols-3 grid-rows-3 gap-6 w-full max-w-lg">
+										{Array.from({ length: 9 }).map((_, i) => (
+											<div key={i} className="bg-[#17214D] rounded-xl relative h-32 w-full overflow-hidden flex items-center justify-center">
+												<img src={`/images/grid_2_${i+1}.png`} alt={`Grid2 ${i+1}`} className="w-full h-full object-cover" />
+											</div>
+										))}
+									</div>
+						</div>
+					</section>
+		{/* Hero Section with Background */}
+		<section className="relative w-full flex items-center justify-center py-16">
+			<div className="absolute inset-0 w-full h-full">
+          <Image
+      src="/images/img15.png"
+      alt="Background"
+      fill
+      className="object-cover rounded-[32px]"
+      priority
+    />
+				<div className="absolute inset-0 bg-black bg-opacity-40 rounded-[32px]" />
+			</div>
+			<div className="relative z-10 w-full flex flex-col items-center justify-center text-center px-4 max-w-3xl mx-auto">
+				<h1 className="text-white font-bold text-3xl sm:text-5xl lg:text-6xl mb-6" style={{ fontFamily: 'Chillax, sans-serif' }}>
+					Shaping the next<br />era together.
+				</h1>
+				<p className="text-white text-lg sm:text-xl font-light mb-8" style={{ fontFamily: 'Chillax, sans-serif' }}>
+					Partner with us to unlock innovation and accelerate your digital future.
+				</p>
+				<button className="bg-white text-[#17214D] rounded-full px-6 py-3 font-medium text-base shadow hover:bg-gray-200 transition">
+					Schedule A Call
+				</button>
+			</div>
+		</section>
 
 
 		</main>
 	);
 }
-        

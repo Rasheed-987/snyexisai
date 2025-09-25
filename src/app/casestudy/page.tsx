@@ -112,8 +112,16 @@ const CaseStudyPage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="relative w-full h-[90vh] bg-cover bg-center z-10" style={{ backgroundImage: 'url(/images/project-background.png)' }}>
-        <div className="absolute inset- bg-opacity-50"></div>
+      <section className="relative w-full h-[90vh] bg-cover bg-center z-10">
+            <div className="absolute inset-0 w-full h-full">
+                  <Image
+              src="/images/img13.png"
+              alt="Background"
+              fill
+              className="object-cover rounded-[32px]"
+              priority
+            />
+            </div>
         <div className="relative flex flex-col items-center justify-center h-full z-10 text-center px-6 sm:px-12">
           <h2 className="text-white font-chillax font-semibold text-3xl sm:text-4xl lg:text-5xl mb-4">
             Have A Project in Mind?
