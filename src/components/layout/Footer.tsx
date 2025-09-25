@@ -4,204 +4,63 @@ interface FooterProps {
 
 export default function Footer({ className = "" }: FooterProps) {
   return (
-<footer className={`w-full min-h-[652px] -mt-20  bg-[#0F1C3D] overflow-hidden ${className}`}>
-      {/* Main Footer Container */}
-      <div className="relative   w-full max-w-[1440px] mx-auto h-full">
-        {/* Dark Blue Background Section */}
-        <div className="relative w-full bg-[#0F1C3D] pt-[140px] px-4 sm:px-6 py-8">
-          {/* Main Content Grid */}
-          <div className="relative w-full max-w-[1200px] mx-auto">
-            {/* Navigation Columns */}
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-16">
-              {/* Explore Column */}
-              <div className="space-y-6">
-                <h3 className="font-chillax font-normal text-[color:var(--sidebar)] text-sm mb-4 sm:mb-8">
-                  Explore
-                </h3>
-                
-                <div className="space-y-4">
-                  <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-sm sm:text-[16.49px] leading-relaxed sm:leading-[28.14px] hover:text-gray-300 transition-colors">
-                    Our work
-                  </a>
-                  <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-sm sm:text-[16.49px] leading-relaxed sm:leading-[28.14px] hover:text-gray-300 transition-colors">
-                    About
-                  </a>
-                  <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-[16.49px] leading-[28.14px] hover:text-gray-300 transition-colors">
-                    Services
-                  </a>
-                  <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-[16.49px] leading-[28.14px] hover:text-gray-300 transition-colors">
-                    Shop
-                  </a>
-                  <a href="/careers" className="block font-chillax font-normal text-[color:var(--sidebar)] text-[16.49px] leading-[28.14px] hover:text-gray-300 transition-colors">
-                    Careers
-                  </a>
-                  <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-[16.49px] leading-[28.14px] hover:text-gray-300 transition-colors">
-                    Case Studies
-                  </a>
-                  <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-sm sm:text-[16.49px] leading-relaxed sm:leading-[28.14px] hover:text-gray-300 transition-colors">
-                    Quote Calculator
-                  </a>
-                </div>
-              </div>
+    <footer className="w-full bg-[#0F1C3D] overflow-hidden mt-[-80px] pt-40 text-white ">
+      <div className="max-w-[1440px] mx-auto px-6 grid grid-cols-2  md:grid-cols-4 gap-8">
+        {/* Explore Column */}
+        <div>
+          <h3 className="font-chillax font-semibold text-lg mb-4">Explore</h3>
+          <ul className="space-y-2">
+            <li><a href="/" className="hover:underline">Home</a></li>
+            <li><a href="#" className="hover:underline">About Us</a></li>
+            <li><a href="#" className="hover:underline">Services</a></li>
+            <li><a href="#" className="hover:underline">Case Studies</a></li>
+            <li><a href="/careers" className="hover:underline">Careers</a></li>
+            <li><a href="#" className="hover:underline">Contact Us</a></li>
+          </ul>
+        </div>
 
-              {/* Learn Column */}
-              <div className="space-y-6">
-                <h3 className="font-chillax font-normal text-[color:var(--sidebar)] text-sm mb-4 sm:mb-8">
-                  Learn
-                </h3>
-                
-                <div className="space-y-4">
-                  <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-sm sm:text-[16.49px] leading-relaxed sm:leading-[28.14px] hover:text-gray-300 transition-colors">
-                    Journal
-                  </a>
-                  <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-[16.49px] leading-[28.14px] hover:text-gray-300 transition-colors">
-                    No code
-                  </a>
-                  <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-[16.49px] leading-[28.14px] hover:text-gray-300 transition-colors">
-                    Web3 & Metaverse
-                  </a>
-                  <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-[16.49px] leading-[28.14px] hover:text-gray-300 transition-colors">
-                    Learn Design Systems
-                  </a>
-                  <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-[16.49px] leading-[28.14px] hover:text-gray-300 transition-colors">
-                    Learn Webflow SEO
-                  </a>
-                  <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-[16.49px] leading-[28.14px] hover:text-gray-300 transition-colors">
-                    Insights
-                  </a>
-                </div>
+        {/* Learn Column */}
+        <div>
+          <h3 className="font-chillax font-semibold text-lg mb-4">Learn</h3>
+          <ul className="space-y-2">
+            <li><a href="#" className="hover:underline">Who We Are</a></li>
+            <li><a href="#" className="hover:underline">Our Approach</a></li>
+            <li><a href="#" className="hover:underline">Technologies</a></li>
+          </ul>
+        </div>
 
-                {/* Follow Us Section - Only visible on small screens */}
-                <div className="space-y-6 mt-8 sm:block lg:hidden">
-                  <h3 className="font-chillax font-normal text-[color:var(--sidebar)] text-sm mb-4">
-                    Follow Us
-                  </h3>
-                  
-                  <div className="space-y-4">
-                    <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-[16.49px] leading-[28.14px] hover:text-gray-300 transition-colors">
-                      Instagram
-                    </a>
-                    <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-[16.49px] leading-[28.14px] hover:text-gray-300 transition-colors">
-                      Webflow
-                    </a>
-                    <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-[16.49px] leading-[28.14px] hover:text-gray-300 transition-colors">
-                      Dribbble
-                    </a>
-                    <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-[16.49px] leading-[28.14px] hover:text-gray-300 transition-colors">
-                      Behance
-                    </a>
-                    <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-[16.49px] leading-[28.14px] hover:text-gray-300 transition-colors">
-                      LinkedIn
-                    </a>
-                    <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-[16.49px] leading-[28.14px] hover:text-gray-300 transition-colors">
-                      Clutch
-                    </a>
-                  </div>
-                </div>
-              </div>
+        {/* Resources Column */}
+        <div>
+          <h3 className="font-chillax font-semibold text-lg mb-4">Resources</h3>
+          <ul className="space-y-2">
+            <li><a href="#" className="hover:underline">Portfolio</a></li>
+            <li><a href="#" className="hover:underline">FAQ's</a></li>
+            <li><a href="#" className="hover:underline">Support</a></li>
+          </ul>
+        </div>
 
-              {/* Location Column for Small Screens - Positioned as 3rd item (below Explore) */}
-              <div className="space-y-6 sm:block lg:hidden">
-                <h3 className="font-chillax font-normal text-[color:var(--sidebar)] text-sm mb-4">
-                  Our Location
-                </h3>
-                <div className="space-y-3">
-                  <p className="font-chillax font-normal text-white text-xs leading-tight max-w-[300px]">
-                    That's us, creatives and visionaries turning your vision into our version regardless of the timezones. Our presence is worldwide with HQ in Dubai.
-                  </p>
-                  <div className="space-y-1">
-                    <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-sm leading-tight underline hover:text-gray-300">
-                      Privacy Policy
-                    </a>
-                    <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-sm leading-tight underline hover:text-gray-300">
-                      Terms and Condition
-                    </a>
-                  </div>
-                  <div className="flex flex-row items-center gap-2">
-                    <p className="font-chillax font-normal text-white text-xs">
-                      Dubai, UAE
-                    </p>
-                    <img
-                      src="/images/image.png"
-                      alt="Location dot"
-                      className="opacity-100 w-12 h-10 object-contain"
-                    />
-                  </div>
-                </div>
-              </div>
+        {/* Location Column */}
+        <div>
+          <h3 className="font-chillax font-semibold text-lg mb-4">Our Location</h3>
+          <p className="text-sm mb-4">At Synexis.ai, we connect innovation with intelligence. With headquarters in Dubai and projects delivered worldwide, we design solutions that scale across industries and time zones.</p>
+         <div>
+          <p className="text-sm">Dubai, UAE</p>
+          <img src="/images/image.png" alt="" className="w-[70%] mt-[-40px]" /> 
+          </div> 
 
-              {/* Webflow Column */}
-              <div className="space-y-6">
-                <h3 className="font-chillax font-normal text-[color:var(--sidebar)] text-sm mb-4 sm:mb-8">
-                  Webflow
-                </h3>
-                
-                <div className="space-y-4">
-                  <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-sm sm:text-[16.49px] leading-relaxed sm:leading-[28.14px] hover:text-gray-300 transition-colors">
-                    Beginners
-                  </a>
-                  <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-[16.49px] leading-[28.14px] hover:text-gray-300 transition-colors">
-                    Intermediate
-                  </a>
-                  <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-[16.49px] leading-[28.14px] hover:text-gray-300 transition-colors">
-                    Tools
-                  </a>
-                  <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-[16.49px] leading-[28.14px] hover:text-gray-300 transition-colors">
-                    Cloneables
-                  </a>
-                  <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-[16.49px] leading-[28.14px] hover:text-gray-300 transition-colors">
-                    Blog
-                  </a>
-                  <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-[16.49px] leading-[28.14px] hover:text-gray-300 transition-colors">
-                    Templates
-                  </a>
-                  <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-[16.49px] leading-[28.14px] hover:text-gray-300 transition-colors">
-                    Color Palette
-                  </a>
-                </div>
-              </div>
+        </div>
+      </div>
 
-              {/* Location Column for Large Screens - 4th position */}
-              <div className="space-y-6 hidden lg:block">
-                <h3 className="font-chillax font-normal text-[color:var(--sidebar)] text-sm mb-4">
-                  Our Location
-                </h3>
-                <div className="space-y-3">
-                  <p className="font-chillax font-normal text-white text-xs leading-tight max-w-[300px]">
-                    That's us, creatives and visionaries turning your vision into our version regardless of the timezones. Our presence is worldwide with HQ in Dubai.
-                  </p>
-                  <div className="space-y-1">
-                    <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-sm leading-tight underline hover:text-gray-300">
-                      Privacy Policy
-                    </a>
-                    <a href="#" className="block font-chillax font-normal text-[color:var(--sidebar)] text-sm leading-tight underline hover:text-gray-300">
-                      Terms and Condition
-                    </a>
-                  </div>
-                  <div className="flex flex-row items-center gap-2">
-                    <p className="font-chillax font-normal text-white text-xs">
-                      Dubai, UAE
-                    </p>
-                    <img
-                      src="/images/image.png"
-                      alt="Location dot"
-                      className="opacity-100 w-12 h-10 object-contain"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
+      {/* Synexis.Ai Text */}
+      <div className="w-full bg-[#0F1C3D] text-white py-12">
+        <div className="max-w-[1440px] mx-auto px-6">
+          <div className="mt-12 text-center">
+            <h1 className="font-chillax font-bold text-4xl sm:text-6xl md:text-8xl lg:text-[162px] md:line-height-[200px] tracking-wide w-full">
+              Synexis.Ai
+            </h1>
           </div>
         </div>
-        
-        {/* Bottom Section - Synexis.Ai */}
-        <div className="w-full min-h-[120px] sm:min-h-[180px] lg:h-[263px] bg-[#0F1C3D] mt-12 sm:mt-20 lg:mt-[147px] flex items-center justify-center px-4">
-          <h1 className="font-chillax font-bold text-4xl sm:text-6xl md:text-8xl lg:text-[162px] leading-none text-white text-center tracking-[0.1em] sm:tracking-[0.15em] lg:tracking-[0.2em] w-full max-w-[90vw] break-words">
-            Synexis.Ai
-          </h1>
-        </div>
-
       </div>
     </footer>
-  )
+  );
 }
