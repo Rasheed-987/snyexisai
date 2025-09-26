@@ -96,9 +96,11 @@ export function CareerApplicationForm({ jobTitle, jobId }: CareerApplicationForm
     }
   };
 
+  const inputFieldStyles = "w-[80%] px-4 py-2  bg-[#F4F0ED] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#F4F0ED]";
+
   return (
-    <div className="bg-gray-50 rounded-lg p-6">
-      <h3 className="text-xl font-semibold text-[#0f1c3d] mb-2">
+    <div className=" rounded-lg border-[#DEE0E3] border-[2px] p-6">
+      <h3 className="text-[35px] font-medium text-[#0f1c3d] mb-2">
         Don't Overthink It.
       </h3>
       <p className="text-gray-600 text-sm mb-6">
@@ -114,9 +116,7 @@ export function CareerApplicationForm({ jobTitle, jobId }: CareerApplicationForm
             placeholder="Your name*"
             value={formData.name}
             onChange={handleChange}
-            className={`w-full px-4 py-3 border rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm ${
-              errors.name ? 'border-red-500' : 'border-gray-300'
-            }`}
+            className={`${inputFieldStyles} ${errors.name ? 'border-red-500' : 'border-gray-300'}`}
           />
           {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
         </div>
@@ -129,9 +129,7 @@ export function CareerApplicationForm({ jobTitle, jobId }: CareerApplicationForm
             placeholder="Your email*"
             value={formData.email}
             onChange={handleChange}
-            className={`w-full px-4 py-3 border rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm ${
-              errors.email ? 'border-red-500' : 'border-gray-300'
-            }`}
+            className={`${inputFieldStyles} ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
           />
           {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
         </div>
@@ -144,9 +142,7 @@ export function CareerApplicationForm({ jobTitle, jobId }: CareerApplicationForm
             placeholder="Your location*"
             value={formData.location}
             onChange={handleChange}
-            className={`w-full px-4 py-3 border rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm ${
-              errors.location ? 'border-red-500' : 'border-gray-300'
-            }`}
+            className={`${inputFieldStyles} ${errors.location ? 'border-red-500' : 'border-gray-300'}`}
           />
           {errors.location && <p className="text-red-500 text-xs mt-1">{errors.location}</p>}
         </div>
@@ -159,7 +155,7 @@ export function CareerApplicationForm({ jobTitle, jobId }: CareerApplicationForm
             placeholder="Your website or portfolio*"
             value={formData.websiteOrPortfolio}
             onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+            className={`${inputFieldStyles}`}
           />
         </div>
 
@@ -171,7 +167,7 @@ export function CareerApplicationForm({ jobTitle, jobId }: CareerApplicationForm
             placeholder="A social link* (perhaps your Dribbble or LinkedIn)"
             value={formData.socialLinks}
             onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+            className={`${inputFieldStyles}`}
           />
         </div>
 
@@ -179,35 +175,28 @@ export function CareerApplicationForm({ jobTitle, jobId }: CareerApplicationForm
         <Button
           type="submit"
           disabled={isLoading}
-          className="w-full py-3 px-6 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-[70%] py-3 px-6 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isLoading ? 'Submitting...' : 'Apply Now'}
         </Button>
 
         {/* Social Share */}
-        <div className="pt-4 border-t border-gray-200">
-          <p className="text-xs text-gray-500 mb-3">Share this position:</p>
+        <div className="pt-4 border-t border-gray-200 flex items-center gap-4">
+          <p className="text-xs text-gray-500">SHARE</p>
           <div className="flex gap-3">
             <button
               type="button"
-              className="text-gray-400 hover:text-gray-600 transition-colors"
-              onClick={() => {/* Add share functionality */}}
-            >
-              <span className="text-sm">Share</span>
-            </button>
-            <button
-              type="button"
-              className="text-gray-400 hover:text-gray-600 transition-colors"
+              className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors"
               onClick={() => {/* Add LinkedIn share */}}
             >
-              <span className="text-sm">in</span>
+              <img src="/images/linkedin.png" alt="LinkedIn" className="object-cover" />
             </button>
             <button
               type="button"
-              className="text-gray-400 hover:text-gray-600 transition-colors"
-              onClick={() => {/* Add copy link */}}
+              className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors"
+              onClick={() => {/* Add Twitter share */}}
             >
-              <span className="text-sm">🔗</span>
+              <img src="/images/twitter.png" alt="Twitter" className="object-cover" />
             </button>
           </div>
         </div>

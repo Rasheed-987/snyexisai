@@ -1,10 +1,9 @@
-
 import Image from 'next/image';
 import GridTextCard from '@/components/ui/GridTextCard';
 
 export default function AboutPage() {
 	return (
-		<main className="min-h-screen bg-white pb-24 rounded-b-[80px] font-chillax px-4 py-12">
+		<main className="min-h-screen pb-24 rounded-b-[80px] font-chillax px-4 py-12">
 			<section className="w-full flex justify-center items-center py-8 sm:py-12 bg-[#FAFAFA]">
 				<div className="text-center max-w-2xl mx-auto" style={{ fontFamily: 'Chillax, sans-serif' }}>
 					<h2 className="text-[#17214D] font-medium text-2xl sm:text-3xl lg:text-4xl tracking-tight leading-snug">
@@ -98,15 +97,15 @@ export default function AboutPage() {
 							<div className="rounded-xl overflow-hidden bg-[#22306A] min-h-[260px] flex">
 								<Image src="/images/grid_3.png" alt="Grid 3" width={400} height={260} className="w-full h-full object-cover" />
 							</div>
-							<div className="rounded-xl overflow-hidden bg-[#263049] min-h-[260px] flex">
-								<Image src="/images/grid_5.png" alt="Grid 5" width={400} height={260} className="w-full h-full object-cover" />
-							</div>
+							<GridTextCard title="Collaboration at the Core" description="We thrive on teamwork, solving challenges together, and celebrating wins as one." />
 							<div className="rounded-xl overflow-hidden bg-[#263049] min-h-[260px] flex">
 								<Image src="/images/grid_6.png" alt="Grid 6" width={400} height={260} className="w-full h-full object-cover" />
 							</div>
+							<GridTextCard title="Creative Freedom" description="Encouraging curiosity and experimentation so great ideas can spark anywhere, anytime." />
 							<div className="rounded-xl overflow-hidden bg-[#263049] min-h-[260px] flex">
 								<Image src="/images/grid_8.png" alt="Grid 8" width={400} height={260} className="w-full h-full object-cover" />
 							</div>
+							<GridTextCard title="Celebrating Diversity" description="Different perspectives make us stronger, more creative, and better problem-solvers." />
 							<div className="rounded-xl overflow-hidden bg-[#263049] min-h-[260px] flex">
 								<Image src="/images/grid_9.png" alt="Grid 9" width={400} height={260} className="w-full h-full object-cover" />
 							</div>

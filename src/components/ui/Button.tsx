@@ -58,7 +58,7 @@ const Button: React.FC<ButtonProps> = ({
     'nav-menu': 'w-[88.05px] h-[47px]',
     'nav-cta': 'w-[106.83px] h-[47px]',
     'nav-1': 'w-[113.01px] h-[35.11px] rounded-[21.05px]',
-    'nav-contact': 'w-[192.44px] h-[66px] rounded-[1440px] borderwidth-[1.5px]',
+    'nav-contact': 'w-[200.44px] h-[66px] rounded-[1440px]',
   };
   
   // Border radius styles for pill buttons

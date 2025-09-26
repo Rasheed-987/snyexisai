@@ -86,11 +86,11 @@ export default function ContactForm() {
     setIsLoading(false);
   };
 
-  const inputClass = "w-full h-[60px] px-4 py-3 border border-gray-200 rounded-lg text-[#0F1C3D] font-chillax text-sm focus:outline-none focus:ring-2 focus:ring-[#327AED] focus:border-transparent transition-all";
+  const inputClass = "w-full h-[60px] px-4 py-3 bg-[#F9F9F9] border border-gray-200 rounded-lg text-[#0F1C3D] font-chillax text-sm focus:outline-none focus:ring-2 focus:ring-[#F9F9F9] focus:border-transparent transition-all";
   const labelClass = "block text-sm font-normal text-[#0F1C3D] font-chillax mb-2";
 
   return (
-    <form onSubmit={handleSubmit} className="w-full h-full space-y-6 overflow-visible">
+    <form onSubmit={handleSubmit} className="w-full h-full  space-y-6 overflow-visible">
       {/* Basic Details Section */}
       <div className="space-y-4">
         <h2 className="text-2xl font-normal text-[#0F1C3D] font-chillax">
@@ -184,8 +184,8 @@ export default function ContactForm() {
       </div>
 
       {/* Project Details Section */}
-      <div className="space-y-4">
-        <h2 className="text-2xl font-normal text-[#0F1C3D] font-chillax">
+      <div className="space-y-4 b ">
+        <h2 className="text-2xl font-normal  text-[#0F1C3D] font-chillax">
           Tell us more about the project
         </h2>
         
@@ -196,7 +196,7 @@ export default function ContactForm() {
             value={formData.projectDetails}
             onChange={handleChange}
             rows={4}
-            className="w-full px-4 py-3 border border-gray-200 rounded-lg text-[#0F1C3D] font-chillax text-sm focus:outline-none focus:ring-2 focus:ring-[#327AED] focus:border-transparent transition-all resize-none"
+            className="w-full px-4 py-3 border border-gray-200 rounded-lg text-[#0F1C3D] bg-[#F9F9F9] font-chillax text-sm focus:outline-none focus:ring-2 focus:ring-[#F9F9F9] focus:border-transparent transition-all resize-none"
             placeholder="Tell us about your budget, timeline and what the project is all about. Don't forget to mention that service you are looking for - product, web, branding or all."
           />
         </div>
@@ -212,7 +212,7 @@ export default function ContactForm() {
               name="receiveUpdates"
               checked={formData.receiveUpdates}
               onChange={handleChange}
-              className="w-4 h-4 border-2 border-[#0F1C3D] rounded text-[#0F1C3D] focus:ring-[#327AED]"
+              className="w-4 h-4 border-2 border-[#0F1C3D] rounded text-[#0F1C3D] focus:ring-[#F9F9F9] transition-all"
             />
           </div>
           <div className="flex ">
@@ -228,12 +228,12 @@ export default function ContactForm() {
         </div>
 
         {/* reCAPTCHA Component */}
-        <div className="bg-[#F9F9F9] border w-[50%] border-[#D3D3D3] rounded p-4 shadow-sm">
+        <div className=" border w-[50%] border-[#D3D3D3] rounded p-4 shadow-sm">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               {/* Checkbox */}
               <div 
-                className={`w-6 h-6 border-2 rounded cursor-pointer flex items-center justify-center transition-all duration-200 ${
+                className={`w-6 h-6 border-2 rounded cursor-pointer flex items-center border-[#D3D3D3] justify-center transition-all duration-200 ${
                   isLoading 
                     ? 'border-blue-500 bg-white' 
                     : isChecked 
@@ -280,9 +280,9 @@ export default function ContactForm() {
               <span className="font-medium">reCAPTCHA</span>
             </div>
             <div className="text-xs text-[#0F1C3D] space-x-1 mt-1">
-              <a href="#" className="hover:underline text-blue-600">Privacy</a>
+              <a href="#" className="hover:underline text-[#0F1C3D]">Privacy</a>
               <span>-</span>
-              <a href="#" className="hover:underline text-blue-600">Terms</a>
+              <a href="#" className="hover:underline text-[#0F1C3D]">Terms</a>
             </div>
           </div>
           
