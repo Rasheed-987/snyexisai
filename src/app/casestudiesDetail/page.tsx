@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function CaseStudies() {
   return (
-    <main className="flex flex-col items-center sm:mt-5 min-h-screen  rounded-b-[80px] pb-12  relative z-50 bg-white pb-24 lg:pb-40">
+    <main className="flex flex-col items-center sm:mt-5 min-h-screen  rounded-b-[80px] bg-[#F9F9F9] relative z-50 bg-white pb-24 lg:pb-40">
       {/* Hero Container */}
       <section className="w-full max-w-[1248px]  sm:mt-[180px] md:mt-[100px] lg:mt-[133px] px-4 sm:px-8 flex flex-col items-center  lg:gap-10  mb-16 lg:mb-10 ">
         {/* Company Tag */}
