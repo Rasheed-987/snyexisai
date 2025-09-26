@@ -1,7 +1,7 @@
 'use client'
 
 import { notFound } from 'next/navigation';
-import { getJobById, getAllJobIds } from '@/lib/careers-data';
+import { getJobById } from '@/lib/careers-data';
 import { CareerDetail } from '@/components/careers/CareerDetail';
 import { use } from 'react';
 
