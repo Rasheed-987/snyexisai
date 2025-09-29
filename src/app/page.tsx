@@ -1,10 +1,12 @@
-import './globals.css';
+'use client'
+
 import Link from 'next/link';
 import Image from 'next/image';
-
+import { useRouter } from 'next/navigation';
 export default function HomePage() {
+  const router = useRouter();
   return (
-      <div className=" pb-30 rounded-b-[80px]  relative z-50">
+      <div className=" pb-[260px] rounded-b-[80px]  relative z-50">
     
      
       {/* Hero Section */}
@@ -22,21 +24,21 @@ export default function HomePage() {
           We unite Brand, Website and Digital Product under one vision
         </p>
         <div className="flex flex-wrap justify-center gap-4 mb-12">
-          <button className="bg-blue-500 text-white px-6 py-3 rounded-lg flex items-center gap-2">
+          <button onClick={() => router.push('/contact')} className="bg-blue-500 text-white px-6 py-3 rounded-lg flex items-center gap-2">
             Work With Us
           </button>
-          <button className="border border-blue-500 text-blue-500 px-6 py-3 rounded-lg flex items-center gap-2">
+          <button onClick={() => router.push('/casestudies')} className="border border-blue-500 text-blue-500 px-6 py-3 rounded-lg flex items-center gap-2">
             Explore Our Case Studies
           </button>
         </div>
-
-        {/* Trusted Brands */}
-        <div className="flex flex-wrap justify-center gap-8">
+{/* 
+        Trusted Brands */}
+        {/* <div className="flex flex-wrap justify-center gap-8">
           <Image src="/images/home/img1.png" alt="Emaar" width={56} height={20} className="h-5 w-14" />
           <Image src="/images/home/img2.png" alt="TED" width={56} height={20} className="h-5 w-14" />
           <Image src="/images/home/img3.png" alt="Ogilvy" width={56} height={20} className="h-5 w-14" />
           <Image src="/images/home/img4.png" alt="Webflow" width={56} height={20} className="h-5 w-14" />
-        </div>
+        </div> */}
       </section>
 
       {/* Why Synexis AI Section */}
@@ -55,7 +57,7 @@ export default function HomePage() {
               <h5 className="text-xl sm:text-2xl lg:text-3xl text-gray-600 mb-4">
                 Uncompromising Quality
               </h5>
-              <hr className="border-dotted border-b-2 border-blue-300 w-2/3 mx-auto mb-4" />
+            
               <p className="text-md sm:text-lg lg:text-xl text-gray-500">
                 Our streamlined process allows for continuous refinement, ensuring every detail aligns with your vision. Don't worry, we craft excellence.
               </p>

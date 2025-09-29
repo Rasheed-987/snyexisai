@@ -21,6 +21,7 @@ const PortfolioDropdown = ({ textColor, navbarBackground }: Props) => {
         type="button"
       >
         PORTFOLIO
+        {/* <img src="/images/arrow_down.png" alt="Portfolio Icon" className='w-4 h-4 ml-1' /> */}
         <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
       </button>
       {open && (
@@ -99,7 +100,7 @@ export const Navigation = () => {
 
       {/* Navigation Links */}
       <div className={`hidden md:flex mt-2 ml-3 items-center mr-3 gap-9 ${textColor}`}>
-        <Link href="/" className={`font-chillax font-semibold text  tracking-[0.5px] ${textColor}`}>HOME</Link>
+        <Link href="/" className={`font-chillax font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>HOME</Link>
         <Link href="/about" className={`font-chillax font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>ABOUT</Link>
         <Link href="#" className={`font-chillax font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>SERVICES</Link>
         <div className="flex items-center">
