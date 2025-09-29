@@ -24,7 +24,7 @@ const PortfolioDropdown = ({ textColor, navbarBackground }: Props) => {
       </button>
       {open && (
         <div className={`absolute right-0 mt-2 w-40  border rounded-lg shadow-lg z-50 ${navbarBackground}`}>
-          <Link href="/casestudy" className={`block px-4 py-2 text-sm ${textColor} hover:bg-blue-50 rounded-t-lg`}>Case Studies</Link>
+          <Link href="/casestudies" className={`block px-4 py-2 text-sm ${textColor} hover:bg-blue-50 rounded-t-lg`}>Case Studies</Link>
           <Link href="/ourproject" className={`block px-4 py-2 text-sm ${textColor} rounded-b-lg]`}>My Projects</Link>
         </div>
       )}
