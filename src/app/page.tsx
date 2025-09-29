@@ -177,29 +177,29 @@ export default function HomePage() {
         />
       </section>
 
-      <section>
-        {/* Two-column showcase (mobile + laptop) */}
-        <div className="flex flex-col gap-8 lg:flex-row mt-8">
-          <div>
-            <Image
-              src="/images/img11_1.png"
-              alt="App Design Mobile"
-              width={439}
-              height={633}
-              className="rounded-xl shadow-xl object-contain"
-            />
-          </div>
-          <div className="flex flex-1 justify-center">
-            <Image
-              src="/images/home/img7.png"
-              alt="App Design Laptop"
-              width={907}
-              height={633}
-              className="rounded-xl shadow-xl object-contain"
-            />
-          </div>
-        </div>
-      </section>
+     <section>
+  {/* Two-column showcase (mobile + laptop) */}
+  <div className="flex flex-col gap-8 lg:flex-row mt-8">
+    <div className="flex-shrink-0">
+      <Image
+        src="/images/img11_1.png"
+        alt="App Design Mobile"
+        width={439}
+        height={633}
+        className="rounded-xl shadow-xl object-contain"
+      />
+    </div>
+    <div className="flex flex-1">
+      <Image
+        src="/images/home/img7.png"
+        alt="App Design Laptop"
+        width={907}
+        height={633}
+        className="rounded-xl shadow-xl  w-full "
+      />
+    </div>
+  </div>
+</section>
     </section>
 
     </div>
