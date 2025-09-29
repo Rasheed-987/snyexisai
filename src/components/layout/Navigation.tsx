@@ -93,7 +93,7 @@ export const Navigation = () => {
 
       {/* Navigation Links */}
       <div className={`hidden md:flex mt-2 ml-3 items-center mr-3 gap-9 ${textColor}`}>
-        <Link href="/" className={`font-chillax font-semibold 2xl:text-[24px] xl:text-[14px]   tracking-[0.5px] ${textColor}`}>HOME</Link>
+        <Link href="/" className={`font-chillax font-semibold text  tracking-[0.5px] ${textColor}`}>HOME</Link>
         <Link href="/about" className={`font-chillax font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>ABOUT</Link>
         <Link href="#" className={`font-chillax font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>SERVICES</Link>
         <div className="flex items-center">

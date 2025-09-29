@@ -1,9 +1,10 @@
 import './globals.css';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function HomePage() {
   return (
-      <div className="relative">
+      <div className="relative  pb-30 rounded-b-[80px]  relative z-50">
     
      
       {/* Hero Section */}
@@ -64,10 +65,10 @@ export default function HomePage() {
       </section>
 
       {/* Office Section */}
-      <section className="w-full flex flex-col lg:flex-row items-stretch ">
+  <section className="w-full flex flex-col lg:flex-row items-stretch min-h-[600px] ">
         <div className="w-full lg:w-1/2 flex items-center justify-center">
-          <img src="/images/home/img5.png" alt="Office" className="w-full h-[90%] object-cover rounded-l-xl" />
-        </div>
+          <img src="/images/home/img5.png" alt="Office" className="w-full  object-cover rounded-l-xl" />
+        </div>  
         <div className="w-full lg:w-1/2 flex flex-col justify-center bg-white p-8">
           <h2 className="text-4xl lg:text-5xl font-medium text-[#1A2853] mb-6 leading-tight">
             Empowering businesses,<br />Redefining experiences...
@@ -95,6 +96,112 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Services Section */}
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 rounded-full bg-[#1A2853]" />
+              <span className="text-xs tracking-wide text-[#1A2853] uppercase">EXPERTISE</span>
+            </div>
+            <h2 className="font-chillax text-[#1A2853] text-4xl sm:text-5xl lg:text-6xl font-medium leading-tight mt-4">
+              Our<br />Services
+            </h2>
+          </div>
+        </div>
+      </section>
+
+      <section className='w-full min-h-[485px]'>
+        <img src="/images/home/section.png" alt="Services" className="w-full h-full object-cover rounded-xl" />
+      </section>
+ <section className="w-full my-12  py-12">
+  <div className="max-w-screen-xl mx-auto px-6 sm:px-12 lg:px-20">
+    <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 text-center">
+      
+      {/* Stat 1 */}
+      <div>
+  <h3 className="text-3xl sm:text-4xl font-bold text-black">250+</h3>
+  <p className="text-black mt-2 text-sm sm:text-base">Projects Completed</p>
+      </div>
+
+      {/* Stat 2 */}
+      <div>
+  <h3 className="text-3xl sm:text-4xl font-bold text-black">180+</h3>
+  <p className="text-black mt-2 text-sm sm:text-base">Happy Clients</p>
+      </div>
+
+      {/* Stat 3 */}
+      <div>
+  <h3 className="text-3xl sm:text-4xl font-bold text-black">10+</h3>
+  <p className="text-black mt-2 text-sm sm:text-base">Years of Experience</p>
+      </div>
+
+      {/* Stat 4 */}
+      <div>
+  <h3 className="text-3xl sm:text-4xl font-bold text-black">50+</h3>
+  <p className="text-black mt-2 text-sm sm:text-base">Team Members</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+  <section className="max-w-[1600px] mx-auto px-4">
+      <section className="max-w-screen-xl mx-auto px-4 sm:px-8 lg:px-16 py-12">
+        <div className="mb-12">
+          <span className="inline-flex items-center text-sm text-slate-500 font-regular mb-4">
+            <span className="w-2 h-2 rounded-full bg-sky-900 mr-2" />
+            CASE STUDIES
+          </span>
+
+          <h2 className="font-chillax text-4xl sm:text-5xl text-slate-900 font-regular leading-tight mb-4">
+            Our Latest Case Studies
+          </h2>
+
+          <p className="text-slate-600 max-w-md">
+            As a UI/UX design company in Dubai, we don't just build websites — we craft immersive digital
+            experiences that push boundaries and deliver business results.
+          </p>
+        </div>
+      </section>
+
+      <section className="w-full relative">
+        <Image
+          src="/images/img10.jpg"
+          alt="App Design Showcase"
+          width={1605}
+          height={768}
+          priority
+          className="w-[95vw] h-auto object-cover max-h-[500px] sm:max-h-[650px] lg:max-h-[768px]"
+        />
+      </section>
+
+      <section>
+        {/* Two-column showcase (mobile + laptop) */}
+        <div className="flex flex-col gap-8 lg:flex-row mt-8">
+          <div>
+            <Image
+              src="/images/img11_1.png"
+              alt="App Design Mobile"
+              width={439}
+              height={633}
+              className="rounded-xl shadow-xl object-contain"
+            />
+          </div>
+          <div className="flex flex-1 justify-center">
+            <Image
+              src="/images/home/img7.png"
+              alt="App Design Laptop"
+              width={907}
+              height={633}
+              className="rounded-xl shadow-xl object-contain"
+            />
+          </div>
+        </div>
+      </section>
+    </section>
+
     </div>
   );
 }
