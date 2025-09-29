@@ -36,7 +36,7 @@ export const Navigation = () => {
   const logoSrc = isCaseStudyPage ? '/images/logo_white.png' : '/images/logo.png';
 
   return (
-    <nav className={`w-full h-[68px] ${navbarBackground}  border-2 flex items-center justify-between px-6 relative z-[100]`}>
+    <nav className={`w-full h-[68px] ${navbarBackground}   flex items-center justify-between px-6 relative z-[100]`}>
       {/* Logo */}
       <div className="flex items-center">
         <img 

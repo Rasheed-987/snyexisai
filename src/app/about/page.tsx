@@ -3,12 +3,12 @@ import GridTextCard from '@/components/ui/GridTextCard';
 
 export default function AboutPage() {
 	return (
-		<main className="min-h-screen bg-[#F4F0ED] pb-44  rounded-b-[80px] font-chillax  py-12">
+		<main className="min-h-screen bg-[#F4F0ED] mb-20 z-50  rounded-b-[80px] font-chillax  py-12">
 			<section className="w-full flex justify-center items-center py-8 sm:py-12">
 				<div className="text-center max-w-2xl mx-auto" style={{ fontFamily: 'Chillax, sans-serif' }}>
-					<h2 className="text-[#17214D] font-medium text-2xl sm:text-3xl lg:text-[75px] leading-[75px]">
-						With expertise across<br />
-						ventures and enterprises,<br />
+					<h2 className="text-[#17214D] font-medium text-2xl sm:text-3xl  lg:text-[50px] leading-[95px]">
+						With expertise across
+						ventures and enterprises,
 						Synexis.ai delivers next.
 					</h2>
 				</div>
@@ -17,7 +17,7 @@ export default function AboutPage() {
 		{/* Team grid section */}
 {/* Team grid section */}
 <section className="relative  mt-8 w-full">
-  <div className="relative -mx-[calc((100vw-100%)/2)] w-screen">
+  <div className="relative ">
     <Image
       src="/images/img14.png"
       alt="Team grid"
@@ -88,16 +88,16 @@ export default function AboutPage() {
 
 
 
-				<section className="w-full bg-[#17214D] py-16">
+				<section className="w-full py-16">
   <div className="max-w-screen-xl mx-auto px-4 sm:px-8 lg:px-16">
 						<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 							{/* First card: text only, custom background */}
 							<div className="col-span-1 sm:col-span-2 lg:col-span-2 flex flex-col justify-center items-start p-8 bg-cover bg-center rounded-xl min-h-[260px]" >
-								<h2 className="text-white font-bold text-2xl sm:text-3xl mb-2" style={{ fontFamily: 'Chillax, sans-serif' }}>
+								<h2 className="text-[#22306A] font-bold text-2xl sm:text-3xl mb-2" style={{ fontFamily: 'Chillax, sans-serif' }}>
 									Where Collaboration<br />
 									<span className="italic font-normal">Meets Creativity</span>
 								</h2>
-								<p className="text-white text-base sm:text-lg opacity-80 mt-2" style={{ fontFamily: 'Chillax, sans-serif' }}>
+								<p className="text-[#22306A] text-base sm:text-lg opacity-80 mt-2" style={{ fontFamily: 'Chillax, sans-serif' }}>
 									We foster an open, inclusive culture where teamwork, smart thinking, and curiosity spark innovation—balancing growth, fun, and shared success.
 								</p>
 							</div>
@@ -154,7 +154,7 @@ everything we do." />
 					</div>
 				</section>
 	{/* Expertise & Technologies Section */}
-					<section className="w-full py-16 ">
+					<section className="w-full mb-11 py-16 ">
 						<div className="max-w-screen-xl mx-auto flex flex-col lg:flex-row gap-12 px-4 sm:px-8 lg:px-16 items-center">
 							{/* Left: Text Content */}
 							<div className="flex-1 mb-10 lg:mb-0">
@@ -164,6 +164,7 @@ everything we do." />
 								<p className="text-[#17214D] text-base sm:text-lg mb-6" style={{ fontFamily: 'Chillax, sans-serif' }}>
 									Markovate’s team of <span className="font-bold">generative AI experts</span> relies on an advanced suite of technologies like AI, ML, Generative AI, Blockchain, Web3, Mobile, and more to drive innovation. Incorporating machine learning frameworks, cloud computing, and data analytics tools, our tech stack is designed for scalability, reliability, and optimum performance. It’s the backbone that ensures each software solution we deliver meets industry standards and exceeds client expectations.
 								</p>
+							
 								<button className="bg-[#2563eb] text-white rounded-full px-6 py-3 font-medium text-base shadow hover:bg-[#1741a3] transition flex items-center gap-2">
 									Case Studies <span className="text-xl">→</span>
 								</button>
@@ -179,9 +180,10 @@ everything we do." />
 						</div>
 					</section>
 	{/* Hero Section with Background */}
-<section className="relative w-full flex items-center justify-center py-30 px-4 sm:px-8 lg:px-16">
-  {/* Background Container */}
-  <div className="absolute inset-0 mx-auto max-w-[1940px] w-full h-full rounded-[32px] overflow-hidden">
+<section className="relative w-full flex items-center justify-center px-4 sm:px-8 lg:px-16 py-3">
+  {/* Inner Container */}
+  <div className="relative w-full max-w-[1400px] h-[300px] sm:h-[350px] lg:h-[400px] rounded-[32px] overflow-hidden flex items-center justify-center">
+    {/* Background Image */}
     <Image
       src="/images/img15.png"
       alt="Background"
@@ -190,25 +192,25 @@ everything we do." />
       priority
     />
     <div className="absolute inset-0 bg-black bg-opacity-40" />
-  </div>
 
-  {/* Content */}
-  <div className="relative z-10 w-full max-w-3xl text-center mx-auto flex flex-col items-center justify-center px-4">
-    <h1
-      className="text-white font-bold text-3xl sm:text-5xl lg:text-6xl mb-6"
-      style={{ fontFamily: 'Chillax, sans-serif' }}
-    >
-      Shaping the next<br />era together.
-    </h1>
-    <p
-      className="text-white text-lg sm:text-xl font-light mb-8"
-      style={{ fontFamily: 'Chillax, sans-serif' }}
-    >
-      Partner with us to unlock innovation and accelerate your digital future.
-    </p>
-    <button className="bg-white text-[#17214D] rounded-full px-6 py-3 font-medium text-base shadow hover:bg-gray-200 transition">
-      Schedule A Call
-    </button>
+    {/* Content */}
+    <div className="relative z-10 text-center px-4 flex flex-col items-center justify-center">
+      <h1
+        className="text-white font-bold text-2xl sm:text-4xl lg:text-6xl mb-4 sm:mb-6"
+        style={{ fontFamily: 'Chillax, sans-serif' }}
+      >
+        Shaping the next<br />era together.
+      </h1>
+      <p
+        className="text-white text-base sm:text-lg lg:text-xl font-light mb-6 sm:mb-8 max-w-[600px]"
+        style={{ fontFamily: 'Chillax, sans-serif' }}
+      >
+        Partner with us to unlock innovation and accelerate your digital future.
+      </p>
+      <button className="bg-white text-[#17214D] rounded-full px-4 py-2 sm:px-6 sm:py-3 font-medium text-sm sm:text-base shadow hover:bg-gray-200 transition">
+        Schedule A Call
+      </button>
+    </div>
   </div>
 </section>
 
