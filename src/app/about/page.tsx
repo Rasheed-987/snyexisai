@@ -180,7 +180,7 @@ everything we do." />
 						</div>
 					</section>
 	{/* Hero Section with Background */}
-<section className="relative w-full flex items-center justify-center px-4 sm:px-8 lg:px-16 py-3">
+<section className="relative w-full flex items-center justify-center px-4 sm:px-8 lg:px-16 py-">
   {/* Inner Container */}
   <div className="relative w-full max-w-[1400px] h-[300px] sm:h-[350px] lg:h-[400px] rounded-[32px] overflow-hidden flex items-center justify-center">
     {/* Background Image */}

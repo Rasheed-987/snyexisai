@@ -5,6 +5,28 @@ import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 
+const PortfolioDropdown = ({ textColor, navbarBackground }) => {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="relative">
+      <button
+        className={`font-chillax font-semibold text-[14px] tracking-[0.5px]'} px-4 py-2 rounded-lg flex items-center gap-2 transition-colors duration-150`}
+        onClick={() => setOpen((prev) => !prev)}
+        type="button"
+      >
+        PORTFOLIO
+        <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+      </button>
+      {open && (
+        <div className={`absolute right-0 mt-2 w-40  border rounded-lg shadow-lg z-50 ${navbarBackground}`}>
+          <Link href="/casestudy" className={`block px-4 py-2 text-sm ${textColor} hover:bg-blue-50 rounded-t-lg`}>Case Studies</Link>
+          <Link href="/ourproject" className={`block px-4 py-2 text-sm ${textColor} rounded-b-lg]`}>My Projects</Link>
+        </div>
+      )}
+    </div>
+  );
+};
+
 export const Navigation = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -71,13 +93,12 @@ export const Navigation = () => {
 
       {/* Navigation Links */}
       <div className={`hidden md:flex mt-2 ml-3 items-center mr-3 gap-9 ${textColor}`}>
-        <Link href="/" className={`font-chillax font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>HOME</Link>
+        <Link href="/" className={`font-chillax font-semibold 2xl:text-[24px] xl:text-[14px]   tracking-[0.5px] ${textColor}`}>HOME</Link>
         <Link href="/about" className={`font-chillax font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>ABOUT</Link>
         <Link href="#" className={`font-chillax font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>SERVICES</Link>
-        <Link href="#" className={`flex items-center font-chillax font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>
-          PORTFOLIO
-          <Image src="/images/arrow_down.png" alt="Back" width={16} height={16} className="ml-2" />
-        </Link>
+        <div className="flex items-center">
+          <PortfolioDropdown textColor={textColor} navbarBackground={navbarBackground} />
+        </div>
         <Link href="/careers" className={`font-chillax font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>CAREER</Link>
         <Link href="/contact" className={`font-chillax font-semibold text-[14px] tracking-[0.5px] uppercase ${textColor}`}>CONTACT US</Link>
       </div>
@@ -96,7 +117,7 @@ export const Navigation = () => {
             <div className="flex flex-col p-6">
               <Link 
                 href="/" 
-                className="text-[#0F1C3D] font-chillax font-semibold text-[14px] tracking-[0.5px] py-4 text-center border-b border-gray-200"
+                className="text-[#0F1C3D] font-chillax font-semibold 2xl:text-[20px]  tracking-[0.5px] py-4 text-center border-b border-gray-200"
                 onClick={closeMenu}
               >
                 HOME

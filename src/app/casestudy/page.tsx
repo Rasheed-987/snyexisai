@@ -32,7 +32,7 @@ const CaseStudyPage = () => {
       </section>
  
 
-         <div className="min-w-[1200px] mx-auto px-4">
+         <div className="max-w-[1600px] mx-auto px-4">
       <section className="max-w-screen-xl mx-auto px-4 sm:px-8 lg:px-16 py-12">
         <div className="mb-12">
           <span className="inline-flex items-center text-sm text-slate-500 font-regular mb-4">
@@ -64,7 +64,7 @@ const CaseStudyPage = () => {
 
       <section>
         {/* Two-column showcase (mobile + laptop) */}
-        <div className="flex flex-col  w-[93vw] lg:flex-row mt-8">
+        <div className="flex flex-col gap-8 lg:flex-row mt-8">
           <div>
             <Image
               src="/images/img11_1.png"
@@ -74,7 +74,7 @@ const CaseStudyPage = () => {
               className="rounded-xl shadow-xl object-contain"
             />
           </div>
-          <div className="flex justify-center">
+          <div className="flex flex-1 justify-center">
             <Image
               src="/images/img11_2.png"
               alt="App Design Laptop"
@@ -85,6 +85,7 @@ const CaseStudyPage = () => {
           </div>
         </div>
       </section>
+
 
       <section className="w-full flex flex-col md:flex-row gap-8 items-center justify-center py-12">
         {/* Left Image */}
