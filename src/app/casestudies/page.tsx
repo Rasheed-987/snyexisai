@@ -1,18 +1,21 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const CaseStudyPage = () => {
   return (
     <div className='rounded-b-[80px]  min-h-screen  relative z-50 bg-white pb-24 lg:pb-40  mx-auto'>
    
       <section className="relative min-h-screen w-full h-[90vh] bg-[rgba(15,28,61,0.68)] flex flex-col items-center justify-center">
-        <Image
-          src="/images/background.png"
-          alt="Case Study Background"
-          fill
-          priority
-          className="absolute inset-0 z-0 object-cover"
-        />
+        <Link href="/casestudiesDetail">
+          <Image
+            src="/images/background.png"
+            alt="Case Study Background"
+            fill
+            priority
+            className="absolute inset-0 z-0 object-cover"
+          />
+        </Link>
 
         <div className="absolute top-30 right-20 max-w-[500px] px-4 lg:px-0 text-right">
           <p className="font-chillax font-normal text-[16px] mb-4 sm:text-[18px] lg:text-[20px] text-white">
@@ -52,76 +55,87 @@ const CaseStudyPage = () => {
       </section>
 
       <section className="w-full relative">
-        <Image
-          src="/images/img10.jpg"
-          alt="App Design Showcase"
-          width={1605}
-          height={768}
-          priority
-          className="w-[95vw] h-auto object-cover max-h-[500px] sm:max-h-[650px] lg:max-h-[768px]"
-        />
+        <Link href="/casestudiesDetail">
+          <Image
+            src="/images/img10.jpg"
+            alt="App Design Showcase"
+            width={1605}
+            height={768}
+            priority
+            className="w-[95vw] h-auto object-cover max-h-[500px] sm:max-h-[650px] lg:max-h-[768px]"
+          />
+        </Link>
       </section>
 
-      <section>
+      <section className='overflow-hidden'>
         {/* Two-column showcase (mobile + laptop) */}
-        <div className="flex flex-col gap-8 lg:flex-row mt-8">
-          <div>
-            <Image
-              src="/images/img11_1.png"
-              alt="App Design Mobile"
-              width={439}
-              height={633}
-              className="rounded-xl shadow-xl object-contain"
-            />
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-end mt-8">
+          <div className="flex justify-center lg:justify-start">
+            <Link href="/casestudiesDetail">
+              <Image
+                src="/images/img11_1.png"
+                alt="App Design Mobile"
+                width={439}
+                height={633}
+                className="rounded-xl shadow-xl object-contain"
+              />
+            </Link>
           </div>
           <div className="flex flex-1 justify-center">
-            <Image
-              src="/images/img11_2.png"
-              alt="App Design Laptop"
-              width={907}
-              height={633}
-              className="rounded-xl shadow-xl object-contain"
-            />
+            <Link href="/casestudiesDetail">
+              <Image
+                src="/images/img11_2.png"
+                alt="App Design Laptop"
+                width={907}
+                height={633}
+                className="rounded-xl shadow-xl object-contain w-full"
+              />
+            </Link>
           </div>
         </div>
       </section>
-
 
       <section className="w-full flex flex-col md:flex-row gap-8 items-center justify-center py-12">
         {/* Left Image */}
         <div className="flex-1 flex flex-col items-center relative">
-          <Image
-            src="/images/img12_1.png"
-            alt="App Design Laptop"
-            width={410}
-            height={410}
-            className="rounded-2xl shadow-lg w-full h-auto object-cover"
-            priority
-          />
+          <Link href="/casestudiesDetail">
+            <Image
+              src="/images/img12_1.png"
+              alt="App Design Laptop"
+              width={410}
+              height={410}
+              className="rounded-2xl shadow-lg w-full h-auto object-cover"
+              priority
+            />
+          </Link>
         </div>
         {/* Right Image */}
         <div className="flex-1 flex flex-col items-center relative">
-          <Image
-            src="/images/img12_2.png"
-            alt="App Design Watches"
-            width={410}
-            height={410}
-            className="rounded-2xl shadow-lg w-full h-auto object-cover"
-            priority
-          />
+          <Link href="/casestudiesDetail">
+            <Image
+              src="/images/img12_2.png"
+              alt="App Design Watches"
+              width={410}
+              height={410}
+              className="rounded-2xl shadow-lg w-full h-auto object-cover"
+              priority
+            />
+          </Link>
         </div>
       </section>
 
       {/* CTA Section */}
       <section className="relative w-full h-[60vh] bg-cover bg-center z-10">
         <div className="absolute inset-0 w-full h-full">
-          <Image
-            src="/images/img13.png"
-            alt="Background"
-            fill
-            className="object-cover rounded-[32px]"
-            priority
-          />
+          <Link href="/casestudiesDetail">
+            <Image
+              src="/images/img13.png"
+              alt="Background"
+              fill
+              className="object-cover rounded-[32px]"
+              priority
+            />
+          </Link>
         </div>
         <div className="relative flex flex-col items-center justify-center h-full z-10 text-center px-6 sm:px-12">
           <h2 className="text-white font-chillax font-semibold text-3xl sm:text-4xl lg:text-5xl mb-4">
