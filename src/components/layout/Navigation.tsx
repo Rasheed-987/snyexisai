@@ -5,7 +5,12 @@ import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 
-const PortfolioDropdown = ({ textColor, navbarBackground }) => {
+type Props = {
+  textColor: string;
+  navbarBackground: string;
+};
+
+const PortfolioDropdown = ({ textColor, navbarBackground }: Props) => {
   const [open, setOpen] = useState(false);
   return (
     <div className="relative">

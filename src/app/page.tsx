@@ -4,15 +4,15 @@ import Image from 'next/image';
 
 export default function HomePage() {
   return (
-      <div className="relative  pb-30 rounded-b-[80px]  relative z-50">
+      <div className=" pb-30 rounded-b-[80px]  relative z-50">
     
      
       {/* Hero Section */}
       <section className="min-h-screen flex flex-col justify-center items-center text-center px-4">
-        <p className="text-sm uppercase tracking-wide text-gray-500 mb-4">
+        <p className="text-sm uppercase tracking-wide font-semibold text-gray-950 mb-4">
           Design & Webflow Agency / UAE
         </p>
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-4">
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-medium text-gray-900 mb-4">
           Award-Winning   Agency
         </h1>
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-blue-500 mb-6">
