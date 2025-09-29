@@ -3,7 +3,7 @@ import GridTextCard from '@/components/ui/GridTextCard';
 
 export default function AboutPage() {
 	return (
-		<main className="min-h-screen bg-[#F4F0ED] mb-20 z-50  rounded-b-[80px] font-chillax  py-12">
+		<main className="min-h-screen bg-[#F4F0ED] mb-20 z-50  rounded-b-[80px] font-chillax  lg:pb-[160px]">
 			<section className="w-full flex justify-center items-center py-8 sm:py-12">
 				<div className="text-center max-w-2xl mx-auto" style={{ fontFamily: 'Chillax, sans-serif' }}>
 					<h2 className="text-[#17214D] font-medium text-2xl sm:text-3xl  lg:text-[50px] leading-[95px]">

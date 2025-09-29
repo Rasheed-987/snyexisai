@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 
+
 type Props = {
   textColor: string;
   navbarBackground: string;
