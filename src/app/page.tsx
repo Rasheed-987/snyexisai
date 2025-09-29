@@ -32,10 +32,10 @@ export default function HomePage() {
 
         {/* Trusted Brands */}
         <div className="flex flex-wrap justify-center gap-8">
-          <img src="/images/home/img1.png" alt="Emaar" className="h-5 w-14" />
-          <img src="/images/home/img2.png" alt="TED" className="h-5 w-14" />
-          <img src="/images/home/img3.png" alt="Ogilvy" className="h-5 w-14" />
-          <img src="/images/home/img4.png" alt="Webflow" className="h-5 w-14" />
+          <Image src="/images/home/img1.png" alt="Emaar" width={56} height={20} className="h-5 w-14" />
+          <Image src="/images/home/img2.png" alt="TED" width={56} height={20} className="h-5 w-14" />
+          <Image src="/images/home/img3.png" alt="Ogilvy" width={56} height={20} className="h-5 w-14" />
+          <Image src="/images/home/img4.png" alt="Webflow" width={56} height={20} className="h-5 w-14" />
         </div>
       </section>
 
