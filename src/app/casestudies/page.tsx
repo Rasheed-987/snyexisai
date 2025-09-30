@@ -10,7 +10,7 @@ const CaseStudyPage = () => {
     <div className='rounded-b-[80px]  min-h-screen  relative z-50 bg-white pb-24 lg:pb-40  mx-auto'>
    
       <section className="relative min-h-screen w-full h-[90vh] bg-[rgba(15,28,61,0.68)] flex flex-col items-center justify-center">
-        
+        <Link href="/casestudiesDetail">
           <Image
             src="/images/background.png"
             alt="Case Study Background"
@@ -18,7 +18,7 @@ const CaseStudyPage = () => {
             priority
             className="absolute inset-0 z-0 object-cover"
           />
-       
+        </Link>
 
         <div className="absolute top-30 right-20 max-w-[500px] px-4 lg:px-0 text-right">
           <p className="font-chillax font-normal text-[16px] mb-4 sm:text-[18px] lg:text-[20px] text-white">

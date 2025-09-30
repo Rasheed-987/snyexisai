@@ -3,15 +3,14 @@ import GridTextCard from '@/components/ui/GridTextCard';
 
 export default function AboutPage() {
 	return (
-		<main className="min-h-screen bg-[#F4F0ED] mb-20 z-50 relative rounded-b-[80px] font-chillax  lg:pb-[160px]">
+		<main className="min-h-screen bg-[#F4F0ED] mb-30 z-50 relative rounded-b-[80px] font-chillax  lg:pb-[160px]">
 			<section className="w-full flex justify-center items-center py-8 sm:py-12">
-				<div className="text-center max-w-2xl mx-auto" style={{ fontFamily: 'Chillax, sans-serif' }}>
-					<h2 className="text-[#17214D] font-medium text-2xl sm:text-3xl  lg:text-[50px] leading-[95px]">
-						With expertise across
-						ventures and enterprises,
-						Synexis.ai delivers next.
-					</h2>
-				</div>
+				<div className="text-center max-w-[1020px] w-full mx-auto px-4 font-[Chillax,sans-serif]">
+  <h2 className="text-[#17214D] font-medium text-xl sm:text-3xl md:text-4xl lg:text-[50px] leading-snug sm:leading-normal md:leading-[60px] lg:leading-[70px]">
+    With expertise across ventures and enterprises, Synexis.ai delivers next.
+  </h2>
+</div>
+
 				</section>
 
 		{/* Team grid section */}
@@ -180,7 +179,7 @@ everything we do." />
 						</div>
 					</section>
 	{/* Hero Section with Background */}
-<section className="relative w-full flex items-center justify-center px-4 sm:px-8 lg:px-16 py-">
+<section className="relative w-full flex items-center justify-center px-4 sm:px-8 lg:px-16 sm:mb-7">
   {/* Inner Container */}
   <div className="relative w-full max-w-[1400px] h-[300px] sm:h-[350px] lg:h-[400px] rounded-[32px] overflow-hidden flex items-center justify-center">
     {/* Background Image */}
