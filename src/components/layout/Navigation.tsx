@@ -21,8 +21,8 @@ const PortfolioDropdown = ({ textColor, navbarBackground }: Props) => {
         type="button"
       >
         PORTFOLIO
-        {/* <img src="/images/arrow_down.png" alt="Portfolio Icon" className='w-4 h-4 ml-1' /> */}
-        <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+        <img src="/images/arrow-down-solid-full.svg" alt="Portfolio Icon" className='w-4  mb-1 h-4 ml-1' />
+        {/* <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg> */}
       </button>
       {open && (
         <div className={`absolute right-0 mt-2 w-40  border rounded-lg shadow-lg z-50 ${navbarBackground}`}>
