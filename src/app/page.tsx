@@ -122,7 +122,7 @@ export default function HomePage() {
       </section>
 
       <section className='w-full min-h-[485px]'>
-        <img src="/images/home/section.png" alt="Services" className="w-full h-full object-cover rounded-xl" />
+  <Image src="/images/home/section.png" alt="Services" width={1600} height={485} className="w-full h-full object-cover rounded-xl" priority />
       </section>
  <section className="w-full my-12  py-12">
   <div className="max-w-screen-xl mx-auto px-6 sm:px-12 lg:px-20">
