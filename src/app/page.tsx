@@ -49,7 +49,7 @@ export default function HomePage() {
       </section>
 
       {/* Why Synexis AI Section */}
-      <section className="bg-[#F4F0ED] py-16" style={{ minHeight: '700px' }}>
+      <section className="bg-[#F4F0ED] py-16  lg:min-h-[700px]">
         <div className="container mx-auto px-4">
           <div className="w-full flex items-start justify-start mb-8">
             <h3 className="text-3xl lg:text-4xl font-normal text-gray-900 leading-tight">
@@ -121,7 +121,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className='w-full min-h-[485px]'>
+      <section className='w-full md:min-h-[485px]'>
   <Image src="/images/home/section.png" alt="Services" width={1600} height={485} className="w-full h-full object-cover rounded-xl" />
       </section>
  <section className="w-full my-12  py-12">
@@ -183,7 +183,7 @@ export default function HomePage() {
       width={1605}
       height={768}
       priority
-      className="w-full h-auto object-cover sm:rounded-[29px]"
+      className="w-full h-auto object-cover sm:min-h-[250px] sm:rounded-[22px]"
     />
   </div>
 </section>
@@ -343,10 +343,10 @@ export default function HomePage() {
 
 <section className="w-full bg-white py-16 space-y-8 px-2 flex flex-col items-center font-[Chillax,sans-serif]">
   <div className="w-full flex md:justify-between px-4 items-center">
-    <div className="w-[40%] md:w-full flex flex-col justify-center">
-      <h2 className="text-[#1A2341] text-3xl sm:text-5xl lg:text-6xl font-medium text-center md:text-left tracking-tight mb-4 md:mb-0">Words that define our UI/UX<br />design capabilities</h2>
+    <div className="w-full md:w-[40%] flex flex-col justify-center">
+      <h2 className="text-[#1A2341] text-3xl sm:text-5xl lg:text-6xl font-medium text-center md:text-left tracking-tight mb-4 md:mb-0 w-full">Words that define our UI/UX<br />design capabilities</h2>
     </div>
-    <div className="flex flex-row gap-4 items-center mr-20">
+    <div className="hidden sm:flex flex-row gap-4 items-center mr-20">
       <span className="bg-white shadow flex items-center justify-center" style={{ borderRadius: '21px', width: '43px', height: '43px' }}>
         <img src="/images/home/arrow-left-solid-full.svg" alt="Left Arrow" style={{ width: '35px', height: '21px' }} />
       </span>
@@ -355,8 +355,10 @@ export default function HomePage() {
       </span>
     </div>
   </div>
-
+ {/* Card Div */}
   <div className="flex flex-col md:flex-row bg-white rounded-3xl shadow-lg overflow-hidden max-w-7xl mx-auto w-full" style={{ boxShadow: '0 0 32px 0 rgba(50,122,237,0.18)' }}>
+  {/* Mobile arrow nav below card */}
+  
     {/* Left: Project Info */}
     <div className="md:w-1/2 w-full bg-[#181C23] flex flex-col justify-between">
       <div>
@@ -378,6 +380,15 @@ export default function HomePage() {
         <span className="text-gray-500 text-xs">New York, USA</span>
       </div>
     </div>
+
+  </div>
+  <div className="flex flex-row gap-4 items-center mt-6 justify-center sm:hidden">
+    <span className="bg-white shadow flex items-center justify-center" style={{ borderRadius: '21px', width: '43px', height: '43px' }}>
+      <img src="/images/home/arrow-left-solid-full.svg" alt="Left Arrow" style={{ width: '35px', height: '21px' }} />
+    </span>
+    <span className="bg-white shadow flex items-center justify-center" style={{ borderRadius: '21px', width: '43px', height: '43px' }}>
+      <img src="/images/home/arrow-right-solid-full.svg" alt="Right Arrow" style={{ width: '21px', height: '21px' }} />
+    </span>
   </div>
 
   <div className="w-full max-w-7xl mx-auto rounded-[40px] overflow-hidden relative mt-8">
