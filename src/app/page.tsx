@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 export default function HomePage() {
   const router = useRouter();
   return (
-      <div className=" bg-white  rounded-b-[80px] mb-30  relative z-50">
+      <div className=" bg-black  rounded-b-[80px] mb-30  relative z-50">
       {/* Hero Section */}
       <section className="min-h-screen flex flex-col justify-center items-center text-center px-4">
         <p className="text-sm uppercase tracking-wide font-semibold text-[#0F1C3D] mb-4">
