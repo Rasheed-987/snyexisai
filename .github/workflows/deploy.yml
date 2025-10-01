@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-      -main   # 👈 change to your main branch if different
+      - main   # 👈 change to your main branch if different
 
 jobs:
   deploy:
