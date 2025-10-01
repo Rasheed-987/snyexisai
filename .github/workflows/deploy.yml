@@ -3,7 +3,8 @@ name: 🚀 Deploy Next.js App to EC2 with Docker
 on:
   push:
     branches:
-      - main   # 👈 change to your main branch if different
+      - master
+      -main   # 👈 change to your main branch if different
 
 jobs:
   deploy:
