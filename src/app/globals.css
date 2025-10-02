@@ -66,29 +66,6 @@
   --primary-foreground: #ffffff; /* White */
   --secondary: #f4f0ed; /* Isabelline */
   --secondary-foreground: #0f1c34; /* Maastricht Blue */
-  --muted: #f4f0ed; /* Isabelline */
-  --muted-foreground: #0f1c34; /* Maastricht Blue with opacity */
-  --accent: #f4f0ed; /* Isabelline */
-  --accent-foreground: #0f1c34; /* Maastricht Blue */
-  --destructive: #dc2626; /* Keep red for destructive actions */
-  --destructive-foreground: #ffffff; /* White */
-  --border: #f4f0ed; /* Isabelline for subtle borders */
-  --input: #f4f0ed; /* Isabelline */
-  --ring: #3276ed; /* Bleu De France for focus rings */
-  --chart-1: #3276ed; /* Bleu De France */
-  --chart-2: #0f1c34; /* Maastricht Blue */
-  --chart-3: #f4f0ed; /* Isabelline */
-  --chart-4: #6b9eff; /* Lighter shade of Bleu De France */
-  --chart-5: #2a4a7a; /* Darker shade between the blues */
-  --radius: 0.625rem;
-  --sidebar: #ffffff; /* White */
-  --sidebar-foreground: #0f1c34; /* Maastricht Blue */
-  --sidebar-primary: #3276ed; /* Bleu De France */
-  --sidebar-primary-foreground: #ffffff; /* White */
-  --sidebar-accent: #f4f0ed; /* Isabelline */
-  --sidebar-accent-foreground: #0f1c34; /* Maastricht Blue */
-  --sidebar-border: #f4f0ed; /* Isabelline */
-  --sidebar-ring: #3276ed; /* Bleu De France */
 }
 
 .dark {
@@ -107,24 +84,6 @@
   --muted-foreground: #f4f0ed; /* Isabelline for muted text */
   --accent: #1a2a42; /* Darker shade of Maastricht Blue */
   --accent-foreground: #ffffff; /* White */
-  --destructive: #dc2626; /* Keep red for destructive actions */
-  --destructive-foreground: #ffffff; /* White */
-  --border: #1a2a42; /* Darker shade for borders */
-  --input: #1a2a42; /* Darker shade for inputs */
-  --ring: #3276ed; /* Bleu De France for focus rings */
-  --chart-1: #3276ed; /* Bleu De France */
-  --chart-2: #6b9eff; /* Lighter shade of Bleu De France */
-  --chart-3: #f4f0ed; /* Isabelline */
-  --chart-4: #2a4a7a; /* Darker shade between the blues */
-  --chart-5: #1a2a42; /* Darker shade of Maastricht Blue */
-  --sidebar: #0f1c34; /* Maastricht Blue */
-  --sidebar-foreground: #ffffff; /* White */
-  --sidebar-primary: #3276ed; /* Bleu De France */
-  --sidebar-primary-foreground: #ffffff; /* White */
-  --sidebar-accent: #1a2a42; /* Darker shade of Maastricht Blue */
-  --sidebar-accent-foreground: #ffffff; /* White */
-  --sidebar-border: #1a2a42; /* Darker shade for borders */
-  --sidebar-ring: #3276ed; /* Bleu De France */
 }
 
 * {

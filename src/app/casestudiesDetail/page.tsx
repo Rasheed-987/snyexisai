@@ -6,9 +6,9 @@ export default function CaseStudies() {
     <div  className="rounded-b-[80px]  min-h-screen  relative z-50 bg-white pb-24 lg:pb-40  mx-auto px-4">
 
 
-    <main className="flex flex-col items-center max-w-[1200px] mx-auto px-4 min-h-screen ">
+    <main className="flex flex-col items-center w-full mx-auto  min-h-screen ">
       {/* Hero Container */}
-      <section className="w-full max-w-[2000px] mt-8 sm:mt-16 md:mt-20 lg:mt-[133px] px-4 sm:px-8 flex flex-col items-center gap-4 lg:gap-10 mb-16 lg:mb-10">
+      <section className="w-full max-w-[2000px] mt-8 sm:mt-16 md:mt-20 lg:mt-[133px] flex flex-col items-center gap-4 lg:gap-10 mb-16 lg:mb-10">
         {/* Company Tag */}
         <div className="w-fit flex items-center justify-center uppercase font-bold text-xs sm:text-[12.5px] leading-[18px] text-[#0F1C3D] font-sans">
           the be company
@@ -16,7 +16,7 @@ export default function CaseStudies() {
         
         {/* Heading */}
         <h1 className="w-full flex items-center justify-center">
-          <span className="w-full max-w-[728px] flex items-center justify-center text-center font-bold text-3xl sm:text-5xl md:text-6xl lg:text-[105.188px] leading-tight lg:leading-[120px] capitalize text-[#0F1C3D]">
+          <span className="w-full max-w-[728px] flex items-center justify-center text-center font-medium text-3xl sm:text-5xl md:text-6xl lg:text-[105.188px] leading-tight lg:leading-[120px] capitalize text-[#0F1C3D]">
             trader 365 case Study
           </span>
         </h1>
@@ -28,8 +28,8 @@ export default function CaseStudies() {
       </section>
 
       {/* Case Study Image Section */}
-      <section className="relative w-full flex justify-center mb-16 lg:mb-40 px-4 sm:px-8">
-        <div className="relative w-full max-w-[1376px] aspect-[16/10] sm:aspect-[1376/917]">
+      <section className="relative w-full flex justify-center mb-16 lg:mb-40  sm:px-8">
+        <div className="relative w-full  aspect-[16/10] ">
           <Image
             src="/images/img1.png"
             alt="Case Study Preview"
@@ -41,7 +41,7 @@ export default function CaseStudies() {
       </section>
     
       {/* What We Did Section */}
-      <section className="w-full max-w-[2000px] mx-auto flex flex-col md:flex-row items-start justify-between gap-8 lg:gap-16 mb-16 px-4 sm:px-8">
+      <section className="w-full  mx-auto flex flex-col md:flex-row items-start justify-between gap-8 lg:gap-16 mb-16 px-10 sm:px-12">
         {/* Left: Main Statement */}
         <div className="flex-1">
           <h2 className="font-normal text-[#0F1C3D] text-xl sm:text-2xl md:text-3xl lg:text-[40px] leading-tight">
@@ -78,9 +78,9 @@ export default function CaseStudies() {
       </section>
 
       {/* Device Mockups Section */}
-      <section className="w-full flex flex-col items-center gap-6 sm:gap-8 mb-16 px-4 sm:px-8">
+      <section className="w-full flex flex-col items-center gap-6 sm:gap-8 mb-16  md:px-12">
         {/* Laptop image */}
-        <div className="w-full max-w-[1376px] flex justify-center">
+        <div className="w-full  flex justify-center">
           <div className="relative w-full aspect-[16/9]">
             <Image
               src="/images/img2.png"
@@ -92,29 +92,30 @@ export default function CaseStudies() {
           </div>
         </div>
 
-        {/* Mobile devices */}
-        <div className="flex flex-row gap-4 sm:gap-6 justify-center items-center w-full max-w-[1376px]">
-          <div className="flex-1 max-w-[624px]">
-            <Image 
-              src="/images/img3_1.jpg" 
-              width={624} 
-              height={918} 
-              alt="Phone 1" 
-              className="w-full h-auto rounded-lg" 
-              priority 
-            />
-          </div>
-          <div className="flex-1 max-w-[624px]">
-            <Image 
-              src="/images/img3_2.jpg" 
-              width={624} 
-              height={918} 
-              alt="Phone 2" 
-              className="w-full h-auto rounded-lg" 
-              priority 
-            />
-          </div>
-        </div>
+       {/* Mobile Devices Section */}
+<div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 w-full">
+  {/* First Image */}
+  <div className="relative w-full sm:flex-1 aspect-[9/16] min-w-0">
+    <Image
+      src="/images/img3_1.jpg"
+      alt="Phone 1"
+      fill
+      className="object-cover rounded-xl"
+      priority
+    />
+  </div>
+
+  {/* Second Image */}
+  <div className="relative w-full sm:flex-1 aspect-[9/16] min-w-0">
+    <Image
+      src="/images/img3_2.jpg"
+      alt="Phone 2"
+      fill
+      className="object-cover rounded-xl"
+      priority
+    />
+  </div>
+</div>
       </section>
 
       {/* Problem Section */}
@@ -136,7 +137,7 @@ export default function CaseStudies() {
       </section>
 
       {/* Challenge and Solution Section */}
-      <section className="relative w-full max-w-[1280px] mx-auto mb-16 px-4 sm:px-8 flex flex-col lg:flex-row gap-8 lg:gap-16">
+      <section className="relative w-full  mx-auto mb-16 md:px-12 sm:px-6 flex flex-col lg:flex-row gap-8 lg:gap-16">
         {/* Challenge Column */}
         <div className="flex-1">
           <h2 className="text-[#0F1C3D] font-normal text-3xl sm:text-4xl lg:text-[45px] leading-tight capitalize mb-6">
@@ -169,7 +170,7 @@ export default function CaseStudies() {
       </section>
       
       {/* Side-by-Side Images Section */}
-      <section className="w-full max-w-[2000px] mx-auto flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8 mb-16 px-4 sm:px-8">
+      <section className="w-full mx-auto flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8 mb-16  md:px-12">
         <div className="flex-1 w-full">
           <Image
             src="/images/img4_1.jpg"
@@ -191,7 +192,7 @@ export default function CaseStudies() {
       </section>
 
       {/* The Result Section */}
-      <section className="relative w-full max-w-[1280px] mx-auto mb-16 px-4 sm:px-8 flex flex-col lg:flex-row gap-8 lg:gap-16">
+      <section className="relative w-full  mx-auto mb-16  md:px-12 flex flex-col lg:flex-row gap-8 lg:gap-16">
         {/* Left Column */}
         <div className="flex-1">
           <h2 className="text-[#0F1C3D] font-normal text-3xl sm:text-4xl lg:text-[45px] leading-tight capitalize mb-6">
@@ -230,7 +231,7 @@ export default function CaseStudies() {
       </section>
 
       {/* Mobile Mockups Section */}
-      <section className="w-full max-w-[2000px] mx-auto flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8 mb-16 px-4 sm:px-8">
+      <section className="w-full max-w-[2000px] mx-auto flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8 mb-16  sm:px-8">
         <div className="flex-1 w-full">
           <Image
             src="/images/img5_1.png"
@@ -265,9 +266,12 @@ export default function CaseStudies() {
       </section>
       
       {/* Feature Section */}
-      <section className="w-full max-w-[1280px] mx-auto bg-[#EDEDED] py-8 sm:py-12 flex justify-center items-center rounded-3xl mb-8 mx-4">
-        <div className="w-full max-w-6xl flex justify-center px-4 sm:px-8">
-          <div className="w-full max-w-[1143px]">
+      <section className="w-full md:px-10">
+
+      
+      <div className="w-full   bg-[#EDEDED] py-8 sm:py-2 flex justify-center  items-center rounded-3xl mb-8 px:5 md:px-14">
+        <div className="w-full  flex justify-center  ">
+          <div className="w-full ">
             <Image
               src="/images/img6.png"
               alt="App feature screenshot"
@@ -278,7 +282,8 @@ export default function CaseStudies() {
             />
           </div>
         </div>
-      </section>
+      </div>
+</section>
 
       {/* Another Image Pair */}
       <section className="w-full max-w-[2000px] mx-auto flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8 mb-16 px-4 sm:px-8">
@@ -312,14 +317,14 @@ export default function CaseStudies() {
       </section>
 
       {/* Logo Section */}
-      <section className="w-full max-w-[1280px] mx-auto flex justify-center items-center bg-[#B6F8FC] py-12 sm:py-16 px-4 rounded-3xl mb-12">
-        <div className="w-full max-w-6xl flex flex-col items-center">
+      <section className="w-full  mx-auto flex justify-center items-center py-7 md:py-16 md:px-12 rounded-3xl mb-12">
+        <div className="w-full  flex flex-col items-center">
           <Image
             src="/images/img8.png"
             alt="Trader 365 Logo and Tagline"
             width={1100}
             height={600}
-            className="w-full max-w-[1100px] h-auto object-contain"
+            className="w-full  h-auto "
             priority
           />
         </div>

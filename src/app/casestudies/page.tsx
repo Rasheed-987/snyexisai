@@ -80,11 +80,11 @@ const CaseStudyPage = () => {
                 alt="App Design Mobile"
                 width={439}
                 height={633}
-                className="rounded-xl shadow-xl object-contain"
+                className="rounded-xl shadow-xl object-contain w-full"
               />
             </Link>
           </div>
-          <div className="flex flex-1 justify-center">
+          <div className="flex flex-1 w- justify-center">
             <Link href="/casestudiesDetail">
               <Image
                 src="/images/img11_2.png"
