@@ -72,24 +72,24 @@ const CaseStudyPage = () => {
 
       <section className='overflow-hidden'>
         {/* Two-column showcase (mobile + laptop) */}
-        <div className="flex flex-col gap-8 md:flex-row mt-8">
+        <div className="flex  flex-col gap-8 md:flex-row mt-8">
           <div className="flex justify-center relative w-full h-[300px] md:w-[40%] md:h-[633px] lg:justify-start">
             <Link href="/casestudiesDetail">
               <Image
                 src="/images/img11_1.png"
                 alt="App Design Mobile"
                 fill
-                className="rounded-xl shadow-xl object-contain"
+                className="rounded-xl shadow-xl object-cover"
               />
             </Link>
           </div>
-          <div className="flex flex-1 relative justify-center w-full h-[300px] md:h-[633px]">
+          <div className="flex md:flex-1 relative justify-center w-full h-[300px] md:h-[633px]">
             <Link href="/casestudiesDetail">
               <Image
                 src="/images/img11_2.png"
                 alt="App Design Laptop"
                 fill
-                className="rounded-xl shadow-xl object-contain"
+                className="rounded-xl shadow-xl object-cover"
               />
             </Link>
           </div>
@@ -98,7 +98,7 @@ const CaseStudyPage = () => {
 
       <section className="w-full flex flex-col md:flex-row gap-8 items-center justify-center py-12">
         {/* Left Image */}
-        <div className="flex-1 flex flex-col w-full h-[250px] md:h-[589px] items-center relative">
+        <div className="md:flex-1 flex flex-col w-full h-[250px] md:h-[589px] items-center relative">
           <Link href="/casestudiesDetail">
             <Image
               src="/images/img12_1.png"
@@ -110,7 +110,7 @@ const CaseStudyPage = () => {
           </Link>
         </div>
         {/* Right Image */}
-        <div className="flex-1 flex flex-col h-[250px] md:h-[589px] items-center relative">
+        <div className="md:flex-1 flex flex-col w-full h-[250px] md:h-[589px] items-center relative">
           <Link href="/casestudiesDetail">
             <Image
               src="/images/img12_2.png"
