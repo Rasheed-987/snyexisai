@@ -35,11 +35,11 @@ const OurProjectPage = () => {
           w-full 
           rounded-lg 
           shadow-lg 
-          object-cover
+        
               h-full
           md:max-h-[280px]   /* medium screens */
           lg:max-h-[400px]   /* large screens */
-             /* extra large */
+        
         "
       />
     </div>
@@ -125,7 +125,6 @@ const OurProjectPage = () => {
           w-full 
           rounded-lg 
           shadow-lg 
-          object-cover
           h-full
           md:max-h-[280px]   /* medium screens */
           lg:max-h-[400px]   /* large screens */
@@ -147,7 +146,6 @@ const OurProjectPage = () => {
           w-full 
           rounded-lg 
           shadow-lg 
-          object-cover
            h-full
           md:max-h-[280px]   /* medium screens */
           lg:max-h-[400px]   /* large screens */
@@ -237,7 +235,7 @@ const OurProjectPage = () => {
           w-full 
           rounded-lg 
           shadow-lg 
-          object-cover
+        
           h-full
           md:max-h-[280px]   /* medium screens */
           lg:max-h-[400px]   /* large screens */

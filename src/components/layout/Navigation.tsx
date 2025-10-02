@@ -59,7 +59,7 @@ export const Navigation = () => {
     };
   }, [menuOpen]);
 
-  const isCaseStudyPage = pathname === '/casestudy';
+  const isCaseStudyPage = pathname === '/casestudies';
   const navbarBackground = isCaseStudyPage ? 'bg-[#0A1329]' : 'bg-[#F9F9F9]';
   const textColor = isCaseStudyPage ? 'text-white' : 'text-[#0F1C3D]';
   const logoSrc = isCaseStudyPage ? '/images/logo_white.png' : '/images/logo.png';
@@ -102,7 +102,7 @@ export const Navigation = () => {
       <div className={`hidden md:flex mt-2 ml-3 items-center mr-3 gap-9 ${textColor}`}>
         <Link href="/" className={`font-chillax font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>HOME</Link>
         <Link href="/about" className={`font-chillax font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>ABOUT</Link>
-        <Link href="#" className={`font-chillax font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>SERVICES</Link>
+        <Link href="/services" className={`font-chillax font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>SERVICES</Link>
         <div className="flex items-center">
           <PortfolioDropdown textColor={textColor} navbarBackground={navbarBackground} />
         </div>
@@ -130,14 +130,14 @@ export const Navigation = () => {
                 HOME
               </Link>
               <Link 
-                href="#" 
+                href="/about" 
                 className="text-[#0F1C3D] font-chillax font-semibold text-[14px] tracking-[0.5px] py-4 text-center border-b border-gray-200"
                 onClick={closeMenu}
               >
                 ABOUT
               </Link>
               <Link 
-                href="#" 
+                href="/services" 
                 className="text-[#0F1C3D] font-chillax font-semibold text-[14px] tracking-[0.5px] py-4 text-center border-b border-gray-200"
                 onClick={closeMenu}
               >
@@ -158,7 +158,7 @@ export const Navigation = () => {
                 CAREER
               </Link>
               <Link 
-                href="#" 
+                href="" 
                 className="text-[#0F1C3D] font-chillax font-semibold text-[14px] tracking-[0.5px] py-4 text-center"
                 onClick={closeMenu}
               >

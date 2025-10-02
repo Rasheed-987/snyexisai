@@ -10,7 +10,7 @@ const CaseStudyPage = () => {
     <div className='rounded-b-[80px]  min-h-screen  relative z-50 bg-white pb-24 lg:pb-40  mx-auto'>
    
       <section className="relative min-h-screen w-full h-[90vh] bg-[rgba(15,28,61,0.68)] flex flex-col items-center justify-center">
-        <Link href="/casestudiesDetail">
+    
           <Image
             src="/images/background.png"
             alt="Case Study Background"
@@ -18,7 +18,7 @@ const CaseStudyPage = () => {
             priority
             className="absolute inset-0 z-0 object-cover"
           />
-        </Link>
+      
 
         <div className="absolute top-30 right-20 max-w-[500px] px-4 lg:px-0 text-right">
           <p className="font-chillax font-normal text-[16px] mb-4 sm:text-[18px] lg:text-[20px] text-white">
@@ -38,8 +38,8 @@ const CaseStudyPage = () => {
       </section>
  
 
-         <div className="max-w-[1600px] mx-auto px-4">
-      <section className="max-w-screen-xl mx-auto px-4 sm:px-8 lg:px-16 py-12">
+         <div className="w-full mx-auto px-4">
+      <section className="w-full mx-auto px-4 sm:px-8 lg:px-4 py-12">
         <div className="mb-12">
           <span className="inline-flex items-center text-sm text-slate-500 font-regular mb-4">
             <span className="w-2 h-2 rounded-full bg-sky-900 mr-2" />
@@ -65,33 +65,31 @@ const CaseStudyPage = () => {
             width={1605}
             height={768}
             priority
-            className="w-[95vw] h-auto object-cover max-h-[500px] sm:max-h-[650px] lg:max-h-[768px]"
+            className="w-full h-auto object-cover max-h-[500px] sm:max-h-[650px] lg:max-h-[768px]"
           />
         </Link>
       </section>
 
       <section className='overflow-hidden'>
         {/* Two-column showcase (mobile + laptop) */}
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-end mt-8">
-          <div className="flex justify-center lg:justify-start">
+        <div className="flex flex-col gap-8 md:flex-row mt-8">
+          <div className="flex justify-center relative w-full h-[300px] md:w-[40%] md:h-[633px] lg:justify-start">
             <Link href="/casestudiesDetail">
               <Image
                 src="/images/img11_1.png"
                 alt="App Design Mobile"
-                width={439}
-                height={633}
-                className="rounded-xl shadow-xl object-contain w-full"
+                fill
+                className="rounded-xl shadow-xl object-contain"
               />
             </Link>
           </div>
-          <div className="flex flex-1 w- justify-center">
+          <div className="flex flex-1 relative justify-center w-full h-[300px] md:h-[633px]">
             <Link href="/casestudiesDetail">
               <Image
                 src="/images/img11_2.png"
                 alt="App Design Laptop"
-                width={907}
-                height={633}
-                className="rounded-xl shadow-xl object-contain w-full"
+                fill
+                className="rounded-xl shadow-xl object-contain"
               />
             </Link>
           </div>
@@ -100,27 +98,25 @@ const CaseStudyPage = () => {
 
       <section className="w-full flex flex-col md:flex-row gap-8 items-center justify-center py-12">
         {/* Left Image */}
-        <div className="flex-1 flex flex-col items-center relative">
+        <div className="flex-1 flex flex-col w-full h-[250px] md:h-[589px] items-center relative">
           <Link href="/casestudiesDetail">
             <Image
               src="/images/img12_1.png"
               alt="App Design Laptop"
-              width={410}
-              height={410}
-              className="rounded-2xl shadow-lg w-full h-auto object-cover"
+              fill
+              className="rounded-2xl shadow-lg object-cover"
               priority
             />
           </Link>
         </div>
         {/* Right Image */}
-        <div className="flex-1 flex flex-col items-center relative">
+        <div className="flex-1 flex flex-col h-[250px] md:h-[589px] items-center relative">
           <Link href="/casestudiesDetail">
             <Image
               src="/images/img12_2.png"
               alt="App Design Watches"
-              width={410}
-              height={410}
-              className="rounded-2xl shadow-lg w-full h-auto object-cover"
+              fill
+              className="rounded-2xl shadow-lg object-cover"
               priority
             />
           </Link>

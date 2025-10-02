@@ -402,8 +402,8 @@ export default function HomePage() {
   </div>
 </section>
  {/* FAQ Section */}
-    <section className="w-full py-16 px-2 flex   font-[Chillax,sans-serif]">
-      <div className="w-full max-w-7xl  flex flex-col  md:flex-row md:justify-between md:gap-[120px]">
+    <section className="w-full py-16 px-7 flex   font-[Chillax,sans-serif]">
+      <div className="w-full   flex flex-col  md:flex-row md:justify-between md:gap-[120px]">
         {/* Left: Heading */}
         <div className="md:w-1/3 w-full flex flex-col justify-start items-start pl-4 md:pr-8 mb-8 md:mb-0">
           <h2 className="text-[#1A2341] text-3xl sm:text-4xl lg:text-5xl font-medium leading-tight mb-2">Frequently</h2>

@@ -29,7 +29,7 @@ export default function AboutPage() {
 </section>
 
 <section className="w-full  py-16">
-  <div className="max-w-screen-xl mx-auto px-4 sm:px-8 lg:px-16">
+  <div className=" mx-auto px-4 sm:px-8 lg:px-12">
     <p className="text-slate-700 text-base sm:text-lg font-chillax lg:text-xl leading-relaxed">
       We collaborate with forward-thinking leaders, where our generative AI experts provide strategic insights that will reshape tomorrow. Our team of AI engineers, developers, and data scientists supports clients through their digital transformation, enhancing capabilities across their organization. With over 200 innovative solutions delivered and counting, we are dedicated to empowering businesses with cutting-edge generative AI expertise for a future-proof world.
     </p>
@@ -88,7 +88,7 @@ export default function AboutPage() {
 
 
 				<section className="w-full py-16">
-  <div className="max-w-screen-xl mx-auto px-4 sm:px-8 lg:px-16">
+  <div className=" mx-auto px-4 sm:px-8 lg:px-12">
 						<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 							{/* First card: text only, custom background */}
 							<div className="col-span-1 sm:col-span-2 lg:col-span-2 flex flex-col justify-center items-start p-8 bg-cover bg-center rounded-xl min-h-[260px]" >
@@ -154,7 +154,7 @@ everything we do." />
 				</section>
 	{/* Expertise & Technologies Section */}
 					<section className="w-full mb-11 py-16 ">
-						<div className="max-w-screen-xl mx-auto flex flex-col lg:flex-row gap-12 px-4 sm:px-8 lg:px-16 items-center">
+						<div className=" mx-auto flex flex-col lg:flex-row gap-12 px-4 sm:px-8 lg:px-16 items-center">
 							{/* Left: Text Content */}
 							<div className="flex-1 mb-10 lg:mb-0">
 								<h2 className="text-[#17214D] font-medium text-2xl sm:text-4xl lg:text-5xl mb-6" style={{ fontFamily: 'Chillax, sans-serif' }}>
@@ -179,9 +179,9 @@ everything we do." />
 						</div>
 					</section>
 	{/* Hero Section with Background */}
-<section className="relative w-full flex items-center justify-center px-4 sm:px-8 lg:px-16 sm:mb-7">
+<section className="relative w-full flex items-center justify-center px-4 sm:px-8 lg:px-12 sm:mb-7">
   {/* Inner Container */}
-  <div className="relative w-full max-w-[1400px] h-[300px] sm:h-[350px] lg:h-[400px] rounded-[32px] overflow-hidden flex items-center justify-center">
+  <div className="relative w-full  h-[300px] sm:h-[350px] lg:h-[400px] rounded-[32px] overflow-hidden flex items-center justify-center">
     {/* Background Image */}
     <Image
       src="/images/img15.png"
