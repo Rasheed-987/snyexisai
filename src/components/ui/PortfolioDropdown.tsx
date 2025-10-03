@@ -1,8 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter, usePathname } from 'next/navigation';
 
 const PortfolioDropdown = () => {
   const [open, setOpen] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
+  
+
+  useEffect(() => {
+    console.log('📍 Pathname changed to:', pathname, 'closing dropdown');
+    setOpen(false);
+  }, [pathname]);
+
+ 
   return (
     <div className="relative">
       <button
@@ -14,8 +25,8 @@ const PortfolioDropdown = () => {
       </button>
       {open && (
         <div className="absolute right-0 mt-2 w-40 bg-white border rounded-lg shadow-lg z-50">
-          <Link href="/casestudy" className="block px-4 py-2 text-sm text-[#0070f3] rounded-t-lg">Case Studies</Link>
-          <Link href="/ourproject" className="block px-4 py-2 text-sm text-[#0070f3]  rounded-b-lg">My Projects</Link>
+          <Link href="/casestudies" className="block px-4 py-2 text-sm text-[#0070f3] rounded-t-lg hover:bg-gray-50">Case Studies</Link>
+          <Link href="/ourproject" className="block px-4 py-2 text-sm text-[#0070f3] rounded-b-lg hover:bg-gray-50">My Projects</Link>
         </div>
       )}
     </div>

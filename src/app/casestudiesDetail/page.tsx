@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function CaseStudies() {
   return (
-    <div  className="rounded-b-[80px]  min-h-screen  relative z-50 bg-white pb-24 lg:pb-40  mx-auto px-4">
+    <div  className="rounded-b-[80px]  min-h-screen  relative z-50 #E3E3E3 pb-24 lg:pb-40  mx-auto px-4">
 
 
     <main className="flex flex-col items-center w-full mx-auto  min-h-screen ">
@@ -80,8 +80,8 @@ export default function CaseStudies() {
       {/* Device Mockups Section */}
       <section className="w-full flex flex-col items-center gap-6 sm:gap-8 mb-16  md:px-12">
         {/* Laptop image */}
-        <div className="w-full  flex justify-center">
-          <div className="relative w-full aspect-[16/9]">
+        <div className="w-full h-auto flex justify-center">
+          <div className="relative w-full h-auto aspect-[16/9]">
             <Image
               src="/images/img2.png"
               alt="Laptop"
@@ -253,7 +253,7 @@ export default function CaseStudies() {
       </section>
 
       {/* Quote Section */}
-      <section className="w-full bg-white flex justify-center px-6 py-12 mb-16">
+      <section className="w-full flex justify-center px-6 py-12 mb-16">
         <div className="max-w-3xl text-center">
           <p className="font-normal text-sm sm:text-base lg:text-lg leading-relaxed text-[#0F1C3D]">
             Design simplicity, ironically, was one of the most complex parts of the brief. 
@@ -269,9 +269,9 @@ export default function CaseStudies() {
       <section className="w-full md:px-10">
 
       
-      <div className="w-full   bg-[#EDEDED] py-8 sm:py-2 flex justify-center  items-center rounded-3xl mb-8 px:5 md:px-14">
+      <div className="w-full   bg-[#EDEDED] py-8 sm:py-2 flex justify-center  items-center rounded-3xl mb-8">
         <div className="w-full  flex justify-center  ">
-          <div className="w-full ">
+          <div className="w-full px-10 ">
             <Image
               src="/images/img6.png"
               alt="App feature screenshot"
@@ -308,7 +308,7 @@ export default function CaseStudies() {
       </section>
 
       {/* Text Section */}
-      <section className="w-full bg-white flex justify-center px-6 py-8 mb-16">
+      <section className="w-full  flex justify-center px-6 py-8 mb-16">
         <div className="max-w-3xl w-full">
           <p className="font-normal text-sm sm:text-base leading-relaxed text-[#0F1C3D]">
             The branding itself presented unique design hurdles. Developing a memorable logo for a two-letter company name, "BE," required meticulous attention to detail. From exploring negative space to integrating abstract patterns and energy-related motifs, every iteration needed to reflect their ethos of "adding value" rather than disrupting the industry. The deliverables were extensive, requiring us to package everything into a cohesive, organized structure while staying true to the timeline.
@@ -331,7 +331,7 @@ export default function CaseStudies() {
       </section>
 
       {/* Final Text Section */}
-      <section className="w-full bg-white flex justify-center px-6 py-8 mb-16">
+      <section className="w-full flex justify-center px-6 py-8 mb-16">
         <div className="max-w-3xl w-full">
           <p className="font-normal text-sm sm:text-base leading-relaxed text-[#0F1C3D]">
             The "+" symbolized their commitment to adding value to existing resources rather than disrupting the industry. It encapsulated their mission to enhance renewable energy solutions while maintaining harmony with nature. The design resonated deeply with BEC, aligning perfectly with their brand philosophy.
@@ -339,25 +339,48 @@ export default function CaseStudies() {
         </div>
       </section>
 
-      {/* Final Image Pair */}
-      <section className="w-full max-w-[2000px] mx-auto flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8 px-4 sm:px-8">
-        <div className="flex-1 w-full">
-          <Image
-            src="/images/img9_1.png"
-            alt="Image 9_1"
-            width={624}
-            height={442}
-            className="rounded-lg object-cover w-full h-auto"
-          />
+    
+
+      {/* Partner & Subscribe Section */}
+      <section className="w-full  container border-[#E3E3E3] border-1 mx-auto flex flex-col lg:flex-row gap-6 px-4 py-16">
+        {/* Partner with us Card */}
+        <div className="flex-1  border-[#E3E3E3] border-1 rounded-3xl p-8 flex flex-col">
+          <div className="mb-6">
+            <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+              <Image src="/images/inbox.png" alt="Inbox Icon" width={32} height={32} />
+            </div>
+            <h3 className="text-2xl font-medium text-[#0F1C3D] mb-3">Partner with us</h3>
+            <p className="text-gray-600 text-base leading-relaxed">
+              We work in all things creative and strategy, and look forward to discussing your project.
+            </p>
+          </div>
+          <div className="mt-auto">
+            <button className="w-full bg-[#327AED] text-white py-4 px-6 rounded-full font-medium text-base hover:bg-blue-600 transition-colors duration-200 flex items-center justify-center gap-2">
+              Contact Us
+              <span className="text-lg">→</span>
+            </button>
+          </div>
         </div>
-        <div className="flex-1 w-full">
-          <Image
-            src="/images/img9_2.png"
-            alt="Image 9_2"
-            width={624}
-            height={442}
-            className="rounded-lg object-cover w-full h-auto"
-          />
+
+        {/* Stay informed Card */}
+        <div className="flex-1  border-[#E3E3E3] border-1 rounded-3xl p-8 flex flex-col">
+          <div className="mb-6">
+            <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+              <div className="w-8 h-8 flex">
+                <Image src="/images/bell.png" alt="Newsletter Icon" width={32} height={32} />
+              </div>
+            </div>
+            <h3 className="text-2xl font-medium text-[#0F1C3D] mb-3">Stay informed.</h3>
+            <p className="text-gray-600 text-base leading-relaxed">
+              Sign up to our newsletter for a global view on design and technology.
+            </p>
+          </div>
+          <div className="mt-auto">
+            <button className="w-full bg-[#327AED] text-white py-4 px-6 rounded-full font-medium text-base hover:bg-blue-600 transition-colors duration-200 flex items-center justify-center gap-2">
+              Subscribe
+              <span className="text-lg">→</span>
+            </button>
+          </div>
         </div>
       </section>
     </main>

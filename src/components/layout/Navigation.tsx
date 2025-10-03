@@ -13,6 +13,17 @@ type Props = {
 
 const PortfolioDropdown = ({ textColor, navbarBackground }: Props) => {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  
+  console.log('🔄 Rendering PortfolioDropdown, open state:', open, 'pathname:', pathname);
+  
+  // Close dropdown when route changes
+  useEffect(() => {
+    console.log('📍 Pathname changed to:', pathname, 'closing dropdown');
+    setOpen(false);
+  }, [pathname]);
+
+ 
   return (
     <div className="relative">
       <button
@@ -65,7 +76,7 @@ export const Navigation = () => {
   const logoSrc = isCaseStudyPage ? '/images/logo_white.png' : '/images/logo.png';
 
   return (
-    <nav className={`w-full h-[68px] ${navbarBackground}   flex items-center justify-between px-6 relative z-[100]`}>
+    <nav className={`w-full h-[68px] border-1 border-[#1616161A] ${navbarBackground}   flex items-center justify-between px-6 relative z-[100]`}>
       {/* Logo */}
       <div className="flex items-center">
         <img 

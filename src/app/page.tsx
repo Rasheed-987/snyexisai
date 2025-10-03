@@ -8,7 +8,7 @@ export default function HomePage() {
   return (
       <div className=" bg-white  rounded-b-[80px] mb-30  relative z-50">
       {/* Hero Section */}
-      <section className="min-h-screen flex flex-col justify-center items-center text-center px-4">
+      <section className="bg-[#F9F9F9] min-h-screen flex flex-col justify-center items-center text-center px-10">
         <p className="text-sm uppercase tracking-wide font-semibold text-[#0F1C3D] mb-4">
           Design & Webflow Agency / UAE
         </p>
@@ -18,39 +18,32 @@ export default function HomePage() {
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium text-[#327AED] mb-6">
           For Digital-First Brands
         </h2>
-        <p className="text-lg text-[#0F1C3D] mb-8">
+        <p className="text-lg font-regular text-[#0F1C3D] mb-8">
           We unite Brand, Website and Digital Product under one vision
         </p>
         <div className="flex flex-wrap justify-center gap-4 mb-12">
           <button
             onClick={() => router.push('/contact')}
-            className="bg-[#327AED] text-white px-10 py-4 rounded-full flex items-center gap-3 font-chillax text-base font-normal shadow-md hover:bg-[#2563EB] transition-all duration-150"
+            className="bg-[#327AED] text-white md:px-10 px-3 py-6 rounded-full flex items-center gap-3 font-chillax text-base font-normal shadow-md transition-all duration-150"
     
           >
             Work With Us
-            <img src="/images/home/button_arrow.png" alt="Arrow Right" className="w-4 h-4 ml-2" />
+            <img src="/images/home/button_arrow.png" alt="Arrow Right" className="w-4 h-4 " />
           </button>
           <button
             onClick={() => router.push('/casestudies')}
-            className="border border-[#0F1C3D] text-[#0F1C3D] px-10 py-4 rounded-full flex items-center gap-3 font-chillax text-base font-normal transition-all duration-150"
+            className="border border-[#0F1C3D] text-[#0F1C3D] px-3  md:px-10 py-6 rounded-full flex items-center gap-3 font-chillax text-base font-normal transition-all duration-150"
           >
             Explore Our Case Studies
-            <img src="/images/home/button_arrow.png" alt="Arrow Right" className="w-4 h-4 ml-2" />
+            <img src="/images/home/button_arrow.png" alt="Arrow Right" className="w-4 h-4 " />
           </button>
         </div>
-{/* 
-        Trusted Brands */}
-        {/* <div className="flex flex-wrap justify-center gap-8">
-          <Image src="/images/home/img1.png" alt="Emaar" width={56} height={20} className="h-5 w-14" />
-          <Image src="/images/home/img2.png" alt="TED" width={56} height={20} className="h-5 w-14" />
-          <Image src="/images/home/img3.png" alt="Ogilvy" width={56} height={20} className="h-5 w-14" />
-          <Image src="/images/home/img4.png" alt="Webflow" width={56} height={20} className="h-5 w-14" />
-        </div> */}
+
       </section>
 
       {/* Why Synexis AI Section */}
-      <section className="bg-[#F4F0ED] py-16  lg:min-h-[700px]">
-        <div className="container mx-auto px-4">
+      <section className="bg-[#F4F0ED] py-16 ">
+        <div className=" mx-auto px-10">
           <div className="w-full flex items-start justify-start mb-8">
             <h3 className="text-3xl lg:text-4xl font-normal text-gray-900 leading-tight">
               Why<br />Synexis AI
@@ -82,13 +75,13 @@ export default function HomePage() {
           <h2 className="text-4xl lg:text-5xl font-medium text-[#1A2853] mb-6 leading-tight">
             Empowering businesses,<br />Redefining experiences...
           </h2>
-          <p className="text-lg text-[#1A2853] mb-4">
+          <p className="text-lg font-regular text-[#1A2853] mb-4">
             We don’t just design—we craft experiences that engage, convert, and inspire. Backed by innovation and industry expertise, we transform insights into pixel-perfect digital solutions.
           </p>
-          <p className="text-lg text-[#1A2853] mb-6">
+          <p className="text-lg font-regular text-[#1A2853] mb-6">
             From apps to websites, we deliver seamless, high-impact designs that redefine user experience. Let’s build something extraordinary together!
           </p>
-          <button className="bg-[#377DFF] text-white px-8 py-3 rounded-full font-medium mb-8 w-fit">
+          <button className="bg-[#327AED] text-white px-8 py-3 rounded-full font-medium mb-8 w-fit">
             More About Us
           </button>
           <div className="bg-white rounded-xl shadow-md p-6 mt-4">
@@ -108,7 +101,7 @@ export default function HomePage() {
 
       {/* Services Section */}
       <section className="py-16">
-        <div className="container mx-auto px-4">
+        <div className=" mx-auto px-10">
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-full bg-[#1A2853]" />
@@ -125,30 +118,30 @@ export default function HomePage() {
   <Image src="/images/home/Section.png" alt="Services" width={1600} height={485} className="w-full h-full object-cover rounded-xl" />
       </section>
  <section className="w-full my-12  py-12">
-  <div className="max-w-screen-xl mx-auto px-6 sm:px-12 lg:px-20">
+  <div className="  px-10">
     <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 text-center">
       
       {/* Stat 1 */}
       <div>
-  <h3 className="text-3xl sm:text-4xl font-bold text-black">250+</h3>
+  <h3 className="text-3xl sm:text-4xl font-medium text-black">250+</h3>
   <p className="text-[#0F1C3D] mt-2 text-sm sm:text-base">Projects Completed</p>
       </div>
 
       {/* Stat 2 */}
       <div>
-  <h3 className="text-3xl sm:text-4xl font-bold text-black">180+</h3>
+  <h3 className="text-3xl sm:text-4xl font-medium text-black">180+</h3>
   <p className="text-[#0F1C3D] mt-2 text-sm sm:text-base">Happy Clients</p>
       </div>
 
       {/* Stat 3 */}
       <div>
-  <h3 className="text-3xl sm:text-4xl font-bold text-black">10+</h3>
+  <h3 className="text-3xl sm:text-4xl font-medium text-black">10+</h3>
   <p className="text-[#0F1C3D] mt-2 text-sm sm:text-base">Years of Experience</p>
       </div>
 
       {/* Stat 4 */}
       <div>
-  <h3 className="text-3xl sm:text-4xl font-bold text-black">50+</h3>
+  <h3 className="text-3xl sm:text-4xl font-medium text-black">50+</h3>
   <p className="text-[#0F1C3D] mt-2 text-sm sm:text-base">Team Members</p>
       </div>
 
@@ -156,8 +149,8 @@ export default function HomePage() {
   </div>
 </section>
 
-  <section className="max-w-[1600px] mx-auto px-4">
-      <section className="max-w-screen-xl  sm:px-8 lg:px-16 py-12">
+  <section className=" mx-auto px-10">
+      <section className="  py-12">
         <div className="mb-12">
           <span className="inline-flex items-center text-sm text-slate-500 font-regular mb-4">
             <span className="w-2 h-2 rounded-full bg-sky-900 mr-2" />
@@ -176,17 +169,17 @@ export default function HomePage() {
       </section>
 
       <section className="w-full relative">
-  <div className="w-full overflow-hidden rounded-[29px]">
-    <Image
-      src="/images/img10.jpg"
-      alt="App Design Showcase"
-      width={1605}
-      height={768}
-      priority
-      className="w-full h-auto object-cover sm:min-h-[250px] sm:rounded-[22px]"
-    />
-  </div>
-</section>
+        <div className="w-full overflow-hidden rounded-[29px] min-h-[200px] sm:min-h-[350px] md:min-h-[612px] relative">
+          <Image
+            src="/images/img10.jpg"
+            alt="App Design Showcase"
+            fill
+            priority
+            sizes="100vw"
+            className="object-obtain sm:rounded-[22px] rounded-[29px]"
+          />
+        </div>
+      </section>
 
 
    <section className="mt-8">
@@ -212,7 +205,7 @@ export default function HomePage() {
           alt="App Design Laptop"
           width={907}
           height={633}
-          className="rounded-xl shadow-xl w-full h-full object-cover"
+          className="rounded-xl shadow-xl w-full h-full object-obtain"
         />
       </div>
     </div>
@@ -230,41 +223,33 @@ export default function HomePage() {
         {/* Card 1 */}
         <div className="flex flex-col items-center text-center">
           <span className="mb-10">
-              <span className="inline-flex items-center justify-center w-[80px] h-[80px] rounded-full" style={{ boxShadow: '0 0 38.7px 0 #327AED', background: 'rgba(50, 122, 237, 0.18)' }}>
-              <Image src="/images/home/img1_1.png" alt="POC" width={56} height={56} className="object-contain" />
-            </span>
+              <Image src="/images/home/img1_1.png" alt="POC" width={130} height={130} className="object-contain w-[130px] h-[130px]" />
           </span>
-          <h3 className="text-[#1A2341] text-xl font-semibold mb-2">POC in 4 – 6 weeks</h3>
+          <h3 className="text-[#1A2341] text-xl font-medium mb-2">POC in 4 – 6 weeks</h3>
           <p className="text-[#6B7280] text-base">See impact quickly with our rapid prototyping approach.</p>
         </div>
         {/* Card 2 */}
         <div className="flex flex-col items-center text-center">
           <span className="mb-10">
-              <span className="inline-flex items-center justify-center w-[80px] h-[80px] rounded-full" style={{ boxShadow: '0 0 38.7px 0 #327AED', background: 'rgba(50, 122, 237, 0.18)' }}>
-              <Image src="/images/home/img1_2.png" alt="End-to-End AI Delivery" width={56} height={56} className="object-contain" />
-            </span>
+              <Image src="/images/home/img1_2.png" alt="End-to-End AI Delivery" width={130} height={130} className="object-contain w-[130px] h-[130px]" />
           </span>
-          <h3 className="text-[#1A2341] text-xl font-semibold mb-2">End-to-End AI Delivery</h3>
+          <h3 className="text-[#1A2341] text-xl font-medium mb-2">End-to-End AI Delivery</h3>
           <p className="text-[#6B7280] text-base">From data prep to deployment to monitoring – we handle it all.</p>
         </div>
         {/* Card 3 */}
         <div className="flex flex-col items-center text-center">
           <span className="mb-10">
-              <span className="inline-flex items-center justify-center w-[80px] h-[80px] rounded-full" style={{ boxShadow: '0 0 38.7px 0 #327AED', background: 'rgba(50, 122, 237, 0.18)' }}>
-              <Image src="/images/home/img1_3.png" alt="Regulatory Compliance" width={56} height={56} className="object-contain" />
-            </span>
+              <Image src="/images/home/img1_3.png" alt="Regulatory Compliance" width={130} height={130} className="object-contain w-[130px] h-[130px]" />
           </span>
-          <h3 className="text-[#1A2341] text-xl font-semibold mb-2">Regulatory Compliance</h3>
+          <h3 className="text-[#1A2341] text-xl font-medium mb-2">Regulatory Compliance</h3>
           <p className="text-[#6B7280] text-base">HIPAA, CDPR, and SOC2 practices implemented from the ground up – so your AI is secure and scalable.</p>
         </div>
         {/* Card 4 */}
         <div className="flex flex-col items-center text-center">
           <span className="mb-10">
-              <span className="inline-flex items-center justify-center w-[80px] h-[80px] rounded-full" style={{ boxShadow: '0 0 38.7px 0 #327AED', background: 'rgba(50, 122, 237, 0.18)' }}>
-              <Image src="/images/home/img1_4.png" alt="Proven ROI" width={56} height={56} className="object-contain" />
-            </span>
+              <Image src="/images/home/img1_4.png" alt="Proven ROI" width={130} height={130} className="object-contain w-[130px] h-[130px]" />
           </span>
-          <h3 className="text-[#1A2341] text-xl font-semibold mb-2">Proven ROI</h3>
+          <h3 className="text-[#1A2341] text-xl font-medium mb-2">Proven ROI</h3>
           <p className="text-[#6B7280] text-base">Documented case studies with measurable, quantifiable results.</p>
         </div>
       </div>
@@ -276,7 +261,7 @@ export default function HomePage() {
     <p className="text-[#6B7280] text-base sm:text-lg lg:text-xl text-center max-w-2xl mb-12">We blend strategic insight, advanced technology, and a commitment to excellence to drive transformative results for your business.</p>
   </div>
 
-      <div className="w-full max-w-6xl flex flex-col gap-y-0">
+      <div className="w-full max-w-7xl px-10 flex flex-col gap-y-0">
         {/* Row 1 */}
         <hr className="w-full border-t border-gray-200" />
         <div className="flex flex-row flex-wrap justify-center items-center gap-x-4 sm:gap-x-10 gap-y-4 py-4 sm:py-6">
@@ -341,12 +326,12 @@ export default function HomePage() {
         </div>
 </section>
 
-<section className="w-full bg-white py-16 space-y-8 px-2 flex flex-col items-center font-[Chillax,sans-serif]">
-  <div className="w-full flex md:justify-between px-4 items-center">
-    <div className="w-full md:w-[40%] flex flex-col justify-center">
+<section className="w-full bg-white py-16 space-y-8 px-10 flex flex-col items-center font-[Chillax,sans-serif]">
+  <div className="w-full flex md:justify-between  items-center">
+    <div className="w-full md:w-[5 0%] flex flex-col justify-center">
       <h2 className="text-[#1A2341] text-3xl sm:text-5xl lg:text-6xl font-medium text-center md:text-left tracking-tight mb-4 md:mb-0 w-full">Words that define our UI/UX<br />design capabilities</h2>
     </div>
-    <div className="hidden sm:flex flex-row gap-4 items-center mr-20">
+    <div className="hidden md:flex flex-row gap-4 items-center mr-20">
       <span className="bg-white shadow flex items-center justify-center" style={{ borderRadius: '21px', width: '43px', height: '43px' }}>
         <img src="/images/home/arrow-left-solid-full.svg" alt="Left Arrow" style={{ width: '35px', height: '21px' }} />
       </span>

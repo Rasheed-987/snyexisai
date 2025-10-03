@@ -9,12 +9,12 @@ const OurProjectPage = () => {
     <div className='rounded-b-[80px]  min-h-screen  relative z-50 bg-white pb-24 lg:pb-40  '>
     
     <section className="bg-[#FAFBFC] py-10 ">
-      <div className="px-[4rem] ">
+      <div className="md:px-[4rem] px-6 ">
         <h1 className="text-5xl font-normal text-center text-[#142047] mb-24" style={{ fontFamily: 'Chillax, sans-serif' }}>
           Our Projects
         </h1>
         <div className=" px-2 ">
-          <p className="text-xs font-semibold text-[#142047] mb-2 tracking-widest" style={{ fontFamily: 'Chillax, sans-serif' }}>
+          <p className="text-xs font-medium text-[#142047] mb-2 tracking-widest" style={{ fontFamily: 'Chillax, sans-serif' }}>
             OUR FEATURED WORK
           </p>
           <h2 className="text-3xl md:text-4xl font-normal text-[#142047] leading-tight" style={{ fontFamily: 'Chillax, sans-serif' }}>
@@ -24,10 +24,10 @@ const OurProjectPage = () => {
       </div>
     </section>
 
-    <section className="bg-white w-full space-y-12 mt-10 h-auto md:px-[4rem] mx-auto "> 
+    <section className="bg-white w-full space-y-12 mt-10 h-auto md:px-[4rem] px-8 mx-auto "> 
   <div className="flex flex-col md:flex-row items-start gap-12  mx-auto">
     {/* Image side */}
-    <div className="w-full md:w-1/2 flex h-full mb-8 md:mb-0">
+    <div className="w-full md:w-1/2  h-full mb-8 md:mb-0">
       <Link href="/projectouterpage">
       <img 
         src="/images/ourproject/img1.png" 
@@ -49,7 +49,7 @@ const OurProjectPage = () => {
     {/* Content side */}
     <div className="w-full md:w-1/2 text-[#142047]" style={{ fontFamily: 'Chillax, sans-serif' }}>
       <p className="text-sm text-[#6C7BA1] mb-2">– ERP AI Agent</p>
-      <h3 className="text-3xl md:text-4xl font-medium mb-6 leading-tight">
+      <h3 className="text-3xl md:text-4xl font-medium  mb-6 leading-tight">
         Revolutionized ERP System with an AI Agent for Streamlined Order Management
       </h3>
       <p className="mb-6 text-lg font-regular text-[#142047]">
@@ -87,7 +87,7 @@ const OurProjectPage = () => {
      {/* Content side */}
     <div className="w-full md:w-1/2 text-[#142047]" style={{ fontFamily: 'Chillax, sans-serif' }}>
       <p className="text-sm text-[#6C7BA1] mb-2">– ERP AI Agent</p>
-      <h3 className="text-3xl md:text-4xl font-semibold mb-6 leading-tight">
+      <h3 className="text-3xl md:text-4xl font-medium mb-6 leading-tight">
         Revolutionized ERP System with an AI Agent for Streamlined Order Management
       </h3>
       <p className="mb-6 text-lg text-[#142047]">
@@ -119,7 +119,7 @@ const OurProjectPage = () => {
     </div>
     
     {/* Image side */}
-    <div className="w-full md:w-1/2 flex h-full mb-8 md:mb-0">
+    <div className="w-full md:w-1/2  h-full mb-8 md:mb-0">
       <Link href="/projectouterpage">
       
       <img 
@@ -162,7 +162,7 @@ const OurProjectPage = () => {
     {/* Content side */}
     <div className="w-full md:w-1/2 text-[#142047]" style={{ fontFamily: 'Chillax, sans-serif' }}>
       <p className="text-sm text-[#6C7BA1] mb-2">– ERP AI Agent</p>
-      <h3 className="text-3xl md:text-4xl font-semibold mb-6 leading-tight">
+      <h3 className="text-3xl md:text-4xl font-medium mb-6 leading-tight">
         Revolutionized ERP System with an AI Agent for Streamlined Order Management
       </h3>
       <p className="mb-6 text-lg text-[#142047]">
@@ -200,7 +200,7 @@ const OurProjectPage = () => {
      {/* Content side */}
     <div className="w-full md:w-1/2 text-[#142047]" style={{ fontFamily: 'Chillax, sans-serif' }}>
       <p className="text-sm text-[#6C7BA1] mb-2">– ERP AI Agent</p>
-      <h3 className="text-3xl md:text-4xl font-semibold mb-6 leading-tight">
+      <h3 className="text-3xl md:text-4xl font-medium mb-6 leading-tight">
         Revolutionized ERP System with an AI Agent for Streamlined Order Management
       </h3>
       <p className="mb-6 text-lg text-[#142047]">
@@ -268,7 +268,7 @@ const OurProjectPage = () => {
           </Link>
         </div>
         <div className="relative flex flex-col items-center justify-center h-full z-10 text-center px-6 sm:px-12">
-          <h2 className="text-white font-chillax font-semibold text-3xl sm:text-4xl lg:text-5xl mb-4">
+          <h2 className="text-white font-chillax font-medium text-3xl sm:text-4xl lg:text-5xl mb-4">
             Have A Project in Mind?
           </h2>
           <p className="text-white font-chillax font-normal text-base sm:text-lg lg:text-xl mb-6 max-w-[600px]">

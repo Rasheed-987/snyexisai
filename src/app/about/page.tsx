@@ -3,11 +3,11 @@ import GridTextCard from '@/components/ui/GridTextCard';
 
 export default function AboutPage() {
 	return (
-		<main className="min-h-screen bg-[#F4F0ED] mb-30 z-50 relative rounded-b-[80px] font-chillax  lg:pb-[160px]">
+		<main className="min-h-screen bg-[#F4F0ED] mb-30 z-50 relative rounded-b-[80px] font-chillax  pb-[160px]">
 			<section className="w-full flex justify-center items-center py-8 sm:py-12">
 				<div className="text-center max-w-[1020px] w-full mx-auto px-4 font-[Chillax,sans-serif]">
   <h2 className="text-[#17214D] font-medium text-xl sm:text-3xl md:text-4xl lg:text-[50px] leading-snug sm:leading-normal md:leading-[60px] lg:leading-[70px]">
-    With expertise across ventures and enterprises, Synexis.ai delivers next.
+    With expertise across <br />ventures and enterprises,<br /> Synexis.ai delivers next.
   </h2>
 </div>
 
@@ -38,7 +38,7 @@ export default function AboutPage() {
 
 			
       <section className="w-full  py-12">
-  <div className="max-w-screen-xl mx-auto px-6 sm:px-12 lg:px-20">
+  <div className=" mx-auto px-6 sm:px-12 lg:px-12">
     <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 text-center">
       
       {/* Stat 1 */}
@@ -70,7 +70,7 @@ export default function AboutPage() {
 </section>
 	<section className="w-full flex justify-center items-center py-10">
 				<p
-					className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-4"
+					className="mx-auto px-4 sm:px-6 lg:px-20"
 					style={{
 						fontFamily: 'Chillax, sans-serif',
 						fontWeight: 300,
@@ -88,16 +88,16 @@ export default function AboutPage() {
 
 
 				<section className="w-full py-16">
-  <div className=" mx-auto px-4 sm:px-8 lg:px-12">
+  <div className=" mx-auto px-4 sm:px-8 lg:px-[130px]">
 						<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 							{/* First card: text only, custom background */}
 							<div className="col-span-1 sm:col-span-2 lg:col-span-2 flex flex-col justify-center items-start p-8 bg-cover bg-center rounded-xl min-h-[260px]" >
-								<h2 className="text-[#22306A] font-bold text-2xl sm:text-3xl mb-2" style={{ fontFamily: 'Chillax, sans-serif' }}>
+								<h2 className="text-[#22306A] font-medium text-2xl sm:text-3xl mb-2" style={{ fontFamily: 'Chillax, sans-serif' }}>
 									Where Collaboration<br />
-									<span className="italic font-normal">Meets Creativity</span>
+									<span className="italic font-medium">Meets Creativity</span>
 								</h2>
 								<p className="text-[#22306A] text-base sm:text-lg opacity-80 mt-2" style={{ fontFamily: 'Chillax, sans-serif' }}>
-									We foster an open, inclusive culture where teamwork, smart thinking, and curiosity spark innovation—balancing growth, fun, and shared success.
+									We foster an open, inclusive culture where teamwork,<br /> smart thinking, and curiosity spark innovation—<br />balancing growth, fun, and shared success.
 								</p>
 							</div>
               <div className="rounded-xl overflow-hidden bg-[#22306A] min-h-[260px] flex">

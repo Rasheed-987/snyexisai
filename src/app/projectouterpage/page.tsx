@@ -4,17 +4,17 @@ export default function OurProjectPage() {
   return (
     <main className="px-5 rounded-b-[80px]  min-h-screen  relative z-50 bg-white pb-24 lg:pb-40   ">
       {/* Hero Section */}
-      <section className=" mx-auto py-16">
-        <h1 className="text-[46.93px] leading-[57.36px]  tracking-[-2.35px] text-center font-chillax font-medium mb-4">
+      <section className=" mx-auto py-10">
+        <h1 className="md:text-[46.93px] text-[30px] leading-[57.36px] lg:px-10  tracking-[-2.35px] text-center font-chillax font-medium mb-4">
           Revolutionized ERP System with an AI Agent for Streamlined Order Management
         </h1>
-        <div className="relative w-full  h-auto mx-auto px-5 ">
+        <div className="relative w-full   mx-auto px-2 ">
           <Image
             src="/images/img16.png"
             alt="Laptop Mockup"
             width={1280}
             height={576}
-            className="shadow-lg w-full rounded-[20px]"
+            className="shadow-lg w-full min-h-[250px] rounded-[20px]"
          />
         </div>
       </section>
@@ -22,42 +22,42 @@ export default function OurProjectPage() {
       {/* Services Section */}
       <section className="py-16">
         <h3 className="text-2xl font-regular text-center mb-8">WHAT WE OFFER</h3>
-        <h2 className="text-3xl sm:text-4xl font-semibold text-center mb-8">
+        <h2 className="text-3xl sm:text-[30px] md:font-semibold   text-center mb-8">
           Our AI agent development services
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
-          <div className="p-6 rounded-lg">
-            <h3 className="text-xl font-bold mb-4">AI Agent Consulting</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-1">
+          <div className="py-6 rounded-lg">
+            <h3 className="text-xl md:font-bold font-medium mb-4">AI Agent Consulting</h3>
             <p>
               We help you define a clear AI agent strategy by analyzing your use case, assessing your data and IT infrastructure, and determining the best AI agent type. Our experts guide you in selecting the right LLM, optimizing prompt engineering, and ensuring seamless integration, setting the foundation for a successful AI agent deployment.
             </p>
           </div>
-          <div className="p-6 rounded-lg">
-            <h3 className="text-xl font-bold mb-4">Custom AI Agent Design and Seamless Integration</h3>
+          <div className="py-6 rounded-lg">
+            <h3 className="text-xl md:font-bold font-medium mb-4">Custom AI Agent Design and Seamless Integration</h3>
             <p>
               We specialize in designing AI agents that are fully customized to meet your operational goals and user requirements. Our team ensures seamless integration with your existing systems and technologies, so your workflows remain uninterrupted while maximizing the benefits of AI.
             </p>
           </div>
-          <div className="p-6 rounded-lg">
-            <h3 className="text-xl font-bold mb-4">Task Automation and Operational Optimization</h3>
+          <div className="py-6 rounded-lg">
+            <h3 className="text-xl md:font-bold font-medium mb-4">Task Automation and Operational Optimization</h3>
             <p>
               The AI agents we engineer can handle repetitive, time-consuming tasks, allowing your team to focus on more strategic initiatives. We also provide ongoing performance optimization, ensuring these agents adapt to changing business needs and deliver continuous value.
             </p>
           </div>
-          <div className="p-6 rounded-lg">
-            <h3 className="text-xl font-bold mb-4">Real-Time Data Processing and Decision Support</h3>
+          <div className="py-6 rounded-lg">
+            <h3 className="text-xl md:font-bold font-medium mb-4">Real-Time Data Processing and Decision Support</h3>
             <p>
               We equip AI agents with powerful data processing capabilities allowing for real-time large datasets analysis. These agents offer valuable insights and support decision-making processes, helping businesses stay agile in fast-paced environments.
             </p>
           </div>
-          <div className="p-6 rounded-lg">
-            <h3 className="text-xl font-bold mb-4">Intelligent Customer Interaction and Engagement</h3>
+          <div className="py-6 rounded-lg">
+            <h3 className="text-xl md:font-bold font-medium mb-4">Intelligent Customer Interaction and Engagement</h3>
             <p>
               We build AI agents to enhance customer interactions through intelligent and human-like responses. They efficiently manage customer inquiries, provide personalized experiences, and strengthen relationships while reducing response times.
             </p>
           </div>
-          <div className="p-6 rounded-lg">
-            <h3 className="text-xl font-bold mb-4">Security, Compliance, and Continuous Support</h3>
+          <div className="py-6 rounded-lg">
+            <h3 className="text-xl md:font-bold font-medium mb-4">Security, Compliance, and Continuous Support</h3>
             <p>
               We build robust protections into every solution, ensuring that your AI agents comply with industry regulations and safeguard sensitive data. In addition to security, we offer continuous support and regular updates, keeping the AI agents optimized to meet new challenges while maintaining peak performance over time.
             </p>
@@ -66,7 +66,7 @@ export default function OurProjectPage() {
       </section>
 
      {/* Side-by-Side Images Section */}
-         <section className="w-full max-w-[2000px] mx-auto flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8 mb-16 px-4 sm:px-8">
+         <section className="w-full max-w-[2000px] mx-auto flex flex-col sm:flex-row items-center justify-center gapy-6 sm:gap-8 mb-16 px-4 sm:px-8">
            <div className="flex-1 w-full">
              <Image
                src="/images/img4_1.jpg"
