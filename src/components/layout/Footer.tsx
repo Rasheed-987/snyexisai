@@ -7,8 +7,9 @@ export default function Footer({ className = "" }: FooterProps) {
    <footer
    className="w-full overflow-hidden mt-[-80px] pt-40 text-white "
   style={{
-    background: 'linear-gradient(180deg, rgba(6, 71, 207, 0.3) 20% )'
-     // Safari support
+    background: 'linear-gradient(180deg, rgba(6, 71, 207, 0.3) 59.62%, rgba(6, 71, 207, 0.3) 100%)',
+      backdropFilter: 'blur(200px)'
+
   }}
 >
   <div className="max-w-[1440px] mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8">

@@ -9,10 +9,10 @@ const service = () => {
 </div>
       <div className="flex flex-col gap-4 w-full h-[300px] md:h-[400px] lg:h-[500px] rounded-xl px-8">
   <div className="relative flex flex-1 h-full">
-    <Image src="/images/Services/img1.png" alt="Services" fill className="object-cover rounded-xl" />
+    <Image src="/images/Services/img1.png" alt="Services" fill className="object-obtain rounded-xl" />
   </div>
   <div className="relative flex flex-1 h-full">
-    <Image src="/images/Services/img2.png" alt="Services" fill className="object-cover rounded-xl" />
+    <Image src="/images/Services/img2.png" alt="Services" fill className="object-obtain rounded-xl" />
     
   </div>
 </div>
