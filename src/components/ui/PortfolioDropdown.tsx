@@ -9,7 +9,7 @@ const PortfolioDropdown = () => {
   
 
   useEffect(() => {
-    console.log('📍 Pathname changed to:', pathname, 'closing dropdown');
+   
     setOpen(false);
   }, [pathname]);
 

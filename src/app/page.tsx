@@ -341,7 +341,7 @@ export default function HomePage() {
     </div>
   </div>
  {/* Card Div */}
-  <div className="flex flex-col md:flex-row bg-white rounded-3xl shadow-lg overflow-hidden max-w-7xl mx-auto w-full" style={{ boxShadow: '0 0 32px 0 rgba(50,122,237,0.18)' }}>
+  <div className="flex flex-col md:flex-row bg-white rounded-3xl shadow-lg overflow-hidden max-w-7xl mx-auto w-full" >
   {/* Mobile arrow nav below card */}
   
     {/* Left: Project Info */}

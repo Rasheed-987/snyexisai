@@ -73,6 +73,7 @@ export const Navigation = () => {
   const isCaseStudyPage = pathname === '/casestudies';
   const navbarBackground = isCaseStudyPage ? 'bg-[#0A1329]' : 'bg-[#F9F9F9]';
   const textColor = isCaseStudyPage ? 'text-white' : 'text-[#0F1C3D]';
+  const menuColor = isCaseStudyPage ? '#F9F9F9' : '#0F1C3D';
   const logoSrc = isCaseStudyPage ? '/images/logo_white.png' : '/images/logo.png';
 
   return (
@@ -88,7 +89,7 @@ export const Navigation = () => {
 
       {/* Hamburger Menu Button (Mobile) */}
       <button
-        className="md:hidden flex items-center justify-center w-10 h-10 rounded-full border border-gray-300 z-[110]"
+        className={`md:hidden flex items-center justify-center w-10 h-10 rounded-full  z-[110]`}
         onClick={toggleMenu}
         type="button"
         aria-label="Toggle menu"
@@ -96,15 +97,15 @@ export const Navigation = () => {
         {menuOpen ? (
           // Close X Icon
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M18 6L6 18" stroke="#0F1C3D" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M6 6l12 12" stroke="#0F1C3D" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M18 6L6 18" stroke={menuColor} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M6 6l12 12" stroke={menuColor} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         ) : (
           // Hamburger Icon
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect y="5" width="24" height="2.5" rx="1.25" fill="#0F1C3D" />
-            <rect y="11" width="24" height="2.5" rx="1.25" fill="#0F1C3D" />
-            <rect y="17" width="24" height="2.5" rx="1.25" fill="#0F1C3D" />
+            <rect y="5" width="24" height="2.5" rx="1.25" fill={menuColor} />
+            <rect y="11" width="24" height="2.5" rx="1.25" fill={menuColor} />
+            <rect y="17" width="24" height="2.5" rx="1.25" fill={menuColor} />
           </svg>
         )}
       </button>
@@ -154,13 +155,13 @@ export const Navigation = () => {
               >
                 SERVICES
               </Link>
-              <Link 
+              {/* <Link 
                 href="#" 
                 className="text-[#0F1C3D] font-chillax font-semibold text-[14px] tracking-[0.5px] py-4 text-center border-b border-gray-200"
                 onClick={closeMenu}
               >
                 PORTFOLIO
-              </Link>
+              </Link> */}
               <Link 
                 href="/careers" 
                 className="text-[#0F1C3D] font-chillax font-semibold text-[14px] tracking-[0.5px] py-4 text-center border-b border-gray-200"
