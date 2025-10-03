@@ -1,7 +1,10 @@
+'use client';
 import Image from 'next/image';
 import GridTextCard from '@/components/ui/GridTextCard';
+import { useRouter } from 'next/navigation';
 
 export default function AboutPage() {
+	const router = useRouter();
 	return (
 		<main className="min-h-screen bg-[#F4F0ED] mb-30 z-50 relative rounded-b-[80px] font-chillax  pb-[160px]">
 			<section className="w-full flex justify-center items-center py-8 sm:py-12">
@@ -163,8 +166,8 @@ everything we do." />
 								<p className="text-[#17214D] text-base sm:text-lg mb-6" style={{ fontFamily: 'Chillax, sans-serif' }}>
 									Markovate’s team of <span className="font-bold">generative AI experts</span> relies on an advanced suite of technologies like AI, ML, Generative AI, Blockchain, Web3, Mobile, and more to drive innovation. Incorporating machine learning frameworks, cloud computing, and data analytics tools, our tech stack is designed for scalability, reliability, and optimum performance. It’s the backbone that ensures each software solution we deliver meets industry standards and exceeds client expectations.
 								</p>
-							
-								<button className="bg-[#2563eb] text-white rounded-full px-6 py-3 font-medium text-base shadow hover:bg-[#1741a3] transition flex items-center gap-2">
+
+								<button onClick={() => router.push('/casestudies')} className="bg-[#2563eb] text-white rounded-full px-6 py-3 font-medium text-base shadow hover:bg-[#1741a3] transition flex items-center gap-2">
 									Case Studies <span className="text-xl">→</span>
 								</button>
 							</div>
@@ -206,7 +209,7 @@ everything we do." />
       >
         Partner with us to unlock innovation and accelerate your digital future.
       </p>
-      <button className="bg-white text-[#17214D] rounded-full px-4 py-2 sm:px-6 sm:py-3 font-medium text-sm sm:text-base shadow hover:bg-gray-200 transition">
+      <button onClick={() => router.push('/contact')} className="bg-white text-[#17214D] rounded-full px-4 py-2 sm:px-6 sm:py-3 font-medium text-sm sm:text-base shadow hover:bg-gray-200 transition">
         Schedule A Call
       </button>
     </div>

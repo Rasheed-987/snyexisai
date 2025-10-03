@@ -81,7 +81,7 @@ export default function HomePage() {
           <p className="text-lg font-regular text-[#1A2853] mb-6">
             From apps to websites, we deliver seamless, high-impact designs that redefine user experience. Let’s build something extraordinary together!
           </p>
-          <button className="bg-[#327AED] text-white px-8 py-3 rounded-full font-medium mb-8 w-fit">
+          <button onClick={() => router.push('/about')} className="bg-[#327AED] text-white px-8 py-3 rounded-full font-medium mb-8 w-fit">
             More About Us
           </button>
           <div className="bg-white rounded-xl shadow-md p-6 mt-4">
@@ -307,7 +307,7 @@ export default function HomePage() {
           <div className="flex-1 flex flex-col justify-center">
             <p className="text-[#1A2341] text-base sm:text-lg mb-4">We're a passionate team of UI/UX designers dedicated to creating intuitive digital experiences. With years of experience, we blend creativity and strategy to design solutions that engage users and drive business success.</p>
             <p className="text-[#1A2341] text-base sm:text-lg mb-6">We turn ideas into seamless, Beautiful designs. Let's build digital experiences that not only look stunning but also deliver real results.</p>
-            <button className="bg-[#2563EB] text-white px-6 py-2 rounded-full font-medium w-fit">More About Us</button>
+            <button onClick={() => router.push('/about')}  className="bg-[#2563EB] text-white px-6 py-2 rounded-full font-medium w-fit">More About Us</button>
           </div>
         </div>
 <div className="w-full  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">

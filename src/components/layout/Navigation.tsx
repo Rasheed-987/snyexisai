@@ -9,9 +9,10 @@ import Image from 'next/image';
 type Props = {
   textColor: string;
   navbarBackground: string;
+  isCaseStudyPage: boolean;
 };
 
-const PortfolioDropdown = ({ textColor, navbarBackground }: Props) => {
+const PortfolioDropdown = ({ textColor, navbarBackground, isCaseStudyPage }: Props) => {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   
@@ -32,7 +33,8 @@ const PortfolioDropdown = ({ textColor, navbarBackground }: Props) => {
         type="button"
       >
         PORTFOLIO
-        <img src="/images/arrow-down-solid-full.svg" alt="Portfolio Icon" className='w-4  mb-1 h-4 ml-1' />
+        {isCaseStudyPage?<img src="/images/Services/arrow-down-white.svg" alt="Portfolio Icon" className='w-4  mb-1 h-4 ml-1' />:<img src="/images/arrow-down-solid-full.svg" alt="Portfolio Icon" className='w-4  mb-1 h-4 ml-1' />
+        }
         {/* <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg> */}
       </button>
       {open && (
@@ -116,7 +118,7 @@ export const Navigation = () => {
         <Link href="/about" className={`font-chillax font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>ABOUT</Link>
         <Link href="/services" className={`font-chillax font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>SERVICES</Link>
         <div className="flex items-center">
-          <PortfolioDropdown textColor={textColor} navbarBackground={navbarBackground} />
+          <PortfolioDropdown textColor={textColor} navbarBackground={navbarBackground} isCaseStudyPage={isCaseStudyPage} />
         </div>
         <Link href="/careers" className={`font-chillax font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>CAREER</Link>
         <Link href="/contact" className={`font-chillax font-semibold text-[14px] tracking-[0.5px] uppercase ${textColor}`}>CONTACT US</Link>

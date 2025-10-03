@@ -7,13 +7,20 @@ const PortfolioDropdown = () => {
   const router = useRouter();
   const pathname = usePathname();
   
-
+  console.log('🔄 Rendering PortfolioDropdown, open state:', open, 'pathname:', pathname);
+  
+  // Close dropdown when route changes
   useEffect(() => {
-   
+    console.log('📍 Pathname changed to:', pathname, 'closing dropdown');
     setOpen(false);
   }, [pathname]);
 
- 
+  useEffect(() => {
+    console.log('🎯 PortfolioDropdown mounted');
+    return () => {
+      console.log('💀 PortfolioDropdown unmounted');
+    };
+  }, []);
   return (
     <div className="relative">
       <button

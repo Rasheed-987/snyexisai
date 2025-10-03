@@ -143,20 +143,21 @@ const OurProjectPage = () => {
 
  <div className="flex flex-col md:flex-row items-start gap-12   mx-auto">
     {/* Image side */}
-    <div className="w-full md:w-1/2 flex h-full mb-8 md:mb-0">
-      <img 
-        src="/images/ourproject/img1.png" 
-        alt="ERP AI Agent Project Screenshot" 
-        className="
-          w-full 
-          rounded-lg 
-          shadow-lg 
-           h-full
-          md:max-h-[280px]   /* medium screens */
-          lg:max-h-[400px]   /* large screens */
-           
-        "
-      />
+    <div className="w-full md:w-1/2  h-full mb-8 md:mb-0">
+      <Link href="/projectouterpage">
+        <img 
+          src="/images/ourproject/img1.png" 
+          alt="ERP AI Agent Project Screenshot" 
+          className="
+            w-full 
+            rounded-lg 
+            shadow-lg 
+            h-full
+            md:max-h-[280px]   /* medium screens */
+            lg:max-h-[400px]   /* large screens */
+          "
+        />
+      </Link>
     </div>
 
     {/* Content side */}
@@ -168,7 +169,7 @@ const OurProjectPage = () => {
       <p className="mb-6 text-lg text-[#142047]">
         For a leading American manufacturer, we created an ERP AI agent to manage customer orders, inventory, and order tracking, improving order accuracy and response times while enhancing operational efficiency.
       </p>
-      <a href="#" className="inline-flex items-center text-[#3B82F6] font-medium mb-6 hover:underline">
+      <a href="/projectouterpage" className="inline-flex items-center text-[#3B82F6] font-medium mb-6 hover:underline">
         Read more
         <span className="ml-2">→</span>
       </a>
@@ -206,7 +207,7 @@ const OurProjectPage = () => {
       <p className="mb-6 text-lg text-[#142047]">
         For a leading American manufacturer, we created an ERP AI agent to manage customer orders, inventory, and order tracking, improving order accuracy and response times while enhancing operational efficiency.
       </p>
-      <a href="#" className="inline-flex items-center text-[#3B82F6] font-medium mb-6 hover:underline">
+      <a href="/projectouterpage" className="inline-flex items-center text-[#3B82F6] font-medium mb-6 hover:underline">
         Read more
         <span className="ml-2">→</span>
       </a>
@@ -232,21 +233,21 @@ const OurProjectPage = () => {
     </div>
     
     {/* Image side */}
-    <div className="w-full md:w-1/2 flex h-full mb-8 md:mb-0">
-      <img 
-        src="/images/ourproject/img1.png" 
-        alt="ERP AI Agent Project Screenshot" 
-        className="
-          w-full 
-          rounded-lg 
-          shadow-lg 
-        
-          h-full
-          md:max-h-[280px]   /* medium screens */
-          lg:max-h-[400px]   /* large screens */
-            
-        "
-      />
+    <div className="w-full md:w-1/2 h-full mb-8 md:mb-0">
+      <Link href="/projectouterpage">
+        <img 
+          src="/images/ourproject/img1.png" 
+          alt="ERP AI Agent Project Screenshot" 
+          className="
+            w-full 
+            rounded-lg 
+            shadow-lg 
+            h-full
+            md:max-h-[280px]   /* medium screens */
+            lg:max-h-[400px]   /* large screens */
+          "
+        />
+      </Link>
     </div>
 
    
