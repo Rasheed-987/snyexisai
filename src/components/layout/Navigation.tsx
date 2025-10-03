@@ -172,7 +172,7 @@ export const Navigation = () => {
                 CAREER
               </Link>
               <Link 
-                href="" 
+                href="/contact" 
                 className="text-[#0F1C3D] font-chillax font-semibold text-[14px] tracking-[0.5px] py-4 text-center"
                 onClick={closeMenu}
               >
