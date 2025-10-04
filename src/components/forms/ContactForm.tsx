@@ -237,7 +237,7 @@ export default function ContactForm() {
                   isLoading 
                     ? 'border-blue-500 bg-white' 
                     : isChecked 
-                      ? 'border-green-500 bg-green-500' 
+                      ? 'border-[#3B82F6] bg-[#3B82F6]'
                       : 'border-[#0F1C3D] bg-white hover:border-blue-500'
                 }`}
                 onClick={handleCheckboxClick}
