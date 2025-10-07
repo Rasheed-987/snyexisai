@@ -15,7 +15,7 @@ export default function Sidebar() {
         </svg>
       ),
       label: 'Overview',
-      href: '/admin/overview',
+      href: '/admin/dashboard',
       active: true
     },
     {

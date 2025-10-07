@@ -1,10 +1,21 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import AdminContentLayout from '@/components/admin/AdminContentLayout'
 import { ProjectCard } from '@/components/admin/AdminCards'
+import { useTitle } from '@/hooks/titleContext'
+import { useRouter } from 'next/navigation'
 
 export default function ProjectsPage() {
+
+  const router = useRouter();
+
+const { setTitle } = useTitle();
+
+useEffect(() => {
+  setTitle('Projects');
+}, [setTitle]);
+
   const projectsData = [
     {
       id: '1',
@@ -58,6 +69,7 @@ export default function ProjectsPage() {
 
   const handleUpload = () => {
     console.log('Upload Project clicked')
+    router.push('/admin/projects/upload');
     // Add upload logic here
   }
 

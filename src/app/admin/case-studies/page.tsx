@@ -1,10 +1,17 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import AdminContentLayout from '@/components/admin/AdminContentLayout'
 import { CaseStudyCard } from '@/components/admin/AdminCards'
+import { useTitle } from '@/hooks/titleContext'
 
 export default function CaseStudiesPage() {
+  const { setTitle } = useTitle();
+
+  // Set title when page loads
+  useEffect(() => {
+    setTitle('Case Studies');
+  }, [setTitle]);
   const caseStudiesData = [
     {
       id: '1',

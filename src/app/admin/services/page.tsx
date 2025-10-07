@@ -3,8 +3,16 @@
 import React from 'react'
 import AdminContentLayout from '@/components/admin/AdminContentLayout'
 import { ServiceCard } from '@/components/admin/AdminCards'
+import { useTitle } from '@/hooks/titleContext'
+import { useEffect } from 'react'
 
 export default function ServicesPage() {
+  const { setTitle } = useTitle();
+
+  useEffect(() => {
+    setTitle('Services');
+  }, [setTitle]);
+
   const servicesData = [
     {
       id: '1',
