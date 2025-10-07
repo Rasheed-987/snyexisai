@@ -4,9 +4,11 @@ import React from 'react'
 import AdminContentLayout from '@/components/admin/AdminContentLayout'
 import { JobCard } from '@/components/admin/AdminCards'
 import { useTitle } from '@/hooks/titleContext'
+import {useRouter} from 'next/navigation'
 
 const career = () => {
 
+  const router = useRouter();
   
   const { setTitle } = useTitle();
 
@@ -16,7 +18,7 @@ const career = () => {
   }, [setTitle]);
 
    const onUpload = () => {
-     // Handle upload logic here
+     router.push('/admin/career/upload');
    }
 
     // Props for AdminContentLayout

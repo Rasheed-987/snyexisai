@@ -1,6 +1,7 @@
 'use client';
 import React from 'react'
 import { useState } from 'react'
+import { UploadBox } from '@/components/upload/UploadBox';
 
 export default function ServicesUploadPage() {
 
@@ -18,12 +19,9 @@ const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, index?: numbe
   return (
 
     <div className='min-h-screen bg-gray-50 p-8 flex flex-col '>
-    
+      <UploadBox label="Upload Service Image" image={image} onUpload={handleImageUpload} className="mb-4 min-h-[50vh]" />
      
-      <div className="flex flex-col px-auto  gap-4">
-        <input type="file" onChange={handleImageUpload} className="border-2 w-[60vw] text-center min-h-[50vh] border-dashed p-2 rounded" />
-      </div>
-      <div>
+      <div className="mb-4">
 
         <input type="text" placeholder="Service Title" value={serviceTitle || ''} onChange={(e) => setServiceTitle(e.target.value)} className="border-2 border-dashed p-2 rounded" />
       </div>

@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Upload } from 'lucide-react';
 
-export default function UploadBox({ label, image, onUpload, className = '' }:{label?: string, image?: string | null, onUpload?: (file: File, index?: number) => void, className?: string}) {
+export  function UploadBox({ label, image, onUpload, className = '' }:{label?: string, image?: string | null, onUpload?: (e: React.ChangeEvent<HTMLInputElement>, index?: number) => void, className?: string}) {
 
 
  return (
@@ -18,11 +18,12 @@ export default function UploadBox({ label, image, onUpload, className = '' }:{la
               accept="image/*"
               className="hidden"
               onChange={(e) => {
-                const file = e.target.files?.[0];
-                if (file && onUpload) {
-                  onUpload(file);
-                }
-              }}
+  console.log("Event target:", e.target);
+  const file = e.target.files?.[0];
+  if (file && onUpload) {
+    onUpload(e); // Pass the event object instead of just the file
+  }
+}}
             />
           </label>
         </div>)}
