@@ -11,12 +11,7 @@ const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, index?: numbe
     const file = e.target.files?.[0];
     if (file) {
       const url = URL.createObjectURL(file);
-      if (typeof index === "number") {
-        const newImgs = [...image];
-        setImage(newImgs);
-      } else {
         setImage(url);
-      }
     }
   };
 
