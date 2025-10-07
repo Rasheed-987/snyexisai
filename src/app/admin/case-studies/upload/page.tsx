@@ -6,7 +6,7 @@ import {UploadBox} from '@/components/upload/UploadBox';
 const CaseStudiesUploadPage: React.FC = () => {
   const [caseTitle, setCaseTitle] = useState('');
   const [subtitle, setSubtitle] = useState('');
-  const [banner, setBanner] = useState<string | null>(null);
+//   const [banner, setBanner] = useState<string | null>(null);
   // images[] will hold all image slots in the wireframe in order.
   // Increase size if you add more slots in future.
   const [images, setImages] = useState<(string | null)[]>(
@@ -60,8 +60,6 @@ const CaseStudiesUploadPage: React.FC = () => {
       const newImgs = [...images];
       newImgs[index] = url;
       setImages(newImgs);
-    } else {
-      setBanner(url);
     }
   };
 
@@ -90,7 +88,7 @@ const CaseStudiesUploadPage: React.FC = () => {
       <div className="w-full max-w-4xl mb-6 h-56">
         <UploadBox
           label="Project Banner"
-          image={banner}
+          image={images[0]}
           onUpload={(e) => handleImageUpload(e)}
           className="w-full h-full"
         />

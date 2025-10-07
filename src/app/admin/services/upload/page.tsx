@@ -5,7 +5,7 @@ import { UploadBox } from '@/components/upload/UploadBox';
 
 export default function ServicesUploadPage() {
 
-    const [serviceTitle, setServiceTitle] = useState<String | null>(null);
+    const [serviceTitle, setServiceTitle] = useState<string | null>(null);
     const [image, setImage] = useState<string | null>(null);
 
 const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, index?: number) => {
