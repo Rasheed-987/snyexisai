@@ -5,10 +5,11 @@ import AdminContentLayout from '@/components/admin/AdminContentLayout'
 import { ServiceCard } from '@/components/admin/AdminCards'
 import { useTitle } from '@/hooks/titleContext'
 import { useEffect } from 'react'
+  import { useRouter } from 'next/navigation'
 
 export default function ServicesPage() {
   const { setTitle } = useTitle();
-
+  const router = useRouter();
   useEffect(() => {
     setTitle('Services');
   }, [setTitle]);
@@ -43,6 +44,7 @@ export default function ServicesPage() {
   const handleUpload = () => {
     console.log('Upload Service clicked')
     // Add upload logic here
+    router.push('/admin/services/upload');
   }
 
   const handleEdit = (id: string) => {

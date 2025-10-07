@@ -4,9 +4,11 @@ import React, { useEffect } from 'react'
 import AdminContentLayout from '@/components/admin/AdminContentLayout'
 import { CaseStudyCard } from '@/components/admin/AdminCards'
 import { useTitle } from '@/hooks/titleContext'
+import { useRouter } from 'next/navigation'
 
 export default function CaseStudiesPage() {
   const { setTitle } = useTitle();
+  const router = useRouter();
 
   // Set title when page loads
   useEffect(() => {
@@ -50,6 +52,7 @@ export default function CaseStudiesPage() {
   const handleUpload = () => {
     console.log('Upload Case Study clicked')
     // Add upload logic here
+    router.push('/admin/case-studies/upload');
   }
 
   const handleEdit = (id: string) => {
