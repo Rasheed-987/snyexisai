@@ -9,6 +9,9 @@ const CaseStudiesUploadPage: React.FC = () => {
 //   const [banner, setBanner] = useState<string | null>(null);
   // images[] will hold all image slots in the wireframe in order.
   // Increase size if you add more slots in future.
+  const [banner, setBanner] = useState<(string | null)[]>(
+    Array(10).fill(null) // Assuming 1 banner slot as per wireframe
+  );
   const [images, setImages] = useState<(string | null)[]>(
     // slots index guide (for maintainability):
     // 0: big Image Here (after What we did)
@@ -56,10 +59,13 @@ const CaseStudiesUploadPage: React.FC = () => {
     const file = e.target.files?.[0];
     if (!file) return;
     const url = URL.createObjectURL(file);
+    console.log(`Uploading image at index ${index}:`, url); // Debugging log
+
     if (typeof index === 'number') {
-      const newImgs = [...images];
-      newImgs[index] = url;
-      setImages(newImgs);
+      const newBanner = [...banner];
+      newBanner[index] = url; // Update the specific index
+      setBanner(newBanner); // Update the state
+      console.log('Updated banner state:', newBanner); // Debugging log
     }
   };
 
@@ -88,8 +94,8 @@ const CaseStudiesUploadPage: React.FC = () => {
       <div className="w-full max-w-4xl mb-6 h-56">
         <UploadBox
           label="Project Banner"
-          image={images[0]}
-          onUpload={(e) => handleImageUpload(e)}
+          image={banner[0]}
+          onUpload={(e) => handleImageUpload(e, 0)}
           className="w-full h-full"
         />
       </div>
@@ -130,8 +136,8 @@ const CaseStudiesUploadPage: React.FC = () => {
       <div className="w-full max-w-4xl h-56 mb-6">
         <UploadBox
           label="Image Here"
-          image={images[0]}
-          onUpload={(e) => handleImageUpload(e, 0)}
+          image={banner[1]}
+          onUpload={(e) => handleImageUpload(e, 1)}
           className="w-full h-full"
         />
       </div>
@@ -141,16 +147,16 @@ const CaseStudiesUploadPage: React.FC = () => {
         <div className="h-40">
           <UploadBox
             label="Image Here"
-            image={images[1]}
-            onUpload={(e) => handleImageUpload(e, 1)}
+            image={banner[2]}
+            onUpload={(e) => handleImageUpload(e, 2)}
             className="w-full h-full"
           />
         </div>
         <div className="h-40">
           <UploadBox
             label="Image Here"
-            image={images[2]}
-            onUpload={(e) => handleImageUpload(e, 2)}
+            image={banner[3]}
+            onUpload={(e) => handleImageUpload(e, 3)}
             className="w-full h-full"
           />
         </div>
@@ -207,16 +213,16 @@ const CaseStudiesUploadPage: React.FC = () => {
         <div className="h-40">
           <UploadBox
             label="Image Here"
-            image={images[3]}
-            onUpload={(e) => handleImageUpload(e, 3)}
+            image={banner[4]}
+            onUpload={(e) => handleImageUpload(e, 4)}
             className="w-full h-full"
           />
         </div>
         <div className="h-40">
           <UploadBox
             label="Image Here"
-            image={images[4]}
-            onUpload={(e) => handleImageUpload(e, 4)}
+            image={banner[5]}
+            onUpload={(e) => handleImageUpload(e, 5)}
             className="w-full h-full"
           />
         </div>
@@ -255,8 +261,8 @@ const CaseStudiesUploadPage: React.FC = () => {
       <div className="w-full max-w-4xl h-56 mb-6">
         <UploadBox
           label="Image Here"
-          image={images[5]}
-          onUpload={(e) => handleImageUpload(e, 5)}
+          image={banner[6]}
+          onUpload={(e) => handleImageUpload(e, 6)}
           className="w-full h-full"
         />
       </div>
@@ -266,16 +272,16 @@ const CaseStudiesUploadPage: React.FC = () => {
         <div className="h-40">
           <UploadBox
             label="Image Here"
-            image={images[6]}
-            onUpload={(e) => handleImageUpload(e, 6)}
+            image={banner[7]}
+            onUpload={(e) => handleImageUpload(e, 7)}
             className="w-full h-full"
           />
         </div>
         <div className="h-40">
           <UploadBox
             label="Image Here"
-            image={images[7]}
-            onUpload={(e) => handleImageUpload(e, 7)}
+            image={banner[8]}
+            onUpload={(e) => handleImageUpload(e, 8)}
             className="w-full h-full"
           />
         </div>
@@ -295,8 +301,8 @@ const CaseStudiesUploadPage: React.FC = () => {
       <div className="w-full max-w-4xl h-56 mb-6">
         <UploadBox
           label="Image Here"
-          image={images[8]}
-          onUpload={(e) => handleImageUpload(e, 8)}
+          image={banner[9]}
+          onUpload={(e) => handleImageUpload(e, 9)}
           className="w-full h-full"
         />
       </div>

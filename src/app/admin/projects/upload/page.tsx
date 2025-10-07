@@ -66,23 +66,23 @@ const ProjectUploadPage = () => {
       </div>
 
     <div  className="grid grid-cols-3 gap-4 mb-6 w-full ">
-{cards.map((card, index) => (
+{cards.map((c, index) => (
   <div key={index} className="border-2 border-dashed rounded-lg p-4 flex flex-col">
     <input
       type="text"
       placeholder="Card Title"
       className=""
-      value={card.title}
+      value={c.title}
       onChange={(e) => {
         const newCards = [...cards]
-        newCards[index].title = e.target.value
+        newCards[index] = {...newCards[index], title: e.target.value}
         setCards(newCards)
       }}
     />
     <textarea
       placeholder="Card Body"
-      className="border-b-2 border-dashed mb-2 focus:outline-none"
-      value={card.body}
+      className=" mb-2 focus:outline-none"
+      value={c.body}
       onChange={(e) => {
         const newCards = [...cards]
         newCards[index].body = e.target.value
@@ -93,7 +93,31 @@ const ProjectUploadPage = () => {
 ))}
 </div>
 
+      {/* Two image squares */}
+      <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div className="h-40">
+          <UploadBox
+            label="Image Here"
+            image={images[3]}
+            onUpload={(e) => handleImageUpload(e, 3)}
+            className="w-full h-full"
+          />
+        </div>
+        <div className="h-40">
+          <UploadBox
+            label="Image Here"
+            image={images[4]}
+            onUpload={(e) => handleImageUpload(e, 4)}
+            className="w-full h-full"
+          />
+        </div>
+      </div>
 
+  <div className="w-full max-w-4xl mb-6 grid md:grid-cols-2 gap-4">
+
+
+
+  </div>
 
 
 
