@@ -33,16 +33,16 @@ const CaseStudiesUploadPage: React.FC = () => {
   const [bodyTextBottom, setBodyTextBottom] = useState('')
 
   const initialImageSlots: ImageSlot[] = [
-    { id: 'banner1', file: null, previewUrl: null },
-    { id: 'banner2', file: null, previewUrl: null },
-    { id: 'banner3', file: null, previewUrl: null },
-    { id: 'banner4', file: null, previewUrl: null },
-    { id: 'banner5', file: null, previewUrl: null },
-    { id: 'banner6', file: null, previewUrl: null },
-    { id: 'banner7', file: null, previewUrl: null },
-    { id: 'banner8', file: null, previewUrl: null },
-    { id: 'banner9', file: null, previewUrl: null },
-    { id: 'banner10', file: null, previewUrl: null },
+    { id: 'banner1', file: null, previewUrl: null } as ImageSlot,
+    { id: 'banner2', file: null, previewUrl: null } as ImageSlot,
+    { id: 'banner3', file: null, previewUrl: null } as ImageSlot,
+    { id: 'banner4', file: null, previewUrl: null } as ImageSlot,
+    { id: 'banner5', file: null, previewUrl: null } as ImageSlot,
+    { id: 'banner6', file: null, previewUrl: null } as ImageSlot,
+    { id: 'banner7', file: null, previewUrl: null } as ImageSlot,
+    { id: 'banner8', file: null, previewUrl: null } as ImageSlot,
+    { id: 'banner9', file: null, previewUrl: null } as ImageSlot,
+    { id: 'banner10', file: null, previewUrl: null } as ImageSlot,
   ]
 
   const [imageSlots, setImageSlots] = useState(initialImageSlots)
@@ -76,9 +76,10 @@ const CaseStudiesUploadPage: React.FC = () => {
       }
       
       const url = URL.createObjectURL(file)
-      setImageSlots(prevSlots =>
-        prevSlots.map((slot, i) => (i === index ? { ...slot, file, previewUrl: url } : slot))
+      const newSlots: ImageSlot[] = imageSlots.map((slot, i) => 
+        i === index ? { ...slot, file, previewUrl: url } : slot
       )
+      setImageSlots(newSlots)
     } else {
       console.log('No file selected or index is invalid')
     }
