@@ -1,15 +1,32 @@
 'use client'
 
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import { UploadBox } from '@/components/upload/UploadBox'
 
+interface ImageSlot {
+  id: string
+  file: File | null
+  previewUrl: string | null
+}
+
 export default function ServicesUploadPage() {
   const [serviceTitle, setServiceTitle] = useState<string | null>(null)
-   const [image, setImage] = useState(
-    { id: 'banner', file: null, previewUrl: null }
-   )
+  const [image, setImage] = useState<ImageSlot>({
+    id: 'banner', 
+    file: null, 
+    previewUrl: null 
+  })
+
+  // Cleanup object URLs when component unmounts to prevent memory leaks
+  useEffect(() => {
+    return () => {
+      if (image.previewUrl) {
+        URL.revokeObjectURL(image.previewUrl)
+      }
+    }
+  }, [])
   const onSubmit = () => {
     console.log(image)
   }
@@ -17,6 +34,11 @@ export default function ServicesUploadPage() {
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, index?: number) => {
     const file = e.target.files?.[0]
     if (file) {
+      // Clean up previous URL if it exists to prevent memory leaks
+      if (image.previewUrl) {
+        URL.revokeObjectURL(image.previewUrl)
+      }
+      
       const url = URL.createObjectURL(file)
       setImage({ id: 'banner', file: file, previewUrl: url })
     }

@@ -1,9 +1,15 @@
 'use client'
 
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import { UploadBox } from '@/components/upload/UploadBox'
+
+interface ImageSlot {
+  id: string
+  file: File | null
+  previewUrl: string | null
+}
 
 const ProjectUploadPage = () => {
   const [projectTitle, setProjectTitle] = useState('')
@@ -19,11 +25,24 @@ const ProjectUploadPage = () => {
     { title: '', body: '' },
   ])
 
-  const [imageSlots, setImageSlots] = useState([
-    { id: 'banner1', file: null, previewUrl: null },
-    { id: 'banner2', file: null, previewUrl: null },
-    { id: 'banner3', file: null, previewUrl: null },
-  ])
+  const initialImageSlots: ImageSlot[] = [
+    { id: 'banner1', file: null, previewUrl: null } as ImageSlot,
+    { id: 'banner2', file: null, previewUrl: null } as ImageSlot,
+    { id: 'banner3', file: null, previewUrl: null } as ImageSlot,
+  ]
+
+  const [imageSlots, setImageSlots] = useState(initialImageSlots)
+
+  // Cleanup object URLs when component unmounts to prevent memory leaks
+  useEffect(() => {
+    return () => {
+      imageSlots.forEach(slot => {
+        if (slot.previewUrl) {
+          URL.revokeObjectURL(slot.previewUrl)
+        }
+      })
+    }
+  }, [])
 
   const handlePublish = () => {
     console.log('Publishing project with the following details:')
@@ -39,10 +58,16 @@ const ProjectUploadPage = () => {
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const file = e.target.files?.[0]
     if (file) {
+      // Clean up previous URL if it exists to prevent memory leaks
+      if (imageSlots[index]?.previewUrl) {
+        URL.revokeObjectURL(imageSlots[index].previewUrl)
+      }
+      
       const url = URL.createObjectURL(file)
-      setImageSlots((prevSlots) =>
-        prevSlots.map((slot, i) => (i === index ? { ...slot, file: file, previewUrl: url } : slot))
+      const newSlots: ImageSlot[] = imageSlots.map((slot, i) => 
+        i === index ? { ...slot, file, previewUrl: url } : slot
       )
+      setImageSlots(newSlots)
     } else {
       console.log('No file selected or index is invalid')
     }
