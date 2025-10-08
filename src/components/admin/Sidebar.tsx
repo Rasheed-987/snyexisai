@@ -83,9 +83,9 @@ export default function Sidebar() {
   return (
     <>
       
-      <div className={` transition-all duration-300 ${
+      <div className={`hidden lg:flex transition-all duration-300 ${
         isCollapsed ? 'w-16' : 'w-64'
-      } h-screen flex flex-col fixed lg:relative z-50 lg:z-auto  ${
+      } h-screen flex-col fixed lg:relative z-50 lg:z-auto  ${
         isCollapsed ? 'overflow-hidden' : ''
       }`}>
         {/* Header with Logo and Toggle */}

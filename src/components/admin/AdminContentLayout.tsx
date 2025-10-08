@@ -20,9 +20,9 @@ export default function AdminContentLayout({
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
       {/* Header Section */}
-      <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200">
+      <div className="bg-white rounded-[24px] p-6 ">
         <div className="flex items-center justify-between mb-6">
-          <h1 className="heading-medium text-[var(--foreground)]">
+          <h1 className="font-medium text-[var(--foreground)]">
             {title}
           </h1>
           <button

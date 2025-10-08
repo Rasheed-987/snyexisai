@@ -1,8 +1,14 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { UploadBox } from '@/components/upload/UploadBox'
+
+interface ImageSlot {
+  id: string
+  file: File | null
+  previewUrl: string | null
+}
 
 const CaseStudiesUploadPage: React.FC = () => {
   const [caseTitle, setCaseTitle] = useState('')
@@ -26,7 +32,7 @@ const CaseStudiesUploadPage: React.FC = () => {
   const [bodyTextTop, setBodyTextTop] = useState('') // Top body text block
   const [bodyTextBottom, setBodyTextBottom] = useState('')
 
-  const [imageSlots, setImageSlots] = useState([
+  const [imageSlots, setImageSlots] = useState<ImageSlot[]>([
     { id: 'banner1', file: null, previewUrl: null },
     { id: 'banner2', file: null, previewUrl: null },
     { id: 'banner3', file: null, previewUrl: null },
@@ -39,18 +45,34 @@ const CaseStudiesUploadPage: React.FC = () => {
     { id: 'banner10', file: null, previewUrl: null },
   ])
 
+  // Cleanup object URLs when component unmounts to prevent memory leaks
+  useEffect(() => {
+    return () => {
+      imageSlots.forEach(slot => {
+        if (slot.previewUrl) {
+          URL.revokeObjectURL(slot.previewUrl)
+        }
+      })
+    }
+  }, [])
+
   const handlePublish = () => {
- console.log('Title:', caseTitle)
-console.log('Subtitle:', subtitle)
-console.log('Large Card:', largeCard)
-console.log('Small Cards A:', smallCardsA)
-console.log('Small Cards B:', smallCardsB)
-console.log('Image Slots:', imageSlots)
+    console.log('Title:', caseTitle)
+    console.log('Subtitle:', subtitle)
+    console.log('Large Card:', largeCard)
+    console.log('Small Cards A:', smallCardsA)
+    console.log('Small Cards B:', smallCardsB)
+    console.log('Image Slots:', imageSlots)
   }
-  
+
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const file = e.target.files?.[0]
     if (file) {
+      // Clean up previous URL if it exists to prevent memory leaks
+      if (imageSlots[index]?.previewUrl) {
+        URL.revokeObjectURL(imageSlots[index].previewUrl)
+      }
+      
       const url = URL.createObjectURL(file)
       setImageSlots((prevSlots) =>
         prevSlots.map((slot, i) => (i === index ? { ...slot, file: file, previewUrl: url } : slot))
@@ -311,7 +333,9 @@ console.log('Image Slots:', imageSlots)
       <div className="flex gap-4">
         <button className="px-6 py-2 rounded-full bg-gray-200">Cancel</button>
         <button className="px-6 py-2 rounded-full bg-gray-300">Save</button>
-        <button onClick={handlePublish} className="px-6 py-2 rounded-full bg-blue-600 text-white">Publish</button>
+        <button onClick={handlePublish} className="px-6 py-2 rounded-full bg-blue-600 text-white">
+          Publish
+        </button>
       </div>
     </div>
   )
