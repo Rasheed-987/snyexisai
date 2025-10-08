@@ -7,8 +7,9 @@ import { UploadBox } from '@/components/upload/UploadBox'
 
 export default function ServicesUploadPage() {
   const [serviceTitle, setServiceTitle] = useState<string | null>(null)
-  const [image, setImage] = useState<string | null>(null)
-  const [banner, setBanner] = useState<string | null>(null)
+   const [image, setImage] = useState(
+    { id: 'banner', file: null, previewUrl: null }
+   )
   const onSubmit = () => {
     console.log(image)
   }
@@ -17,19 +18,14 @@ export default function ServicesUploadPage() {
     const file = e.target.files?.[0]
     if (file) {
       const url = URL.createObjectURL(file)
-      setBanner(url)
-      // const formData = new FormData()
-      // formData.append('file', file)
-
-      // setImage(formData.get('file') as string)
-      setImage(file)
+      setImage({ id: 'banner', file: file, previewUrl: url })
     }
   }
   return (
     <div className="min-h-screen bg-gray-50 p-8 flex flex-col ">
       <UploadBox
         label="Upload Service Image"
-        image={banner}
+        image={image.previewUrl}
         onUpload={handleImageUpload}
         className="mb-4 min-h-[50vh]"
       />

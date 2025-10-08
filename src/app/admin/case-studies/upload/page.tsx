@@ -1,74 +1,64 @@
-'use client';
-import React, { useState } from 'react';
-import { Upload } from 'lucide-react';
-import {UploadBox} from '@/components/upload/UploadBox';
+'use client'
+
+import React, { useState } from 'react'
+
+import { UploadBox } from '@/components/upload/UploadBox'
 
 const CaseStudiesUploadPage: React.FC = () => {
-  const [caseTitle, setCaseTitle] = useState('');
-  const [subtitle, setSubtitle] = useState('');
-//   const [banner, setBanner] = useState<string | null>(null);
-  // images[] will hold all image slots in the wireframe in order.
-  // Increase size if you add more slots in future.
-  const [banner, setBanner] = useState<(string | null)[]>(
-    Array(10).fill(null) // Assuming 1 banner slot as per wireframe
-  );
-  const [images, setImages] = useState<(string | null)[]>(
-    // slots index guide (for maintainability):
-    // 0: big Image Here (after What we did)
-    // 1,2: two square Image Here (pair)
-    // 3: full-width Image Here (middle)
-    // 4,5: two image squares (lower)
-    // 6: full-width Image Here (lower)
-    // 7,8: bottom two Image Here (near last)
-    // 9: final full-width Image Here (near bottom)
-    Array(10).fill(null)
-  );
-
-  // Text cards and small title/body boxes to match screenshot.
-  const [leftTextBox, setLeftTextBox] = useState(''); // "Text here" small box
-  const [whatWeDid, setWhatWeDid] = useState(''); // "What we did"
-  const [addLine, setAddLine] = useState(''); // "+ Add line"
-
-  // A central large title + body card
-  const [largeCard, setLargeCard] = useState({ title: '', body: '' });
-
-  // two small title/body cards (pair)
+  const [caseTitle, setCaseTitle] = useState('')
+  const [subtitle, setSubtitle] = useState('')
+  const [leftTextBox, setLeftTextBox] = useState('') // "Text here" small box
+  const [whatWeDid, setWhatWeDid] = useState('') // "What we did"
+  const [addLine, setAddLine] = useState('') // "+ Add line"
+  const [largeCard, setLargeCard] = useState({ title: '', body: '' }) // A central large title + body card
   const [smallCardsA, setSmallCardsA] = useState([
+    // two small title/body cards (pair)
     { title: '', body: '' },
     { title: '', body: '' },
-  ]);
+  ])
 
-  // two small title/body cards lower (another pair)
   const [smallCardsB, setSmallCardsB] = useState([
+    // two small title/body cards lower (another pair)
     { title: '', body: '' },
     { title: '', body: '' },
-  ]);
+  ])
 
-  // two small title/body cards further down
-  const [smallCardsC, setSmallCardsC] = useState([
-    { title: '', body: '' },
-    { title: '', body: '' },
-  ]);
+  const [bodyTextTop, setBodyTextTop] = useState('') // Top body text block
+  const [bodyTextBottom, setBodyTextBottom] = useState('')
 
-  // body text blocks
-  const [bodyTextTop, setBodyTextTop] = useState('');
-  const [bodyTextBottom, setBodyTextBottom] = useState('');
+  const [imageSlots, setImageSlots] = useState([
+    { id: 'banner1', file: null, previewUrl: null },
+    { id: 'banner2', file: null, previewUrl: null },
+    { id: 'banner3', file: null, previewUrl: null },
+    { id: 'banner4', file: null, previewUrl: null },
+    { id: 'banner5', file: null, previewUrl: null },
+    { id: 'banner6', file: null, previewUrl: null },
+    { id: 'banner7', file: null, previewUrl: null },
+    { id: 'banner8', file: null, previewUrl: null },
+    { id: 'banner9', file: null, previewUrl: null },
+    { id: 'banner10', file: null, previewUrl: null },
+  ])
 
-  // handle uploading and previewing images, index optional for images[] or banner
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, index?: number) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    const url = URL.createObjectURL(file);
-    console.log(`Uploading image at index ${index}:`, url); // Debugging log
-
-    if (typeof index === 'number') {
-      const newBanner = [...banner];
-      newBanner[index] = url; // Update the specific index
-      setBanner(newBanner); // Update the state
-      console.log('Updated banner state:', newBanner); // Debugging log
+  const handlePublish = () => {
+ console.log('Title:', caseTitle)
+console.log('Subtitle:', subtitle)
+console.log('Large Card:', largeCard)
+console.log('Small Cards A:', smallCardsA)
+console.log('Small Cards B:', smallCardsB)
+console.log('Image Slots:', imageSlots)
+  }
+  
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      const url = URL.createObjectURL(file)
+      setImageSlots((prevSlots) =>
+        prevSlots.map((slot, i) => (i === index ? { ...slot, file: file, previewUrl: url } : slot))
+      )
+    } else {
+      console.log('No file selected or index is invalid')
     }
-  };
-
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 flex flex-col items-center">
@@ -94,7 +84,7 @@ const CaseStudiesUploadPage: React.FC = () => {
       <div className="w-full max-w-4xl mb-6 h-56">
         <UploadBox
           label="Project Banner"
-          image={banner[0]}
+          image={imageSlots[0]?.previewUrl}
           onUpload={(e) => handleImageUpload(e, 0)}
           className="w-full h-full"
         />
@@ -136,7 +126,7 @@ const CaseStudiesUploadPage: React.FC = () => {
       <div className="w-full max-w-4xl h-56 mb-6">
         <UploadBox
           label="Image Here"
-          image={banner[1]}
+          image={imageSlots[1]?.previewUrl}
           onUpload={(e) => handleImageUpload(e, 1)}
           className="w-full h-full"
         />
@@ -147,7 +137,7 @@ const CaseStudiesUploadPage: React.FC = () => {
         <div className="h-40">
           <UploadBox
             label="Image Here"
-            image={banner[2]}
+            image={imageSlots[2]?.previewUrl}
             onUpload={(e) => handleImageUpload(e, 2)}
             className="w-full h-full"
           />
@@ -155,7 +145,7 @@ const CaseStudiesUploadPage: React.FC = () => {
         <div className="h-40">
           <UploadBox
             label="Image Here"
-            image={banner[3]}
+            image={imageSlots[3]?.previewUrl}
             onUpload={(e) => handleImageUpload(e, 3)}
             className="w-full h-full"
           />
@@ -189,9 +179,9 @@ const CaseStudiesUploadPage: React.FC = () => {
               className="w-full mb-2 font-semibold"
               value={c.title}
               onChange={(e) => {
-                const copy = [...smallCardsA];
-                copy[i] = { ...copy[i], title: e.target.value };
-                setSmallCardsA(copy);
+                const copy = [...smallCardsA]
+                copy[i] = { ...copy[i], title: e.target.value }
+                setSmallCardsA(copy)
               }}
             />
             <textarea
@@ -199,9 +189,9 @@ const CaseStudiesUploadPage: React.FC = () => {
               className="w-full text-sm"
               value={c.body}
               onChange={(e) => {
-                const copy = [...smallCardsA];
-                copy[i] = { ...copy[i], body: e.target.value };
-                setSmallCardsA(copy);
+                const copy = [...smallCardsA]
+                copy[i] = { ...copy[i], body: e.target.value }
+                setSmallCardsA(copy)
               }}
             />
           </div>
@@ -213,7 +203,7 @@ const CaseStudiesUploadPage: React.FC = () => {
         <div className="h-40">
           <UploadBox
             label="Image Here"
-            image={banner[4]}
+            image={imageSlots[4]?.previewUrl}
             onUpload={(e) => handleImageUpload(e, 4)}
             className="w-full h-full"
           />
@@ -221,7 +211,7 @@ const CaseStudiesUploadPage: React.FC = () => {
         <div className="h-40">
           <UploadBox
             label="Image Here"
-            image={banner[5]}
+            image={imageSlots[5]?.previewUrl}
             onUpload={(e) => handleImageUpload(e, 5)}
             className="w-full h-full"
           />
@@ -238,9 +228,9 @@ const CaseStudiesUploadPage: React.FC = () => {
               className="w-full mb-2 font-semibold"
               value={c.title}
               onChange={(e) => {
-                const copy = [...smallCardsB];
-                copy[i] = { ...copy[i], title: e.target.value };
-                setSmallCardsB(copy);
+                const copy = [...smallCardsB]
+                copy[i] = { ...copy[i], title: e.target.value }
+                setSmallCardsB(copy)
               }}
             />
             <textarea
@@ -248,9 +238,9 @@ const CaseStudiesUploadPage: React.FC = () => {
               className="w-full text-sm"
               value={c.body}
               onChange={(e) => {
-                const copy = [...smallCardsB];
-                copy[i] = { ...copy[i], body: e.target.value };
-                setSmallCardsB(copy);
+                const copy = [...smallCardsB]
+                copy[i] = { ...copy[i], body: e.target.value }
+                setSmallCardsB(copy)
               }}
             />
           </div>
@@ -261,7 +251,7 @@ const CaseStudiesUploadPage: React.FC = () => {
       <div className="w-full max-w-4xl h-56 mb-6">
         <UploadBox
           label="Image Here"
-          image={banner[6]}
+          image={imageSlots[6]?.previewUrl}
           onUpload={(e) => handleImageUpload(e, 6)}
           className="w-full h-full"
         />
@@ -272,7 +262,7 @@ const CaseStudiesUploadPage: React.FC = () => {
         <div className="h-40">
           <UploadBox
             label="Image Here"
-            image={banner[7]}
+            image={imageSlots[7]?.previewUrl}
             onUpload={(e) => handleImageUpload(e, 7)}
             className="w-full h-full"
           />
@@ -280,7 +270,7 @@ const CaseStudiesUploadPage: React.FC = () => {
         <div className="h-40">
           <UploadBox
             label="Image Here"
-            image={banner[8]}
+            image={imageSlots[8]?.previewUrl}
             onUpload={(e) => handleImageUpload(e, 8)}
             className="w-full h-full"
           />
@@ -301,7 +291,7 @@ const CaseStudiesUploadPage: React.FC = () => {
       <div className="w-full max-w-4xl h-56 mb-6">
         <UploadBox
           label="Image Here"
-          image={banner[9]}
+          image={imageSlots[9]?.previewUrl}
           onUpload={(e) => handleImageUpload(e, 9)}
           className="w-full h-full"
         />
@@ -321,10 +311,10 @@ const CaseStudiesUploadPage: React.FC = () => {
       <div className="flex gap-4">
         <button className="px-6 py-2 rounded-full bg-gray-200">Cancel</button>
         <button className="px-6 py-2 rounded-full bg-gray-300">Save</button>
-        <button className="px-6 py-2 rounded-full bg-blue-600 text-white">Publish</button>
+        <button onClick={handlePublish} className="px-6 py-2 rounded-full bg-blue-600 text-white">Publish</button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CaseStudiesUploadPage;
+export default CaseStudiesUploadPage

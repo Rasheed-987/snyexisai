@@ -12,35 +12,56 @@ interface ActionButtonsProps {
 
 export function ActionButtons({ onEdit, onUnpublish, onDelete, className = "" }: ActionButtonsProps) {
   return (
-    <div className={`flex items-center space-x-3 ${className}`}>
+    <div className={`flex items-center bg-white rounded-[26px] justify-center gap-1 sm:gap-2 md:gap-3 lg:gap-4  p-2 sm:p-3  ${className}`}>
+      {/* Edit Button */}
       <button
         onClick={onEdit}
-        className="flex items-center space-x-1 text-blue-600 hover:text-blue-700 body-small font-medium"
+        className="flex items-center space-x-1 text-blue-500 hover:text-blue-600 transition-colors"
       >
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-        </svg>
-        <span>Edit</span>
+        <Image
+          src="/images/admin/edit.svg"
+          alt="Edit"
+          width={14}
+          height={14}
+          className="w-3.5 h-3.5 sm:w-4 sm:h-4"
+        />
+        <span className="text-xs font-medium">Edit</span>
       </button>
       
+      {/* Divider */}
+      <div className="w-px h-3 sm:h-4 bg-gray-300"></div>
+      
+      {/* Unpublish Button */}
       <button
         onClick={onUnpublish}
-        className="flex items-center space-x-1 text-orange-600 hover:text-orange-700 body-small font-medium"
+        className="flex items-center space-x-1 text-blue-500 hover:text-blue-600 transition-colors"
       >
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L12 12m-3-3L9 9" />
-        </svg>
-        <span>Unpublish</span>
+        <Image
+          src="/images/admin/unpublish.svg"
+          alt="Unpublish"
+          width={14}
+          height={14}
+          className="w-3.5 h-3.5 sm:w-4 sm:h-4"
+        />
+        <span className="text-xs font-medium">Unpublish</span>
       </button>
       
+      {/* Divider */}
+      <div className="w-px h-3 sm:h-4 bg-gray-300"></div>
+      
+      {/* Delete Button */}
       <button
         onClick={onDelete}
-        className="flex items-center space-x-1 text-red-600 hover:text-red-700 body-small font-medium"
+        className="flex items-center space-x-1 text-blue-500 hover:text-red-500 transition-colors"
       >
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1-1H8a1 1 0 00-1 1v3M4 7h16" />
-        </svg>
-        <span>Delete</span>
+        <Image
+          src="/images/admin/delete.svg"
+          alt="Delete"
+          width={14}
+          height={14}
+          className="w-3.5 h-3.5 sm:w-4 sm:h-4"
+        />
+        <span className="text-xs font-medium">Delete</span>
       </button>
     </div>
   )
@@ -69,14 +90,14 @@ export function ProjectCard({
   onDelete 
 }: ProjectCardProps) {
   return (
-    <div className="bg-gray-50 rounded-lg p-4">
+    <div className="bg-[#F5F5F5] rounded-[21px] p-4">
       <div className="mb-4">
         <Image
           src={thumbnail}
           alt={title}
           width={300}
           height={200}
-          className="w-full h-48 object-cover rounded-lg"
+          className="w-full h-48 object-cover rounded-[17px]"
         />
       </div>
       
@@ -90,11 +111,11 @@ export function ProjectCard({
       
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2 text-xs text-gray-500">
-          <div className="w-5 h-5 bg-gray-300 rounded-full flex items-center justify-center">
-            <span className="text-xs font-medium">AS</span>
+          <div className="w-5 h-5 bg-gray-300 rounded-full flex items-center relative justify-center">
+            <Image src="/images/admin/profile.png" alt="Author" fill className="w-3 h-3" />
           </div>
           <span>{author}</span>
-          <span>•</span>
+          <span></span>
           <span>{timeAgo}</span>
         </div>
       </div>
