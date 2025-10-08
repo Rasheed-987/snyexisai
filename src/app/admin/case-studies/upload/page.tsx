@@ -32,7 +32,7 @@ const CaseStudiesUploadPage: React.FC = () => {
   const [bodyTextTop, setBodyTextTop] = useState('') // Top body text block
   const [bodyTextBottom, setBodyTextBottom] = useState('')
 
-  const [imageSlots, setImageSlots] = useState<ImageSlot[]>([
+  const initialImageSlots: ImageSlot[] = [
     { id: 'banner1', file: null, previewUrl: null },
     { id: 'banner2', file: null, previewUrl: null },
     { id: 'banner3', file: null, previewUrl: null },
@@ -43,7 +43,9 @@ const CaseStudiesUploadPage: React.FC = () => {
     { id: 'banner8', file: null, previewUrl: null },
     { id: 'banner9', file: null, previewUrl: null },
     { id: 'banner10', file: null, previewUrl: null },
-  ])
+  ]
+
+  const [imageSlots, setImageSlots] = useState(initialImageSlots)
 
   // Cleanup object URLs when component unmounts to prevent memory leaks
   useEffect(() => {
@@ -74,8 +76,8 @@ const CaseStudiesUploadPage: React.FC = () => {
       }
       
       const url = URL.createObjectURL(file)
-      setImageSlots((prevSlots: ImageSlot[]) =>
-        prevSlots.map((slot, i) => (i === index ? { ...slot, file: file, previewUrl: url } : slot))
+      setImageSlots(prevSlots =>
+        prevSlots.map((slot, i) => (i === index ? { ...slot, file, previewUrl: url } : slot))
       )
     } else {
       console.log('No file selected or index is invalid')
