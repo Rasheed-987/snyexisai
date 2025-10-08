@@ -74,7 +74,7 @@ const CaseStudiesUploadPage: React.FC = () => {
       }
       
       const url = URL.createObjectURL(file)
-      setImageSlots((prevSlots) =>
+      setImageSlots((prevSlots: ImageSlot[]) =>
         prevSlots.map((slot, i) => (i === index ? { ...slot, file: file, previewUrl: url } : slot))
       )
     } else {
