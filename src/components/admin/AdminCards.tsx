@@ -10,7 +10,7 @@ import {
   JobCardProps,
   ProjectCardProps,
   ServiceCardProps,
-} from '@/types'
+} from '@/types/admin'
 
 export function ActionButtons({
   onEdit,

@@ -16,7 +16,7 @@ export default function CaseStudiesPage() {
     setTitle('Case Studies');
   }, [setTitle]);
   
-  const caseStudiesData: CaseStudy = [
+  const caseStudiesData: CaseStudy[] = [
     {
       id: '1',
       title: 'UX & Web Design Master',

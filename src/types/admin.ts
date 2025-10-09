@@ -28,6 +28,7 @@ export interface CaseStudy {
   title: string;
   description: string;
   author: string;
+  authorImage?: string;
   timeAgo: string;
   thumbnail: string;
 }

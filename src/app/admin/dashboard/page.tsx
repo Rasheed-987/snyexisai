@@ -4,8 +4,8 @@ import React from 'react'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { JobApplicationCard } from '@/components/admin/JobApplicationCard'
-import { JobApplication, Stat, CaseStudy } from '@/components/types/admin'
 import { CaseStudyCard } from '@/components/admin/AdminCards'
+import {Stat, JobApplication, CaseStudy} from '@/types/admin'
 
 export default function AdminDashboardPage() {
  
@@ -115,7 +115,7 @@ export default function AdminDashboardPage() {
 
   const caseStudies: CaseStudy[] = [
     {
-      id: 1,
+      id: '1',
       title: 'UX & Web Design Master',
       description: 'Lorem ipsum is simply dummy text of the printing and typesetting industry lorem ipsum has been...',
       author: 'Alex Smith',
@@ -124,7 +124,7 @@ export default function AdminDashboardPage() {
       thumbnail: '/images/grid_1.png'
     },
     {
-      id: 2,
+      id: '2',
       title: 'UX & Web Design Master',
       description: 'Lorem ipsum is simply dummy text of the printing and typesetting industry lorem ipsum has been...',
       author: 'Alex Smith',
@@ -133,7 +133,7 @@ export default function AdminDashboardPage() {
       thumbnail: '/images/grid_2.png'
     },
     {
-      id: 3,
+      id: '3',
       title: 'UX & Web Design Master',
       description: 'Lorem ipsum is simply dummy text of the printing and typesetting industry lorem ipsum has been...',
       author: 'Alex Smith',
@@ -142,7 +142,7 @@ export default function AdminDashboardPage() {
       thumbnail: '/images/grid_3.png'
     },
     {
-      id: 4,
+      id: '4',
       title: 'UX & Web Design Master',
       description: 'Lorem ipsum is simply dummy text of the printing and typesetting industry lorem ipsum has been...',
       author: 'Alex Smith',
@@ -226,10 +226,10 @@ export default function AdminDashboardPage() {
           author={caseStudy.author}
           timeAgo={caseStudy.timeAgo}
           thumbnail={caseStudy.thumbnail}
-          onEdit={() => handleEdit(caseStudy.id)}
           className="flex flex-row items-center bg-[#F4F0ED] rounded-[21px] p-4 space-y-0 space-x-0 [&>div:last-child]:hidden"
-          onUnpublish={() => handleUnpublish(caseStudy.id)}
-          onDelete={() => handleDelete(caseStudy.id)}
+          onEdit={() => {}}
+          onUnpublish={() => {}}
+          onDelete={() => {}}
           
           />
 ))}
