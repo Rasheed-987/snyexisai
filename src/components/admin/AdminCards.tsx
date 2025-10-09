@@ -236,19 +236,21 @@ export function CaseStudyCard({
   )
 }
 
-export function JobCard({ jobTitle, location, company, jobType, description }: JobCardProps) {
+export function JobCard({ jobTitle, location, company, jobType, description, onEdit,
+  onUnpublish,
+  onDelete, className = "" }: JobCardProps) {
   return (
-    <div className="bg-[#F9FAFB] rounded-2xl p-6 sm:p-8 max-w-md mx-auto text-[#0F1C3D] font-inter">
+    <div className={`bg-[#ECEFF3] border border-gray-200 rounded-[15px] p-6 shadow-sm ${className}`}>
       {/* Job Number */}
       <div className="text-sm text-gray-500 mb-2">(01)</div>
 
       {/* Title */}
-      <h2 className="text-2xl font-bold mb-4">{jobTitle}</h2>
+      <h2 className="text-2xl font-bold text-[#0F1C3D] mb-4">{jobTitle}</h2>
 
       {/* Location */}
       <div className="flex items-center text-gray-600 mb-3">
         <svg
-          className="w-5 h-5 mr-3 text-[#0F1C3D]"
+          className="w-4 h-4 mr-3 text-[#0F1C3D]"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -266,13 +268,13 @@ export function JobCard({ jobTitle, location, company, jobType, description }: J
             d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
           />
         </svg>
-        <span>{location}</span>
+        <span className="text-sm">{location}</span>
       </div>
 
       {/* Company */}
       <div className="flex items-center text-gray-600 mb-3">
         <svg
-          className="w-5 h-5 mr-3 text-[#0F1C3D]"
+          className="w-4 h-4 mr-3 text-[#0F1C3D]"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -284,13 +286,13 @@ export function JobCard({ jobTitle, location, company, jobType, description }: J
             d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0H5"
           />
         </svg>
-        <span>{company}</span>
+        <span className="text-sm">{company}</span>
       </div>
 
       {/* Job Type */}
       <div className="flex items-center text-gray-600 mb-6">
         <svg
-          className="w-5 h-5 mr-3 text-[#0F1C3D]"
+          className="w-4 h-4 mr-3 text-[#0F1C3D]"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -302,12 +304,22 @@ export function JobCard({ jobTitle, location, company, jobType, description }: J
             d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
           />
         </svg>
-        <span>{jobType}</span>
+        <span className="text-sm">{jobType}</span>
       </div>
 
       {/* About this Role */}
-      <h4 className="font-semibold mb-2 text-lg">About this Role</h4>
-      <p className="text-gray-600 text-sm leading-relaxed">{description}</p>
+      <h4 className="font-semibold mb-2 text-[#0F1C3D]">About this Role</h4>
+      <p className="text-gray-600 text-sm leading-relaxed mb-6">{description}</p>
+      
+      {/* Action Buttons */}
+      <div className="mt-auto">
+        <ActionButtons
+          onEdit={onEdit}
+          onUnpublish={onUnpublish}
+          onDelete={onDelete}
+          className="justify-center"
+        />
+      </div>
     </div>
   )
 }

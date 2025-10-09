@@ -168,10 +168,10 @@ export default function AdminDashboardPage() {
   }
 
   return (
-    <div className="p-4 md:p-6 bg-gray-50 min-h-screen">
+    <div className="p-4 md:p-6 bg-[#ECEFF3] min-h-screen">
       {/* Header Section */}
       <div className="mb-6 md:mb-8">
-        <h1 className="text-2xl md:text-3xl font-bold text-[#0F1C3D] mb-2">
+        <h1 className="text-2xl md:text-3xl font-semibold text-[#0F1C3D] mb-2">
           Welcome back, Alex
         </h1>
         <p className="text-sm md:text-base text-gray-600">
@@ -193,7 +193,7 @@ export default function AdminDashboardPage() {
              </div>
 
               <div className="flex-1 min-w-0">
-                <h3 className="text-xl md:text-2xl font-bold text-[#0F1C3D] mb-1">
+                <h3 className="text-xl md:text-2xl font-medium text-[#0F1C3D] mb-1">
                   {stat.title}
                 </h3>
                 <p className="text-xs md:text-sm text-[#0F1C3D]/70 font-medium">

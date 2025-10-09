@@ -18,7 +18,7 @@ export default function AdminContentLayout({
   className = ""
 }: AdminContentLayoutProps) {
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
+    <div className="p-6  min-h-screen">
       {/* Header Section */}
       <div className="bg-white rounded-[24px] p-6 ">
         <div className="flex items-center justify-between mb-6">

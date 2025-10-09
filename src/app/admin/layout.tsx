@@ -26,14 +26,14 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
   const showTitleSection = pathname === '/admin/dashboard' || pathname === '/admin';
 
   return (
-    <div className="h-screen flex bg-gray-50">
+    <div className="h-screen flex bg-[#ECEFF3]">
       {/* Sidebar */}
       <Sidebar />
       
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Header */}
-        <Header />
+        <Header /> 
         
         {/* Conditional Title Section - Only for Dashboard */}
         {!showTitleSection && (
@@ -44,7 +44,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
         )}
         
         {/* Page Content */}
-        <main className="flex-1 overflow-y-auto">
+        <main className="flex-1  overflow-y-auto">
           {children}
         </main>
       </div>

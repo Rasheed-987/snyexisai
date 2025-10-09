@@ -67,7 +67,7 @@ export default function Header() {
               placeholder="Search..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-                className="block w-full bg-[#F9FAFB] pl-10 pr-3 py-2 rounded-lg text-sm"
+                className="block w-full  bg-[#ECEFF3] pl-10 pr-3 py-2 rounded-lg text-sm"
             />
           </div>
         </div>
@@ -129,10 +129,10 @@ export default function Header() {
                 <div className="hidden md:block">
                   <MenuItem>
                     <a
-                      href="/settings"
+                      href="/login"
                       className="group flex w-full items-center gap-2 rounded-md px-3 py-2 text-[#0F1C3D] hover:bg-[#F4F0ED] focus:bg-[#F4F0ED] data-[focus]:bg-[#F4F0ED]"
                     >
-                      Settings
+                      login
                     </a>
                   </MenuItem>
                   <MenuItem>
@@ -144,14 +144,14 @@ export default function Header() {
                     </a>
                   </MenuItem>
                   <div className="my-1 h-px bg-[#F4F0ED]" />
-                  <MenuItem>
+                  {/* <MenuItem>
                     <a
                       href="/license"
                       className="group flex w-full items-center gap-2 rounded-md px-3 py-2 text-[#0F1C3D] hover:bg-[#F4F0ED] focus:bg-[#F4F0ED] data-[focus]:bg-[#F4F0ED]"
                     >
                       License
                     </a>
-                  </MenuItem>
+                  </MenuItem> */}
                 </div>
               </MenuItems>
             </Menu>

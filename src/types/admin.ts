@@ -63,6 +63,7 @@ export interface JobCardProps {
   location: string
   jobType: 'Full Time' | 'Part Time' | 'Contract' | 'Internship' | string
   description: string
+  className?: string
   
   onEdit: () => void
   onUnpublish: () => void
