@@ -2,13 +2,14 @@
 
 import React from 'react'
 import Image from 'next/image'
-
-interface ActionButtonsProps {
-  onEdit: () => void
-  onUnpublish: () => void
-  onDelete: () => void
-  className?: string
-}
+import { 
+  ActionButtonsProps, 
+  JobCardProps, 
+  ProjectCardProps, 
+  ServiceCardProps, 
+  CaseStudyCardProps,
+  CaseStudy 
+} from '@/types'
 
 export function ActionButtons({ onEdit, onUnpublish, onDelete, className = "" }: ActionButtonsProps) {
   return (
@@ -67,18 +68,6 @@ export function ActionButtons({ onEdit, onUnpublish, onDelete, className = "" }:
   )
 }
 
-interface ProjectCardProps {
-  id: string
-  title: string
-  description: string
-  author: string
-  timeAgo: string
-  thumbnail: string
-  onEdit: () => void
-  onUnpublish: () => void
-  onDelete: () => void
-}
-
 export function ProjectCard({ 
   title, 
   description, 
@@ -133,18 +122,6 @@ export function ProjectCard({
   )
 }
 
-interface ServiceCardProps {
-  id: string
-  title: string
-  description: string
-  author: string
-  timeAgo: string
-  thumbnail: string
-  onEdit: () => void
-  onUnpublish: () => void
-  onDelete: () => void
-}
-
 export function ServiceCard({ 
   title, 
   description, 
@@ -180,18 +157,6 @@ export function ServiceCard({
       </div>
     </div>
   )
-}
-
-interface CaseStudyCardProps {
-  id: string
-  title: string
-  description: string
-  author: string
-  timeAgo: string
-  thumbnail: string
-  onEdit: () => void
-  onUnpublish: () => void
-  onDelete: () => void
 }
 
 export function CaseStudyCard({ 
@@ -261,26 +226,6 @@ export function CaseStudyCard({
       </div>
     </div>
   )
-}
-
-interface JobCardProps {
-  id: string
-  jobTitle: string
-  company: string
-  location: string
-  jobType: 'Full Time' | 'Part Time' | 'Contract' | 'Internship'
-  description: string
-  postedDate: string
-  salary?: string
-  experience?: string
-  department?: string
-  applicationDeadline?: string
-  isRemote?: boolean
-  requirements?: string[]
-  benefits?: string[]
-  onEdit: () => void
-  onUnpublish: () => void
-  onDelete: () => void
 }
 
 export function JobCard({ 

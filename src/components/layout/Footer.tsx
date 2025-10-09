@@ -6,10 +6,15 @@ export default function Footer({ className = "" }: FooterProps) {
   return (
     <footer
       className="w-full overflow-hidden mt-[-80px] pt-[130px] text-white"
-      style={{
-        background: 'linear-gradient(180deg,rgba(15, 28, 61, 1) 59%, rgba(6, 71, 207, 1) 100%)',
-        backdropFilter: 'blur(200px)'
-      }}
+//     style={{
+//   background: 'linear-gradient(180deg, #0a0a0a 0%, #ff0000 50%, #0a0a0a 100%)',
+//   backdropFilter: 'blur(200px)'
+// }}
+style={{
+  background: 'linear-gradient(180deg, #0F1C3D 20%, #0D255C 50%, #0F1C3D 80%)',
+  backdropFilter: 'blur(200px)'
+}}
+
     >
       <div className="max-w-[1440px] mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-4">
     {/* Explore Column */}
