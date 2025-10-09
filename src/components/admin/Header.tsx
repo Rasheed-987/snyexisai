@@ -129,18 +129,18 @@ export default function Header() {
                 <div className="hidden md:block rounded-lg">
                   <MenuItem>
                     <a
-                      href="/login"
+                      href="/logout"
                       className="group flex w-full items-center gap-2 rounded-md px-3 py-2 text-[#0F1C3D] hover:bg-[#F4F0ED] focus:bg-[#F4F0ED] data-[focus]:bg-[#F4F0ED]"
                     >
-                      login
+                      Logout
                     </a>
                   </MenuItem>
                   <MenuItem>
                     <a
-                      href="/support"
+                      href="/Setting"
                       className="group flex w-full items-center gap-2 rounded-md px-3 py-2 text-[#0F1C3D] hover:bg-[#F4F0ED] focus:bg-[#F4F0ED] data-[focus]:bg-[#F4F0ED]"
                     >
-                      Support
+                      Setting
                     </a>
                   </MenuItem>
                   <div className="my-1 h-px bg-[#F4F0ED]" />
