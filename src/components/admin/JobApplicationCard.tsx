@@ -15,7 +15,7 @@ export const JobApplicationCard = ({ application, onView, className }: JobApplic
           className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover flex-shrink-0"
         />
         <div className="min-w-0 flex-1">
-          <h3 className="font-semibold text-[#0F1C3D] text-sm truncate">
+          <h3 className="font-medium text-[#0F1C3D] text-sm truncate">
             {application.name}
           </h3>
           <p className="text-xs md:text-sm text-gray-500 truncate">

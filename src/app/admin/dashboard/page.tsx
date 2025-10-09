@@ -6,10 +6,12 @@ import { useState, useEffect } from 'react'
 import { JobApplicationCard } from '@/components/admin/JobApplicationCard'
 import { CaseStudyCard } from '@/components/admin/AdminCards'
 import {Stat, JobApplication, CaseStudy} from '@/types/admin'
+import {useRouter} from 'next/navigation'
 
 export default function AdminDashboardPage() {
  
   const [date,setDate] = useState('');
+  const router = useRouter();
 
   useEffect(() => {
     const currentDate = new Date().toLocaleDateString('en-US', {
@@ -210,10 +212,10 @@ export default function AdminDashboardPage() {
 
         <div className="space-y-4 rounded-[21px] w-full lg:w-[65%] bg-[#FFFFFF] p-4 md:p-6">
           <div className="flex items-center justify-between mb-4 md:mb-6">
-          <h2 className="text-lg md:text-xl font-semibold text-[#0F1C3D]">
+          <h2 className="text-lg md:text-xl font-medium text-[#0F1C3D]">
             Latest Case Studies
           </h2>
-          <button className="text-[#327AED] text-sm font-medium hover:underline">
+          <button onClick={()=>router.push('/admin/case-studies')} className="text-[#327AED] text-sm font-medium hover:underline">
             View All →
           </button>
         </div>
@@ -238,10 +240,10 @@ export default function AdminDashboardPage() {
         </div>
         <div className="w-full lg:flex-1 bg-white rounded-[21px] p-4 md:p-6">
           <div className="flex items-center justify-between mb-4 md:mb-6">
-            <h2 className="text-lg md:text-xl font-semibold text-[#0F1C3D]">
+            <h2 className="text-lg md:text-xl font-medium text-[#0F1C3D]">
               Jobs Applications
             </h2>
-            <button className="text-[#327AED] text-sm font-medium hover:underline">
+            <button onClick={()=>router.push('/admin/career')} className="text-[#327AED] text-sm font-medium hover:underline">
               View All →
             </button>
           </div>

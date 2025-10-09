@@ -3,7 +3,7 @@
 import React from 'react'
 
 import Image from 'next/image'
-
+import { MapPin, Building, Clock } from "lucide-react"
 import {
   ActionButtonsProps,
   CaseStudyCardProps,
@@ -184,7 +184,7 @@ export function CaseStudyCard({
 
       {/* Content */}
       <div className="flex-1 min-w-0">
-        <h3 className="text-base sm:text-lg font-semibold text-[#0F1C3D] mb-2 line-clamp-1">
+        <h3 className="text-base sm:text-lg font-medium text-[#0F1C3D] mb-2 line-clamp-1">
           {title}
         </h3>
 
@@ -236,90 +236,58 @@ export function CaseStudyCard({
   )
 }
 
-export function JobCard({ jobTitle, location, company, jobType, description, onEdit,
+export function JobCard({ id,jobTitle, location, company, jobType, description, onEdit,
   onUnpublish,
   onDelete, className = "" }: JobCardProps) {
   return (
-    <div className={`bg-[#ECEFF3] border border-gray-200 rounded-[15px] p-6 shadow-sm ${className}`}>
+     <div
+      className={`bg-[#ECEFF3] border border-gray-200 rounded-[15px] p-6 shadow-sm flex flex-col ${className}`}
+    >
       {/* Job Number */}
-      <div className="text-sm text-gray-500 mb-2">(01)</div>
+      <div className="text-sm text-gray-500 mb-1">({id})</div>
 
       {/* Title */}
-      <h2 className="text-2xl font-bold text-[#0F1C3D] mb-4">{jobTitle}</h2>
+      <h2 className="text-[22px] font-medium text-[#0F1C3D] mb-4">
+        {jobTitle}
+      </h2>
 
-      {/* Location */}
-      <div className="flex items-center text-gray-600 mb-3">
-        <svg
-          className="w-4 h-4 mr-3 text-[#0F1C3D]"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"
-          />
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-          />
-        </svg>
-        <span className="text-sm">{location}</span>
+      {/* Job Info */}
+      <div className="flex flex-col gap-3 mb-4">
+        <div className="flex items-center gap-2 text-[#0F1C3D]">
+          <MapPin className="w-5 h-5" />
+          <span className="text-sm sm:text-base">
+            {location}
+          </span>
+        </div>
+        <div className="flex items-center gap-2 text-[#0F1C3D]">
+          <Building className="w-5 h-5" />
+          <span className="text-sm sm:text-base">
+            {company}
+          </span>
+        </div>
+        <div className="flex items-center gap-2 text-[#0F1C3D]">
+          <Clock className="w-5 h-5" />
+          <span className="text-sm sm:text-base">{jobType}</span>
+        </div>
       </div>
 
-      {/* Company */}
-      <div className="flex items-center text-gray-600 mb-3">
-        <svg
-          className="w-4 h-4 mr-3 text-[#0F1C3D]"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0H5"
-          />
-        </svg>
-        <span className="text-sm">{company}</span>
-      </div>
-
-      {/* Job Type */}
-      <div className="flex items-center text-gray-600 mb-6">
-        <svg
-          className="w-4 h-4 mr-3 text-[#0F1C3D]"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-          />
-        </svg>
-        <span className="text-sm">{jobType}</span>
-      </div>
-
-      {/* About this Role */}
-      <h4 className="font-semibold mb-2 text-[#0F1C3D]">About this Role</h4>
-      <p className="text-gray-600 text-sm leading-relaxed mb-6">{description}</p>
-      
-      {/* Action Buttons */}
-      <div className="mt-auto">
+      {/* About Section */}
+      <h4 className="font-medium text-[#0F1C3D] mb-1 text-sm">
+        About this Role
+      </h4>
+      <p className="text-gray-600 text-sm leading-relaxed mb-6">
+        {description}
+      </p>
+  {/* Action Buttons */}
+      <div className="flex-shrink-0 w-full sm:w-auto mt-3 sm:mt-0">
         <ActionButtons
           onEdit={onEdit}
           onUnpublish={onUnpublish}
           onDelete={onDelete}
-          className="justify-center"
+          className="w-full sm:w-auto justify-center sm:justify-start"
         />
       </div>
+  
     </div>
   )
 }
