@@ -140,13 +140,13 @@ const ProjectUploadPage = () => {
       </div>
 
       {/* Two image squares */}
-      <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+      <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2  gap-4 mb-6">
         <div className="h-40">
           <UploadBox
             label="Image Here"
             image={imageSlots[1].previewUrl}
             onUpload={(e) => handleImageUpload(e, 1)}
-            className="w-full h-full"
+            className="w-full rounded-lg h-full"
           />
         </div>
         <div className="h-40">

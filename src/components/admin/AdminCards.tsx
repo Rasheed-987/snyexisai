@@ -276,7 +276,7 @@ export function JobCard({ id,jobTitle, location, company, jobType, description, 
         <h4 className="font-medium text-[#0F1C3D] mb-1 text-sm">
           About this Role
         </h4>
-        <p className="text-gray-600 text-xs sm:text-sm leading-relaxed flex-1 overflow-hidden">
+        <p className="text-gray-600 text-xs sm:text-sm leading-relaxed flex-1 line-clamp-4">
           {description}
         </p>
       </div>
