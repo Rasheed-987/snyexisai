@@ -1,32 +1,51 @@
-// Admin Dashboard Types
-export interface JobApplication {
-  id: string
-  name: string
-  email: string
-  position: string
-  appliedDate: string
-  status: 'pending' | 'reviewed' | 'accepted' | 'rejected'
-  profileImage?: string
-}
 
 export interface Stat {
-  icon: React.ReactNode
-  value: string
-  label: string
-  trend?: 'up' | 'down'
-  percentage?: string
+  title: string;
+  subtitle: string;
+  icon?: React.ReactNode;
+  bgColor?: string;
+  textColor?: string;
 }
 
+
+export interface JobApplication {
+  id: number;
+  name: string;
+  position: string;
+  profileImage: string;
+}
+
+export interface JobApplicationCardProps {
+  application: JobApplication;
+  onView?: (id: string) => void;
+  className?: string;
+}
+
+
+
 export interface CaseStudy {
+  id: string;
+  title: string;
+  description: string;
+  author: string;
+  timeAgo: string;
+  thumbnail: string;
+}
+
+// Case Study Card Types
+export interface CaseStudyCardProps {
   id: string
   title: string
-  client: string
-  category: string
-  image: string
   description: string
-  completedDate: string
-  tags: string[]
+  author: string
+  timeAgo: string
+  thumbnail: string
+  className?: string
+  onEdit: () => void
+  onUnpublish: () => void
+  onDelete: () => void
 }
+
 
 // Upload Types
 export interface ImageSlot {
@@ -43,14 +62,7 @@ export interface JobCardProps {
   location: string
   jobType: 'Full Time' | 'Part Time' | 'Contract' | 'Internship' | string
   description: string
-  postedDate: string
-  salary?: string
-  experience?: string
-  department?: string
-  applicationDeadline?: string
-  isRemote?: boolean
-  requirements?: string[]
-  benefits?: string[]
+  
   onEdit: () => void
   onUnpublish: () => void
   onDelete: () => void
@@ -79,19 +91,6 @@ export interface ProjectCardProps {
 
 // Service Card Types
 export interface ServiceCardProps {
-  id: string
-  title: string
-  description: string
-  author: string
-  timeAgo: string
-  thumbnail: string
-  onEdit: () => void
-  onUnpublish: () => void
-  onDelete: () => void
-}
-
-// Case Study Card Types
-export interface CaseStudyCardProps {
   id: string
   title: string
   description: string

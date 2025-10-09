@@ -1,11 +1,11 @@
 'use client'
 
 import Image from 'next/image';
-import { JobApplicationCardProps } from './types/dashboard.types';
+import { JobApplicationCardProps } from '@/types/admin';
 
-export const JobApplicationCard = ({ application, onView }: JobApplicationCardProps) => {
+export const JobApplicationCard = ({ application, onView, className }: JobApplicationCardProps) => {
   return (
-    <div className="flex items-center justify-between p-3 md:p-4 hover:bg-gray-50 transition-colors">
+    <div className={`flex items-center justify-between p-3 md:p-4 hover:bg-gray-50 transition-colors ${className ?? ''}`}>
       <div className="flex items-center space-x-2 md:space-x-3 flex-1 min-w-0">
         <Image
           src={application.profileImage}
@@ -23,12 +23,14 @@ export const JobApplicationCard = ({ application, onView }: JobApplicationCardPr
           </p>
         </div>
       </div>
-      <button 
-        onClick={() => onView(application.id.toString())} 
-        className="text-[#327AED] text-xs md:text-sm font-medium hover:underline flex-shrink-0 ml-2"
-      >
-        View
-      </button>
+      {onView && (
+        <button 
+          onClick={() => onView(application.id.toString())} 
+          className="text-[#327AED] text-xs md:text-sm font-medium hover:underline flex-shrink-0 ml-2"
+        >
+          View
+        </button>
+      )}
     </div>
   );
 };

@@ -1,11 +1,43 @@
 'use client'
 
 import { useState } from 'react'
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import { ChevronDownIcon } from '@heroicons/react/24/solid'
 import Image from 'next/image'
+// Sidebar menu items (copied for mobile dropdown)
+const sidebarMenuItems = [
+  {
+    icon: <Image src="/images/admin/overview.svg" alt="Overview" width={24} height={24} className="w-5 h-5" />,
+    label: 'Overview',
+    href: '/admin/dashboard',
+  },
+  {
+    icon: <Image src="/images/admin/project.svg" alt="Projects" width={24} height={24} className="w-5 h-5" />,
+    label: 'Projects',
+    href: '/admin/projects',
+  },
+  {
+    icon: <Image src="/images/admin/case.svg" alt="Case Studies" width={24} height={24} className="w-5 h-5" />,
+    label: 'Case Studies',
+    href: '/admin/case-studies',
+  },
+  {
+    icon: <Image src="/images/admin/services.svg" alt="Services" width={24} height={24} className="w-5 h-5" />,
+    label: 'Services',
+    href: '/admin/services',
+  },
+  {
+    icon: <Image src="/images/admin/career.svg" alt="Career" width={24} height={24} className="w-5 h-5" />,
+    label: 'Career',
+    href: '/admin/career',
+  },
+]
 
 export default function Header() {
   const [searchQuery, setSearchQuery] = useState('')
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+
+
+
 
   return (
     <header className=" px-4 sm:px-6 py-4">
@@ -59,53 +91,70 @@ export default function Header() {
 
           {/* User Profile Dropdown */}
           <div className="relative">
-            <button 
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="flex items-center space-x-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-lg p-2"
-            >
-              <div className="flex items-center space-x-2">
-                <div className="h-8 w-8 rounded-full bg-gray-300 flex items-center justify-center">
-                  <span className="text-sm font-medium text-gray-700">AS</span>
+            <Menu>
+              <MenuButton
+                className="inline-flex items-center gap-3 rounded-full border border-[#F4F0ED] bg-white pl-2 pr-3 py-1.5 text-sm font-medium text-[#0F1C3D] shadow-sm hover:bg-[#F4F0ED] focus:outline-none focus:ring-2 focus:ring-[#327AED] focus:ring-offset-2"
+                aria-label="Open account menu"
+              >
+                {/* Compact user pill (avatar + name) */}
+                <span className="flex items-center">
+                  <img
+                    src="/images/admin/profile.png"
+                    alt="Alex Smith"
+                    className="h-8 w-8 rounded-full object-cover"
+                  />
+                  <span className="ml-2 mr-1 text-[#0F1C3D]">Alex Smith</span>
+                </span>
+                <ChevronDownIcon className="h-4 w-4 text-[#327AED]" aria-hidden="true" />
+              </MenuButton>
+              <MenuItems
+                anchor="bottom end"
+                className="absolute right-0 z-50 mt-2 w-56 origin-top-right rounded-lg border border-[#F4F0ED] bg-white p-1 text-sm shadow-lg ring-1 ring-[#F4F0ED] focus:outline-none"
+              >
+                {/* Mobile: Sidebar menu items */}
+                <div className="md:hidden">
+                  {sidebarMenuItems.map((item) => (
+                    <MenuItem key={item.label}>
+                      <a
+                        href={item.href}
+                        className="flex items-center gap-2 rounded-md px-3 py-2 text-[#0F1C3D] hover:bg-[#F4F0ED] focus:bg-[#F4F0ED]"
+                      >
+                        {item.icon}
+                        <span>{item.label}</span>
+                      </a>
+                    </MenuItem>
+                  ))}
                 </div>
-                <div className="hidden sm:block text-left">
-                  <p className="text-sm font-medium text-gray-700">Alex Smith</p>
+                {/* Desktop: Original menu items */}
+                <div className="hidden md:block">
+                  <MenuItem>
+                    <a
+                      href="/settings"
+                      className="group flex w-full items-center gap-2 rounded-md px-3 py-2 text-[#0F1C3D] hover:bg-[#F4F0ED] focus:bg-[#F4F0ED] data-[focus]:bg-[#F4F0ED]"
+                    >
+                      Settings
+                    </a>
+                  </MenuItem>
+                  <MenuItem>
+                    <a
+                      href="/support"
+                      className="group flex w-full items-center gap-2 rounded-md px-3 py-2 text-[#0F1C3D] hover:bg-[#F4F0ED] focus:bg-[#F4F0ED] data-[focus]:bg-[#F4F0ED]"
+                    >
+                      Support
+                    </a>
+                  </MenuItem>
+                  <div className="my-1 h-px bg-[#F4F0ED]" />
+                  <MenuItem>
+                    <a
+                      href="/license"
+                      className="group flex w-full items-center gap-2 rounded-md px-3 py-2 text-[#0F1C3D] hover:bg-[#F4F0ED] focus:bg-[#F4F0ED] data-[focus]:bg-[#F4F0ED]"
+                    >
+                      License
+                    </a>
+                  </MenuItem>
                 </div>
-                <svg 
-                  className={`h-4 w-4 text-gray-400 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </div>
-            </button>
-
-            {/* Dropdown Menu */}
-            {isDropdownOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
-                <div className="py-1">
-                  <button
-                    onClick={() => {
-                      setIsDropdownOpen(false)
-                      // Handle item 1 click
-                    }}
-                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                  >
-                    Item 1
-                  </button>
-                  <button
-                    onClick={() => {
-                      setIsDropdownOpen(false)
-                      // Handle item 2 click
-                    }}
-                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                  >
-                    Item 2
-                  </button>
-                </div>
-              </div>
-            )}
+              </MenuItems>
+            </Menu>
           </div>
         </div>
       </div>

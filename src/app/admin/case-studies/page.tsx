@@ -5,6 +5,7 @@ import AdminContentLayout from '@/components/admin/AdminContentLayout'
 import { CaseStudyCard } from '@/components/admin/AdminCards'
 import { useTitle } from '@/hooks/titleContext'
 import { useRouter } from 'next/navigation'
+import { CaseStudy } from '@/types/admin'
 
 export default function CaseStudiesPage() {
   const { setTitle } = useTitle();
@@ -14,7 +15,8 @@ export default function CaseStudiesPage() {
   useEffect(() => {
     setTitle('Case Studies');
   }, [setTitle]);
-  const caseStudiesData = [
+  
+  const caseStudiesData: CaseStudy = [
     {
       id: '1',
       title: 'UX & Web Design Master',
