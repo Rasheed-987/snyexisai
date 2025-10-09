@@ -20,7 +20,7 @@ export default function Sidebar() {
       ),
       label: 'Overview',
       href: '/admin/dashboard',
-      active: false
+      active: true
     },
     {
       icon: (
@@ -142,7 +142,7 @@ export default function Sidebar() {
                   href={item.href}
                   className={`flex items-center px-4 py-3 rounded-xl transition-all duration-200 relative ${
                     item.active
-                      ? 'bg-[#327AED] text-[#FFFFFF] '
+                      ? 'text-[#327AED]  hover:bg-[#FFFFFF]/80 hover:shadow-md border border-transparent'
                       : 'text-[#0F1C3D] hover:bg-[#FFFFFF]/80 hover:shadow-md border border-transparent'
                   } ${isCollapsed ? 'justify-center' : 'space-x-4'}`}
                 >

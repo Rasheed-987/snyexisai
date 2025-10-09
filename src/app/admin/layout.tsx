@@ -35,10 +35,10 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
         {/* Header */}
         <Header /> 
         
-        {/* Conditional Title Section - Only for Dashboard */}
+       
         {!showTitleSection && (
           <div className=' w-full ml-10 flex flex-col  py-3'>
-            <h1 className="text-2xl font-semibold text-[var(--foreground)] mb-1">All {title}</h1>
+            <h1 className="text-2xl font-medium text-[var(--foreground)] mb-1">All {title}</h1>
             <p className="text-gray-600 text-sm">Take a look your progress for today {date}.</p>
           </div>
         )}

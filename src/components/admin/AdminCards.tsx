@@ -241,50 +241,53 @@ export function JobCard({ id,jobTitle, location, company, jobType, description, 
   onDelete, className = "" }: JobCardProps) {
   return (
      <div
-      className={`bg-[#ECEFF3] border border-gray-200 rounded-[15px] p-6 shadow-sm flex flex-col ${className}`}
+      className={`bg-[#ECEFF3] border border-gray-200 rounded-[15px] p-6 shadow-sm h-[350px] flex flex-col ${className}`}
     >
       {/* Job Number */}
       <div className="text-sm text-gray-500 mb-1">({id})</div>
 
       {/* Title */}
-      <h2 className="text-[22px] font-medium text-[#0F1C3D] mb-4">
+      <h2 className="text-lg sm:text-xl font-medium text-[#0F1C3D] mb-3 line-clamp-2">
         {jobTitle}
       </h2>
 
       {/* Job Info */}
-      <div className="flex flex-col gap-3 mb-4">
+      <div className="flex flex-col gap-2 mb-3">
         <div className="flex items-center gap-2 text-[#0F1C3D]">
-          <MapPin className="w-5 h-5" />
-          <span className="text-sm sm:text-base">
+          <MapPin className="w-4 h-4 flex-shrink-0" />
+          <span className="text-xs sm:text-sm truncate">
             {location}
           </span>
         </div>
         <div className="flex items-center gap-2 text-[#0F1C3D]">
-          <Building className="w-5 h-5" />
-          <span className="text-sm sm:text-base">
+          <Building className="w-4 h-4 flex-shrink-0" />
+          <span className="text-xs sm:text-sm truncate">
             {company}
           </span>
         </div>
         <div className="flex items-center gap-2 text-[#0F1C3D]">
-          <Clock className="w-5 h-5" />
-          <span className="text-sm sm:text-base">{jobType}</span>
+          <Clock className="w-4 h-4 flex-shrink-0" />
+          <span className="text-xs sm:text-sm">{jobType}</span>
         </div>
       </div>
 
-      {/* About Section */}
-      <h4 className="font-medium text-[#0F1C3D] mb-1 text-sm">
-        About this Role
-      </h4>
-      <p className="text-gray-600 text-sm leading-relaxed mb-6">
-        {description}
-      </p>
-  {/* Action Buttons */}
-      <div className="flex-shrink-0 w-full sm:w-auto mt-3 sm:mt-0">
+      {/* About Section - This will grow to fill available space */}
+      <div className="flex-1 flex flex-col min-h-0">
+        <h4 className="font-medium text-[#0F1C3D] mb-1 text-sm">
+          About this Role
+        </h4>
+        <p className="text-gray-600 text-xs sm:text-sm leading-relaxed flex-1 overflow-hidden">
+          {description}
+        </p>
+      </div>
+
+      {/* Action Buttons - Always at bottom */}
+      <div className="mt-4 pt-3 border-t border-gray-300">
         <ActionButtons
           onEdit={onEdit}
           onUnpublish={onUnpublish}
           onDelete={onDelete}
-          className="w-full sm:w-auto justify-center sm:justify-start"
+          className="justify-center"
         />
       </div>
   

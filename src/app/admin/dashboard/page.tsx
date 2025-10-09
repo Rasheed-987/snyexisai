@@ -173,7 +173,7 @@ export default function AdminDashboardPage() {
     <div className="p-4 md:p-6 bg-[#ECEFF3] min-h-screen">
       {/* Header Section */}
       <div className="mb-6 md:mb-8">
-        <h1 className="text-2xl md:text-3xl font-semibold text-[#0F1C3D] mb-2">
+        <h1 className="text-2xl md:text-3xl font-medium text-[#0F1C3D] mb-2">
           Welcome back, Alex
         </h1>
         <p className="text-sm md:text-base text-gray-600">
