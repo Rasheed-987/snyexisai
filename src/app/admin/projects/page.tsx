@@ -106,7 +106,8 @@ export default function ProjectsPage() {
 
   const handleEdit = (id: string) => {
     console.log('Edit project:', id)
-    // Add edit logic here
+    // Navigate to edit page (you can create this later)
+    router.push(`/admin/projects/edit/${id}`)
   }
 
   const handleUnpublish = (id: string) => {
@@ -114,9 +115,40 @@ export default function ProjectsPage() {
     // Add unpublish logic here
   }
 
-  const handleDelete = (id: string) => {
-    console.log('Delete project:', id)
-    // Add delete logic here
+  const handleDelete = async (id: string) => {
+    // Show confirmation dialog
+    const confirmed = window.confirm('Are you sure you want to delete this project? This action cannot be undone.')
+    
+    if (!confirmed) return
+    
+    try {
+      setLoading(true)
+      console.log('Deleting project:', id)
+      
+      const response = await fetch(`/api/projects/${id}`, {
+        method: 'DELETE'
+      })
+      
+      const result = await response.json()
+      
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to delete project')
+      }
+      
+      console.log('✅ Project deleted successfully')
+      
+      // Remove project from local state
+      setProjects(projects.filter(project => project._id !== id))
+      
+      // Show success message (optional - you can add a toast notification)
+      alert('Project deleted successfully!')
+      
+    } catch (error) {
+      console.error('❌ Error deleting project:', error)
+      alert(error instanceof Error ? error.message : 'Failed to delete project')
+    } finally {
+      setLoading(false)
+    }
   }
 
   // Don't render until mounted to prevent hydration issues
