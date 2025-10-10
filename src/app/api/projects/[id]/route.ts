@@ -3,15 +3,19 @@ import { Project } from '@/lib/models'
 import connectDB from '@/lib/mongodb'
 import { S3Service } from '@/lib/s3'
 
+type RouteContext = {
+  params: Promise<{ id: string }>
+}
+
 // GET specific project by ID
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: RouteContext
 ) {
   try {
     await connectDB()
     
-    const { id } = params
+    const { id } = await context.params
     console.log('Fetching project with ID:', id)
     
     const project = await Project.findById(id)
@@ -40,12 +44,12 @@ export async function GET(
 // UPDATE specific project by ID
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: RouteContext
 ) {
   try {
     await connectDB()
     
-    const { id } = params
+    const { id } = await context.params
     console.log('Updating project with ID:', id)
     
     const formData = await request.formData()
@@ -91,12 +95,12 @@ export async function PUT(
 // DELETE specific project by ID
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: RouteContext
 ) {
   try {
     await connectDB()
     
-    const { id } = params
+    const { id } = await context.params
     console.log('Deleting project with ID:', id)
     
     // Find project first to get S3 keys for cleanup
