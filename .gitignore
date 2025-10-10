@@ -16,6 +16,8 @@ dist/
 .env.development.local
 .env.test.local
 .env.production.local
+.env*.local
+*.env
 
 # Vercel
 .vercel
@@ -66,3 +68,6 @@ jspm_packages/
 .eslintrc.js
 .eslintrc.json
 .eslintrc
+snyexisai_accessKeys.csv
+
+

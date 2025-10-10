@@ -2,8 +2,8 @@
 
 import React from 'react'
 import { useState, useEffect } from 'react'
-
 import { UploadBox } from '@/components/upload/UploadBox'
+
 
 interface ImageSlot {
   id: string
@@ -25,6 +25,11 @@ const ProjectUploadPage = () => {
     { title: '', body: '' },
   ])
 
+  // Add loading and error states
+  const [isUploading, setIsUploading] = useState(false)
+  const [uploadError, setUploadError] = useState<string | null>(null)
+  const [uploadSuccess, setUploadSuccess] = useState(false)
+
   const initialImageSlots: ImageSlot[] = [
     { id: 'banner1', file: null, previewUrl: null } as ImageSlot,
     { id: 'banner2', file: null, previewUrl: null } as ImageSlot,
@@ -44,15 +49,92 @@ const ProjectUploadPage = () => {
     }
   }, [])
 
-  const handlePublish = () => {
-    console.log('Publishing project with the following details:')
-    console.log('Title:', projectTitle)
-    console.log('Tagline:', tagline)
-    console.log('Addtitle:', addtitle)
-    console.log('Cards:', cards)
-    console.log('Large Card:', largeCard)
-    console.log('Small Cards A:', smallCardsA)
-    console.log('Image Slots:', imageSlots)
+  const handlePublish = async () => {
+
+    console.log()
+
+
+
+    setIsUploading(true)
+    setUploadError(null)
+    setUploadSuccess(false)
+
+    try {
+      // Validation
+      if (!projectTitle || !tagline || !addtitle) {
+        throw new Error('Please fill in all required fields: Title, Tagline, and Additional Title')
+      }
+
+      if (!imageSlots[0]?.file) {
+        throw new Error('Please upload at least a banner image')
+      }
+
+      // Prepare form data
+      const formData = new FormData()
+      
+      // Add project metadata
+      formData.append('title', projectTitle)
+      formData.append('tagline', tagline)
+      formData.append('addTitle', addtitle)
+      formData.append('cards', JSON.stringify(cards))
+      formData.append('largeCard', JSON.stringify(largeCard))
+      formData.append('smallCards', JSON.stringify(smallCardsA))
+
+      // Add banner image (first image slot)
+      if (imageSlots[0]?.file) {
+        formData.append('bannerImage', imageSlots[0].file)
+      }
+
+      // Add gallery images (remaining image slots)
+      imageSlots.slice(1).forEach((slot) => {
+        if (slot?.file) {
+          formData.append('galleryImages', slot.file)
+        }
+      })
+
+      console.log('Uploading project...')
+      
+      // Send to API
+      const response = await fetch('/api/projects', {
+        method: 'POST',
+        body: formData,
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Upload failed')
+      }
+
+      console.log('✅ Project uploaded successfully:', result)
+      setUploadSuccess(true)
+      
+      // Clear form after successful upload
+      setTimeout(() => {
+        setProjectTitle('')
+        setTagline('')
+        setAddtitle('')
+        setCards(Array(6).fill({ title: '', body: '' }))
+        setLargeCard({ title: '', body: '' })
+        setSmallCardsA([{ title: '', body: '' }, { title: '', body: '' }])
+        
+        // Clean up image previews
+        imageSlots.forEach(slot => {
+          if (slot.previewUrl) {
+            URL.revokeObjectURL(slot.previewUrl)
+          }
+        })
+        setImageSlots(initialImageSlots)
+        
+        setUploadSuccess(false)
+      }, 3000) // Clear after 3 seconds
+      
+    } catch (error) {
+      console.error('❌ Upload failed:', error)
+      setUploadError(error instanceof Error ? error.message : 'Upload failed')
+    } finally {
+      setIsUploading(false)
+    }
   }
   // Handle image upload preview
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
@@ -205,12 +287,50 @@ const ProjectUploadPage = () => {
         />
       </div>
 
+      {/* Error and Success Messages */}
+      {uploadError && (
+        <div className="w-full max-w-4xl mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+          <p className="text-red-600 text-sm">❌ {uploadError}</p>
+        </div>
+      )}
+      
+      {uploadSuccess && (
+        <div className="w-full max-w-4xl mb-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+          <p className="text-green-600 text-sm">✅ Project uploaded successfully!</p>
+        </div>
+      )}
+
       {/* Footer Buttons */}
       <div className="flex gap-4">
-        <button className="px-6 py-2 rounded-full bg-gray-200">Cancel</button>
-        <button className="px-6 py-2 rounded-full bg-gray-300">Save</button>
-        <button onClick={handlePublish} className="px-6 py-2 rounded-full bg-blue-600 text-white">
-          Publish
+        <button 
+          className="px-6 py-2 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors"
+          disabled={isUploading}
+        >
+          Cancel
+        </button>
+        <button 
+          className="px-6 py-2 rounded-full bg-gray-300 hover:bg-gray-400 transition-colors"
+          disabled={isUploading}
+        >
+          Save
+        </button>
+        <button 
+          onClick={handlePublish} 
+          disabled={isUploading}
+          className={`px-6 py-2 rounded-full text-white transition-colors ${
+            isUploading 
+              ? 'bg-blue-400 cursor-not-allowed' 
+              : 'bg-blue-600 hover:bg-blue-700'
+          }`}
+        >
+          {isUploading ? (
+            <span className="flex items-center gap-2">
+              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+              Uploading...
+            </span>
+          ) : (
+            'Publish'
+          )}
         </button>
       </div>
     </div>
