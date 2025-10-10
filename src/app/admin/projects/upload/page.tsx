@@ -3,6 +3,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { UploadBox } from '@/components/upload/UploadBox'
+import {useRouter} from 'next/navigation'
 
 
 interface ImageSlot {
@@ -38,6 +39,7 @@ const ProjectUploadPage = () => {
 
   const [imageSlots, setImageSlots] = useState(initialImageSlots)
 
+  const router = useRouter()
   // Cleanup object URLs when component unmounts to prevent memory leaks
   useEffect(() => {
     return () => {
@@ -129,6 +131,7 @@ const ProjectUploadPage = () => {
         setUploadSuccess(false)
       }, 3000) // Clear after 3 seconds
       
+    router.push('/admin/projects')
     } catch (error) {
       console.error('❌ Upload failed:', error)
       setUploadError(error instanceof Error ? error.message : 'Upload failed')

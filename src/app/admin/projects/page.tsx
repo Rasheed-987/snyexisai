@@ -53,6 +53,7 @@ export default function ProjectsPage() {
         
         if (projectsData.success) {
           setProjects(projectsData.projects)
+          
         } else {
           throw new Error('API returned unsuccessful response')
         }
@@ -73,57 +74,6 @@ export default function ProjectsPage() {
     setTitle('Projects')
   }, [setTitle])
 
-
-  // const projectsData = [
-  //   {
-  //     id: '1',
-  //     title: 'UX & Web Design Master',
-  //     description: 'Lorem ipsum is simply dummy text of the printing and typesetting industry lorem ipsum has been...',
-  //     author: 'Alex Smith',
-  //     timeAgo: '3h 44min ago',
-  //     thumbnail: '/images/grid_1.png'
-  //   },
-  //   {
-  //     id: '2',
-  //     title: 'UX & Web Design Master',
-  //     description: 'Lorem ipsum is simply dummy text of the printing and typesetting industry lorem ipsum has been...',
-  //     author: 'Alex Smith',
-  //     timeAgo: '3h 44min ago',
-  //     thumbnail: '/images/img1.png'
-  //   },
-  //   {
-  //     id: '3',
-  //     title: 'UX & Web Design Master',
-  //     description: 'Lorem ipsum is simply dummy text of the printing and typesetting industry lorem ipsum has been...',
-  //     author: 'Alex Smith',
-  //     timeAgo: '3h 44min ago',
-  //     thumbnail: '/images/img2.png'
-  //   },
-  //   {
-  //     id: '4',
-  //     title: 'UX & Web Design Master',
-  //     description: 'Lorem ipsum is simply dummy text of the printing and typesetting industry lorem ipsum has been...',
-  //     author: 'Alex Smith',
-  //     timeAgo: '3h 44min ago',
-  //     thumbnail: '/images/img3_1.jpg'
-  //   },
-  //   {
-  //     id: '5',
-  //     title: 'UX & Web Design Master',
-  //     description: 'Lorem ipsum is simply dummy text of the printing and typesetting industry lorem ipsum has been...',
-  //     author: 'Alex Smith',
-  //     timeAgo: '3h 44min ago',
-  //     thumbnail: '/images/grid_2.png'
-  //   },
-  //   {
-  //     id: '6',
-  //     title: 'UX & Web Design Master',
-  //     description: 'Lorem ipsum is simply dummy text of the printing and typesetting industry lorem ipsum has been...',
-  //     author: 'Alex Smith',
-  //     timeAgo: '3h 44min ago',
-  //     thumbnail: '/images/img4_1.jpg'
-  //   }
-  // ]
 
 
   // Helper function to format date safely
