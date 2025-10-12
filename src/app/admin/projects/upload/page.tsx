@@ -4,6 +4,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { UploadBox } from '@/components/upload/UploadBox'
 import {useRouter} from 'next/navigation'
+import { handleImageUpload } from '@/utils/dashboard'
 
 
 interface ImageSlot {
@@ -52,10 +53,6 @@ const ProjectUploadPage = () => {
   }, [])
 
   const handlePublish = async () => {
-
-    console.log()
-
-
 
     setIsUploading(true)
     setUploadError(null)
@@ -140,23 +137,7 @@ const ProjectUploadPage = () => {
     }
   }
   // Handle image upload preview
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
-    const file = e.target.files?.[0]
-    if (file) {
-      // Clean up previous URL if it exists to prevent memory leaks
-      if (imageSlots[index]?.previewUrl) {
-        URL.revokeObjectURL(imageSlots[index].previewUrl)
-      }
-      
-      const url = URL.createObjectURL(file)
-      const newSlots: ImageSlot[] = imageSlots.map((slot, i) => 
-        i === index ? { ...slot, file, previewUrl: url } : slot
-      )
-      setImageSlots(newSlots)
-    } else {
-      console.log('No file selected or index is invalid')
-    }
-  }
+ 
   return (
     <div className="min-h-screen bg-gray-50 p-8 flex flex-col items-center">
       {/* Project Title */}
@@ -174,7 +155,7 @@ const ProjectUploadPage = () => {
         <UploadBox
           label="Image Here"
           image={imageSlots[0].previewUrl}
-          onUpload={(e) => handleImageUpload(e, 0)}
+          onUpload={(e) => handleImageUpload(e, 0, imageSlots, setImageSlots)}
           className="w-full h-full"
         />
       </div>
@@ -230,7 +211,7 @@ const ProjectUploadPage = () => {
           <UploadBox
             label="Image Here"
             image={imageSlots[1].previewUrl}
-            onUpload={(e) => handleImageUpload(e, 1)}
+            onUpload={(e) => handleImageUpload(e, 1, imageSlots, setImageSlots)}
             className="w-full rounded-lg h-full"
           />
         </div>
@@ -238,7 +219,7 @@ const ProjectUploadPage = () => {
           <UploadBox
             label="Image Here"
             image={imageSlots[2].previewUrl}
-            onUpload={(e) => handleImageUpload(e, 2)}
+            onUpload={(e) => handleImageUpload(e, 2, imageSlots, setImageSlots)}
             className="w-full h-full"
           />
         </div>

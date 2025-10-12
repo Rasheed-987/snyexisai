@@ -1,0 +1,83 @@
+import mongoose, { Document} from 'mongoose'
+
+
+
+export interface ICaseStudy extends Document {
+  caseStudyId: string
+  caseTitle: string
+  subtitle: string
+  leftTextBox: string
+  whatWeDid: string
+  addLine: string
+  largeCard: {
+    title: string
+    body: string
+  }
+  smallCardsA: Array<{
+    title: string
+    body: string
+  }>
+  smallCardsB: Array<{
+    title: string
+    body: string
+  }>
+  bodyTextTop: string
+  bodyTextBottom: string
+  images:{
+    banner?: string // Main banner image S3 URL
+    gallery: string[] // Additional gallery images S3 URLs
+  }
+  status: 'draft' | 'published' | 'archived'
+  createdAt: Date
+  updatedAt: Date
+  }
+
+  
+// Enhanced Project Model to match your upload page structure
+export interface IProject extends Document {
+  projectId: string
+  title: string
+  tagline: string
+  addTitle: string
+  
+  // Images with specific purposes
+  images: {
+    banner?: string // Main banner image S3 URL
+    gallery: string[] // Additional gallery images S3 URLs
+  }
+  
+  // Grid cards (6 cards from your upload page)
+  cards: Array<{
+    title: string
+    body: string
+  }>
+  
+  // Large content card
+  largeCard: {
+    title: string
+    body: string
+  }
+  
+  // Small cards pair
+  smallCards: Array<{
+    title: string
+    body: string
+  }>
+  
+ 
+  status: 'draft' | 'published' | 'archived'
+  createdAt: Date
+  updatedAt: Date
+}
+
+export interface IServices extends Document {
+  serviceId: string,
+  serviceTitle: string,
+  images: {
+    banner?: string,
+    gallery?: string[]
+  },
+  status: 'draft' | 'published' | 'archived'
+  createdAt: Date
+  updatedAt: Date
+}

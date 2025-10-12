@@ -16,7 +16,6 @@ const ProjectEditPage = () => {
   const router = useRouter()
   const params = useParams()
   const projectId = params.id as string
-
   const [projectTitle, setProjectTitle] = useState('')
   const [tagline, setTagline] = useState('')
   const [addtitle, setAddtitle] = useState('')

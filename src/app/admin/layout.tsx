@@ -4,6 +4,7 @@ import Header from '@/components/admin/Header'
 import { TitleProvider, useTitle } from '@/hooks/titleContext'
 import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { getCurrentDate } from '@/utils/utils'
 
 
 
@@ -14,12 +15,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   useEffect(() => {
-    const currentDate = new Date().toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: '2-digit'
-    });
-    setDate(currentDate);
+    getCurrentDate(setDate);
   }, []);
 
   // Show title section only on dashboard page

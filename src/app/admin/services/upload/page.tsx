@@ -2,8 +2,8 @@
 
 import React from 'react'
 import { useState, useEffect } from 'react'
-
 import { UploadBox } from '@/components/upload/UploadBox'
+import { handleImageUpload } from '@/utils/dashboard'
 
 interface ImageSlot {
   id: string
@@ -13,42 +13,22 @@ interface ImageSlot {
 
 export default function ServicesUploadPage() {
   const [serviceTitle, setServiceTitle] = useState<string | null>(null)
-  const [image, setImage] = useState<ImageSlot>({
-    id: 'banner', 
-    file: null, 
-    previewUrl: null 
-  })
+  const [imageSlots, setImageSlots] = useState<ImageSlot[]>([
+    { id: 'banner', file: null, previewUrl: null }
+  ])
 
-  // Cleanup object URLs when component unmounts to prevent memory leaks
-  useEffect(() => {
-    return () => {
-      if (image.previewUrl) {
-        URL.revokeObjectURL(image.previewUrl)
-      }
-    }
-  }, [])
+  
   const onSubmit = () => {
-    console.log(image)
+    console.log(imageSlots)
   }
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, index?: number) => {
-    const file = e.target.files?.[0]
-    if (file) {
-      // Clean up previous URL if it exists to prevent memory leaks
-      if (image.previewUrl) {
-        URL.revokeObjectURL(image.previewUrl)
-      }
-      
-      const url = URL.createObjectURL(file)
-      setImage({ id: 'banner', file: file, previewUrl: url })
-    }
-  }
+  
   return (
     <div className="min-h-screen bg-gray-50 p-8 flex flex-col ">
       <UploadBox
         label="Upload Service Image"
-        image={image.previewUrl}
-        onUpload={handleImageUpload}
+        image={imageSlots[0].previewUrl}
+        onUpload={(e) => handleImageUpload(e, 0, imageSlots, setImageSlots)}
         className="mb-4 min-h-[50vh]"
       />
 

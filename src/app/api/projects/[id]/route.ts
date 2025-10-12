@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { Project } from '@/lib/models'
+import { Project } from '@/utils/models'
 import connectDB from '@/lib/mongodb'
-import { S3Service } from '@/lib/s3'
 
 type RouteContext = {
   params: Promise<{ id: string }>
@@ -33,7 +32,7 @@ export async function GET(
     })
     
   } catch (error) {
-    console.error('Error fetching project:', error)
+    
     return NextResponse.json(
       { error: 'Failed to fetch project' },
       { status: 500 }
@@ -50,7 +49,6 @@ export async function PUT(
     await connectDB()
     
     const { id } = await context.params
-    console.log('Updating project with ID:', id)
     
     const formData = await request.formData()
     

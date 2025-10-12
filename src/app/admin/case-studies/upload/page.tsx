@@ -1,8 +1,9 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-
 import { UploadBox } from '@/components/upload/UploadBox'
+import { handleImageUpload } from '@/utils/dashboard'
+import { useRouter } from 'next/navigation'
 
 interface ImageSlot {
   id: string
@@ -11,6 +12,7 @@ interface ImageSlot {
 }
 
 const CaseStudiesUploadPage: React.FC = () => {
+  const router = useRouter()
   const [caseTitle, setCaseTitle] = useState('')
   const [subtitle, setSubtitle] = useState('')
   const [leftTextBox, setLeftTextBox] = useState('') // "Text here" small box
@@ -47,9 +49,15 @@ const CaseStudiesUploadPage: React.FC = () => {
 
   const [imageSlots, setImageSlots] = useState(initialImageSlots)
 
+   // Add loading and error states
+    const [isUploading, setIsUploading] = useState(false)
+    const [uploadError, setUploadError] = useState<string | null>(null)
+    const [uploadSuccess, setUploadSuccess] = useState(false)
+
   // Cleanup object URLs when component unmounts to prevent memory leaks
   useEffect(() => {
     return () => {
+
       imageSlots.forEach(slot => {
         if (slot.previewUrl) {
           URL.revokeObjectURL(slot.previewUrl)
@@ -58,31 +66,99 @@ const CaseStudiesUploadPage: React.FC = () => {
     }
   }, [])
 
-  const handlePublish = () => {
-    console.log('Title:', caseTitle)
-    console.log('Subtitle:', subtitle)
-    console.log('Large Card:', largeCard)
-    console.log('Small Cards A:', smallCardsA)
-    console.log('Small Cards B:', smallCardsB)
-    console.log('Image Slots:', imageSlots)
-  }
+  const handlePublish = async () => {
+    setIsUploading(true)
+    setUploadError(null)
+    setUploadSuccess(false)
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
-    const file = e.target.files?.[0]
-    if (file) {
-      // Clean up previous URL if it exists to prevent memory leaks
-      if (imageSlots[index]?.previewUrl) {
-        URL.revokeObjectURL(imageSlots[index].previewUrl)
+    try {
+      // Validation
+      if (!caseTitle || !subtitle || !leftTextBox || !whatWeDid || !largeCard.title || !largeCard.body || smallCardsA.some(c => !c.title || !c.body) || smallCardsB.some(c => !c.title || !c.body) || !bodyTextTop || !bodyTextBottom) {
+        throw new Error('Please fill in all required fields')
       }
       
-      const url = URL.createObjectURL(file)
-      setImageSlots(prevSlots =>
-        prevSlots.map((slot, i) => (i === index ? { ...slot, file, previewUrl: url } : slot))
-      )
-    } else {
-      console.log('No file selected or index is invalid')
+      if (!imageSlots[0].file) {
+        throw new Error('Please upload at least one required image')
+      }
+      
+      // Prepare form data
+      const formData = new FormData()
+      
+      formData.append('title', caseTitle) 
+      formData.append('tagline', subtitle)
+      formData.append('smallCardsA', JSON.stringify(smallCardsA))
+      formData.append('smallCardsB', JSON.stringify(smallCardsB))
+      formData.append('largeCard', JSON.stringify(largeCard))
+      formData.append('leftTextBox', leftTextBox)
+      formData.append('whatWeDid', whatWeDid)
+      formData.append('addLine', addLine)
+      formData.append('bodyTextTop', bodyTextTop)
+      formData.append('bodyTextBottom', bodyTextBottom)
+      
+      // Add banner image
+      if (imageSlots[0].file) {
+        formData.append('bannerImage', imageSlots[0].file)
+      }
+      
+      // Add gallery images
+      imageSlots.slice(1).forEach((slot) => {
+        if (slot.file) {
+          formData.append('galleryImages', slot.file)
+        }
+      })
+
+      console.log('Uploading case study...')
+      
+      // Send to API
+      const response = await fetch('/api/case-studies', {
+        method: 'POST',
+        body: formData
+      })
+      
+      const result = await response.json()
+      
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to publish case study')
+      }
+      
+      console.log('✅ Case study uploaded successfully:', result)
+      setUploadSuccess(true)
+
+      // Clear form after successful upload
+      setTimeout(() => {
+        setCaseTitle('')
+        setSubtitle('')
+        setLeftTextBox('')
+        setWhatWeDid('')
+        setAddLine('')
+        setLargeCard({ title: '', body: '' })
+        setSmallCardsA([{ title: '', body: '' }, { title: '', body: '' }])
+        setSmallCardsB([{ title: '', body: '' }, { title: '', body: '' }])
+        setBodyTextTop('')
+        setBodyTextBottom('')
+
+        // Clean up image previews
+        imageSlots.forEach(slot => {
+          if (slot.previewUrl) {
+            URL.revokeObjectURL(slot.previewUrl)
+          }
+        })
+        setImageSlots(initialImageSlots)
+        
+        setUploadSuccess(false)
+      }, 3000) // Clear after 3 seconds
+      
+      router.push('/admin/case-studies')
+      
+    } catch (error) {
+      console.error('❌ Upload failed:', error)
+      setUploadError(error instanceof Error ? error.message : 'Upload failed')
+    } finally {
+      setIsUploading(false)
     }
   }
+
+  
 
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 flex flex-col items-center">
@@ -109,7 +185,7 @@ const CaseStudiesUploadPage: React.FC = () => {
         <UploadBox
           label="Project Banner"
           image={imageSlots[0]?.previewUrl}
-          onUpload={(e) => handleImageUpload(e, 0)}
+          onUpload={(e) => handleImageUpload(e, 0, imageSlots, setImageSlots)}
           className="w-full h-full"
         />
       </div>
@@ -151,7 +227,7 @@ const CaseStudiesUploadPage: React.FC = () => {
         <UploadBox
           label="Image Here"
           image={imageSlots[1]?.previewUrl}
-          onUpload={(e) => handleImageUpload(e, 1)}
+          onUpload={(e) => handleImageUpload(e, 1, imageSlots, setImageSlots)}
           className="w-full h-full"
         />
       </div>
@@ -162,7 +238,7 @@ const CaseStudiesUploadPage: React.FC = () => {
           <UploadBox
             label="Image Here"
             image={imageSlots[2]?.previewUrl}
-            onUpload={(e) => handleImageUpload(e, 2)}
+            onUpload={(e) => handleImageUpload(e, 2, imageSlots, setImageSlots)}
             className="w-full h-full"
           />
         </div>
@@ -170,7 +246,7 @@ const CaseStudiesUploadPage: React.FC = () => {
           <UploadBox
             label="Image Here"
             image={imageSlots[3]?.previewUrl}
-            onUpload={(e) => handleImageUpload(e, 3)}
+            onUpload={(e) => handleImageUpload(e, 3, imageSlots, setImageSlots)}
             className="w-full h-full"
           />
         </div>
@@ -228,7 +304,7 @@ const CaseStudiesUploadPage: React.FC = () => {
           <UploadBox
             label="Image Here"
             image={imageSlots[4]?.previewUrl}
-            onUpload={(e) => handleImageUpload(e, 4)}
+            onUpload={(e) => handleImageUpload(e, 4, imageSlots, setImageSlots)}
             className="w-full h-full"
           />
         </div>
@@ -236,7 +312,7 @@ const CaseStudiesUploadPage: React.FC = () => {
           <UploadBox
             label="Image Here"
             image={imageSlots[5]?.previewUrl}
-            onUpload={(e) => handleImageUpload(e, 5)}
+            onUpload={(e) => handleImageUpload(e, 5, imageSlots, setImageSlots)}
             className="w-full h-full"
           />
         </div>
@@ -276,7 +352,7 @@ const CaseStudiesUploadPage: React.FC = () => {
         <UploadBox
           label="Image Here"
           image={imageSlots[6]?.previewUrl}
-          onUpload={(e) => handleImageUpload(e, 6)}
+          onUpload={(e) => handleImageUpload(e, 6, imageSlots, setImageSlots)}
           className="w-full h-full"
         />
       </div>
@@ -287,7 +363,7 @@ const CaseStudiesUploadPage: React.FC = () => {
           <UploadBox
             label="Image Here"
             image={imageSlots[7]?.previewUrl}
-            onUpload={(e) => handleImageUpload(e, 7)}
+            onUpload={(e) => handleImageUpload(e, 7, imageSlots, setImageSlots)}
             className="w-full h-full"
           />
         </div>
@@ -295,7 +371,7 @@ const CaseStudiesUploadPage: React.FC = () => {
           <UploadBox
             label="Image Here"
             image={imageSlots[8]?.previewUrl}
-            onUpload={(e) => handleImageUpload(e, 8)}
+            onUpload={(e) => handleImageUpload(e, 8, imageSlots, setImageSlots)}
             className="w-full h-full"
           />
         </div>
@@ -316,7 +392,7 @@ const CaseStudiesUploadPage: React.FC = () => {
         <UploadBox
           label="Image Here"
           image={imageSlots[9]?.previewUrl}
-          onUpload={(e) => handleImageUpload(e, 9)}
+          onUpload={(e) => handleImageUpload(e, 9, imageSlots, setImageSlots)}
           className="w-full h-full"
         />
       </div>

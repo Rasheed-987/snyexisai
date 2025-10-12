@@ -106,6 +106,98 @@ export class S3Service {
     
     return key
   }
+
+  /**
+   * Upload a file directly to S3 using presigned URL
+   * Reusable function for banner and gallery images
+   */
+  static async uploadFileToS3(
+    file: File,
+    folder: string,
+    subfolder?: string
+  ): Promise<string> {
+    try {
+      // Generate unique key for the file
+      const fullFolder = subfolder ? `${folder}/${subfolder}` : folder
+      const key = this.generateKey(file.name, fullFolder)
+      
+      // Get presigned upload URL
+      const presignedUpload = await this.getPresignedUploadUrl(key, file.type)
+      
+      // Upload file to S3 using fetch
+      const uploadResponse = await fetch(presignedUpload.uploadUrl, {
+        method: 'PUT',
+        body: file,
+        headers: {
+          'Content-Type': file.type,
+        },
+      })
+      
+      console.log(`🔍 Upload response for ${file.name}:`, uploadResponse.status)
+      
+      if (!uploadResponse.ok) {
+        const errorText = await uploadResponse.text()
+        console.error('❌ S3 Upload failed:', {
+          status: uploadResponse.status,
+          statusText: uploadResponse.statusText,
+          error: errorText,
+          fileName: file.name,
+        })
+        throw new Error(`Failed to upload ${file.name}: ${uploadResponse.status} ${uploadResponse.statusText}`)
+      }
+      
+      console.log(`✅ File uploaded successfully: ${presignedUpload.fileUrl}`)
+      
+      // Return the public S3 URL
+      return presignedUpload.fileUrl
+      
+    } catch (error) {
+      console.error('Error uploading file to S3:', error)
+      throw error
+    }
+  }
+
+  /**
+   * Upload multiple files (banner + gallery images) to S3
+   * Returns structured object with banner and gallery URLs
+   */
+  static async uploadImages(
+    bannerFile: File | null,
+    galleryFiles: File[],
+    sectionName: string,
+    uniqueId: string
+  ): Promise<{ banner?: string; gallery: string[] }> {
+    const uploadedImages: { banner?: string; gallery: string[] } = { gallery: [] }
+    
+    try {
+      // Upload banner image if exists
+      if (bannerFile && bannerFile.size > 0) {
+        const bannerUrl = await this.uploadFileToS3(
+          bannerFile,
+          `${sectionName}/${uniqueId}`
+        )
+        uploadedImages.banner = bannerUrl
+      }
+      
+      // Upload gallery images if any
+      for (const file of galleryFiles) {
+        if (file && file.size > 0) {
+          const galleryUrl = await this.uploadFileToS3(
+            file,
+            `${sectionName}/${uniqueId}`,
+            'gallery'
+          )
+          uploadedImages.gallery.push(galleryUrl)
+        }
+      }
+      
+      return uploadedImages
+      
+    } catch (error) {
+      console.error('Error uploading images:', error)
+      throw error
+    }
+  }
 }
 
 export default s3Client
