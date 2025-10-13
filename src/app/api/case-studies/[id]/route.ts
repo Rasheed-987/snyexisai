@@ -5,12 +5,12 @@ import { S3Service } from '@/lib/s3'
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectDB()
     
-    const { id } = params
+    const { id } = await context.params
     
     if (!id) {
       return NextResponse.json(
@@ -73,12 +73,12 @@ export async function DELETE(
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectDB()
     
-    const { id } = await params 
+    const { id } = await context.params 
     
     if (!id) {
       return NextResponse.json(
