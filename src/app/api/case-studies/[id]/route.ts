@@ -3,9 +3,13 @@ import { CaseStudy } from '@/utils/models'
 import connectDB from '@/lib/mongodb'
 import { S3Service } from '@/lib/s3'
 
+type RouteContext = {
+  params: Promise<{ id: string }>
+}
+
 export async function DELETE(
   request: NextRequest,
-  context: { params: Promise<{ id: string }> }
+  context: RouteContext
 ) {
   try {
     await connectDB()
@@ -73,7 +77,7 @@ export async function DELETE(
 
 export async function GET(
   request: NextRequest,
-  context: { params: Promise<{ id: string }> }
+  context: RouteContext
 ) {
   try {
     await connectDB()
@@ -115,12 +119,12 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: RouteContext
 ) {
   try {
     await connectDB()
     
-    const { id } = params
+    const { id } = await context.params
     
     if (!id) {
       return NextResponse.json(

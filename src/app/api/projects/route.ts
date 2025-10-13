@@ -8,9 +8,9 @@ export async function POST(request: NextRequest) {
     await connectDB()
     
     const formData = await request.formData()
-
     
     // Extract project data
+    const status = (formData.get('status') as string) || 'published'
     const projectData = {
       title: formData.get('title') as string,
       tagline: formData.get('tagline') as string,
@@ -18,15 +18,26 @@ export async function POST(request: NextRequest) {
       cards: JSON.parse(formData.get('cards') as string || '[]'),
       largeCard: JSON.parse(formData.get('largeCard') as string || '{}'),
       smallCards: JSON.parse(formData.get('smallCards') as string || '[]'),
-      status: 'published'
+      status: status as 'published' | 'draft'
     }
-    
-    // Validate required fields
-    if (!projectData.title || !projectData.tagline || !projectData.addTitle) {
-      return NextResponse.json(
-        { error: 'Title, tagline, and addTitle are required' },
-        { status: 400 }
-      )
+
+    // Different validation rules for drafts vs published
+    if (status === 'published') {
+      // Published projects require all fields
+      if (!projectData.title || !projectData.tagline || !projectData.addTitle) {
+        return NextResponse.json(
+          { error: 'Title, tagline, and addTitle are required for published projects' },
+          { status: 400 }
+        )
+      }
+    } else if (status === 'draft') {
+      // Drafts only need a title to be identifiable
+      if (!projectData.title) {
+        return NextResponse.json(
+          { error: 'Title is required to save draft' },
+          { status: 400 }
+        )
+      }
     }
     
     // Generate unique project ID for S3 folder organization
@@ -36,13 +47,28 @@ export async function POST(request: NextRequest) {
     const bannerFile = formData.get('bannerImage') as File
     const galleryFiles = formData.getAll('galleryImages') as File[]
     
-    // Upload images to S3 using reusable function
-    const uploadedImages = await S3Service.uploadImages(
-      bannerFile,
-      galleryFiles,
-      'projects',
-      projectId
-    )
+    // Check if we have valid files
+    const hasValidBanner = bannerFile && bannerFile.size > 0
+    const hasValidGallery = galleryFiles.some(file => file && file.size > 0)
+    
+    let uploadedImages = { banner: '', gallery: [] }
+    
+    // Handle image uploads
+    if (hasValidBanner || hasValidGallery) {
+      // Upload images to S3
+      uploadedImages = await S3Service.uploadImages(
+        hasValidBanner ? bannerFile : null,
+        hasValidGallery ? galleryFiles.filter(file => file && file.size > 0) : [],
+        'projects',
+        projectId
+      )
+    } else if (status === 'published') {
+      // Published projects must have at least a banner image
+      return NextResponse.json(
+        { error: 'At least a banner image is required for published projects' },
+        { status: 400 }
+      )
+    }
     
     // Create project document with S3 URLs
     const projectDoc = {
@@ -57,7 +83,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       project: project,
-      message: 'Project uploaded successfully!'
+      message: status === 'draft' 
+        ? 'Draft saved successfully!' 
+        : 'Project published successfully!'
     })
     
   } catch (error) {
@@ -76,15 +104,29 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url)
     const limit = parseInt(searchParams.get('limit') || '10')
     const page = parseInt(searchParams.get('page') || '1')
+    const status = searchParams.get('status') // 'draft', 'published', or null
+    const admin = searchParams.get('admin') === 'true' // Admin view flag
     
-    const projects = await Project.find({ status: 'published' })
-      .sort({ createdAt: -1 })
+    // Build query based on parameters
+    let query: any = {}
+    
+    if (status) {
+      // Specific status requested (e.g., ?status=draft or ?status=published)
+      query.status = status
+    } else {
+      // Default: show all projects (both drafts and published)
+      query = {}
+    }
+    
+    const projects = await Project.find(query)
+      .sort({ updatedAt: -1 }) // Show recently updated first (good for drafts)
       .limit(limit)
       .skip((page - 1) * limit)
     
-    const total = await Project.countDocuments({ status: 'published' })
+    const total = await Project.countDocuments(query)
     
-    return NextResponse.json({
+    // Always provide status counts when returning all projects
+    const response: any = {
       success: true,
       projects,
       pagination: {
@@ -93,7 +135,22 @@ export async function GET(request: NextRequest) {
         total,
         pages: Math.ceil(total / limit)
       }
-    })
+    }
+    
+    // Add status counts for better frontend handling
+    if (!status) {
+      // Only add counts when showing all projects (not filtered by status)
+      const draftCount = await Project.countDocuments({ status: 'draft' })
+      const publishedCount = await Project.countDocuments({ status: 'published' })
+      
+      response.statusCounts = {
+        draft: draftCount,
+        published: publishedCount,
+        total: draftCount + publishedCount
+      }
+    }
+    
+    return NextResponse.json(response)
     
   } catch (error) {
     console.error('Error fetching projects:', error)

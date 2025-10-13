@@ -90,9 +90,71 @@ export default function ProjectsPage() {
     router.push(`/admin/projects/edit/${id}`)
   }
 
-  const handleUnpublish = (id: string) => {
-    console.log('Unpublish project:', id)
-    // Add unpublish logic here
+  const handleUnpublish = async (id: string, currentStatus: string) => {
+    try {
+      setLoading(true)
+      
+      if (currentStatus === 'draft') {
+        // For draft projects, publish them
+        console.log('Publishing draft project:', id)
+        
+        const formData = new FormData()
+        formData.append('status', 'published')
+        
+        const response = await fetch(`/api/projects/${id}`, {
+          method: 'PUT',
+          body: formData
+        })
+        
+        const result = await response.json()
+        
+        if (!response.ok) {
+          throw new Error(result.error || 'Failed to publish project')
+        }
+        
+        console.log('✅ Project published successfully')
+        
+        // Update project in local state
+        setProjects(prev => prev.map(project => 
+          project._id === id 
+            ? { ...project, status: 'published' }
+            : project
+        ))
+        
+      } else {
+        // For published projects, unpublish them (set to draft)
+        console.log('Unpublishing project:', id)
+        
+        const formData = new FormData()
+        formData.append('status', 'draft')
+        
+        const response = await fetch(`/api/projects/${id}`, {
+          method: 'PUT',
+          body: formData
+        })
+        
+        const result = await response.json()
+        
+        if (!response.ok) {
+          throw new Error(result.error || 'Failed to unpublish project')
+        }
+        
+        console.log('✅ Project unpublished successfully')
+        
+        // Update project in local state
+        setProjects(prev => prev.map(project => 
+          project._id === id 
+            ? { ...project, status: 'draft' }
+            : project
+        ))
+      }
+      
+    } catch (error) {
+      console.error('Error toggling project status:', error)
+      // You can add toast notification here
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handleDelete = async (id: string) => {
@@ -224,8 +286,9 @@ export default function ProjectsPage() {
           author="Admin" // You can modify this based on your user system
           timeAgo={formatDate(project.createdAt)}
           thumbnail={project.images.banner || '/images/placeholder.png'}
+          status={project.status as 'draft' | 'published'}
           onEdit={() => handleEdit(project._id)}
-          onUnpublish={() => handleUnpublish(project._id)}
+          onUnpublish={() => handleUnpublish(project._id, project.status)}
           onDelete={() => handleDelete(project._id)}
         />
       ))}

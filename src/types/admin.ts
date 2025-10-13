@@ -76,6 +76,7 @@ export interface ActionButtonsProps {
   onUnpublish: () => void
   onDelete: () => void
   className?: string
+  status?: 'draft' | 'published' // Add status for conditional rendering
 }
 
 // Project Card Types
@@ -86,6 +87,7 @@ export interface ProjectCardProps {
   author: string
   timeAgo: string
   thumbnail: string
+  status: 'draft' | 'published' // Add status field
   onEdit: () => void
   onUnpublish: () => void
   onDelete: () => void
@@ -99,6 +101,7 @@ export interface ServiceCardProps {
   author: string
   timeAgo: string
   thumbnail: string
+  status?: 'draft' | 'published' // Add status field (optional for backward compatibility)
   onEdit: () => void
   onUnpublish: () => void
   onDelete: () => void

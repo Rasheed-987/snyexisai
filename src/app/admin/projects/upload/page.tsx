@@ -6,7 +6,6 @@ import { UploadBox } from '@/components/upload/UploadBox'
 import {useRouter} from 'next/navigation'
 import { handleImageUpload } from '@/utils/dashboard'
 
-
 interface ImageSlot {
   id: string
   file: File | null
@@ -52,6 +51,65 @@ const ProjectUploadPage = () => {
     }
   }, [])
 
+  const handleSave = async () => {
+    setIsUploading(true)
+    setUploadError(null)
+    setUploadSuccess(false)
+
+    try {
+     
+      // Prepare form data
+      const formData = new FormData()
+      
+      // Add project metadata
+      formData.append('title', projectTitle)
+      formData.append('tagline', tagline)
+      formData.append('addTitle', addtitle)
+      formData.append('cards', JSON.stringify(cards))
+      formData.append('largeCard', JSON.stringify(largeCard))
+      formData.append('smallCards', JSON.stringify(smallCardsA))
+      formData.append('status', 'draft') // Mark as draft
+
+      // Add banner image (first image slot)
+      if (imageSlots[0]?.file) {
+        formData.append('bannerImage', imageSlots[0].file)
+      }
+
+      // Add gallery images (remaining image slots)
+      imageSlots.slice(1).forEach((slot) => {
+        if (slot?.file) {
+          formData.append('galleryImages', slot.file)
+        }
+      })
+      
+      // Send to API
+      const response = await fetch('/api/projects', {
+        method: 'POST',
+        body: formData,
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Save failed')
+      }
+
+      console.log('✅ Project saved as draft:', result)
+      setUploadSuccess(true)
+      
+      // Show success message and redirect
+      setTimeout(() => {
+        router.push('/admin/projects')
+      }, 2000)
+      
+    } catch (error) {
+      console.error('❌ Save failed:', error)
+      setUploadError(error instanceof Error ? error.message : 'Save failed')
+    } finally {
+      setIsUploading(false)
+    }
+  }
+
   const handlePublish = async () => {
 
     setIsUploading(true)
@@ -78,6 +136,7 @@ const ProjectUploadPage = () => {
       formData.append('cards', JSON.stringify(cards))
       formData.append('largeCard', JSON.stringify(largeCard))
       formData.append('smallCards', JSON.stringify(smallCardsA))
+      formData.append('status', 'published') // Mark as published
 
       // Add banner image (first image slot)
       if (imageSlots[0]?.file) {
@@ -91,8 +150,6 @@ const ProjectUploadPage = () => {
         }
       })
 
-      
-      
       // Send to API
       const response = await fetch('/api/projects', {
         method: 'POST',
@@ -293,10 +350,11 @@ const ProjectUploadPage = () => {
           Cancel
         </button>
         <button 
+          onClick={handleSave}
           className="px-6 py-2 rounded-full bg-gray-300 hover:bg-gray-400 transition-colors"
           disabled={isUploading}
         >
-          Save
+          Save Draft
         </button>
         <button 
           onClick={handlePublish} 

@@ -4,6 +4,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { UploadBox } from '@/components/upload/UploadBox'
 import { useRouter, useParams } from 'next/navigation'
+import {handleImageUpload} from '@/utils/dashboard'
 
 interface ImageSlot {
   id: string
@@ -112,13 +113,74 @@ const ProjectEditPage = () => {
     }
   }, [])
 
+  const handleSaveDraft = async () => {
+    setIsUpdating(true)
+    setUpdateError(null)
+    setUpdateSuccess(false)
+
+    try {
+      // For drafts, we don't require all fields to be filled
+      const formData = new FormData()
+      
+      // Add project metadata
+      formData.append('title', projectTitle)
+      formData.append('tagline', tagline)
+      formData.append('addTitle', addtitle)
+      formData.append('cards', JSON.stringify(cards))
+      formData.append('largeCard', JSON.stringify(largeCard))
+      formData.append('smallCards', JSON.stringify(smallCardsA))
+      
+      // Set status to draft
+      formData.append('status', 'draft')
+
+      // Add banner image (only if a new file is selected)
+      if (imageSlots[0]?.file) {
+        formData.append('bannerImage', imageSlots[0].file)
+      }
+
+      // Add gallery images with slot information (only new files)
+      imageSlots.slice(1).forEach((slot, index) => {
+        if (slot?.file) {
+          formData.append('galleryImages', slot.file)
+          formData.append('gallerySlots', index.toString()) // Send slot index
+        }
+      })
+
+      // Send to API
+      const response = await fetch(`/api/projects/${projectId}`, {
+        method: 'PUT',
+        body: formData,
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Save draft failed')
+      }
+
+      console.log('✅ Project saved as draft:', result)
+      setUpdateSuccess(true)
+      
+      // Navigate back to projects list after successful save
+      setTimeout(() => {
+        router.push('/admin/projects')
+      }, 2000)
+      
+    } catch (error) {
+      console.error('❌ Save draft failed:', error)
+      setUpdateError(error instanceof Error ? error.message : 'Save draft failed')
+    } finally {
+      setIsUpdating(false)
+    }
+  }
+
   const handleUpdate = async () => {
     setIsUpdating(true)
     setUpdateError(null)
     setUpdateSuccess(false)
 
     try {
-      // Validation
+      // Validation for publishing - all fields required
       if (!projectTitle || !tagline || !addtitle) {
         throw new Error('Please fill in all required fields: Title, Tagline, and Additional Title')
       }
@@ -138,6 +200,9 @@ const ProjectEditPage = () => {
       formData.append('cards', JSON.stringify(cards))
       formData.append('largeCard', JSON.stringify(largeCard))
       formData.append('smallCards', JSON.stringify(smallCardsA))
+      
+      // Set status to published
+      formData.append('status', 'published')
 
       // Add banner image (only if a new file is selected)
       if (imageSlots[0]?.file) {
@@ -152,7 +217,6 @@ const ProjectEditPage = () => {
         }
       })
 
-
       // Send to API
       const response = await fetch(`/api/projects/${projectId}`, {
         method: 'PUT',
@@ -165,7 +229,7 @@ const ProjectEditPage = () => {
         throw new Error(result.error || 'Update failed')
       }
 
-      console.log('✅ Project updated successfully:', result)
+      console.log('✅ Project published successfully:', result)
       setUpdateSuccess(true)
       
       // Navigate back to projects list after successful update
@@ -174,31 +238,13 @@ const ProjectEditPage = () => {
       }, 2000)
       
     } catch (error) {
-      console.error('❌ Update failed:', error)
-      setUpdateError(error instanceof Error ? error.message : 'Update failed')
+      console.error('❌ Publish failed:', error)
+      setUpdateError(error instanceof Error ? error.message : 'Publish failed')
     } finally {
       setIsUpdating(false)
     }
   }
 
-  // Handle image upload preview
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
-    const file = e.target.files?.[0]
-    if (file) {
-      // Clean up previous URL if it exists and it's not an existing S3 URL
-      if (imageSlots[index]?.previewUrl && !imageSlots[index]?.existingUrl) {
-        URL.revokeObjectURL(imageSlots[index].previewUrl)
-      }
-      
-      const url = URL.createObjectURL(file)
-      const newSlots: ImageSlot[] = imageSlots.map((slot, i) => 
-        i === index ? { ...slot, file, previewUrl: url, existingUrl: null } : slot
-      )
-      setImageSlots(newSlots)
-    } else {
-      console.log('No file selected or index is invalid')
-    }
-  }
 
   if (isLoading) {
     return (
@@ -233,7 +279,7 @@ const ProjectEditPage = () => {
         <UploadBox
           label={imageSlots[0].previewUrl ? "Change Image" : "Image Here"}
           image={imageSlots[0].previewUrl}
-          onUpload={(e) => handleImageUpload(e, 0)}
+          onUpload={(e) => handleImageUpload(e, 0,imageSlots,setImageSlots)}
           className="w-full h-full"
         />
       </div>
@@ -291,7 +337,7 @@ const ProjectEditPage = () => {
           <UploadBox
             label={imageSlots[1].previewUrl ? "Change Image" : "Image Here"}
             image={imageSlots[1].previewUrl}
-            onUpload={(e) => handleImageUpload(e, 1)}
+            onUpload={(e) => handleImageUpload(e, 1,imageSlots,setImageSlots)}
             className="w-full rounded-lg h-full"
           />
         </div>
@@ -299,7 +345,7 @@ const ProjectEditPage = () => {
           <UploadBox
             label={imageSlots[2].previewUrl ? "Change Image" : "Image Here"}
             image={imageSlots[2].previewUrl}
-            onUpload={(e) => handleImageUpload(e, 2)}
+            onUpload={(e) => handleImageUpload(e, 2,imageSlots,setImageSlots)}
             className="w-full h-full"
           />
         </div>
@@ -374,10 +420,15 @@ const ProjectEditPage = () => {
           Cancel
         </button>
         <button 
-          className="px-6 py-2 rounded-full bg-gray-300 hover:bg-gray-400 transition-colors"
+          onClick={handleSaveDraft}
+          className={`px-6 py-2 rounded-full transition-colors ${
+            isUpdating 
+              ? 'bg-gray-200 cursor-not-allowed' 
+              : 'bg-gray-300 hover:bg-gray-400'
+          }`}
           disabled={isUpdating}
         >
-          Save Draft
+          {isUpdating ? 'Saving...' : 'Save Draft'}
         </button>
         <button 
           onClick={handleUpdate} 
@@ -391,10 +442,10 @@ const ProjectEditPage = () => {
           {isUpdating ? (
             <span className="flex items-center gap-2">
               <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-              Updating...
+              Publishing...
             </span>
           ) : (
-            'Update Project'
+            'Publish Project'
           )}
         </button>
       </div>

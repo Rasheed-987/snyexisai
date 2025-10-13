@@ -53,7 +53,18 @@ export async function PUT(
     
     const formData = await request.formData()
     
+    // Get existing project first to preserve status if not provided
+    const existingProject = await Project.findById(id)
+    
+    if (!existingProject) {
+      return NextResponse.json(
+        { error: 'Project not found' },
+        { status: 404 }
+      )
+    }
+
     // Extract updated data
+    const status = formData.get('status') as string
     const updateData: any = {
       title: formData.get('title') as string,
       tagline: formData.get('tagline') as string,
@@ -61,6 +72,8 @@ export async function PUT(
       cards: JSON.parse(formData.get('cards') as string || '[]'),
       largeCard: JSON.parse(formData.get('largeCard') as string || '{}'),
       smallCards: JSON.parse(formData.get('smallCards') as string || '[]'),
+      // Preserve existing status if no new status provided
+      status: status || existingProject.status,
     }
     // Handle image uploads if new images are provided
     const bannerFile = formData.get('bannerImage') as File
@@ -72,22 +85,14 @@ export async function PUT(
     
     // Only upload and update images if there are new files
     if (hasNewBanner || hasNewGallery) {
-      // Get existing project to preserve existing images
-      const existingProject = await Project.findById(id)
-      
-      if (!existingProject) {
-        return NextResponse.json(
-          { error: 'Project not found' },
-          { status: 404 }
-        )
-      }
+      // Note: existingProject already fetched above
       
       // Upload new images to S3
       const uploadedImages = await S3Service.uploadImages(
         hasNewBanner ? bannerFile : null,
         hasNewGallery ? galleryFiles.filter(file => file && file.size > 0) : [],
         'projects',
-        id // Use existing project ID, not new timestamp
+        id 
       )
       
       // Merge uploaded images with existing ones
@@ -119,6 +124,25 @@ export async function PUT(
       
       // Add images to updateData
       updateData.images = mergedImages
+    }
+
+    // Validate if trying to publish a draft
+    if (updateData.status === 'published') {
+      if (!updateData.title || !updateData.tagline || !updateData.addTitle) {
+        return NextResponse.json(
+          { error: 'Title, tagline, and addTitle are required for published projects' },
+          { status: 400 }
+        )
+      }
+      
+      // Check if has banner image (either existing or uploaded)
+      const hasBanner = (hasNewBanner && updateData.images?.banner) || existingProject.images?.banner
+      if (!hasBanner) {
+        return NextResponse.json(
+          { error: 'Banner image is required for published projects' },
+          { status: 400 }
+        )
+      }
     }
 
     const project = await Project.findByIdAndUpdate(

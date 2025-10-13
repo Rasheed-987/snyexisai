@@ -17,7 +17,12 @@ export function ActionButtons({
   onUnpublish,
   onDelete,
   className = '',
+  status = 'published',
 }: ActionButtonsProps) {
+  const isDraft = status === 'draft'
+  const buttonText = isDraft ? 'Draft' : 'Unpublish'
+  const buttonAlt = isDraft ? 'Draft' : 'Unpublish'
+  
   return (
     <div
       className={`flex items-center bg-white rounded-[26px] justify-center gap-1 sm:gap-2 md:gap-3 lg:gap-4  p-2 sm:p-3  ${className}`}
@@ -40,19 +45,20 @@ export function ActionButtons({
       {/* Divider */}
       <div className="w-px h-3 sm:h-4 bg-gray-300"></div>
 
-      {/* Unpublish Button */}
+      {/* Draft/Unpublish Button */}
       <button
         onClick={onUnpublish}
         className="flex items-center space-x-1 text-blue-500 hover:text-blue-600 transition-colors"
+        title={isDraft ? 'Publish this draft' : 'Unpublish this project'}
       >
         <Image
           src="/images/admin/unpublish.svg"
-          alt="Unpublish"
+          alt={buttonAlt}
           width={14}
           height={14}
           className="w-3.5 h-3.5 sm:w-4 sm:h-4"
         />
-        <span className="text-xs font-medium">Unpublish</span>
+        <span className="text-xs font-medium">{buttonText}</span>
       </button>
 
       {/* Divider */}
@@ -82,6 +88,7 @@ export function ProjectCard({
   author,
   timeAgo,
   thumbnail,
+  status,
   onEdit,
   onUnpublish,
   onDelete,
@@ -98,7 +105,16 @@ export function ProjectCard({
         />
       </div>
 
-      <h3 className="body-medium font-semibold text-[var(--foreground)] mb-2">{title}</h3>
+      <div className="flex items-center justify-between mb-2">
+        <h3 className="body-medium font-semibold text-[var(--foreground)]">{title}</h3>
+        <span className={`text-xs px-2 py-1 rounded-full ${
+          status === 'draft' 
+            ? 'bg-yellow-100 text-yellow-800' 
+            : 'bg-green-100 text-green-800'
+        }`}>
+          {status === 'draft' ? 'Draft' : 'Published'}
+        </span>
+      </div>
 
       <p className="body-small text-gray-600 line-clamp-2 mb-4">{description}</p>
 
@@ -121,7 +137,7 @@ export function ProjectCard({
       </div>
 
       <div className="mt-4 pt-4 border-t border-gray-200">
-        <ActionButtons onEdit={onEdit} onUnpublish={onUnpublish} onDelete={onDelete} />
+        <ActionButtons onEdit={onEdit} onUnpublish={onUnpublish} onDelete={onDelete} status={status} />
       </div>
     </div>
   )
@@ -133,6 +149,7 @@ export function ServiceCard({
   author,
   timeAgo,
   thumbnail,
+  status = 'published',
   onEdit,
   onUnpublish,
   onDelete,
@@ -152,7 +169,7 @@ export function ServiceCard({
       <h3 className="body-medium font-semibold text-[var(--foreground)] mb-2">{title}</h3>
 
       <div className="mt-4 pt-4 border-t border-gray-200">
-        <ActionButtons onEdit={onEdit} onUnpublish={onUnpublish} onDelete={onDelete} />
+        <ActionButtons onEdit={onEdit} onUnpublish={onUnpublish} onDelete={onDelete} status={status} />
       </div>
     </div>
   )
