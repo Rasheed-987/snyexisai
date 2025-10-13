@@ -91,7 +91,7 @@ const ProjectUploadPage = () => {
         }
       })
 
-      console.log('Uploading project...')
+      
       
       // Send to API
       const response = await fetch('/api/projects', {

@@ -5,13 +5,18 @@ import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { JobApplicationCard } from '@/components/admin/JobApplicationCard'
 import { CaseStudyCard } from '@/components/admin/AdminCards'
-import {Stat, JobApplication, CaseStudy} from '@/types/admin'
+import {Stat, JobApplication, CaseStudy as CaseStudyCardType} from '@/types/admin'
+import { fetchCaseStudies, formatDate, CaseStudy } from '@/utils/dashboard'
 import {useRouter} from 'next/navigation'
 
 export default function AdminDashboardPage() {
  
   const [date,setDate] = useState('');
   const router = useRouter();
+
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([]);
 
   useEffect(() => {
     const currentDate = new Date().toLocaleDateString('en-US', {
@@ -21,6 +26,9 @@ export default function AdminDashboardPage() {
     });
     setDate(currentDate);
   }, []);
+   useEffect(() => {
+      fetchCaseStudies(setCaseStudies, setLoading, setError, { limit: 3 });
+    }, []);
 
   const jobApplications: JobApplication[] = [
     {
@@ -115,59 +123,7 @@ export default function AdminDashboardPage() {
     }
   ]
 
-  const caseStudies: CaseStudy[] = [
-    {
-      id: '1',
-      title: 'UX & Web Design Master',
-      description: 'Lorem ipsum is simply dummy text of the printing and typesetting industry lorem ipsum has been...',
-      author: 'Alex Smith',
-      authorImage: '/images/admin/profile.png',
-      timeAgo: '3h 43min ago',
-      thumbnail: '/images/grid_1.png'
-    },
-    {
-      id: '2',
-      title: 'UX & Web Design Master',
-      description: 'Lorem ipsum is simply dummy text of the printing and typesetting industry lorem ipsum has been...',
-      author: 'Alex Smith',
-      authorImage: '/images/admin/profile.png',
-      timeAgo: '3h 43min ago',
-      thumbnail: '/images/grid_2.png'
-    },
-    {
-      id: '3',
-      title: 'UX & Web Design Master',
-      description: 'Lorem ipsum is simply dummy text of the printing and typesetting industry lorem ipsum has been...',
-      author: 'Alex Smith',
-      authorImage: '/images/admin/profile.png',
-      timeAgo: '3h 43min ago',
-      thumbnail: '/images/grid_3.png'
-    },
-    {
-      id: '4',
-      title: 'UX & Web Design Master',
-      description: 'Lorem ipsum is simply dummy text of the printing and typesetting industry lorem ipsum has been...',
-      author: 'Alex Smith',
-      authorImage: '/images/admin/profile.png',
-      timeAgo: '3h 43min ago',
-      thumbnail: '/images/grid_4.png'
-    }
-  ]
-
-  const handleEdit = (id: number) => {
-    console.log('Edit case study:', id)
-    // Add edit logic here
-  }
-
-  const handleUnpublish = (id: number) => {
-    console.log('Unpublish case study:', id)
-    // Add unpublish logic here
-  }
-
-  const handleDelete = (id: number) => {
-    console.log('Delete case study:', id)
-    // Add delete logic here
-  }
+  
 
   return (
     <div className="p-4 md:p-6 bg-[#ECEFF3] min-h-screen">
@@ -220,21 +176,36 @@ export default function AdminDashboardPage() {
           </button>
         </div>
          
-{caseStudies.map((caseStudy) => (
-  <CaseStudyCard  key={caseStudy.id}
-          id={caseStudy.id}
-          title={caseStudy.title}
-          description={caseStudy.description}
-          author={caseStudy.author}
-          timeAgo={caseStudy.timeAgo}
-          thumbnail={caseStudy.thumbnail}
-          className="flex flex-row items-center bg-[#F4F0ED] rounded-[21px] p-4 space-y-0 space-x-0 [&>div:last-child]:hidden"
-          onEdit={() => {}}
-          onUnpublish={() => {}}
-          onDelete={() => {}}
-          
-          />
-))}
+{loading ? (
+  <div className="text-center py-8">
+    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-2"></div>
+    <p className="text-gray-600 text-sm">Loading case studies...</p>
+  </div>
+) : error ? (
+  <div className="text-center py-8">
+    <p className="text-red-600 text-sm">Error: {error}</p>
+  </div>
+) : caseStudies.length === 0 ? (
+  <div className="text-center py-8">
+    <p className="text-gray-600 text-sm">No case studies found</p>
+  </div>
+) : (
+  caseStudies.map((caseStudy) => (
+    <CaseStudyCard  
+      key={caseStudy._id}
+      id={caseStudy._id}
+      title={caseStudy.caseTitle}
+      description={caseStudy.subtitle || caseStudy.addLine}
+      author="Admin"
+      timeAgo={formatDate(caseStudy.createdAt)}
+      thumbnail={caseStudy.images.banner || '/images/placeholder.png'}
+      className="flex flex-row items-center bg-[#F4F0ED] rounded-[21px] p-4 space-y-0 space-x-0 [&>div:last-child]:hidden"
+      onEdit={() => router.push(`/admin/case-studies/edit/${caseStudy._id}`)}
+      onUnpublish={() => {}}
+      onDelete={() => {}}
+    />
+  ))
+)}
 
 
         </div>

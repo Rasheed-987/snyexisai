@@ -1,88 +1,142 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React from 'react'
+import { useState, useEffect } from 'react'
 import { UploadBox } from '@/components/upload/UploadBox'
+import { useRouter, useParams } from 'next/navigation'
 import { handleImageUpload } from '@/utils/dashboard'
-import { useRouter } from 'next/navigation'
 
 interface ImageSlot {
   id: string
-  file: any | null
+  file: File | null
   previewUrl: string | null
+  existingUrl?: string | null // For existing images from S3
 }
 
-const CaseStudiesUploadPage: React.FC = () => {
+const CaseStudyEditPage = () => {
   const router = useRouter()
+  const params = useParams()
+  const caseStudyId = params.id as string
+  
   const [caseTitle, setCaseTitle] = useState('')
   const [subtitle, setSubtitle] = useState('')
-  const [leftTextBox, setLeftTextBox] = useState('') // "Text here" small box
-  const [whatWeDid, setWhatWeDid] = useState('') // "What we did"
-  const [addLine, setAddLine] = useState('') // "+ Add line"
-  const [largeCard, setLargeCard] = useState({ title: '', body: '' }) // A central large title + body card
+  const [leftTextBox, setLeftTextBox] = useState('')
+  const [whatWeDid, setWhatWeDid] = useState('')
+  const [addLine, setAddLine] = useState('')
+  const [largeCard, setLargeCard] = useState({ title: '', body: '' })
   const [smallCardsA, setSmallCardsA] = useState([
-    // two small title/body cards (pair)
     { title: '', body: '' },
     { title: '', body: '' },
   ])
-
   const [smallCardsB, setSmallCardsB] = useState([
-    // two small title/body cards lower (another pair)
     { title: '', body: '' },
     { title: '', body: '' },
   ])
-
-  const [bodyTextTop, setBodyTextTop] = useState('') // Top body text block
+  const [bodyTextTop, setBodyTextTop] = useState('')
   const [bodyTextBottom, setBodyTextBottom] = useState('')
 
+  // Add loading and error states
+  const [isLoading, setIsLoading] = useState(true)
+  const [isUpdating, setIsUpdating] = useState(false)
+  const [updateError, setUpdateError] = useState<string | null>(null)
+  const [updateSuccess, setUpdateSuccess] = useState(false)
+
   const initialImageSlots: ImageSlot[] = [
-    { id: 'banner1', file: null, previewUrl: null },
-    { id: 'banner2', file: null, previewUrl: null },
-    { id: 'banner3', file: null, previewUrl: null },
-    { id: 'banner4', file: null, previewUrl: null },
-    { id: 'banner5', file: null, previewUrl: null },
-    { id: 'banner6', file: null, previewUrl: null },
-    { id: 'banner7', file: null, previewUrl: null },
-    { id: 'banner8', file: null, previewUrl: null },
-    { id: 'banner9', file: null, previewUrl: null },
-    { id: 'banner10', file: null, previewUrl: null },
+    { id: 'banner1', file: null, previewUrl: null, existingUrl: null },
+    { id: 'banner2', file: null, previewUrl: null, existingUrl: null },
+    { id: 'banner3', file: null, previewUrl: null, existingUrl: null },
+    { id: 'banner4', file: null, previewUrl: null, existingUrl: null },
+    { id: 'banner5', file: null, previewUrl: null, existingUrl: null },
+    { id: 'banner6', file: null, previewUrl: null, existingUrl: null },
+    { id: 'banner7', file: null, previewUrl: null, existingUrl: null },
+    { id: 'banner8', file: null, previewUrl: null, existingUrl: null },
+    { id: 'banner9', file: null, previewUrl: null, existingUrl: null },
+    { id: 'banner10', file: null, previewUrl: null, existingUrl: null },
   ]
 
   const [imageSlots, setImageSlots] = useState(initialImageSlots)
 
-  // Add loading and error states
-  const [isUploading, setIsUploading] = useState(false)
-  const [uploadError, setUploadError] = useState<string | null>(null)
-  const [uploadSuccess, setUploadSuccess] = useState(false)
+  // Load existing case study data
+  useEffect(() => {
+    const loadCaseStudy = async () => {
+      try {
+        setIsLoading(true)
+        const response = await fetch(`/api/case-studies/${caseStudyId}`)
+        
+        if (!response.ok) {
+          throw new Error('Failed to load case study')
+        }
+
+        const result = await response.json()
+        const caseStudy = result.caseStudy
+        
+        // Populate form fields
+        setCaseTitle(caseStudy.caseTitle || '')
+        setSubtitle(caseStudy.subtitle || '')
+        setLeftTextBox(caseStudy.leftTextBox || '')
+        setWhatWeDid(caseStudy.whatWeDid || '')
+        setAddLine(caseStudy.addLine || '')
+        setLargeCard(caseStudy.largeCard || { title: '', body: '' })
+        setSmallCardsA(caseStudy.smallCardsA || [{ title: '', body: '' }, { title: '', body: '' }])
+        setSmallCardsB(caseStudy.smallCardsB || [{ title: '', body: '' }, { title: '', body: '' }])
+        setBodyTextTop(caseStudy.bodyTextTop || '')
+        setBodyTextBottom(caseStudy.bodyTextBottom || '')
+
+        // Set existing images
+        const newImageSlots = [...initialImageSlots]
+        if (caseStudy.images?.banner) {
+          newImageSlots[0] = {
+            ...newImageSlots[0],
+            existingUrl: caseStudy.images.banner,
+            previewUrl: caseStudy.images.banner
+          }
+        }
+        if (caseStudy.images?.gallery) {
+          caseStudy.images.gallery.forEach((imageUrl: string, index: number) => {
+            if (index < 9 && newImageSlots[index + 1]) {
+              newImageSlots[index + 1] = {
+                ...newImageSlots[index + 1],
+                existingUrl: imageUrl,
+                previewUrl: imageUrl
+              }
+            }
+          })
+        }
+        setImageSlots(newImageSlots)
+
+      } catch (error) {
+        console.error('Failed to load case study:', error)
+        setUpdateError('Failed to load case study data')
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    if (caseStudyId) {
+      loadCaseStudy()
+    }
+  }, [caseStudyId])
 
   // Cleanup object URLs when component unmounts to prevent memory leaks
   useEffect(() => {
     return () => {
       imageSlots.forEach(slot => {
-        if (slot.previewUrl) {
+        if (slot.previewUrl && !slot.existingUrl) {
           URL.revokeObjectURL(slot.previewUrl)
         }
       })
     }
   }, [imageSlots])
 
-  const handleSave = () => {
-    // Add save functionality if needed
-    console.log('Save case study (draft)');
-  }
-
-  const handlePublish = async () => {
-    setIsUploading(true)
-    setUploadError(null)
-    setUploadSuccess(false)
+  const handleUpdate = async () => {
+    setIsUpdating(true)
+    setUpdateError(null)
+    setUpdateSuccess(false)
 
     try {
       // Validation
       if (!caseTitle || !subtitle || !leftTextBox || !whatWeDid || !largeCard.title || !largeCard.body) {
         throw new Error('Please fill in all required fields: Title, Subtitle, Text Box, What We Did, and Large Card')
-      }
-
-      if (!imageSlots[0].file) {
-        throw new Error('Please upload at least a banner image');
       }
 
       // Prepare form data
@@ -102,85 +156,88 @@ const CaseStudiesUploadPage: React.FC = () => {
       formData.append('smallCardsA', JSON.stringify(smallCardsA))
       formData.append('smallCardsB', JSON.stringify(smallCardsB))
       
-      // Add banner image (first image slot)
+      // Add banner image (first image slot) - only if new file is selected
       if (imageSlots[0]?.file) {
         formData.append('bannerImage', imageSlots[0].file)
       }
       
-      // Add gallery images (remaining image slots)
-      imageSlots.slice(1).forEach((slot) => {
+      // Add gallery images with slot information (remaining image slots) - only new files
+      imageSlots.slice(1).forEach((slot, index) => {
         if (slot?.file) {
           formData.append('galleryImages', slot.file)
+          formData.append('gallerySlots', index.toString()) // Send slot index
         }
       })
 
-      console.log('Uploading case study...')
+      console.log('Updating case study...')
       
       // Send to API
-      const response = await fetch('/api/case-studies', {
-        method: 'POST',
+      const response = await fetch(`/api/case-studies/${caseStudyId}`, {
+        method: 'PUT',
         body: formData
       })
       
       const result = await response.json()
       
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to publish case study')
+        throw new Error(result.error || 'Failed to update case study')
       }
       
-      console.log('✅ Case study uploaded successfully:', result)
-      setUploadSuccess(true)
-
-      // Clear form after successful upload
-      setTimeout(() => {
-        setCaseTitle('')
-        setSubtitle('')
-        setLeftTextBox('')
-        setWhatWeDid('')
-        setAddLine('')
-        setLargeCard({ title: '', body: '' })
-        setSmallCardsA([{ title: '', body: '' }, { title: '', body: '' }])
-        setSmallCardsB([{ title: '', body: '' }, { title: '', body: '' }])
-        setBodyTextTop('')
-        setBodyTextBottom('')
-
-        // Clean up image previews
-        imageSlots.forEach(slot => {
-          if (slot.previewUrl) {
-            URL.revokeObjectURL(slot.previewUrl)
-          }
-        })
-        setImageSlots(initialImageSlots)
-        
-        setUploadSuccess(false)
-      }, 3000) // Clear after 3 seconds
+      console.log('✅ Case study updated successfully:', result)
+      setUpdateSuccess(true)
       
-      router.push('/admin/case-studies')
+      // Redirect back to case studies list after success
+      setTimeout(() => {
+        router.push('/admin/case-studies')
+      }, 2000)
       
     } catch (error) {
-      console.error('❌ Upload failed:', error)
-      setUploadError(error instanceof Error ? error.message : 'Upload failed')
+      console.error('❌ Update failed:', error)
+      setUpdateError(error instanceof Error ? error.message : 'Update failed')
     } finally {
-      setIsUploading(false)
+      setIsUpdating(false)
     }
   }
 
   const handleCancel = () => {
     router.push('/admin/case-studies')
   }
+  
+  const handleSave = () => {
+    // Add save functionality if needed
+    console.log('Save case study (draft)');
+  }
+
+  // Loading state
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading case study...</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 flex flex-col items-center">
-      {uploadError && (
+      {updateError && (
         <div className="w-full max-w-4xl mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
-          <p className="text-red-600 text-sm">❌ {uploadError}</p>
+          <p className="text-red-600 text-sm">❌ {updateError}</p>
         </div>
       )}
-      {uploadSuccess && (
+      
+      {updateSuccess && (
         <div className="w-full max-w-4xl mb-4 p-4 bg-green-50 border border-green-200 rounded-lg">
-          <p className="text-green-600 text-sm">✅ Case study uploaded successfully!</p>
+          <p className="text-green-600 text-sm">✅ Case study updated successfully! Redirecting...</p>
         </div>
       )}
+
+      <div className="w-full max-w-4xl mb-6">
+        <h1 className="text-2xl font-bold text-gray-800 mb-2">Edit Case Study</h1>
+        <p className="text-gray-600">Update the case study information below</p>
+      </div>
 
       {/* Project Title */}
       <input
@@ -431,34 +488,34 @@ const CaseStudiesUploadPage: React.FC = () => {
       <div className="flex gap-4">
         <button 
           className="px-6 py-2 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors"
-          disabled={isUploading}
+          disabled={isUpdating}
           onClick={handleCancel}
         >
           Cancel
         </button>
         <button 
           className="px-6 py-2 rounded-full bg-gray-300 hover:bg-gray-400 transition-colors"
-          disabled={isUploading}
+          disabled={isUpdating}
           onClick={handleSave}
         >
-          Save
+          Save Draft
         </button>
         <button 
-          onClick={handlePublish} 
-          disabled={isUploading}
+          onClick={handleUpdate} 
+          disabled={isUpdating}
           className={`px-6 py-2 rounded-full text-white transition-colors ${
-            isUploading 
+            isUpdating 
               ? 'bg-blue-400 cursor-not-allowed' 
               : 'bg-blue-600 hover:bg-blue-700'
           }`}
         >
-          {isUploading ? (
+          {isUpdating ? (
             <span className="flex items-center gap-2">
               <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-              Uploading...
+              Updating...
             </span>
           ) : (
-            'Publish'
+            'Update Case Study'
           )}
         </button>
       </div>
@@ -466,4 +523,4 @@ const CaseStudiesUploadPage: React.FC = () => {
   )
 }
 
-export default CaseStudiesUploadPage
+export default CaseStudyEditPage

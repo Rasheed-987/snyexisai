@@ -5,6 +5,8 @@ import AdminContentLayout from '@/components/admin/AdminContentLayout'
 import { ProjectCard } from '@/components/admin/AdminCards'
 import { useTitle } from '@/hooks/titleContext'
 import { useRouter } from 'next/navigation'
+import { formatDate } from '@/utils/dashboard'
+
 
 interface Project {
   _id: string
@@ -76,28 +78,6 @@ export default function ProjectsPage() {
 
 
 
-  // Helper function to format date safely
-  const formatDate = (dateString: string) => {
-    if (!mounted) return 'Loading...' // Prevent hydration mismatch
-    
-    try {
-      const date = new Date(dateString)
-      const now = new Date()
-      const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60))
-      
-      if (diffInHours < 1) return 'Just now'
-      if (diffInHours < 24) return `${diffInHours}h ago`
-      if (diffInHours < 48) return 'Yesterday'
-      
-      return date.toLocaleDateString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: date.getFullYear() !== now.getFullYear() ? 'numeric' : undefined
-      })
-    } catch {
-      return 'Unknown'
-    }
-  }
 
   const handleUpload = () => {
     console.log('Upload Project clicked')

@@ -4,6 +4,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { UploadBox } from '@/components/upload/UploadBox'
 import { handleImageUpload } from '@/utils/dashboard'
+import { useRouter } from 'next/navigation';
 
 interface ImageSlot {
   id: string
@@ -12,14 +13,49 @@ interface ImageSlot {
 }
 
 export default function ServicesUploadPage() {
+  const router = useRouter();
+
   const [serviceTitle, setServiceTitle] = useState<string | null>(null)
   const [imageSlots, setImageSlots] = useState<ImageSlot[]>([
     { id: 'banner', file: null, previewUrl: null }
   ])
+  const [isRouterMounted, setIsRouterMounted] = useState(false);
 
-  
-  const onSubmit = () => {
-    console.log(imageSlots)
+  useEffect(() => {
+    setIsRouterMounted(true);
+  }, []);
+
+  const onSubmit = async () => {
+    if (!isRouterMounted) {
+      console.error('NextRouter is not mounted.');
+      return;
+    }
+
+    try {
+      if (!serviceTitle || !imageSlots[0].file) {
+        alert('Please provide a service title and upload an image.');
+        return;
+      }
+
+      const form = new FormData();
+      form.append('title', serviceTitle);
+      form.append('image', imageSlots[0].file);
+
+      const response = await fetch('/api/services', {
+        method: 'POST',
+        body: form,
+      });
+
+      if (response.ok) {
+        alert('Service uploaded successfully!');
+        router.push('/admin/services');
+      } else {
+        alert('Failed to upload service.');
+      }
+    } catch (error) {
+      console.error('Error uploading service:', error);
+      alert('An error occurred while uploading the service.');
+    }
   }
 
   

@@ -54,7 +54,9 @@ const ProjectEditPage = () => {
           throw new Error('Failed to load project')
         }
 
-        const project = await response.json()
+        const response_data = await response.json()
+        const project = response_data.project
+        console.log('Fetched Project Data', project)
         
         // Populate form fields
         setProjectTitle(project.title || '')
@@ -66,15 +68,15 @@ const ProjectEditPage = () => {
 
         // Set existing images
         const newImageSlots = [...initialImageSlots]
-        if (project.bannerImageUrl) {
+        if (project.images?.banner) {
           newImageSlots[0] = {
             ...newImageSlots[0],
-            existingUrl: project.bannerImageUrl,
-            previewUrl: project.bannerImageUrl
+            existingUrl: project.images.banner,
+            previewUrl: project.images.banner
           }
         }
-        if (project.galleryImages) {
-          project.galleryImages.forEach((imageUrl: string, index: number) => {
+        if (project.images?.gallery && project.images.gallery.length > 0) {
+          project.images.gallery.forEach((imageUrl: string, index: number) => {
             if (index < 2 && newImageSlots[index + 1]) {
               newImageSlots[index + 1] = {
                 ...newImageSlots[index + 1],
@@ -142,15 +144,15 @@ const ProjectEditPage = () => {
         formData.append('bannerImage', imageSlots[0].file)
       }
 
-      // Add gallery images (only new files)
-      imageSlots.slice(1).forEach((slot) => {
+      // Add gallery images with slot information (only new files)
+      imageSlots.slice(1).forEach((slot, index) => {
         if (slot?.file) {
           formData.append('galleryImages', slot.file)
+          formData.append('gallerySlots', index.toString()) // Send slot index
         }
       })
 
-      console.log('Updating project...')
-      
+
       // Send to API
       const response = await fetch(`/api/projects/${projectId}`, {
         method: 'PUT',
