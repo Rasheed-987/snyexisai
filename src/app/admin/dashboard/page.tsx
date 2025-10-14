@@ -199,6 +199,7 @@ export default function AdminDashboardPage() {
       author="Admin"
       timeAgo={formatDate(caseStudy.createdAt)}
       thumbnail={caseStudy.images.banner || '/images/placeholder.png'}
+      status={(caseStudy.status as 'draft' | 'published') || 'published'}
       className="flex flex-row items-center bg-[#F4F0ED] rounded-[21px] p-4 space-y-0 space-x-0 [&>div:last-child]:hidden"
       onEdit={() => router.push(`/admin/case-studies/edit/${caseStudy._id}`)}
       onUnpublish={() => {}}

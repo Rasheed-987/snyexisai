@@ -8,7 +8,7 @@ import { handleImageUpload } from '@/utils/dashboard'
 
 interface ImageSlot {
   id: string
-  file: File | null
+  file: File | any
   previewUrl: string | null
   existingUrl?: string | null // For existing images from S3
 }
