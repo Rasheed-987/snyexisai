@@ -131,7 +131,7 @@ export default function Header() {
           <div className="relative">
             <Menu>
               <MenuButton
-                className="inline-flex items-center gap-3 rounded-full border border-[#F4F0ED] bg-white pl-2 pr-3 py-1.5 text-sm font-medium text-[#0F1C3D] shadow-sm hover:bg-[#F4F0ED] focus:outline-none focus:ring-2 focus:ring-[#327AED] focus:ring-offset-2"
+                className="inline-flex items-center gap-3 rounded-full border border-[#F4F0ED] bg-white pl-2 pr-3 py-1.5 text-sm font-medium text-[#0F1C3D] shadow-sm  focus:outline-none focus:ring-2 focus:ring-[#327AED] focus:ring-offset-2"
                 aria-label="Open account menu"
               >
                 {/* Compact user pill (avatar + name) */}
@@ -147,7 +147,7 @@ export default function Header() {
               </MenuButton>
               <MenuItems
                 anchor="bottom end"
-                className="absolute right-0 z-50 mt-2 w-56 origin-top-right rounded-lg border border-[#F4F0ED] bg-white p-1 text-sm shadow-lg ring-1 ring-[#F4F0ED] focus:outline-none"
+                className="absolute right-0 z-50 mt-2 w-56 origin-top-right rounded-[12px]   bg-white p-1 text-sm shadow-lg  "
               >
                 {/* Mobile: Sidebar menu items */}
                 <div className="md:hidden">
@@ -155,7 +155,7 @@ export default function Header() {
                     <MenuItem key={item.label}>
                       <a
                         href={item.href}
-                        className="flex items-center gap-2 rounded-md px-3 py-2 text-[#0F1C3D] hover:bg-[#F4F0ED] focus:bg-[#F4F0ED]"
+                        className="flex items-center gap-2 rounded-md px-3 py-2 text-[#0F1C3D] hover:bg-[#ECEFF3] focus:bg-[#F4F0ED]"
                       >
                         {item.icon}
                         <span>{item.label}</span>

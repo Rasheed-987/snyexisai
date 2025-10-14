@@ -67,15 +67,24 @@ export function ActionButtons({
       {/* Delete Button */}
       <button
         onClick={onDelete}
-        className="flex items-center space-x-1 text-blue-500 hover:text-red-500 transition-colors"
+        className="group flex items-center space-x-1 text-blue-500 hover:text-red-500 transition-colors"
       >
-        <Image
-          src="/images/admin/delete.svg"
-          alt="Delete"
-          width={14}
-          height={14}
-          className="w-3.5 h-3.5 sm:w-4 sm:h-4"
-        />
+        <div className="relative">
+          <Image
+            src="/images/admin/delete.svg"
+            alt="Delete"
+            width={14}
+            height={14}
+            className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:opacity-0 transition-opacity duration-200"
+          />
+          <svg 
+            className="w-3.5 h-3.5 sm:w-4 sm:h-4 absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-red-500" 
+            fill="currentColor" 
+            viewBox="0 0 24 24"
+          >
+            <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+          </svg>
+        </div>
         <span className="text-xs font-medium">Delete</span>
       </button>
     </div>
