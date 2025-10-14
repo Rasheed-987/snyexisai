@@ -81,3 +81,15 @@ export interface IServices extends Document {
   createdAt: Date
   updatedAt: Date
 }
+
+export interface ICareer extends Document {
+  careerId: string
+  jobTitle: string
+  company: string
+  location: string
+  jobType: 'Full Time' | 'Part Time' | 'Contract' | 'Internship'
+  description: string
+  status: 'draft' | 'published' | 'archived'
+  createdAt: Date
+  updatedAt: Date
+}

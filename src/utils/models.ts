@@ -1,6 +1,6 @@
 
 import mongoose, { Schema, Document, Model } from 'mongoose'
-import { IProject,ICaseStudy,IServices } from '@/types/model'
+import { IProject,ICaseStudy,IServices, ICareer } from '@/types/model'
 
 
 const ProjectSchema = new Schema<IProject>({
@@ -77,8 +77,23 @@ const ServiceSchema = new Schema<IServices>({
 }
 )
 
+const CareerSchema = new Schema<ICareer>({
+  careerId: { type: String, required: true, unique: true },
+  jobTitle: { type: String, required: true },
+  company: { type: String, required: true },
+  location: { type: String, required: true },
+  jobType: { type: String, enum: ['Full Time', 'Part Time', 'Contract', 'Internship'], required: true },
+  description: { type: String, required: true },
+  status: { type: String, enum: ['draft', 'published', 'archived'], default: 'draft' },
+},
+{
+  timestamps: true
+}
+)
+
 
 // Export models
 export const Project = mongoose.models.Project || mongoose.model<IProject>('Project', ProjectSchema)
 export const CaseStudy = mongoose.models.CaseStudy || mongoose.model<ICaseStudy>('CaseStudy', CaseStudySchema)
 export const Services = mongoose.models.Services || mongoose.model<IServices>('Services', ServiceSchema)
+export const Career = mongoose.models.Career || mongoose.model<ICareer>('Career', CareerSchema)
