@@ -65,30 +65,17 @@ const CaseStudiesUploadPage: React.FC = () => {
     }
   }, [imageSlots])
 
-  const handleSave = () => {
-    // Add save functionality if needed
-    console.log('Save case study (draft)');
-  }
-
-  const handlePublish = async () => {
+  // Save as draft (minimal validation)
+  const handleSaveDraft = async () => {
     setIsUploading(true)
     setUploadError(null)
     setUploadSuccess(false)
 
     try {
-      // Validation
-      if (!caseTitle || !subtitle || !leftTextBox || !whatWeDid || !largeCard.title || !largeCard.body) {
-        throw new Error('Please fill in all required fields: Title, Subtitle, Text Box, What We Did, and Large Card')
+      if (!caseTitle) {
+        throw new Error('Title is required to save draft')
       }
-
-      if (!imageSlots[0].file) {
-        throw new Error('Please upload at least a banner image');
-      }
-
-      // Prepare form data
       const formData = new FormData()
-
-      // Add case study metadata
       formData.append('caseTitle', caseTitle)
       formData.append('subtitle', subtitle)
       formData.append('leftTextBox', leftTextBox)
@@ -96,42 +83,27 @@ const CaseStudiesUploadPage: React.FC = () => {
       formData.append('addLine', addLine)
       formData.append('bodyTextTop', bodyTextTop)
       formData.append('bodyTextBottom', bodyTextBottom)
-      
-      // Add card data as JSON strings
       formData.append('largeCard', JSON.stringify(largeCard))
       formData.append('smallCardsA', JSON.stringify(smallCardsA))
       formData.append('smallCardsB', JSON.stringify(smallCardsB))
-      
-      // Add banner image (first image slot)
+      formData.append('status', 'draft')
       if (imageSlots[0]?.file) {
         formData.append('bannerImage', imageSlots[0].file)
       }
-      
-      // Add gallery images (remaining image slots)
       imageSlots.slice(1).forEach((slot) => {
         if (slot?.file) {
           formData.append('galleryImages', slot.file)
         }
       })
-
-      console.log('Uploading case study...')
-      
-      // Send to API
       const response = await fetch('/api/case-studies', {
         method: 'POST',
         body: formData
       })
-      
       const result = await response.json()
-      
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to publish case study')
+        throw new Error(result.error || 'Failed to save draft')
       }
-      
-      console.log('✅ Case study uploaded successfully:', result)
       setUploadSuccess(true)
-
-      // Clear form after successful upload
       setTimeout(() => {
         setCaseTitle('')
         setSubtitle('')
@@ -143,22 +115,84 @@ const CaseStudiesUploadPage: React.FC = () => {
         setSmallCardsB([{ title: '', body: '' }, { title: '', body: '' }])
         setBodyTextTop('')
         setBodyTextBottom('')
-
-        // Clean up image previews
         imageSlots.forEach(slot => {
           if (slot.previewUrl) {
             URL.revokeObjectURL(slot.previewUrl)
           }
         })
         setImageSlots(initialImageSlots)
-        
         setUploadSuccess(false)
-      }, 3000) // Clear after 3 seconds
-      
+      }, 3000)
       router.push('/admin/case-studies')
-      
     } catch (error) {
-      console.error('❌ Upload failed:', error)
+      setUploadError(error instanceof Error ? error.message : 'Save draft failed')
+    } finally {
+      setIsUploading(false)
+    }
+  }
+
+  // Publish (strict validation)
+  const handlePublish = async () => {
+    setIsUploading(true)
+    setUploadError(null)
+    setUploadSuccess(false)
+    try {
+      if (!caseTitle || !subtitle || !leftTextBox || !whatWeDid || !largeCard.title || !largeCard.body) {
+        throw new Error('Please fill in all required fields: Title, Subtitle, Text Box, What We Did, and Large Card')
+      }
+      if (!imageSlots[0].file) {
+        throw new Error('Please upload at least a banner image');
+      }
+      const formData = new FormData()
+      formData.append('caseTitle', caseTitle)
+      formData.append('subtitle', subtitle)
+      formData.append('leftTextBox', leftTextBox)
+      formData.append('whatWeDid', whatWeDid)
+      formData.append('addLine', addLine)
+      formData.append('bodyTextTop', bodyTextTop)
+      formData.append('bodyTextBottom', bodyTextBottom)
+      formData.append('largeCard', JSON.stringify(largeCard))
+      formData.append('smallCardsA', JSON.stringify(smallCardsA))
+      formData.append('smallCardsB', JSON.stringify(smallCardsB))
+      formData.append('status', 'published')
+      if (imageSlots[0]?.file) {
+        formData.append('bannerImage', imageSlots[0].file)
+      }
+      imageSlots.slice(1).forEach((slot) => {
+        if (slot?.file) {
+          formData.append('galleryImages', slot.file)
+        }
+      })
+      const response = await fetch('/api/case-studies', {
+        method: 'POST',
+        body: formData
+      })
+      const result = await response.json()
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to publish case study')
+      }
+      setUploadSuccess(true)
+      setTimeout(() => {
+        setCaseTitle('')
+        setSubtitle('')
+        setLeftTextBox('')
+        setWhatWeDid('')
+        setAddLine('')
+        setLargeCard({ title: '', body: '' })
+        setSmallCardsA([{ title: '', body: '' }, { title: '', body: '' }])
+        setSmallCardsB([{ title: '', body: '' }, { title: '', body: '' }])
+        setBodyTextTop('')
+        setBodyTextBottom('')
+        imageSlots.forEach(slot => {
+          if (slot.previewUrl) {
+            URL.revokeObjectURL(slot.previewUrl)
+          }
+        })
+        setImageSlots(initialImageSlots)
+        setUploadSuccess(false)
+      }, 3000)
+      router.push('/admin/case-studies')
+    } catch (error) {
       setUploadError(error instanceof Error ? error.message : 'Upload failed')
     } finally {
       setIsUploading(false)
@@ -200,6 +234,7 @@ const CaseStudiesUploadPage: React.FC = () => {
         onChange={(e) => setSubtitle(e.target.value)}
       />
 
+   
       {/* Project Banner (full width) */}
       <div className="w-full max-w-4xl mb-6 h-56">
         <UploadBox
@@ -439,7 +474,7 @@ const CaseStudiesUploadPage: React.FC = () => {
         <button 
           className="px-6 py-2 rounded-full bg-gray-300 hover:bg-gray-400 transition-colors"
           disabled={isUploading}
-          onClick={handleSave}
+          onClick={handleSaveDraft}
         >
           Save
         </button>

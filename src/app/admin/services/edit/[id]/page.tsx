@@ -87,51 +87,69 @@ const ServiceEditPage = () => {
     loadService()
   }, [serviceId, mounted])
 
-  const onUpdate = async () => {
+  // Save as draft (only requires title)
+  const onSaveDraft = async () => {
     if (!serviceTitle.trim()) {
       alert('Please provide a service title.')
       return
     }
-
     try {
       setIsUpdating(true)
       setUpdateError(null)
       setUpdateSuccess(false)
-      
-      console.log('Updating service:', serviceId)
-      
       const formData = new FormData()
       formData.append('title', serviceTitle)
-      
-      // Add image file if new one is selected
+      formData.append('status', 'draft')
       if (imageSlots[0].file) {
         formData.append('image', imageSlots[0].file)
       }
-      
       const response = await fetch(`/api/services/${serviceId}`, {
         method: 'PUT',
         body: formData
       })
-      
       const result = await response.json()
-      
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to save draft')
+      }
+      setUpdateSuccess(true)
+      alert('Service draft saved successfully!')
+      router.push('/admin/services')
+    } catch (error) {
+      setUpdateError(error instanceof Error ? error.message : 'Save draft failed')
+      alert(error instanceof Error ? error.message : 'Save draft failed')
+    } finally {
+      setIsUpdating(false)
+    }
+  }
+
+  // Publish (requires title and image)
+  const onPublish = async () => {
+    if (!serviceTitle.trim() || !imageSlots[0].file) {
+      alert('Please provide a service title and upload an image.')
+      return
+    }
+    try {
+      setIsUpdating(true)
+      setUpdateError(null)
+      setUpdateSuccess(false)
+      const formData = new FormData()
+      formData.append('title', serviceTitle)
+      formData.append('image', imageSlots[0].file)
+      formData.append('status', 'published')
+      const response = await fetch(`/api/services/${serviceId}`, {
+        method: 'PUT',
+        body: formData
+      })
+      const result = await response.json()
       if (!response.ok) {
         throw new Error(result.error || 'Failed to update service')
       }
-      
-      console.log('✅ Service updated successfully')
       setUpdateSuccess(true)
-      
-      // Show success message
-      alert('Service updated successfully!')
-      
-      // Navigate back to services list
+      alert('Service published successfully!')
       router.push('/admin/services')
-      
     } catch (error) {
-      console.error('❌ Error updating service:', error)
-      setUpdateError(error instanceof Error ? error.message : 'Failed to update service')
-      alert(error instanceof Error ? error.message : 'Failed to update service')
+      setUpdateError(error instanceof Error ? error.message : 'Publish failed')
+      alert(error instanceof Error ? error.message : 'Publish failed')
     } finally {
       setIsUpdating(false)
     }
@@ -229,11 +247,18 @@ const ServiceEditPage = () => {
           Cancel
         </button>
         <button 
-          onClick={onUpdate} 
-          className="px-6 py-2 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition-colors disabled:opacity-50"
-          disabled={isUpdating || !serviceTitle.trim()}
+          onClick={onSaveDraft}
+          className="px-6 py-2 rounded-full bg-gray-300 hover:bg-gray-400 transition-colors"
+          disabled={isUpdating}
         >
-          {isUpdating ? 'Updating...' : 'Update Service'}
+          {isUpdating ? 'Saving...' : 'Save Draft'}
+        </button>
+        <button 
+          onClick={onPublish}
+          className="px-6 py-2 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition-colors disabled:opacity-50"
+          disabled={isUpdating}
+        >
+          {isUpdating ? 'Publishing...' : 'Publish Service'}
         </button>
       </div>
     </div>

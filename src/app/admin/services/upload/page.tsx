@@ -25,36 +25,67 @@ export default function ServicesUploadPage() {
     setIsRouterMounted(true);
   }, []);
 
-  const onSubmit = async () => {
+  // Save as draft (only requires title)
+  const onSaveDraft = async () => {
     if (!isRouterMounted) {
       console.error('NextRouter is not mounted.');
       return;
     }
+    try {
+      if (!serviceTitle) {
+        alert('Please provide a service title.');
+        return;
+      }
+      const form = new FormData();
+      form.append('title', serviceTitle);
+      form.append('status', 'draft');
+      if (imageSlots[0].file) {
+        form.append('image', imageSlots[0].file);
+      }
+      const response = await fetch('/api/services', {
+        method: 'POST',
+        body: form,
+      });
+      if (response.ok) {
+        alert('Service draft saved successfully!');
+        router.push('/admin/services');
+      } else {
+        alert('Failed to save service draft.');
+      }
+    } catch (error) {
+      console.error('Error saving service draft:', error);
+      alert('An error occurred while saving the service draft.');
+    }
+  }
 
+  // Publish (requires title and image)
+  const onPublish = async () => {
+    if (!isRouterMounted) {
+      console.error('NextRouter is not mounted.');
+      return;
+    }
     try {
       if (!serviceTitle || !imageSlots[0].file) {
         alert('Please provide a service title and upload an image.');
         return;
       }
-
       const form = new FormData();
       form.append('title', serviceTitle);
       form.append('image', imageSlots[0].file);
-
+      form.append('status', 'published');
       const response = await fetch('/api/services', {
         method: 'POST',
         body: form,
       });
-
       if (response.ok) {
-        alert('Service uploaded successfully!');
+        alert('Service published successfully!');
         router.push('/admin/services');
       } else {
-        alert('Failed to upload service.');
+        alert('Failed to publish service.');
       }
     } catch (error) {
-      console.error('Error uploading service:', error);
-      alert('An error occurred while uploading the service.');
+      console.error('Error publishing service:', error);
+      alert('An error occurred while publishing the service.');
     }
   }
 
@@ -79,9 +110,9 @@ export default function ServicesUploadPage() {
       </div>
 
       <div className="flex gap-4">
-        <button className="px-6 py-2 rounded-full bg-gray-200">Cancel</button>
-        <button className="px-6 py-2 rounded-full bg-gray-300">Save</button>
-        <button onClick={onSubmit} className="px-6 py-2 rounded-full bg-blue-600 text-white">
+        <button className="px-6 py-2 rounded-full bg-gray-200" onClick={() => router.push('/admin/services')}>Cancel</button>
+        <button className="px-6 py-2 rounded-full bg-gray-300" onClick={onSaveDraft}>Save Draft</button>
+        <button className="px-6 py-2 rounded-full bg-blue-600 text-white" onClick={onPublish}>
           Publish
         </button>
       </div>

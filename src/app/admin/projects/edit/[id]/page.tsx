@@ -119,7 +119,7 @@ const ProjectEditPage = () => {
     setUpdateSuccess(false)
 
     try {
-      // For drafts, we don't require all fields to be filled
+    
       const formData = new FormData()
       
       // Add project metadata

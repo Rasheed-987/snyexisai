@@ -14,51 +14,65 @@ export async function POST(request: NextRequest) {
         const smallCardsA = JSON.parse(formData.get('smallCardsA') as string || '[]');
         const smallCardsB = JSON.parse(formData.get('smallCardsB') as string || '[]');
 
-        // Extract case study data
-        const caseStudyData = {
-            caseTitle: formData.get('caseTitle') as string,
-            subtitle: formData.get('subtitle') as string,
-            leftTextBox: formData.get('leftTextBox') as string,
-            whatWeDid: formData.get('whatWeDid') as string,
-            addLine: formData.get('addLine') as string,
-            largeCard: largeCard,
-            smallCardsA: smallCardsA,
-            smallCardsB: smallCardsB,
-            bodyTextTop: formData.get('bodyTextTop') as string,
-            bodyTextBottom: formData.get('bodyTextBottom') as string,
-            status: 'published'
-        };
+    // Extract status
+    const status = (formData.get('status') as string) || 'published';
+    const caseStudyData = {
+      caseTitle: formData.get('caseTitle') as string,
+      subtitle: formData.get('subtitle') as string,
+      leftTextBox: formData.get('leftTextBox') as string,
+      whatWeDid: formData.get('whatWeDid') as string,
+      addLine: formData.get('addLine') as string,
+      largeCard: largeCard,
+      smallCardsA: smallCardsA,
+      smallCardsB: smallCardsB,
+      bodyTextTop: formData.get('bodyTextTop') as string,
+      bodyTextBottom: formData.get('bodyTextBottom') as string,
+      status: status as 'published' | 'draft'
+    };
 
-        if( !caseStudyData.caseTitle || !caseStudyData.subtitle ) {
-            return NextResponse.json({ error: 'Case title and subtitle are required' }, { status: 400 });
-        }
-        
-        const caseStudyId = new Date().getTime().toString();    
+    // Validation
+    if (status === 'published') {
+      if (!caseStudyData.caseTitle || !caseStudyData.subtitle || !caseStudyData.leftTextBox || !caseStudyData.whatWeDid || !caseStudyData.largeCard?.title || !caseStudyData.largeCard?.body) {
+        return NextResponse.json({ error: 'All fields are required for published case studies' }, { status: 400 });
+      }
+    } else if (status === 'draft') {
+      if (!caseStudyData.caseTitle) {
+        return NextResponse.json({ error: 'Title is required to save draft' }, { status: 400 });
+      }
+    }
 
-        const bannerFile = formData.get('bannerImage') as File;
-        const galleryFiles = formData.getAll('galleryImages') as File[];
-        
-        const uploadedImages = await S3Service.uploadImages(
-            bannerFile,
-            galleryFiles,
-            'case-studies',
-            caseStudyId
-        );
-        
-        const caseStudyDoc = {
-            ...caseStudyData,
-            images: uploadedImages,
-            caseStudyId: caseStudyId
-        };
+    const caseStudyId = new Date().getTime().toString();
+    const bannerFile = formData.get('bannerImage') as File;
+    const galleryFiles = formData.getAll('galleryImages') as File[];
+    const hasValidBanner = bannerFile && bannerFile.size > 0;
+    const hasValidGallery = galleryFiles.some(file => file && file.size > 0);
 
-        const newCaseStudy = new CaseStudy(caseStudyDoc);
-        await newCaseStudy.save();
+    let uploadedImages: { banner?: string; gallery: string[] } = { gallery: [] };
+    if (hasValidBanner || hasValidGallery) {
+      uploadedImages = await S3Service.uploadImages(
+        hasValidBanner ? bannerFile : null,
+        hasValidGallery ? galleryFiles.filter(file => file && file.size > 0) : [],
+        'case-studies',
+        caseStudyId
+      );
+    } else if (status === 'published') {
+      return NextResponse.json({ error: 'At least a banner image is required for published case studies' }, { status: 400 });
+    }
 
-        return NextResponse.json({ 
-            success: true, 
-            message: 'Case study created successfully',
-            caseStudy: newCaseStudy 
-        }, { status: 201 });
+    const caseStudyDoc = {
+      ...caseStudyData,
+      images: uploadedImages,
+      caseStudyId: caseStudyId
+    };
+
+    const newCaseStudy = new CaseStudy(caseStudyDoc);
+    await newCaseStudy.save();
+
+    return NextResponse.json({
+      success: true,
+      message: status === 'draft' ? 'Draft saved successfully!' : 'Case study published successfully!',
+      caseStudy: newCaseStudy
+    }, { status: 201 });
     } 
 
     catch (error) {
@@ -85,23 +99,40 @@ export async function GET(request:NextRequest) {
     const page = parseInt(searchParams.get('page') || '1')
 
 
-        const caseStudy = await CaseStudy.find({ status: 'published' })
-          .sort({ createdAt: -1 })
-          .limit(limit)
-          .skip((page - 1) * limit)
-
-        const total = await CaseStudy.countDocuments({ status: 'published' })
-        
+        // Support status filtering and status counts
+        const status = searchParams.get('status'); // 'draft', 'published', or null
+        let query: any = {};
+        if (status) {
+            query.status = status;
+        }
+        // Default: show all case studies
+        const caseStudies = await CaseStudy.find(query)
+            .sort({ updatedAt: -1 })
+            .limit(limit)
+            .skip((page - 1) * limit);
+        const total = await CaseStudy.countDocuments(query);
+        // Add status counts for admin UI
+        let statusCounts = undefined;
+        if (!status) {
+            const draftCount = await CaseStudy.countDocuments({ status: 'draft' });
+            const publishedCount = await CaseStudy.countDocuments({ status: 'published' });
+            statusCounts = {
+                draft: draftCount,
+                published: publishedCount,
+                total: draftCount + publishedCount
+            };
+        }
         return NextResponse.json({
-          success: true,
-          caseStudy,
-          pagination: {
-            page,
-            limit,
-            total,
-            pages: Math.ceil(total / limit)
-          }
-        })
+            success: true,
+            caseStudies,
+            pagination: {
+                page,
+                limit,
+                total,
+                pages: Math.ceil(total / limit)
+            },
+            ...(statusCounts ? { statusCounts } : {})
+        });
         
       } catch (error) {
         console.error('Error fetching projects:', error)

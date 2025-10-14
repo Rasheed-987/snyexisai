@@ -140,7 +140,17 @@ export async function PUT(
     const smallCardsA = JSON.parse(formData.get('smallCardsA') as string || '[]')
     const smallCardsB = JSON.parse(formData.get('smallCardsB') as string || '[]')
 
-    // Extract case study data
+    // Get existing case study first to preserve status if not provided
+    const existingCaseStudy = await CaseStudy.findById(id)
+    if (!existingCaseStudy) {
+      return NextResponse.json(
+        { error: 'Case study not found' },
+        { status: 404 }
+      )
+    }
+
+    // Extract status
+    const status = formData.get('status') as string
     const updateData: any = {
       caseTitle: formData.get('caseTitle') as string,
       subtitle: formData.get('subtitle') as string,
@@ -152,6 +162,18 @@ export async function PUT(
       smallCardsB: smallCardsB,
       bodyTextTop: formData.get('bodyTextTop') as string,
       bodyTextBottom: formData.get('bodyTextBottom') as string,
+      status: status || existingCaseStudy.status,
+    }
+
+    // Validation
+    if (updateData.status === 'published') {
+      if (!updateData.caseTitle || !updateData.subtitle || !updateData.leftTextBox || !updateData.whatWeDid || !updateData.largeCard?.title || !updateData.largeCard?.body) {
+        return NextResponse.json({ error: 'All fields are required for published case studies' }, { status: 400 })
+      }
+    } else if (updateData.status === 'draft') {
+      if (!updateData.caseTitle) {
+        return NextResponse.json({ error: 'Title is required to save draft' }, { status: 400 })
+      }
     }
 
     // Handle image uploads if new images are provided
@@ -159,38 +181,21 @@ export async function PUT(
     const galleryFiles = formData.getAll('galleryImages') as File[]
     const gallerySlots = formData.getAll('gallerySlots') as string[]
 
-
-
     const hasNewBanner = bannerFile && bannerFile.size > 0
     const hasNewGallery = galleryFiles.some(file => file && file.size > 0)
 
     if (hasNewBanner || hasNewGallery) {
-      // Get existing case study to preserve existing images
-      const existingCaseStudy = await CaseStudy.findById(id)
-      
-      if (!existingCaseStudy) {
-        return NextResponse.json(
-          { error: 'Case study not found' },
-          { status: 404 }
-        )
-      }
-      
       const uploadedImages = await S3Service.uploadImages(
         hasNewBanner ? bannerFile : null,
         hasNewGallery ? galleryFiles.filter(file => file && file.size > 0) : [],
         'case-studies',
         id
       )
-      
       // Merge uploaded images with existing ones
       let mergedGallery = [...(existingCaseStudy.images?.gallery || [])]
-      
-      // Ensure gallery array has at least 5 slots (case studies have 6 total image slots - 1 banner = 5 gallery)
       while (mergedGallery.length < 5) {
         mergedGallery.push('')
       }
-      
-      // If we have new gallery images, place them at correct slots
       if (hasNewGallery && uploadedImages.gallery) {
         galleryFiles.forEach((file, uploadIndex) => {
           if (file && file.size > 0) {
@@ -201,17 +206,21 @@ export async function PUT(
           }
         })
       }
-      
-      // Merge with existing images
       const mergedImages = {
         banner: hasNewBanner && uploadedImages.banner 
           ? uploadedImages.banner 
           : (existingCaseStudy.images?.banner || ''),
         gallery: mergedGallery
       }
-      
-      // Add images to update data
       updateData.images = mergedImages
+    }
+
+    // Published must have a banner image
+    if (updateData.status === 'published') {
+      const hasBanner = (hasNewBanner && updateData.images?.banner) || existingCaseStudy.images?.banner
+      if (!hasBanner) {
+        return NextResponse.json({ error: 'Banner image is required for published case studies' }, { status: 400 })
+      }
     }
 
     const updatedCaseStudy = await CaseStudy.findByIdAndUpdate(

@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
     const hasValidBanner = bannerFile && bannerFile.size > 0
     const hasValidGallery = galleryFiles.some(file => file && file.size > 0)
     
-    let uploadedImages = { banner: '', gallery: [] }
+    let uploadedImages: { banner?: string; gallery: string[] } = { gallery: [] }
     
     // Handle image uploads
     if (hasValidBanner || hasValidGallery) {
@@ -105,19 +105,14 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '10')
     const page = parseInt(searchParams.get('page') || '1')
     const status = searchParams.get('status') // 'draft', 'published', or null
-    const admin = searchParams.get('admin') === 'true' // Admin view flag
     
     // Build query based on parameters
     let query: any = {}
     
     if (status) {
-      // Specific status requested (e.g., ?status=draft or ?status=published)
       query.status = status
-    } else {
-      // Default: show all projects (both drafts and published)
-      query = {}
     }
-    
+
     const projects = await Project.find(query)
       .sort({ updatedAt: -1 }) // Show recently updated first (good for drafts)
       .limit(limit)

@@ -57,19 +57,27 @@ export async function PUT(
     // Extract fields from form data
     const serviceTitle = formData.get('title') as string
     const imageFile = formData.get('image') as File | null
-    
+    const status = formData.get('status') as string
     // Find existing service
     const existingService = await Services.findById(id)
-    
     if (!existingService) {
       return NextResponse.json(
         { error: 'Service not found' },
         { status: 404 }
       )
     }
-    
+    // Validation
+    const newStatus = status || existingService.status
+    if (newStatus === 'published') {
+      if (!serviceTitle || (!imageFile && !existingService.images.banner)) {
+        return NextResponse.json({ error: 'Title and image are required for published services.' }, { status: 400 })
+      }
+    } else if (newStatus === 'draft') {
+      if (!serviceTitle) {
+        return NextResponse.json({ error: 'Title is required to save draft.' }, { status: 400 })
+      }
+    }
     let updatedImageUrl = existingService.images.banner
-    
     // If new image is provided, upload it
     if (imageFile && imageFile.size > 0) {
       updatedImageUrl = await S3Service.uploadFileToS3(
@@ -78,7 +86,10 @@ export async function PUT(
         existingService.serviceId
       )
     }
-    
+    // Published must have a banner image
+    if (newStatus === 'published' && !updatedImageUrl) {
+      return NextResponse.json({ error: 'Banner image is required for published services.' }, { status: 400 })
+    }
     // Update service data
     const updatedService = await Services.findByIdAndUpdate(
       id,
@@ -87,17 +98,16 @@ export async function PUT(
         images: {
           banner: updatedImageUrl,
           gallery: existingService.images.gallery || []
-        }
+        },
+        status: newStatus
       },
       { new: true }
     )
-    
     console.log('✅ Service updated successfully:', updatedService._id)
-    
     return NextResponse.json({
       success: true,
       service: updatedService,
-      message: 'Service updated successfully!'
+      message: newStatus === 'draft' ? 'Draft saved successfully!' : 'Service updated successfully!'
     })
     
   } catch (error) {

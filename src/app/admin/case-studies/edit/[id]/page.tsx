@@ -128,21 +128,16 @@ const CaseStudyEditPage = () => {
     }
   }, [imageSlots])
 
-  const handleUpdate = async () => {
+  // Save as draft (minimal validation)
+  const handleSaveDraft = async () => {
     setIsUpdating(true)
     setUpdateError(null)
     setUpdateSuccess(false)
-
     try {
-      // Validation
-      if (!caseTitle || !subtitle || !leftTextBox || !whatWeDid || !largeCard.title || !largeCard.body) {
-        throw new Error('Please fill in all required fields: Title, Subtitle, Text Box, What We Did, and Large Card')
+      if (!caseTitle) {
+        throw new Error('Title is required to save draft')
       }
-
-      // Prepare form data
       const formData = new FormData()
-
-      // Add case study metadata
       formData.append('caseTitle', caseTitle)
       formData.append('subtitle', subtitle)
       formData.append('leftTextBox', leftTextBox)
@@ -150,49 +145,81 @@ const CaseStudyEditPage = () => {
       formData.append('addLine', addLine)
       formData.append('bodyTextTop', bodyTextTop)
       formData.append('bodyTextBottom', bodyTextBottom)
-      
-      // Add card data as JSON strings
       formData.append('largeCard', JSON.stringify(largeCard))
       formData.append('smallCardsA', JSON.stringify(smallCardsA))
       formData.append('smallCardsB', JSON.stringify(smallCardsB))
-      
-      // Add banner image (first image slot) - only if new file is selected
+      formData.append('status', 'draft')
       if (imageSlots[0]?.file) {
         formData.append('bannerImage', imageSlots[0].file)
       }
-      
-      // Add gallery images with slot information (remaining image slots) - only new files
       imageSlots.slice(1).forEach((slot, index) => {
         if (slot?.file) {
           formData.append('galleryImages', slot.file)
-          formData.append('gallerySlots', index.toString()) // Send slot index
+          formData.append('gallerySlots', index.toString())
         }
       })
-
-      console.log('Updating case study...')
-      
-      // Send to API
       const response = await fetch(`/api/case-studies/${caseStudyId}`, {
         method: 'PUT',
         body: formData
       })
-      
       const result = await response.json()
-      
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to update case study')
+        throw new Error(result.error || 'Failed to save draft')
       }
-      
-      console.log('✅ Case study updated successfully:', result)
       setUpdateSuccess(true)
-      
-      // Redirect back to case studies list after success
       setTimeout(() => {
         router.push('/admin/case-studies')
       }, 2000)
-      
     } catch (error) {
-      console.error('❌ Update failed:', error)
+      setUpdateError(error instanceof Error ? error.message : 'Save draft failed')
+    } finally {
+      setIsUpdating(false)
+    }
+  }
+
+  // Publish (strict validation)
+  const handleUpdate = async () => {
+    setIsUpdating(true)
+    setUpdateError(null)
+    setUpdateSuccess(false)
+    try {
+      if (!caseTitle || !subtitle || !leftTextBox || !whatWeDid || !largeCard.title || !largeCard.body) {
+        throw new Error('Please fill in all required fields: Title, Subtitle, Text Box, What We Did, and Large Card')
+      }
+      const formData = new FormData()
+      formData.append('caseTitle', caseTitle)
+      formData.append('subtitle', subtitle)
+      formData.append('leftTextBox', leftTextBox)
+      formData.append('whatWeDid', whatWeDid)
+      formData.append('addLine', addLine)
+      formData.append('bodyTextTop', bodyTextTop)
+      formData.append('bodyTextBottom', bodyTextBottom)
+      formData.append('largeCard', JSON.stringify(largeCard))
+      formData.append('smallCardsA', JSON.stringify(smallCardsA))
+      formData.append('smallCardsB', JSON.stringify(smallCardsB))
+      formData.append('status', 'published')
+      if (imageSlots[0]?.file) {
+        formData.append('bannerImage', imageSlots[0].file)
+      }
+      imageSlots.slice(1).forEach((slot, index) => {
+        if (slot?.file) {
+          formData.append('galleryImages', slot.file)
+          formData.append('gallerySlots', index.toString())
+        }
+      })
+      const response = await fetch(`/api/case-studies/${caseStudyId}`, {
+        method: 'PUT',
+        body: formData
+      })
+      const result = await response.json()
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to update case study')
+      }
+      setUpdateSuccess(true)
+      setTimeout(() => {
+        router.push('/admin/case-studies')
+      }, 2000)
+    } catch (error) {
       setUpdateError(error instanceof Error ? error.message : 'Update failed')
     } finally {
       setIsUpdating(false)
@@ -494,11 +521,11 @@ const CaseStudyEditPage = () => {
           Cancel
         </button>
         <button 
-          className="px-6 py-2 rounded-full bg-gray-300 hover:bg-gray-400 transition-colors"
+          className="px-6 py-2 rounded-full transition-colors"
           disabled={isUpdating}
-          onClick={handleSave}
+          onClick={handleSaveDraft}
         >
-          Save Draft
+          {isUpdating ? 'Saving...' : 'Save Draft'}
         </button>
         <button 
           onClick={handleUpdate} 
@@ -512,10 +539,10 @@ const CaseStudyEditPage = () => {
           {isUpdating ? (
             <span className="flex items-center gap-2">
               <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-              Updating...
+              Publishing...
             </span>
           ) : (
-            'Update Case Study'
+            'Publish Case Study'
           )}
         </button>
       </div>

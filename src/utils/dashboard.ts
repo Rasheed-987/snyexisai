@@ -71,6 +71,7 @@ export const fetchCaseStudies = async (
   options?: {
     limit?: number;
     page?: number;
+    status?: 'draft' | 'published' | 'archived';
     showLoading?: boolean;
   }
 ) => {
@@ -82,6 +83,7 @@ export const fetchCaseStudies = async (
     const params = new URLSearchParams();
     if (options?.limit) params.append('limit', options.limit.toString());
     if (options?.page) params.append('page', options.page.toString());
+    if (options?.status) params.append('status', options.status);
     
     const url = `/api/case-studies${params.toString() ? `?${params.toString()}` : ''}`;
     const response = await fetch(url);
@@ -94,7 +96,7 @@ export const fetchCaseStudies = async (
     console.log('Fetched case studies:', caseStudiesData);
     
     if (caseStudiesData.success) {
-      setCaseStudies(caseStudiesData.caseStudy);
+      setCaseStudies(caseStudiesData.caseStudies);
       setError(null); // Clear any previous errors
     } else {
       throw new Error('API returned unsuccessful response');

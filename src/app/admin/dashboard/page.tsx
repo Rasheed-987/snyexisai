@@ -27,7 +27,7 @@ export default function AdminDashboardPage() {
     setDate(currentDate);
   }, []);
    useEffect(() => {
-      fetchCaseStudies(setCaseStudies, setLoading, setError, { limit: 3 });
+      fetchCaseStudies(setCaseStudies, setLoading, setError, { limit: 7, status: 'published' });
     }, []);
 
   const jobApplications: JobApplication[] = [
