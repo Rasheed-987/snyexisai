@@ -3,9 +3,9 @@
 import React from 'react'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
-import { JobApplicationCard } from '@/components/admin/JobApplicationCard'
+import { CareerCard } from '@/components/admin/CareerCard'
 import { CaseStudyCard } from '@/components/admin/AdminCards'
-import {Stat, JobApplication, CaseStudy as CaseStudyCardType} from '@/types/admin'
+import {Stat, CareerPosting, CaseStudy as CaseStudyCardType} from '@/types/admin'
 import { fetchCaseStudies, formatDate, CaseStudy } from '@/utils/dashboard'
 import {useRouter} from 'next/navigation'
 
@@ -14,9 +14,20 @@ export default function AdminDashboardPage() {
   const [date,setDate] = useState('');
   const router = useRouter();
 
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-    const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([]);
+  const [careers, setCareers] = useState<CareerPosting[]>([]);
+  const [careersLoading, setCareersLoading] = useState(true);
+  
+  // Add state for dynamic stats
+  const [statsData, setStatsData] = useState({
+    projects: 0,
+    services: 0,
+    caseStudies: 0,
+    careers: 0
+  });
+  const [statsLoading, setStatsLoading] = useState(true);
 
   useEffect(() => {
     const currentDate = new Date().toLocaleDateString('en-US', {
@@ -26,39 +37,84 @@ export default function AdminDashboardPage() {
     });
     setDate(currentDate);
   }, []);
-   useEffect(() => {
-      fetchCaseStudies(setCaseStudies, setLoading, setError, { limit: 7, status: 'published' });
-    }, []);
+  
+  useEffect(() => {
+    fetchCaseStudies(setCaseStudies, setLoading, setError, { limit: 7, status: 'published' });
+  }, []);
 
-  const jobApplications: JobApplication[] = [
-    {
-      id: 1,
-      name: "Amanda Mandos",
-      position: "Senior Developer", 
-      profileImage: "/images/admin/profile.png"
-    },
-    {
-      id: 2,
-      name: "Amanda Mandos",
-      position: "Senior Developer", 
-      profileImage: "/images/admin/profile.png"
-    },
-    {
-      id: 3,
-      name: "Amanda Mandos",
-      position: "Senior Developer", 
-      profileImage: "/images/admin/profile.png"
-    },
-    {
-      id: 4,
-      name: "Amanda Mandos",
-      position: "Senior Developer", 
-      profileImage: "/images/admin/profile.png"
-    }
-  ]
+  // Fetch stats data from all APIs
+  useEffect(() => {
+    const fetchStatsData = async () => {
+      try {
+        setStatsLoading(true);
+        
+        // Fetch all data in parallel
+        const [projectsRes, servicesRes, caseStudiesRes, careersRes] = await Promise.all([
+          fetch('/api/projects'),
+          fetch('/api/services'),
+          fetch('/api/case-studies'),
+          fetch('/api/careers')
+        ]);
+
+        const [projectsData, servicesData, caseStudiesData, careersData] = await Promise.all([
+          projectsRes.json(),
+          servicesRes.json(),
+          caseStudiesRes.json(),
+          careersRes.json()
+        ]);
+
+        setStatsData({
+          projects: projectsData.statusCounts?.total || 0,
+          services: servicesData.statusCounts?.total || 0,
+          caseStudies: caseStudiesData.statusCounts?.total || 0,
+          careers: careersData.statusCounts?.total || 0
+        });
+      } catch (error) {
+        console.error('Error fetching stats data:', error);
+      } finally {
+        setStatsLoading(false);
+      }
+    };
+
+    fetchStatsData();
+  }, []);
+
+  // Fetch careers for dashboard
+  useEffect(() => {
+    const fetchCareers = async () => {
+      try {
+        setCareersLoading(true);
+        const response = await fetch('/api/careers?limit=5&status=published');
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch careers');
+        }
+        
+        const data = await response.json();
+        
+        if (data.success && data.careers) {
+          // Transform API data to match our CareerPosting interface
+          const careerPostings: CareerPosting[] = data.careers.map((career: any, index: number) => ({
+            id: career._id,
+            jobTitle: career.jobTitle,
+            jobType: career.jobType,
+            company: career.company
+          }));
+          setCareers(careerPostings);
+        }
+      } catch (error) {
+        console.error('Error fetching careers:', error);
+      } finally {
+        setCareersLoading(false);
+      }
+    };
+
+    fetchCareers();
+  }, []);
+
   const stats: Stat[] = [
     {
-      title: '103',
+      title: statsLoading ? '...' : statsData.projects.toString().padStart(2, '0'),
       subtitle: 'Projects',
       icon: (
         <Image
@@ -74,7 +130,7 @@ export default function AdminDashboardPage() {
      
     },
     {
-      title: '06',
+      title: statsLoading ? '...' : statsData.services.toString().padStart(2, '0'),
       subtitle: 'Services',
       icon: (
         <Image
@@ -90,7 +146,7 @@ export default function AdminDashboardPage() {
      
     },
     {
-      title: '80',
+      title: statsLoading ? '...' : statsData.caseStudies.toString().padStart(2, '0'),
       subtitle: 'Case Studies',
       icon: (
         <Image
@@ -106,7 +162,7 @@ export default function AdminDashboardPage() {
      
     },
     {
-      title: '04',
+      title: statsLoading ? '...' : statsData.careers.toString().padStart(2, '0'),
       subtitle: 'Jobs',
       icon: (
         <Image
@@ -213,20 +269,31 @@ export default function AdminDashboardPage() {
         <div className="w-full lg:flex-1 bg-white rounded-[21px] p-4 md:p-6">
           <div className="flex items-center justify-between mb-4 md:mb-6">
             <h2 className="text-lg md:text-xl font-medium text-[#0F1C3D]">
-              Jobs Applications
+              Career Postings
             </h2>
             <button onClick={()=>router.push('/admin/career')} className="text-[#327AED] text-sm font-medium hover:underline">
               View All →
             </button>
           </div>
           <div className="space-y-2">
-            {jobApplications.map((application) => (
-              <JobApplicationCard 
-                key={application.id}
-                application={application} 
-                onView={(id) => alert(`Viewing details for application ID: ${id}`)} 
-              />
-            ))}
+            {careersLoading ? (
+              <div className="text-center py-4">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+                <p className="text-gray-600 text-sm mt-2">Loading careers...</p>
+              </div>
+            ) : careers.length > 0 ? (
+              careers.map((career) => (
+                <CareerCard 
+                  key={career.id}
+                  career={career} 
+                  onView={(id: string) => router.push(`/admin/career/edit/${id}`)} 
+                />
+              ))
+            ) : (
+              <div className="text-center py-4">
+                <p className="text-gray-600 text-sm">No career postings found</p>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -61,7 +61,7 @@ export default function CareersUploadPage() {
       if (response.ok) {
         setUploadSuccess(true)
         setTimeout(() => {
-          router.push('/admin/careers');
+          router.push('/admin/career');
         }, 1000);
       } else {
         const errorData = await response.json();
@@ -102,7 +102,7 @@ export default function CareersUploadPage() {
         status: 'published'
       };
 
-      const response = await fetch('/api/careers', {
+      const response = await fetch('/api/career', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -113,7 +113,7 @@ export default function CareersUploadPage() {
       if (response.ok) {
         setUploadSuccess(true)
         setTimeout(() => {
-          router.push('/admin/careers');
+          router.push('/admin/career');
         }, 1000);
       } else {
         const errorData = await response.json();
@@ -232,7 +232,7 @@ export default function CareersUploadPage() {
         <div className="flex gap-4 pt-6">
           <button 
             className="px-6 py-2 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" 
-            onClick={() => router.push('/admin/careers')}
+            onClick={() => router.push('/admin/career')}
             disabled={isUploading}
           >
             Cancel
