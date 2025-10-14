@@ -72,13 +72,30 @@ export async function POST(request: NextRequest) {
     
     // Create project document with S3 URLs
     const projectDoc = {
-      ...projectData,
+      projectId: projectId,
+      title: projectData.title,
+      tagline: projectData.tagline || '',
+      addTitle: projectData.addTitle || '',
       images: uploadedImages,
-      projectId: projectId
+      cards: projectData.cards.length > 0 ? projectData.cards : [
+        { title: '', body: '' }, { title: '', body: '' }, { title: '', body: '' },
+        { title: '', body: '' }, { title: '', body: '' }, { title: '', body: '' }
+      ],
+      largeCard: projectData.largeCard.title ? projectData.largeCard : { title: '', body: '' },
+      smallCards: projectData.smallCards.length > 0 ? projectData.smallCards : [
+        { title: '', body: '' }, { title: '', body: '' }
+      ],
+      status: status as 'published' | 'draft'
     }
-    
+
     const project = new Project(projectDoc)
-    await project.save()
+    
+    // For drafts, skip validation to allow empty fields
+    if (status === 'draft') {
+      await project.save({ validateBeforeSave: false })
+    } else {
+      await project.save()
+    }
     
     return NextResponse.json({
       success: true,
@@ -89,7 +106,7 @@ export async function POST(request: NextRequest) {
     })
     
   } catch (error) {
-    console.error('Error creating project:', error)
+    console.error('❌ Project validation failed:', error)
     return NextResponse.json(
       { error: error instanceof Error ? error.message : 'Failed to create project' },
       { status: 500 }
