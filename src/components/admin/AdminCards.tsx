@@ -149,7 +149,7 @@ export function ServiceCard({
   author,
   timeAgo,
   thumbnail,
-  status = 'published',
+  status,
   onEdit,
   onUnpublish,
   onDelete,
@@ -185,6 +185,7 @@ export function CaseStudyCard({
   onEdit,
   onUnpublish,
   onDelete,
+  status
 }: CaseStudyCardProps) {
   return (
     <div className={`flex flex-col bg-[#F5F5F5] sm:flex-row sm:items-center space-y-3 sm:space-y-0 sm:space-x-4 p-3 sm:p-4 rounded-[21px] border border-gray-100 ${className}`}>
@@ -239,14 +240,25 @@ export function CaseStudyCard({
           </div>
         </div>
       </div>
-
+<div>
+   
+</div>
       {/* Action Buttons */}
-      <div className="flex-shrink-0 w-full sm:w-auto mt-3 sm:mt-0">
+      <div className="flex-shrink-0 flex flex-col items-center gap-2 mt-3 sm:mt-0">
+        <span className={`text-xs px-2 py-1 rounded-full whitespace-nowrap ${
+          status === 'draft' 
+            ? 'bg-yellow-100 text-yellow-800' 
+            : 'bg-green-100 text-green-800'
+        }`}>
+          {status === 'draft' ? 'Draft' : 'Published'}
+        </span>
+       
         <ActionButtons
           onEdit={onEdit}
           onUnpublish={onUnpublish}
           onDelete={onDelete}
           className="w-full sm:w-auto justify-center sm:justify-start"
+          status={status}
         />
       </div>
     </div>

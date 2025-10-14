@@ -42,6 +42,7 @@ export interface CaseStudyCardProps {
   timeAgo: string
   thumbnail: string
   className?: string
+  status: 'draft' | 'published' // Add status field
   onEdit: () => void
   onUnpublish: () => void
   onDelete: () => void
@@ -64,7 +65,7 @@ export interface JobCardProps {
   jobType: 'Full Time' | 'Part Time' | 'Contract' | 'Internship' | string
   description: string
   className?: string
-  
+  status?: 'draft' | 'published' // Add status field
   onEdit: () => void
   onUnpublish: () => void
   onDelete: () => void

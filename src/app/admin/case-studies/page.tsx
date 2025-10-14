@@ -145,6 +145,7 @@ export default function CaseStudiesPage() {
           timeAgo={formatDate(caseStudy.createdAt)}
           thumbnail={caseStudy.images.banner || '/images/placeholder.png'}
           onEdit={() => handleEdit(caseStudy._id)}
+          status={caseStudy.status as 'draft' | 'published'}
           onUnpublish={() => handleUnpublish(caseStudy._id)}
           onDelete={() => handleDelete(caseStudy._id)}
         />

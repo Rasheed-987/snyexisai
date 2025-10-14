@@ -60,13 +60,29 @@ export async function POST(request: NextRequest) {
     }
 
     const caseStudyDoc = {
-      ...caseStudyData,
+      caseStudyId: caseStudyId,
+      caseTitle: caseStudyData.caseTitle,
+      subtitle: caseStudyData.subtitle || '',
+      leftTextBox: caseStudyData.leftTextBox || '',
+      whatWeDid: caseStudyData.whatWeDid || '',
+      addLine: caseStudyData.addLine || '',
+      largeCard: caseStudyData.largeCard.title ? caseStudyData.largeCard : { title: '', body: '' },
+      smallCardsA: caseStudyData.smallCardsA.length > 0 ? caseStudyData.smallCardsA : [],
+      smallCardsB: caseStudyData.smallCardsB.length > 0 ? caseStudyData.smallCardsB : [],
+      bodyTextTop: caseStudyData.bodyTextTop || '',
+      bodyTextBottom: caseStudyData.bodyTextBottom || '',
       images: uploadedImages,
-      caseStudyId: caseStudyId
+      status: status as 'published' | 'draft'
     };
 
     const newCaseStudy = new CaseStudy(caseStudyDoc);
-    await newCaseStudy.save();
+    
+    // For drafts, skip validation to allow empty fields
+    if (status === 'draft') {
+      await newCaseStudy.save({ validateBeforeSave: false });
+    } else {
+      await newCaseStudy.save();
+    }
 
     return NextResponse.json({
       success: true,
@@ -76,7 +92,7 @@ export async function POST(request: NextRequest) {
     } 
 
     catch (error) {
-        console.error('Error creating case study:', error);
+        console.error('❌ Case study validation failed:', error);
 
         // Return detailed error message for debugging
         return NextResponse.json(
