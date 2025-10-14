@@ -124,7 +124,8 @@ const ServiceEditPage = () => {
 
   // Publish (requires title and image)
   const onPublish = async () => {
-    if (!serviceTitle.trim() || !imageSlots[0].file) {
+
+    if (!serviceTitle.trim() || !imageSlots[0].existingUrl) {
       alert('Please provide a service title and upload an image.')
       return
     }
