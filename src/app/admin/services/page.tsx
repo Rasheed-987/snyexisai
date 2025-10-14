@@ -213,6 +213,7 @@ export default function ServicesPage() {
           timeAgo={formatDate(service.createdAt)}
           thumbnail={service.images.banner || '/images/placeholder.png'}
           onEdit={() => handleEdit(service._id)}
+          status={service.status}
           onUnpublish={() => handleUnpublish(service._id)}
           onDelete={() => handleDelete(service._id)}
         />

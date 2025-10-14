@@ -166,7 +166,16 @@ export function ServiceCard({
         />
       </div>
 
-      <h3 className="body-medium font-semibold text-[var(--foreground)] mb-2">{title}</h3>
+      <div className="flex items-center justify-between mb-2">
+        <h3 className="body-medium font-semibold text-[var(--foreground)]">{title}</h3>
+        <span className={`text-xs px-2 py-1 rounded-full ${
+          status === 'draft' 
+            ? 'bg-yellow-100 text-yellow-800' 
+            : 'bg-green-100 text-green-800'
+        }`}>
+          {status === 'draft' ? 'Draft' : 'Published'}
+        </span>
+      </div>
 
       <div className="mt-4 pt-4 border-t border-gray-200">
         <ActionButtons onEdit={onEdit} onUnpublish={onUnpublish} onDelete={onDelete} status={status} />
