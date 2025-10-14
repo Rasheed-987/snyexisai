@@ -3,6 +3,7 @@
 import { useState } from 'react'
 
 import Image from 'next/image'
+import { logout } from '@/utils/auth'
 
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/24/solid'
@@ -166,12 +167,12 @@ export default function Header() {
                 {/* Desktop: Original menu items */}
                 <div className="hidden md:block rounded-lg">
                   <MenuItem>
-                    <a
-                      href="/logout"
+                    <button
+                      onClick={logout}
                       className="group flex w-full items-center gap-2 rounded-md px-3 py-2 text-[#0F1C3D] hover:bg-[#F4F0ED] focus:bg-[#F4F0ED] data-[focus]:bg-[#F4F0ED]"
                     >
                       Logout
-                    </a>
+                    </button>
                   </MenuItem>
                   <MenuItem>
                     <a

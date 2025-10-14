@@ -17,8 +17,6 @@ export default function RootLayout({
   
   // Check if current route is an admin route
   const isAdmin = pathUrl?.startsWith('/admin')
-  
-  console.log('Current path:', pathUrl, 'isAdmin:', isAdmin)
 
   return (
     <html lang="en" >

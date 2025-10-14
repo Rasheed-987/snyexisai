@@ -6,17 +6,45 @@ import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { getCurrentDate } from '@/utils/utils'
 
-
-
 // Inner component that consumes the context
 function AdminLayoutContent({ children }: { children: React.ReactNode }) {
   const [date, setDate] = useState('');
   const { title } = useTitle();
   const pathname = usePathname();
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
   useEffect(() => {
     getCurrentDate(setDate);
   }, []);
+
+  useEffect(() => {
+    // Check authentication status, but skip for login page
+    if (pathname === '/admin/login') {
+      setIsAuthenticated(true); // Allow access to login page
+      return;
+    }
+
+    const authStatus = localStorage.getItem('isAuthenticated');
+    if (!authStatus) {
+      // Not authenticated, redirect to login
+      window.location.href = '/admin/login';
+      return;
+    }
+    
+    setIsAuthenticated(true);
+  }, [pathname]);
+
+  // Show loading while checking authentication
+  if (isAuthenticated === null) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Checking authentication...</p>
+        </div>
+      </div>
+    );
+  }
 
   // Show title section only on dashboard page
   const showTitleSection = pathname === '/admin/dashboard' || pathname === '/admin';
