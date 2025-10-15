@@ -87,7 +87,7 @@ export default function CareersUploadPage() {
     setUploadSuccess(false)
     
     try {
-      if (!jobTitle.trim() || !company.trim() || !location.trim() || !description.trim()) {
+      if (!jobTitle.trim() || !company.trim() || !location.trim() || !description.trim() || !jobType.trim()  ) {
         setUploadError('Please fill in all required fields: Job Title, Company, Location, and Description.');
         setIsUploading(false)
         return;
