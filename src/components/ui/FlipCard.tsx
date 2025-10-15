@@ -23,7 +23,7 @@ export const FlipCard = ({ frontImage, frontAlt, title, description, bgColor = "
           transition={{ duration: 0.6, ease: "easeInOut" }}
           style={{ transformStyle: "preserve-3d" }}
         >
-          {/* Conditional Front/Back based on startWithText */}
+         
           {startWithText ? (
             <>
               {/* Front Side - Text Card */}

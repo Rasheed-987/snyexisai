@@ -151,15 +151,15 @@ export default function AboutPage() {
             />
 
             <FlipCard
-			  frontImage="/images/grid_4.png"
-			  frontAlt="Grid 4"
+			  frontImage="/images/grid_3.png"
+			  frontAlt="Grid 3"
               title="Collaboration at the Core"
               description="We thrive on teamwork, solving challenges together, and celebrating wins as one."
 			  startWithText={true}
             />
 
             <FlipCard
-              frontImage="/images/grid_5.png"
+              frontImage="/images/grid_6.png"
               frontAlt="Grid 5"
               title="Work + Fun Balance"
               description="From team hangouts to
@@ -183,8 +183,8 @@ anywhere, anytime."
             />
 
             <FlipCard
-              frontImage="/images/grid_7.png"
-              frontAlt="Grid 7"
+              frontImage="/images/grid_8.png"
+              frontAlt="Grid 8"
               title="Creative Freedom"
               description="Encouraging curiosity
 and experimentation so
@@ -219,8 +219,8 @@ milestones."
             />
 
             <FlipCard
-              frontImage="/images/grid_10.png"
-              frontAlt="Grid 10"
+              frontImage="/images/grid_9.png"
+              frontAlt="Grid 9"
               title="Celebrating Diversity"
               description="Different perspectives
 make us stronger, more
@@ -230,15 +230,16 @@ problem-solvers."
             />
 
             <FlipCard
-              frontImage="/images/grid_11.png"
-              frontAlt="Grid 11"
+              frontImage="/images/grid_12.png"
+              frontAlt="Grid 12"
               title="Growth Together"
               description="We learn, mentor, and
 support one another to
 achieve both personal
 and professional
 milestones."
-            />
+         startWithText={true}  
+		   />
 
             {/* Card 6 - Flippable */}
             <FlipCard
@@ -254,8 +255,8 @@ everything we do."
             />
 
             <FlipCard
-              frontImage="/images/grid_13.png"
-              frontAlt="Grid 13"
+              frontImage="/images/grid_14.png"
+              frontAlt="Grid 14"
               title="Smart and Solution Driven"
               description="A culture that values
 intelligence, critical
