@@ -16,11 +16,9 @@ const PortfolioDropdown = ({ textColor, navbarBackground, isCaseStudyPage }: Pro
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   
-  console.log('🔄 Rendering PortfolioDropdown, open state:', open, 'pathname:', pathname);
   
   // Close dropdown when route changes
   useEffect(() => {
-    console.log('📍 Pathname changed to:', pathname, 'closing dropdown');
     setOpen(false);
   }, [pathname]);
 
@@ -38,9 +36,9 @@ const PortfolioDropdown = ({ textColor, navbarBackground, isCaseStudyPage }: Pro
         {/* <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg> */}
       </button>
       {open && (
-        <div className={`absolute right-0 mt-2 w-40  border rounded-lg shadow-lg z-50 ${navbarBackground}`}>
-          <Link href="/casestudies" className={`block px-4 py-2 text-sm ${textColor} hover:bg-blue-50 rounded-t-lg`}>Case Studies</Link>
-          <Link href="/ourproject" className={`block px-4 py-2 text-sm ${textColor} rounded-b-lg]`}>My Projects</Link>
+        <div className={`absolute right-0 mt-2 w-40  border border-gray-50  rounded-[12px ] shadow-lg z-50 ${navbarBackground}`}>
+          <Link href="/casestudies" className={`block px-4 py-2 text-sm ${textColor} `}>Case Studies</Link>
+          <Link href="/ourproject" className={`block px-4 py-2 text-sm ${textColor} `}>My Projects</Link>
         </div>
       )}
     </div>
