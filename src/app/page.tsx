@@ -395,15 +395,38 @@ export default function HomePage() {
     </span>
   </div>
 
-  <div className="w-full max-w-7xl mx-auto rounded-[40px] overflow-hidden relative mt-8">
-    <div className="absolute inset-0" style={{ background: 'url(/images/home/background.png) center/cover' }} />
-    <div className="absolute inset-0 bg-[#0A2341]/80" />
-    <div className="relative z-10 flex flex-col items-center justify-center py-16 px-4">
-      <h2 className="font-chillax text-white text-3xl sm:text-5xl lg:text-6xl font-medium text-center tracking-tight mb-4">Let’s Create Tomorrow<br />Hand in Hand!</h2>
-      <p className="text-white text-base sm:text-lg text-center max-w-xl mb-8">It is a long established fact that a reader will be distracted by the readable content of a page looking at its layout.</p>
-      <button className="bg-white text-[#0A2341] px-6 py-2 rounded-full hover:scale-105 font-medium shadow">Free Consultation</button>
-    </div>
+ 
+{/* Enhanced CTA Section */}
+<section className="w-full max-w-7xl mx-auto rounded-[40px] group overflow-hidden cursor-pointer relative mt-8 shadow-lg transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl">
+  
+  {/* Background Image: Scales up on group hover */}
+  <div className="absolute inset-0 w-full h-full">
+    <img
+      src="/images/home/background.png"
+      alt="Abstract background"
+      className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
+    />
   </div>
+
+  {/* Overlay: Becomes slightly more transparent on group hover */}
+  <div className="absolute inset-0 bg-[#0A2341]/80 transition-all duration-500 group-hover:bg-[#0A2341]/70" />
+
+  
+  <div className="relative z-10 flex flex-col items-center justify-center py-16 px-4 ">
+    <h2 className="font-chillax text-white text-3xl sm:text-5xl lg:text-6xl font-medium text-center tracking-tight mb-4">
+      Let’s Create Tomorrow<br />Hand in Hand!
+    </h2>
+    <p className="text-white text-base sm:text-lg text-center max-w-xl mb-8">
+      It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
+    </p>
+    
+    {/* Button: Enhanced hover effects */}
+    <button className="bg-white text-[#0A2341] px-8 py-3 rounded-full font-medium shadow-md transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:-translate-y-1 active:scale-95">
+      Free Consultation
+    </button>
+  </div>
+</section>
+
 </section>
  {/* FAQ Section */}
     <section className="w-full py-16 px-7 flex   font-[Chillax,sans-serif]">
