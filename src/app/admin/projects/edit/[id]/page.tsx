@@ -146,6 +146,9 @@ const ProjectEditPage = () => {
         }
       })
 
+      if(formData.get('title')?.toString().trim() === ''){
+        throw new Error('Project title cannot be empty for draft')
+      }
       // Send to API
       const response = await fetch(`/api/projects/${projectId}`, {
         method: 'PUT',
@@ -181,8 +184,8 @@ const ProjectEditPage = () => {
 
     try {
       // Validation for publishing - all fields required
-      if (!projectTitle || !tagline || !addtitle) {
-        throw new Error('Please fill in all required fields: Title, Tagline, and Additional Title')
+      if (!projectTitle || !tagline || !addtitle || cards.some(c => !c.title || !c.body) || !largeCard.title || !largeCard.body || smallCardsA.some(c => !c.title || !c.body) || imageSlots.some(slot => !slot.file)) {
+        throw new Error('Please fill in all fields and upload all images for Publish')
       }
 
       // Check if we have at least the banner image (either existing or new)

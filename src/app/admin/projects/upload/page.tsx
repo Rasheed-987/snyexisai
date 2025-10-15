@@ -118,10 +118,9 @@ const ProjectUploadPage = () => {
 
     try {
       // Validation
-      if (!projectTitle || !tagline || !addtitle) {
-        throw new Error('Please fill in all required fields: Title, Tagline, and Additional Title')
+     if (!projectTitle || !tagline || !addtitle || cards.some(c => !c.title || !c.body) || !largeCard.title || !largeCard.body || smallCardsA.some(c => !c.title || !c.body) || imageSlots.some(slot => !slot.file)) {
+        throw new Error('Please fill in all fields and upload all images for Publish')
       }
-
       if (!imageSlots[0]?.file) {
         throw new Error('Please upload at least a banner image')
       }
