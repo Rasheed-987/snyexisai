@@ -43,7 +43,6 @@ export async function POST(req: Request) {
     const career = new Career(careerDoc);
     await career.save();
 
-    console.log('✅ Career uploaded successfully:', career._id);
 
     return NextResponse.json({
       success: true,
@@ -51,7 +50,6 @@ export async function POST(req: Request) {
       message: status === 'draft' ? 'Job draft saved successfully!' : 'Job published successfully!',
     });
   } catch (error) {
-    console.error('❌ Error uploading career:', error);
     return NextResponse.json({ 
       success: false, 
       message: 'Internal server error.' 
@@ -107,7 +105,6 @@ export async function GET(req: NextRequest) {
       ...(statusCounts ? { statusCounts } : {})
     });
   } catch (error) {
-    console.error('❌ Error fetching careers:', error);
     return NextResponse.json({ 
       success: false, 
       message: 'Internal server error.' 

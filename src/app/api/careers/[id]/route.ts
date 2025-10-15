@@ -65,14 +65,14 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: s
       }, { status: 404 });
     }
 
-    console.log('✅ Career deleted successfully:', deletedCareer._id);
+   
 
     return NextResponse.json({
       success: true,
       message: 'Career deleted successfully',
     });
   } catch (error) {
-    console.error('❌ Error deleting career:', error);
+ 
     return NextResponse.json({ 
       success: false, 
       error: 'Internal server error' 
@@ -101,7 +101,7 @@ export async function GET(req: Request, { params }: { params: Promise<{ id: stri
       career,
     });
   } catch (error) {
-    console.error('❌ Error fetching career:', error);
+ 
     return NextResponse.json({ 
       success: false, 
       error: 'Internal server error' 
