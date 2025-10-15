@@ -75,9 +75,9 @@ export const Navigation = () => {
   const textColor = isCaseStudyPage ? 'text-white' : 'text-[#0F1C3D]';
   const menuColor = isCaseStudyPage ? '#F9F9F9' : '#0F1C3D';
   const logoSrc = isCaseStudyPage ? '/images/logo_white.png' : '/images/logo.png';
-
+  const border = isCaseStudyPage ? 'border-0' : 'border-[#E7E7E7]';
   return (
-    <nav className={`w-full h-[68px] border-1 border-[#1616161A] ${navbarBackground}   flex items-center justify-between px-6 relative z-[100]`}>
+    <nav className={`w-full h-[68px]  border ${border} ${navbarBackground}   flex items-center justify-between px-6 relative z-[100]`}>
       {/* Logo */}
       <div className="flex items-center">
         <img 
