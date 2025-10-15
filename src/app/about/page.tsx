@@ -329,15 +329,15 @@ everything we do."
       {/* Hero Section with Background */}
       <section className="relative w-full flex items-center justify-center px-4 sm:px-8 lg:px-12 sm:mb-7">
         {/* Inner Container */}
-        <div className="relative w-full  h-[300px] sm:h-[350px] lg:h-[400px] rounded-[32px] overflow-hidden flex items-center justify-center">
+        <div className="relative w-full h-[300px] sm:h-[350px] lg:h-[400px] rounded-[32px] overflow-hidden flex items-center justify-center group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl">
           {/* Background Image */}
-          <Image src="/images/img15.png" alt="Background" fill className="object-cover" priority />
-          <div className="absolute inset-0 bg-black bg-opacity-40" />
+          <Image src="/images/img15.png" alt="Background" fill className="object-cover transition-transform duration-700 group-hover:scale-110" priority />
+          <div className="absolute inset-0 bg-black bg-opacity-40 transition-all duration-500 group-hover:bg-opacity-30" />
 
           {/* Content */}
-          <div className="relative z-10 text-center px-4 flex flex-col items-center justify-center">
+          <div className="relative z-10 text-center px-4 flex flex-col items-center justify-center transition-all duration-500 group-hover:transform group-hover:-translate-y-2">
             <h1
-              className="text-white font-bold text-2xl sm:text-4xl lg:text-6xl mb-4 sm:mb-6"
+              className="text-white font-bold text-2xl sm:text-4xl lg:text-6xl mb-4 sm:mb-6 transition-all duration-500 group-hover:text-shadow-lg"
               style={{ fontFamily: 'Chillax, sans-serif' }}
             >
               Shaping the next
@@ -345,14 +345,14 @@ everything we do."
               era together.
             </h1>
             <p
-              className="text-white text-base sm:text-lg lg:text-xl font-light mb-6 sm:mb-8 max-w-[600px]"
+              className="text-white text-base sm:text-lg lg:text-xl font-light mb-6 sm:mb-8 max-w-[600px] transition-all duration-500 group-hover:opacity-90"
               style={{ fontFamily: 'Chillax, sans-serif' }}
             >
               Partner with us to unlock innovation and accelerate your digital future.
             </p>
             <button
               onClick={() => router.push('/contact')}
-              className="bg-white text-[#17214D] rounded-full px-4 py-2 sm:px-6 sm:py-3 font-medium text-sm sm:text-base shadow hover:bg-gray-200 transition"
+              className="bg-white text-[#0A2341] px-6 py-2 rounded-full font-medium shadow transition-all duration-300 hover:scale-110 hover:shadow-lg hover:bg-[#F4F0ED] hover:transform hover:-translate-y-1 active:scale-95"
             >
               Schedule A Call
             </button>
