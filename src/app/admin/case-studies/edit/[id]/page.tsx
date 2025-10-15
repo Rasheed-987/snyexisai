@@ -183,8 +183,8 @@ const CaseStudyEditPage = () => {
     setUpdateError(null)
     setUpdateSuccess(false)
     try {
-      if (!caseTitle || !subtitle || !leftTextBox || !whatWeDid || !largeCard.title || !largeCard.body) {
-        throw new Error('Please fill in all required fields: Title, Subtitle, Text Box, What We Did, and Large Card')
+      if (!caseTitle || !subtitle || !leftTextBox || !whatWeDid || !largeCard.title || !largeCard.body || smallCardsA.some(c => !c.title || !c.body) || imageSlots.some(slot => !slot.file)) {
+        throw new Error('Please fill in all fields and upload all images for Publish')
       }
       const formData = new FormData()
       formData.append('caseTitle', caseTitle)
@@ -230,10 +230,6 @@ const CaseStudyEditPage = () => {
     router.push('/admin/case-studies')
   }
   
-  const handleSave = () => {
-    // Add save functionality if needed
-    console.log('Save case study (draft)');
-  }
 
   // Loading state
   if (isLoading) {

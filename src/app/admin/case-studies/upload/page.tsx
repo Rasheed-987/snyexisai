@@ -137,8 +137,8 @@ const CaseStudiesUploadPage: React.FC = () => {
     setUploadError(null)
     setUploadSuccess(false)
     try {
-      if (!caseTitle || !subtitle || !leftTextBox || !whatWeDid || !largeCard.title || !largeCard.body) {
-        throw new Error('Please fill in all required fields: Title, Subtitle, Text Box, What We Did, and Large Card')
+      if (!caseTitle || !subtitle || !leftTextBox || !whatWeDid || !largeCard.title || !largeCard.body || smallCardsA.some(c => !c.title || !c.body) || imageSlots.some(slot => !slot.file)) {
+        throw new Error('Please fill in all fields and upload all images for Publish')
       }
       if (!imageSlots[0].file) {
         throw new Error('Please upload at least a banner image');
