@@ -6,10 +6,7 @@ export default function Footer({ className = "" }: FooterProps) {
   return (
     <footer
       className="w-full overflow-hidden mt-[-80px] pt-[130px] text-white"
-//     style={{
-//   background: 'linear-gradient(180deg, #0a0a0a 0%, #ff0000 50%, #0a0a0a 100%)',
-//   backdropFilter: 'blur(200px)'
-// }}
+
 style={{
   background: 'linear-gradient(180deg, #0F1C3D 20%, #0D255C 50%, #0F1C3D 80%)',
   backdropFilter: 'blur(200px)'
@@ -65,13 +62,11 @@ style={{
 
       {/* Synexis.Ai Text */}
       <div className="w-full text-white pt-6">
-        <div className="">
-          <div className="mt-4 text-center">
-            <h1 className="font-chillax font-medium w-full block text-[19vw] leading-none text-center">
-              Synexis.Ai
-            </h1>
-          </div>
-        </div>
+       <div className="h-[200px] overflow-hidden flex items-start justify-start">
+  <h1 className="font-chillax font-medium w-full block text-[19vw] leading-none ">
+    Synexis.Ai
+  </h1>
+</div>
       </div>
     </footer>
 

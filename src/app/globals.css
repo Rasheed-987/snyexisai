@@ -115,6 +115,34 @@ body {
 }
 
 
+.custom-about-btn {
+  background-color: #327AED;
+  color: #fff;
+  padding: 0.75rem 2rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  margin-bottom: 2rem;
+  width: fit-content;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(50, 122, 237, 0.12);
+}
+
+.custom-about-btn:hover {
+  transform: scale(1.05);
+  color: #F4F0ED;
+  box-shadow: 0 4px 16px rgba(15, 28, 61, 0.18);
+}
+
+
+.interactive-card {
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+.interactive-card:hover {
+  box-shadow: 0 10px 24px -3px #327AED, 0 4px 12px -4px #327AED;
+  transform: translateY(-2px) scale(1.01);
+}
+
 
 .heading-large {
   font-family: 'Chillax', sans-serif;
@@ -226,4 +254,25 @@ body {
   box-shadow: 0px 4px 32px rgba(50, 122, 237, 0.5); /* Border shadow */
 
 
+}
+
+.approach-img-hover {
+  transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+}
+.approach-img-hover:hover {
+  transform: scale(1.08);
+  z-index: 1;
+}
+
+/* 3D Flip Card Styles */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
 }

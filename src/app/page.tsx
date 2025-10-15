@@ -3,6 +3,9 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { motion } from "motion/react"
+
+
 export default function HomePage() {
   const router = useRouter();
   return (
@@ -24,18 +27,17 @@ export default function HomePage() {
         <div className="flex flex-wrap justify-center gap-4 mb-12">
           <button
             onClick={() => router.push('/contact')}
-            className="bg-[#327AED] text-white md:px-10 px-3 py-6 rounded-full flex items-center gap-3 font-chillax text-base font-normal shadow-md transition-all duration-150"
-    
+            className="bg-[#327AED] text-white px-3 md:px-10 py-5 rounded-full flex items-center gap-3 font-chillax text-base font-normal shadow-md transition-all duration-150"
           >
             Work With Us
-            <img src="/images/home/button_arrow.png" alt="Arrow Right" className="w-4 h-4 " />
+            <img src="/images/home/button_arrow.png" alt="Arrow Right" className="w-4 h-4" />
           </button>
           <button
             onClick={() => router.push('/casestudies')}
-            className="border border-[#0F1C3D] text-[#0F1C3D] px-3  md:px-10 py-6 rounded-full flex items-center gap-3 font-chillax text-base font-normal transition-all duration-150"
+            className="border border-[#0F1C3D] text-[#0F1C3D] px-3 md:px-10 py-5 rounded-full flex items-center gap-3 font-chillax text-base font-normal transition-all duration-150"
           >
             Explore Our Case Studies
-            <img src="/images/home/button_arrow.png" alt="Arrow Right" className="w-4 h-4 " />
+            <img src="/images/home/button_arrow.png" alt="Arrow Right" className="w-4 h-4" />
           </button>
         </div>
 
@@ -81,10 +83,10 @@ export default function HomePage() {
           <p className="text-lg font-regular text-[#1A2853] mb-6">
             From apps to websites, we deliver seamless, high-impact designs that redefine user experience. Let’s build something extraordinary together!
           </p>
-          <button onClick={() => router.push('/about')} className="bg-[#327AED] text-white px-8 py-3 rounded-full font-medium mb-8 w-fit">
+          <button onClick={() => router.push('/about')} className="custom-about-btn">
             More About Us
           </button>
-          <div className="bg-white rounded-xl shadow-md p-6 mt-4">
+          <div className="bg-white interactive-card rounded-xl shadow-md p-6 mt-4">
             <p className="text-2xl text-[#1A2853] font-medium mb-4">
               “Musemind was amazing to work with. Their design skills and tech expertise were on point and they really delivered.”
             </p>
@@ -223,7 +225,7 @@ export default function HomePage() {
         {/* Card 1 */}
         <div className="flex flex-col items-center text-center">
           <span className="mb-10">
-              <Image src="/images/home/img1_1.png" alt="POC" width={130} height={130} className="object-contain w-[130px] h-[130px]" />
+                <Image src="/images/home/img1_1.png" alt="POC" width={130} height={130} className="object-contain w-[130px] h-[130px] approach-img-hover" />
           </span>
           <h3 className="text-[#1A2341] text-xl font-medium mb-2">POC in 4 – 6 weeks</h3>
           <p className="text-[#6B7280] text-base">See impact quickly with our rapid prototyping approach.</p>
@@ -231,7 +233,7 @@ export default function HomePage() {
         {/* Card 2 */}
         <div className="flex flex-col items-center text-center">
           <span className="mb-10">
-              <Image src="/images/home/img1_2.png" alt="End-to-End AI Delivery" width={130} height={130} className="object-contain w-[130px] h-[130px]" />
+                <Image src="/images/home/img1_2.png" alt="End-to-End AI Delivery" width={130} height={130} className="object-contain w-[130px] h-[130px] approach-img-hover" />
           </span>
           <h3 className="text-[#1A2341] text-xl font-medium mb-2">End-to-End AI Delivery</h3>
           <p className="text-[#6B7280] text-base">From data prep to deployment to monitoring – we handle it all.</p>
@@ -239,7 +241,7 @@ export default function HomePage() {
         {/* Card 3 */}
         <div className="flex flex-col items-center text-center">
           <span className="mb-10">
-              <Image src="/images/home/img1_3.png" alt="Regulatory Compliance" width={130} height={130} className="object-contain w-[130px] h-[130px]" />
+                <Image src="/images/home/img1_3.png" alt="Regulatory Compliance" width={130} height={130} className="object-contain w-[130px] h-[130px] approach-img-hover" />
           </span>
           <h3 className="text-[#1A2341] text-xl font-medium mb-2">Regulatory Compliance</h3>
           <p className="text-[#6B7280] text-base">HIPAA, CDPR, and SOC2 practices implemented from the ground up – so your AI is secure and scalable.</p>
@@ -247,7 +249,7 @@ export default function HomePage() {
         {/* Card 4 */}
         <div className="flex flex-col items-center text-center">
           <span className="mb-10">
-              <Image src="/images/home/img1_4.png" alt="Proven ROI" width={130} height={130} className="object-contain w-[130px] h-[130px]" />
+                <Image src="/images/home/img1_4.png" alt="Proven ROI" width={130} height={130} className="object-contain w-[130px] h-[130px] approach-img-hover" />
           </span>
           <h3 className="text-[#1A2341] text-xl font-medium mb-2">Proven ROI</h3>
           <p className="text-[#6B7280] text-base">Documented case studies with measurable, quantifiable results.</p>
@@ -264,36 +266,53 @@ export default function HomePage() {
       <div className="w-full max-w-7xl px-10 flex flex-col gap-y-0">
         {/* Row 1 */}
         <hr className="w-full border-t border-gray-200" />
-        <div className="flex flex-row flex-wrap justify-center items-center gap-x-4 sm:gap-x-10 gap-y-4 py-4 sm:py-6">
+        <motion.div 
+          className="flex flex-row flex-wrap justify-center items-center gap-x-4 sm:gap-x-10 gap-y-4 py-4 sm:py-6"
+          initial={{ x: -100, opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          transition={{ duration: 1.1, ease: "easeOut" }}
+          viewport={{ once: true }}
+        >
           <img src="/images/client/img1.png" alt="Logo 1" className="h-[40px] w-[90px] sm:h-[61px] sm:w-[150px] object-contain flex-shrink-0" />
           <img src="/images/client/img2.png" alt="Logo 2" className="h-[40px] w-[90px] sm:h-[61px] sm:w-[150px] object-contain flex-shrink-0" />
           <img src="/images/client/img3.png" alt="Logo 3" className="h-[40px] w-[90px] sm:h-[61px] sm:w-[150px] object-contain flex-shrink-0" />
           <img src="/images/client/img4.png" alt="Logo 4" className="h-[40px] w-[90px] sm:h-[61px] sm:w-[150px] object-contain flex-shrink-0" />
           <img src="/images/client/img5.png" alt="Logo 5" className="h-[40px] w-[90px] sm:h-[61px] sm:w-[150px] object-contain flex-shrink-0" />
           <img src="/images/client/img6.png" alt="Logo 6" className="h-[40px] w-[90px] sm:h-[61px] sm:w-[150px] object-contain flex-shrink-0" />
-        </div>
+        </motion.div>
         <hr className="w-full border-t border-gray-200" />
         {/* Row 2 */}
-        <div className="flex flex-row flex-wrap justify-center items-center gap-x-4 sm:gap-x-10 gap-y-4 py-4 sm:py-6">
+        <motion.div 
+          className="flex flex-row flex-wrap justify-center items-center gap-x-4 sm:gap-x-10 gap-y-4 py-4 sm:py-6"
+          initial={{ x: -100, opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          transition={{ duration: 1.1, ease: "easeOut", delay: 0.2 }}
+          viewport={{ once: true }}
+        >
           <img src="/images/client/img7.png" alt="Logo 7" className="h-[40px] w-[90px] sm:h-[61px] sm:w-[150px] object-contain flex-shrink-0" />
           <img src="/images/client/img8.png" alt="Logo 8" className="h-[40px] w-[90px] sm:h-[61px] sm:w-[150px] object-contain flex-shrink-0" />
           <img src="/images/client/img9.png" alt="Logo 9" className="h-[40px] w-[90px] sm:h-[61px] sm:w-[150px] object-contain flex-shrink-0" />
           <img src="/images/client/img10.png" alt="Logo 10" className="h-[40px] w-[90px] sm:h-[61px] sm:w-[150px] object-contain flex-shrink-0" />
           <img src="/images/client/img11.png" alt="Logo 11" className="h-[40px] w-[90px] sm:h-[61px] sm:w-[150px] object-contain flex-shrink-0" />
           <img src="/images/client/img12.png" alt="Logo 12" className="h-[40px] w-[90px] sm:h-[61px] sm:w-[150px] object-contain flex-shrink-0" />
-        </div>
+        </motion.div>
         <hr className="w-full border-t border-gray-200" />
         {/* Row 3 */}
-        
-          <div className="flex flex-row  flex-wrap sm:gap-x-3 gap-y-4 py-4 sm:py-6   w-full justify-center items-center">
-            <img src="/images/client/img13.png" alt="Logo 13" className="h-[40px] w-[90px] sm:h-[61px] sm:w-[150px] object-contain flex-shrink-0 inline-block" />
-            <img src="/images/client/img14.png" alt="Logo 14" className="h-[40px] w-[90px] sm:h-[61px] sm:w-[150px] object-contain flex-shrink-0 inline-block" />
-            <img src="/images/client/img15.png" alt="Logo 15" className="h-[40px] w-[90px] sm:h-[61px] sm:w-[150px] object-contain flex-shrink-0 inline-block" />
-            <img src="/images/client/img16.png" alt="Logo 16" className="h-[40px] w-[90px] sm:h-[61px] sm:w-[150px] object-contain flex-shrink-0 inline-block" />
-            <img src="/images/client/img17.png" alt="Logo 17" className="h-[40px] w-[90px] sm:h-[61px] sm:w-[150px] object-contain flex-shrink-0 inline-block" />
-            <img src="/images/client/img18.png" alt="Logo 18" className="h-[40px] w-[90px] sm:h-[61px] sm:w-[150px] object-contain flex-shrink-0 inline-block" />
-            <img src="/images/client/img19.png" alt="Logo 19" className="h-[40px] w-[90px] sm:h-[61px] sm:w-[150px] object-contain flex-shrink-0 inline-block" />
-          </div>
+        <motion.div 
+          className="flex flex-row  flex-wrap sm:gap-x-3 gap-y-4 py-4 sm:py-6   w-full justify-center items-center"
+          initial={{ x: -100, opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          transition={{ duration: 1.1, ease: "easeOut", delay: 0.4 }}
+          viewport={{ once: true }}
+        >
+          <img src="/images/client/img13.png" alt="Logo 13" className="h-[40px] w-[90px] sm:h-[61px] sm:w-[150px] object-contain flex-shrink-0 inline-block" />
+          <img src="/images/client/img14.png" alt="Logo 14" className="h-[40px] w-[90px] sm:h-[61px] sm:w-[150px] object-contain flex-shrink-0 inline-block" />
+          <img src="/images/client/img15.png" alt="Logo 15" className="h-[40px] w-[90px] sm:h-[61px] sm:w-[150px] object-contain flex-shrink-0 inline-block" />
+          <img src="/images/client/img16.png" alt="Logo 16" className="h-[40px] w-[90px] sm:h-[61px] sm:w-[150px] object-contain flex-shrink-0 inline-block" />
+          <img src="/images/client/img17.png" alt="Logo 17" className="h-[40px] w-[90px] sm:h-[61px] sm:w-[150px] object-contain flex-shrink-0 inline-block" />
+          <img src="/images/client/img18.png" alt="Logo 18" className="h-[40px] w-[90px] sm:h-[61px] sm:w-[150px] object-contain flex-shrink-0 inline-block" />
+          <img src="/images/client/img19.png" alt="Logo 19" className="h-[40px] w-[90px] sm:h-[61px] sm:w-[150px] object-contain flex-shrink-0 inline-block" />
+        </motion.div>
         <hr className="w-full border-t border-gray-200" />
       </div>
 
@@ -307,7 +326,7 @@ export default function HomePage() {
           <div className="flex-1 flex flex-col justify-center">
             <p className="text-[#1A2341] text-base sm:text-lg mb-4">We're a passionate team of UI/UX designers dedicated to creating intuitive digital experiences. With years of experience, we blend creativity and strategy to design solutions that engage users and drive business success.</p>
             <p className="text-[#1A2341] text-base sm:text-lg mb-6">We turn ideas into seamless, Beautiful designs. Let's build digital experiences that not only look stunning but also deliver real results.</p>
-            <button onClick={() => router.push('/about')}  className="bg-[#2563EB] text-white px-6 py-2 rounded-full font-medium w-fit">More About Us</button>
+            <button onClick={() => router.push('/about')}  className="custom-about-btn">More About Us</button>
           </div>
         </div>
 <div className="w-full  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -341,7 +360,7 @@ export default function HomePage() {
     </div>
   </div>
  {/* Card Div */}
-  <div className="flex flex-col md:flex-row bg-white rounded-3xl shadow-lg overflow-hidden max-w-7xl mx-auto w-full" >
+  <div className="interactive-card flex flex-col md:flex-row bg-white rounded-3xl  overflow-hidden max-w-7xl mx-auto w-full" >
   {/* Mobile arrow nav below card */}
   
     {/* Left: Project Info */}
@@ -382,7 +401,7 @@ export default function HomePage() {
     <div className="relative z-10 flex flex-col items-center justify-center py-16 px-4">
       <h2 className="font-chillax text-white text-3xl sm:text-5xl lg:text-6xl font-medium text-center tracking-tight mb-4">Let’s Create Tomorrow<br />Hand in Hand!</h2>
       <p className="text-white text-base sm:text-lg text-center max-w-xl mb-8">It is a long established fact that a reader will be distracted by the readable content of a page looking at its layout.</p>
-      <button className="bg-white text-[#0A2341] px-6 py-2 rounded-full font-medium shadow">Free Consultation</button>
+      <button className="bg-white text-[#0A2341] px-6 py-2 rounded-full hover:scale-105 font-medium shadow">Free Consultation</button>
     </div>
   </div>
 </section>
