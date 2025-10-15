@@ -165,7 +165,7 @@ export default function Header() {
                   ))}
                 </div>
                 {/* Desktop: Original menu items */}
-                <div className="hidden md:block rounded-lg">
+                <div className="hidden md:block  rounded-lg">
                   <MenuItem>
                     <button
                       onClick={logout}

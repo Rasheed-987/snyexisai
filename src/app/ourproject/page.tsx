@@ -3,6 +3,8 @@ import React from 'react'
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import {CTA} from '@/components/ui/cta';
+
 const OurProjectPage = () => {
    const router = useRouter();
   return ( 
@@ -254,46 +256,7 @@ const OurProjectPage = () => {
   </div>
 
 
-
- {/* CTA Section */}
-      <section className="relative w-full h-[60vh] bg-cover bg-center  z-10">
-        <div className="absolute inset-0 w-full h-full">
-          <Link href="/casestudiesDetail">
-            <Image
-              src="/images/img13.png"
-              alt="Background"
-              fill
-              className="object-cover rounded-[32px]"
-              priority
-            />
-          </Link>
-        </div>
-        <div className="relative flex flex-col items-center justify-center h-full z-10 text-center px-6 sm:px-12">
-          <h2 className="text-white font-chillax font-medium text-3xl sm:text-4xl lg:text-5xl mb-4">
-            Have A Project in Mind?
-          </h2>
-          <p className="text-white font-chillax font-normal text-base sm:text-lg lg:text-xl mb-6 max-w-[600px]">
-            Partner with us to unlock innovation and accelerate your digital future.
-          </p>
-          
-          <button  onClick={()=>router.push('/contact')}
-          className="px-6 py-3 bg-white rounded-full font-chillax font-medium text-base sm:text-lg text-blue-900 hover:bg-gray-100 transition-colors">
-            Schedule A Call 
-          </button>
-        </div>
-      </section>
-
-
-
-
-
-
-
-
-
-
-
-
+<CTA/>
 
 </section>
 

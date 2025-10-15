@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import {FlipCard} from '@/components/ui/FlipCard'
+import {CTA} from '@/components/ui/cta'
 
 export default function AboutPage() {
   const router = useRouter()
