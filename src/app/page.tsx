@@ -19,7 +19,7 @@ export default function HomePage() {
           Award-Winning   Agency
         </h1>
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium text-[#327AED] mb-6">
-          For Digital-First Brands
+          For Digital-First Brands.
         </h2>
         <p className="text-lg font-regular text-[#0F1C3D] mb-8">
           We unite Brand, Website and Digital Product under one vision
