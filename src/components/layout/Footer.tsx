@@ -62,7 +62,7 @@ style={{
 
       {/* Synexis.Ai Text */}
       <div className="w-full text-white pt-6">
-       <div className=" lg:h-[200px] 2xl:h-[320px] overflow-hidden flex items-start justify-start">
+       <div className=" lg:h-[180px] xl:h-[200px] 2xl:h-[320px] overflow-hidden flex items-start justify-start">
   <h1 className="font-chillax font-medium w-full block text-[19vw] leading-none ">
     Synexis.Ai
   </h1>

@@ -234,7 +234,7 @@ const ServiceEditPage = () => {
           placeholder="Enter service title"
           value={serviceTitle}
           onChange={(e) => setServiceTitle(e.target.value)}
-          className="w-full border-2 border-gray-300 p-3 rounded-lg focus:border-blue-500 focus:outline-none"
+          className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
           disabled={isUpdating}
         />
       </div>

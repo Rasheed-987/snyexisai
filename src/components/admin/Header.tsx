@@ -3,12 +3,16 @@
 import { useState } from 'react'
 
 import Image from 'next/image'
-import { logout } from '@/utils/auth'
 
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/24/solid'
 
 // Sidebar menu items (copied for mobile dropdown)
+
+ const logout = () => {
+  localStorage.removeItem('isAuthenticated');
+  window.location.href = '/'; // Redirect to home page
+};
 const sidebarMenuItems = [
   {
     icon: (

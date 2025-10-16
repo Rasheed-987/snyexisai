@@ -1,7 +1,9 @@
-    'use client';
-import React, { useState } from 'react';
+'use client';
 
-const AdminLogin: React.FC = () => {
+import React, { useState } from 'react';
+import Button from '@/components/ui/Button'; // same button used in ContactForm
+
+export default function AdminLogin() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -9,9 +11,7 @@ const AdminLogin: React.FC = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Mock authentication logic
     if (username === 'admin' && password === 'password') {
-      // Save authentication state (e.g., in localStorage or a cookie)
       localStorage.setItem('isAuthenticated', 'true');
       window.location.href = '/admin/dashboard';
     } else {
@@ -19,48 +19,66 @@ const AdminLogin: React.FC = () => {
     }
   };
 
+  const inputClass =
+    'w-full h-[60px] px-4 py-3 bg-[#F9F9F9] border border-gray-200 rounded-lg text-[#0F1C3D] font-chillax text-sm focus:outline-none focus:ring-2 focus:ring-[#F9F9F9] focus:border-transparent transition-all';
+  const labelClass =
+    'block text-sm font-normal text-[#0F1C3D] font-chillax mb-2';
+
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 bg-white rounded shadow-md">
-        <h2 className="text-2xl font-bold text-center mb-6">Admin Login</h2>
-        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-        <form onSubmit={handleLogin}>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
-              Username
+    <div className="flex items-center justify-center min-h-screen bg-[#F9F9F9]">
+      <div className="w-full max-w-md bg-white shadow-md rounded-2xl p-8 space-y-6">
+        <h2 className="text-3xl font-normal text-[#0F1C3D] font-chillax text-center">
+          Admin Login
+        </h2>
+
+        {error && (
+          <p className="text-red-500 text-sm text-center mt-2">{error}</p>
+        )}
+
+        <form onSubmit={handleLogin} className="space-y-6">
+          {/* Username */}
+          <div>
+            <label htmlFor="username" className={labelClass}>
+              Username*
             </label>
             <input
               id="username"
+              name="username"
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
+              className={inputClass}
+              placeholder="Enter your username"
               required
             />
           </div>
-          <div className="mb-6">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-              Password
+
+          {/* Password */}
+          <div>
+            <label htmlFor="password" className={labelClass}>
+              Password*
             </label>
             <input
               id="password"
+              name="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"
+              className={inputClass}
+              placeholder="Enter your password"
               required
             />
           </div>
-          <button
+
+          {/* Submit */}
+          <Button
             type="submit"
-            className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
+            className="w-full h-[62px] bg-[#327AED] text-white rounded-full font-chillax text-sm hover:opacity-90 transition-all"
           >
             Login
-          </button>
+          </Button>
         </form>
       </div>
     </div>
   );
-};
-
-export default AdminLogin;
+}

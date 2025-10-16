@@ -12,9 +12,9 @@ export default function AboutPage() {
 
 
   return (
-    <main className="min-h-screen bg-[#F4F0ED] mb-30 z-50 relative rounded-b-[80px] font-chillax  pb-[160px]">
-      <section className="w-full flex justify-center items-center py-8 sm:py-12">
-        <div className="text-center max-w-[1020px] w-full mx-auto px-4 font-[Chillax,sans-serif]">
+    <main className="min-h-screen bg-[#F4F0ED] mb-30 z-50 relative rounded-b-[80px]   pb-[160px]">
+      <section className="w-full flex justify-center min-h-[500px] items-center py-8 sm:py-12">
+        <div className="text-center max-w-[1020px] w-full mx-auto px-4 ">
           <h2 className="text-[#17214D] font-medium text-xl sm:text-3xl md:text-4xl lg:text-[50px] leading-snug sm:leading-normal md:leading-[60px] lg:leading-[70px]">
             With expertise across <br />
             ventures and enterprises,
@@ -38,7 +38,7 @@ export default function AboutPage() {
 
       <section className="w-full  py-16">
         <div className=" mx-auto px-4 sm:px-8 lg:px-12">
-          <p className="text-slate-700 text-base sm:text-lg font-chillax lg:text-xl leading-relaxed">
+          <p className="text-slate-700 text-base sm:text-lg  lg:text-xl leading-relaxed">
             We collaborate with forward-thinking leaders, where our generative AI experts provide
             strategic insights that will reshape tomorrow. Our team of AI engineers, developers, and
             data scientists supports clients through their digital transformation, enhancing

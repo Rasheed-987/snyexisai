@@ -220,7 +220,7 @@ const CaseStudiesUploadPage: React.FC = () => {
       <input
         type="text"
         placeholder="Project Title Here"
-        className="border-2 border-dashed rounded-full px-6 py-2 text-center text-lg font-semibold mb-4 w-full max-w-lg"
+        className="w-full max-w-lg mb-4 rounded-full px-6 py-2 bg-white border border-gray-300 text-center text-lg font-semibold shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
         value={caseTitle}
         onChange={(e) => setCaseTitle(e.target.value)}
       />
@@ -229,7 +229,7 @@ const CaseStudiesUploadPage: React.FC = () => {
       <input
         type="text"
         placeholder="Sub Title Here"
-        className="border-2 border-dashed rounded-full px-4 py-2 text-center mb-6 w-full max-w-md"
+        className="w-full max-w-md mb-6 rounded-full px-4 py-2 bg-white border border-gray-300 text-center shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
         value={subtitle}
         onChange={(e) => setSubtitle(e.target.value)}
       />
@@ -252,7 +252,7 @@ const CaseStudiesUploadPage: React.FC = () => {
           <input
             type="text"
             placeholder="Text here"
-            className="w-full text-sm"
+            className="w-full text-sm px-3 py-2 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
             value={leftTextBox}
             onChange={(e) => setLeftTextBox(e.target.value)}
           />
@@ -263,14 +263,14 @@ const CaseStudiesUploadPage: React.FC = () => {
           <input
             type="text"
             placeholder="What we did"
-            className="border-2 border-dashed rounded-full px-4 py-2 w-40 text-sm text-center"
+            className="rounded-full px-4 py-2 w-40 text-sm text-center bg-white border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
             value={whatWeDid}
             onChange={(e) => setWhatWeDid(e.target.value)}
           />
           <input
             type="text"
             placeholder="+ Add line"
-            className="border-2 border-dashed rounded-full px-4 py-2 w-40 text-sm text-center"
+            className="rounded-full px-4 py-2 w-40 text-sm text-center bg-white border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
             value={addLine}
             onChange={(e) => setAddLine(e.target.value)}
           />
@@ -312,13 +312,13 @@ const CaseStudiesUploadPage: React.FC = () => {
         <input
           type="text"
           placeholder="Title here"
-          className="w-full mb-3 font-semibold text-lg"
+          className="w-full mb-3 font-semibold text-lg px-3 py-2 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
           value={largeCard.title}
           onChange={(e) => setLargeCard({ ...largeCard, title: e.target.value })}
         />
         <textarea
           placeholder="Body text"
-          className="w-full text-sm"
+          className="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-200 rounded min-h-[140px] resize-y focus:outline-none focus:ring-2 focus:ring-blue-200"
           value={largeCard.body}
           onChange={(e) => setLargeCard({ ...largeCard, body: e.target.value })}
         />
@@ -331,7 +331,7 @@ const CaseStudiesUploadPage: React.FC = () => {
             <input
               type="text"
               placeholder="Title here"
-              className="w-full mb-2 font-semibold"
+              className="w-full mb-2 font-semibold px-3 py-2 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
               value={c.title}
               onChange={(e) => {
                 const copy = [...smallCardsA]
@@ -341,7 +341,7 @@ const CaseStudiesUploadPage: React.FC = () => {
             />
             <textarea
               placeholder="Body text"
-              className="w-full text-sm"
+              className="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-200 rounded min-h-[80px] resize-y focus:outline-none focus:ring-2 focus:ring-blue-200"
               value={c.body}
               onChange={(e) => {
                 const copy = [...smallCardsA]

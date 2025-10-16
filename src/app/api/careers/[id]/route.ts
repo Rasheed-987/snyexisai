@@ -1,6 +1,7 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { Career } from '@/utils/models';
 import connectDB from '@/lib/mongodb';
+import { S3Service } from '@/lib/s3';
 
 export async function PUT(req: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
@@ -54,6 +55,7 @@ export async function DELETE(req: Request, { params }: { params: Promise<{ id: s
     await connectDB();
     
     const { id } = await params;
+
 
     // Find and delete the career
     const deletedCareer = await Career.findByIdAndDelete(id);

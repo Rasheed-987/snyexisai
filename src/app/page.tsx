@@ -136,7 +136,7 @@ export default function HomePage() {
               “Musemind was amazing to work with. Their design skills and tech expertise were on point and they really delivered.”
             </p>
             <div className="flex items-center gap-4 xl:gap-6">
-              <img src="/images/home/img6.png" alt="Nedin Zahirovic" className="w-14 h-14 md:w-16 md:h-16 xl:w-20 xl:h-20 rounded-full object-cover" />
+              <img src="/images/home/img6.png" alt="Nedin Zahirovic" className="w-12 h-12  xl:w-15 xl:h-15 2xl:w-17 2xl:h-17 rounded-full object-cover" />
               <div>
                 <div className="text-base md:text-lg xl:text-xl font-semibold text-[#1A2853]">Nedin Zahirovic</div>
                 <div className="text-xs md:text-sm xl:text-base text-[#1A2853]">Co-Founder, Konoam Software Technologies<br />Starnberg, Germany</div>
@@ -507,7 +507,7 @@ export default function HomePage() {
                 type="button"
                 onClick={() => setOpenIndex(isOpen ? null : i)}
                 className="text-left w-full p-4 sm:p-6 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-600/50"
-                aria-expanded={isOpen ? 'true' : 'false'}
+                
               >
                 <div className="flex items-start justify-between gap-4">
                   <span className="text-[#1A2341] text-base sm:text-lg lg:text-xl  font-normal">

@@ -201,7 +201,7 @@ const ProjectUploadPage = () => {
       <input
         type="text"
         placeholder="Project Title"
-        className="border-2 border-dashed rounded-full px-4 py-2 text-center mb-4 w-1/3"
+        className="w-1/3 mb-4 rounded-full px-4 py-2 bg-white border border-gray-300 text-center shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
         value={projectTitle}
         onChange={(e) => setProjectTitle(e.target.value)}
       />
@@ -220,14 +220,14 @@ const ProjectUploadPage = () => {
         <input
           type="text"
           placeholder="Tagline"
-          className="border-2 border-dashed rounded-full px-4 py-2 w-[23vw] text-center mb-4"
+          className="w-[23vw] text-center mb-4 rounded-full px-4 py-2 bg-white border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
           value={tagline}
           onChange={(e) => setTagline(e.target.value)}
         />
         <input
           type="text"
           placeholder="Addtitle"
-          className="border-2 border-dashed rounded-full px-4 py-2 text-center mb-4 w-[35vw]"
+          className="text-center mb-4 w-[35vw] rounded-full px-4 py-2 bg-white border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
           value={addtitle}
           onChange={(e) => setAddtitle(e.target.value)}
         />
@@ -239,7 +239,7 @@ const ProjectUploadPage = () => {
             <input
               type="text"
               placeholder="Card Title"
-              className=""
+              className="w-full mb-2 px-3 py-2 bg-white border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
               value={cards[index].title}
               onChange={(e) => {
                 const newCards = [...cards]
@@ -249,7 +249,7 @@ const ProjectUploadPage = () => {
             />
             <textarea
               placeholder="Card Body"
-              className=" mb-2 focus:outline-none"
+              className="w-full mb-2 px-3 py-2 bg-gray-50 border border-gray-200 rounded text-sm min-h-[80px] resize-y focus:outline-none focus:ring-2 focus:ring-blue-200"
               value={cards[index].body}
               onChange={(e) => {
                 const newCards = [...cards]
@@ -288,7 +288,7 @@ const ProjectUploadPage = () => {
             <input
               type="text"
               placeholder="Title here"
-              className="w-full mb-2 font-semibold"
+              className="w-full mb-2 font-semibold px-3 py-2 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
               value={smallCardsA[index].title}
               onChange={(e) => {
                 const copy = [...smallCardsA]
@@ -298,7 +298,7 @@ const ProjectUploadPage = () => {
             />
             <textarea
               placeholder="Body text"
-              className="w-full text-sm"
+              className="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-200 rounded min-h-[80px] resize-y focus:outline-none focus:ring-2 focus:ring-blue-200"
               value={c.body}
               onChange={(e) => {
                 const copy = [...smallCardsA]
@@ -315,13 +315,13 @@ const ProjectUploadPage = () => {
         <input
           type="text"
           placeholder="Title here"
-          className="w-full mb-3 font-semibold text-lg"
+          className="w-full mb-3 font-semibold text-lg px-3 py-2 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
           value={largeCard.title}
           onChange={(e) => setLargeCard({ ...largeCard, title: e.target.value })}
         />
         <textarea
           placeholder="Body text"
-          className="w-full text-sm"
+          className="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-200 rounded min-h-[140px] resize-y focus:outline-none focus:ring-2 focus:ring-blue-200"
           value={largeCard.body}
           onChange={(e) => setLargeCard({ ...largeCard, body: e.target.value })}
         />

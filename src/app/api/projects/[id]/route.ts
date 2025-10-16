@@ -195,11 +195,7 @@ export async function DELETE(
       )
     }
     
-    // TODO: Delete S3 files (optional)
-    // if (project.images.banner) {
-    //   const bannerKey = project.images.banner.split('.com/')[1]
-    //   await S3Service.deleteFile(bannerKey)
-    // }
+  
     
     // Delete from database
     await Project.findByIdAndDelete(id)

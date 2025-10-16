@@ -266,7 +266,7 @@ const CaseStudyEditPage = () => {
       <input
         type="text"
         placeholder="Project Title Here"
-        className="border-2 border-dashed rounded-full px-6 py-2 text-center text-lg font-semibold mb-4 w-full max-w-lg"
+        className="border border-gray-300 rounded-full px-6 py-2 text-center text-lg font-semibold mb-4 w-full max-w-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-300"
         value={caseTitle}
         onChange={(e) => setCaseTitle(e.target.value)}
       />
@@ -275,7 +275,7 @@ const CaseStudyEditPage = () => {
       <input
         type="text"
         placeholder="Sub Title Here"
-        className="border-2 border-dashed rounded-full px-4 py-2 text-center mb-6 w-full max-w-md"
+        className="border border-gray-300 rounded-full px-4 py-2 text-center mb-6 w-full max-w-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-300"
         value={subtitle}
         onChange={(e) => setSubtitle(e.target.value)}
       />
@@ -297,7 +297,7 @@ const CaseStudyEditPage = () => {
           <input
             type="text"
             placeholder="Text here"
-            className="w-full text-sm"
+            className="w-full text-sm bg-white border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200"
             value={leftTextBox}
             onChange={(e) => setLeftTextBox(e.target.value)}
           />
@@ -308,14 +308,14 @@ const CaseStudyEditPage = () => {
           <input
             type="text"
             placeholder="What we did"
-            className="border-2 border-dashed rounded-full px-4 py-2 w-40 text-sm text-center"
+            className="border border-gray-300 rounded-full px-4 py-2 w-40 text-sm text-center bg-white focus:outline-none focus:ring-2 focus:ring-blue-200"
             value={whatWeDid}
             onChange={(e) => setWhatWeDid(e.target.value)}
           />
           <input
             type="text"
             placeholder="+ Add line"
-            className="border-2 border-dashed rounded-full px-4 py-2 w-40 text-sm text-center"
+            className="border border-gray-300 rounded-full px-4 py-2 w-40 text-sm text-center bg-white focus:outline-none focus:ring-2 focus:ring-blue-200"
             value={addLine}
             onChange={(e) => setAddLine(e.target.value)}
           />
@@ -357,13 +357,13 @@ const CaseStudyEditPage = () => {
         <input
           type="text"
           placeholder="Title here"
-          className="w-full mb-3 font-semibold text-lg"
+          className="w-full mb-3 font-semibold text-lg px-3 py-2 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
           value={largeCard.title}
           onChange={(e) => setLargeCard({ ...largeCard, title: e.target.value })}
         />
         <textarea
           placeholder="Body text"
-          className="w-full text-sm"
+          className="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-200 rounded min-h-[140px] resize-y focus:outline-none focus:ring-2 focus:ring-blue-200"
           value={largeCard.body}
           onChange={(e) => setLargeCard({ ...largeCard, body: e.target.value })}
         />
@@ -376,7 +376,7 @@ const CaseStudyEditPage = () => {
             <input
               type="text"
               placeholder="Title here"
-              className="w-full mb-2 font-semibold"
+              className="w-full mb-2 font-semibold px-3 py-2 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-200"
               value={c.title}
               onChange={(e) => {
                 const copy = [...smallCardsA]
@@ -386,7 +386,7 @@ const CaseStudyEditPage = () => {
             />
             <textarea
               placeholder="Body text"
-              className="w-full text-sm"
+              className="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-200 rounded min-h-[80px] resize-y focus:outline-none focus:ring-2 focus:ring-blue-200"
               value={c.body}
               onChange={(e) => {
                 const copy = [...smallCardsA]
@@ -425,7 +425,7 @@ const CaseStudyEditPage = () => {
             <input
               type="text"
               placeholder="Title here"
-              className="w-full mb-2 font-semibold"
+              className="w-full mb-2 font-semibold px-3 py-2 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-200"
               value={c.title}
               onChange={(e) => {
                 const copy = [...smallCardsB]
@@ -435,7 +435,7 @@ const CaseStudyEditPage = () => {
             />
             <textarea
               placeholder="Body text"
-              className="w-full text-sm"
+              className="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-200 rounded min-h-[80px] resize-y focus:outline-none focus:ring-2 focus:ring-blue-200"
               value={c.body}
               onChange={(e) => {
                 const copy = [...smallCardsB]
@@ -481,7 +481,7 @@ const CaseStudyEditPage = () => {
       <div className="w-full max-w-4xl mb-6">
         <textarea
           placeholder="Body text"
-          className="border-2 border-dashed rounded-lg p-6 w-full h-28 text-sm"
+          className="w-full text-sm px-3 py-4 bg-gray-50 border border-gray-200 rounded min-h-[112px] resize-y focus:outline-none focus:ring-2 focus:ring-blue-200"
           value={bodyTextTop}
           onChange={(e) => setBodyTextTop(e.target.value)}
         />
@@ -501,7 +501,7 @@ const CaseStudyEditPage = () => {
       <div className="w-full max-w-4xl mb-8">
         <textarea
           placeholder="Body text"
-          className="border-2 border-dashed rounded-lg p-6 w-full h-24 text-sm"
+          className="w-full text-sm px-3 py-4 bg-gray-50 border border-gray-200 rounded min-h-[96px] resize-y focus:outline-none focus:ring-2 focus:ring-blue-200"
           value={bodyTextBottom}
           onChange={(e) => setBodyTextBottom(e.target.value)}
         />

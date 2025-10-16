@@ -105,7 +105,7 @@ export default function ServicesUploadPage() {
           placeholder="Service Title"
           value={serviceTitle || ''}
           onChange={(e) => setServiceTitle(e.target.value)}
-          className="border-2 border-dashed p-2 rounded"
+          className="w-full max-w-lg rounded-full px-4 py-2 bg-white border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
         />
       </div>
 
