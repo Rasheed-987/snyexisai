@@ -13,7 +13,7 @@ export default function AboutPage() {
 
   return (
     <main className="min-h-screen bg-[#F4F0ED] mb-30 z-50 relative rounded-b-[80px]   pb-[160px]">
-      <section className="w-full flex justify-center min-h-[500px] items-center py-8 sm:py-12">
+      <section className="w-full flex justify-center lg:min-h-[500px] items-center py-8 sm:py-12">
         <div className="text-center max-w-[1020px] w-full mx-auto px-4 ">
           <h2 className="text-[#17214D] font-medium text-xl sm:text-3xl md:text-4xl lg:text-[50px] leading-snug sm:leading-normal md:leading-[60px] lg:leading-[70px]">
             With expertise across <br />
@@ -24,12 +24,11 @@ export default function AboutPage() {
       </section>
 
       <section className="relative  mt-8 w-full">
-        <div className="relative ">
+        <div className="relative h-[400px] sm:h-[500px] lg:h-[600px] 2xl:h-[700px] ">
           <Image
             src="/images/img14.png"
             alt="Team grid"
-            width={1920}
-            height={1080}
+            fill
             className="w-full h-auto"
             priority
           />
