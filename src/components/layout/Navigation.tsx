@@ -26,7 +26,7 @@ const PortfolioDropdown = ({ textColor, navbarBackground, isCaseStudyPage }: Pro
   return (
     <div className="relative">
       <button
-        className={`font-chillax font-semibold text-[14px] tracking-[0.5px]'} px-4 py-2 rounded-lg flex items-center gap-2 transition-colors duration-150`}
+        className={` font-semibold text-[14px] tracking-[0.5px]'} px-4 py-2 rounded-lg flex items-center gap-2 transition-colors duration-150`}
         onClick={() => setOpen((prev) => !prev)}
         type="button"
       >
@@ -113,14 +113,14 @@ export const Navigation = () => {
 
       {/* Navigation Links */}
       <div className={`hidden md:flex mt-2 ml-3 items-center mr-3 gap-9 ${textColor}`}>
-        <Link href="/" className={`font-chillax font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>HOME</Link>
-        <Link href="/about" className={`font-chillax font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>ABOUT</Link>
-        <Link href="/services" className={`font-chillax font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>SERVICES</Link>
-        <div className="flex items-center mt-[5px]">
+        <Link href="/" className={` font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>HOME</Link>
+        <Link href="/about" className={` font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>ABOUT</Link>
+        <Link href="/services" className={` font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>SERVICES</Link>
+        <div className="flex items-center ">
           <PortfolioDropdown textColor={textColor} navbarBackground={navbarBackground} isCaseStudyPage={isCaseStudyPage} />
         </div>
-        <Link href="/careers" className={`font-chillax font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>CAREER</Link>
-        <Link href="/contact" className={`font-chillax font-semibold text-[14px] tracking-[0.5px] uppercase ${textColor}`}>CONTACT US</Link>
+        <Link href="/careers" className={` font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>CAREER</Link>
+        <Link href="/contact" className={` font-semibold text-[14px] tracking-[0.5px] uppercase ${textColor}`}>CONTACT US</Link>
       </div>
 
       {/* Mobile Navigation Menu */}
@@ -137,42 +137,42 @@ export const Navigation = () => {
             <div className="flex flex-col p-6">
               <Link 
                 href="/" 
-                className="text-[#0F1C3D] font-chillax font-semibold 2xl:text-[20px]  tracking-[0.5px] py-4 text-center border-b border-gray-200"
+                className="text-[#0F1C3D]  font-semibold 2xl:text-[20px]  tracking-[0.5px] py-4 text-center border-b border-gray-200"
                 onClick={closeMenu}
               >
                 HOME
               </Link>
               <Link 
                 href="/about" 
-                className="text-[#0F1C3D] font-chillax font-semibold text-[14px] tracking-[0.5px] py-4 text-center border-b border-gray-200"
+                className="text-[#0F1C3D]  font-semibold text-[14px] tracking-[0.5px] py-4 text-center border-b border-gray-200"
                 onClick={closeMenu}
               >
                 ABOUT
               </Link>
               <Link 
                 href="/services" 
-                className="text-[#0F1C3D] font-chillax font-semibold text-[14px] tracking-[0.5px] py-4 text-center border-b border-gray-200"
+                className="text-[#0F1C3D]  font-semibold text-[14px] tracking-[0.5px] py-4 text-center border-b border-gray-200"
                 onClick={closeMenu}
               >
                 SERVICES
               </Link>
               {/* <Link 
                 href="#" 
-                className="text-[#0F1C3D] font-chillax font-semibold text-[14px] tracking-[0.5px] py-4 text-center border-b border-gray-200"
+                className="text-[#0F1C3D]  font-semibold text-[14px] tracking-[0.5px] py-4 text-center border-b border-gray-200"
                 onClick={closeMenu}
               >
                 PORTFOLIO
               </Link> */}
               <Link 
                 href="/careers" 
-                className="text-[#0F1C3D] font-chillax font-semibold text-[14px] tracking-[0.5px] py-4 text-center border-b border-gray-200"
+                className="text-[#0F1C3D]  font-semibold text-[14px] tracking-[0.5px] py-4 text-center border-b border-gray-200"
                 onClick={closeMenu}
               >
                 CAREER
               </Link>
               <Link 
                 href="/contact" 
-                className="text-[#0F1C3D] font-chillax font-semibold text-[14px] tracking-[0.5px] py-4 text-center"
+                className="text-[#0F1C3D]  font-semibold text-[14px] tracking-[0.5px] py-4 text-center"
                 onClick={closeMenu}
               >
                 CONTACT US
