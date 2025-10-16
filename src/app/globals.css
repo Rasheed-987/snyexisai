@@ -138,42 +138,6 @@ body {
   box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
   transition: box-shadow 0.3s, transform 0.3s;
 }
-
-
-.heading-large {
-  font-family: 'Chillax', sans-serif;
-  font-weight: 600;
-  font-size: 48px;
-  line-height: 56px;
-  letter-spacing: -1px;
-  text-align: center;
-}
-
-.heading-medium {
-  font-family: 'Chillax', sans-serif;
-  font-weight: 600;
-  font-size: 32px;
-  line-height: 40px;
-  letter-spacing: -0.5px;
-}
-
-.heading-small {
-  font-family: 'Chillax', sans-serif;
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 32px;
-  letter-spacing: 0px;
-}
-
-/* Body Typography Classes */
-.body-large {
-  font-family: 'Chillax', sans-serif;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 28px;
-  letter-spacing: 0px;
-}
-
 .body-medium {
   font-family: 'Chillax', sans-serif;
   font-weight: 400;
@@ -189,22 +153,6 @@ body {
   line-height: 20px;
   letter-spacing: 0px;
 }
-
-/* Navbar Custom Styling */
-.navbar-item {
-  font-family: 'Chillax', sans-serif;
-  font-weight: 600;
-  font-size: 14.78px;
-  line-height: 34.19px;
-  letter-spacing: 0.57px;
-  vertical-align: middle;
-}
-
-.navbar-logo {
-  font-family: 'Chillax', sans-serif;
-  font-weight: 600;
-}
-
 /* Utility Classes */
 .line-clamp-4 {
   display: -webkit-box;
@@ -212,44 +160,6 @@ body {
   line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
-}
-
-/* Chillax Font Weight Utility Classes */
-.chillax-extralight {
-  font-family: 'Chillax', sans-serif;
-  font-weight: 200;
-}
-
-.chillax-light {
-  font-family: 'Chillax', sans-serif;
-  font-weight: 300;
-}
-
-.chillax-regular {
-  font-family: 'Chillax', sans-serif;
-  font-weight: 400;
-}
-
-.chillax-medium {
-  font-family: 'Chillax', sans-serif;
-  font-weight: 500;
-}
-
-.chillax-semibold {
-  font-family: 'Chillax', sans-serif;
-  font-weight: 600;
-}
-
-.chillax-bold {
-  font-family: 'Chillax', sans-serif;
-  font-weight: 700;
-}
-
-.card {
-
-  box-shadow: 0px 4px 32px rgba(50, 122, 237, 0.5); /* Border shadow */
-
-
 }
 
 .approach-img-hover {
