@@ -77,7 +77,7 @@ export const Navigation = () => {
   const logoSrc = isCaseStudyPage ? '/images/logo_white.png' : '/images/logo.png';
   const border = isCaseStudyPage ? 'border-0' : 'border-[#E7E7E7]';
   return (
-    <nav className={`w-full h-[68px]  border ${border} ${navbarBackground}   flex items-center justify-between px-6 relative z-[100]`}>
+    <nav className={`w-full h-[68px]  border ${border} ${navbarBackground}   flex items-center justify-between   px-6 relative z-[100]`}>
       {/* Logo */}
       <div className="flex items-center">
         <img 
@@ -126,14 +126,8 @@ export const Navigation = () => {
       {/* Mobile Navigation Menu */}
       {menuOpen && (
         <>
-          {/* Overlay */}
-          <div 
-            className="fixed inset-0 bg-black/50 z-[90] md:hidden"
-            onClick={closeMenu}
-          />
-          
           {/* Menu Content */}
-          <div className="fixed top-[68px] left-0 w-full h-[calc(100vh-68px)] bg-[#F9F9F9] z-[100] shadow-lg md:hidden overflow-y-auto">
+          <div className="fixed top-[68px] left-0 w-full h-auto bg-[#F9F9F9] z-[100] shadow-lg md:hidden overflow-y-auto">
             <div className="flex flex-col p-6">
               <Link 
                 href="/" 

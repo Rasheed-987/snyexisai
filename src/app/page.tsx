@@ -336,7 +336,7 @@ export default function HomePage() {
           <motion.div
             className="flex flex-row gap-x-4 sm:gap-x-10 py-4 sm:py-6"
             animate={{ x: ["0%", "-100%"] }}
-            transition={{ duration: 20, ease: "linear", repeat: Infinity }}
+            transition={{ duration: 20, ease: "linear", repeat: Infinity ,repeatType: 'loop',repeatDelay: 0}}
             style={{ width: "max-content" }}
           >
             {/* Logos duplicated for seamless loop */}
