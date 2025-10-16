@@ -21,17 +21,17 @@ const CaseStudyPage = () => {
       
 
         <div className="absolute top-30 right-20 max-w-[500px] px-4 lg:px-0 text-right">
-          <p className="font-chillax font-normal text-[16px] mb-4 sm:text-[18px] lg:text-[20px] text-white">
+          <p className=" font-normal text-[16px] mb-4 sm:text-[18px] lg:text-[20px] 2xl:text-[24px] text-white">
             Every solution we create is powered by intelligence and intent. Our case studies highlight how Synexis.ai transforms challenges into opportunities — blending AI, creativity, and strategy to deliver outcomes that truly move businesses forward.
           </p>
-          <button className="px-6 py-3 bg-white rounded-full font-chillax font-medium text-[16px] sm:text-[18px] text-[#0C0E12] shadow-lg hover:scale-105 hover:bg-gray-100 transition-colors">
+          <button className="px-6 py-3 bg-white rounded-full  font-medium text-[16px] sm:text-[18px] text-[#0C0E12] shadow-lg hover:scale-105 hover:bg-gray-100 transition-colors">
             Get Started Now
           </button>
         </div>
 
         {/* Bottom centered heading */}
         <div className="absolute bottom-1 w-full flex justify-center">
-          <h1 className="font-chillax font-medium text-[40px] sm:text-[60px] lg:text-[158px] leading-tight text-white">
+          <h1 className=" font-medium text-[40px] sm:text-[60px] lg:text-[158px] 2xl:text-[180px ] leading-tight text-white">
             Case Studies
           </h1>
         </div>
@@ -46,7 +46,7 @@ const CaseStudyPage = () => {
             CASE STUDIES
           </span>
 
-          <h2 className="font-chillax text-4xl sm:text-5xl text-slate-900 font-regular leading-tight mb-4">
+          <h2 className=" text-4xl sm:text-5xl text-slate-900 font-regular leading-tight mb-4">
             Featured Projects
           </h2>
 
@@ -58,16 +58,35 @@ const CaseStudyPage = () => {
       </section>
 
       <section className="w-full relative">
-        <Link href="/casestudiesDetail">
-          <Image
-            src="/images/img10.jpg"
-            alt="App Design Showcase"
-            width={1605}
-            height={768}
-            priority
-            className="w-full h-auto object-cover max-h-[500px] sm:max-h-[650px] lg:max-h-[768px]"
-          />
-        </Link>
+        <div
+          className="relative w-full p-[40px] rounded-3xl "
+          style={{
+            background: 'linear-gradient(169.02deg, #132225 0%, #0B1016 108.44%)',
+          }}
+        >
+            <span
+                  className="absolute left-4 top-4 inline-flex items-center px-3 py-1 rounded-full bg-white text-sm font-medium text-[#0F1C3D] shadow-md"
+                  aria-hidden="true"
+                >
+                  App Design
+                </span>
+          <div className="relative w-full h-[320px] sm:h-[480px] md:h-[560px] lg:h-[650px]">
+             {/* Badge: App Design */}
+              
+            <Link href="/casestudiesDetail" className="block w-full h-full">
+              <div className="relative w-full z-10 h-full">
+                <Image
+                  src="/images/mbl.png"
+                  alt="App Design Showcase"
+                  fill
+                  priority
+                  className="object-contain"
+                />
+               
+              </div>
+            </Link>
+          </div>
+        </div>
       </section>
 
       <section className='overflow-hidden'>

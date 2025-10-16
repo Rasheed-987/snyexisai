@@ -1,4 +1,4 @@
-import { useState } from "react"
+import React, { useState } from "react"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import  GridTextCard  from "@/components/ui/GridTextCard"
@@ -14,9 +14,19 @@ export const FlipCard = ({ frontImage, frontAlt, title, description, bgColor = "
   }) => {
     const [isFlipped, setIsFlipped] = useState(false)
 
+  
+
     return (
-      <div className="rounded-xl overflow-hidden min-h-[400px] cursor-pointer perspective-1000" 
-           onClick={() => setIsFlipped(!isFlipped)}>
+      <div
+        className="rounded-xl overflow-hidden xl:min-h-[400px] 2xl:min-h-[550px] cursor-pointer perspective-1000"
+        onClick={() => setIsFlipped(!isFlipped)}
+        onMouseEnter={() => setIsFlipped(true)}
+        onMouseLeave={() => setIsFlipped(false)}
+        onFocus={() => setIsFlipped(true)}
+        onBlur={() => setIsFlipped(false)}
+        tabIndex={0}
+        role="button"
+      >
         <motion.div
           className="relative w-full h-full preserve-3d"
           animate={{ rotateX: isFlipped ? 180 : 0 }}

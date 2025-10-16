@@ -83,6 +83,7 @@ export const Navigation = () => {
         <img 
           src={logoSrc} 
           alt="Synexis Ai" 
+         
           className={`w-[206px] h-[50px] object-contain`} 
         />
       </div>
@@ -115,7 +116,7 @@ export const Navigation = () => {
         <Link href="/" className={`font-chillax font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>HOME</Link>
         <Link href="/about" className={`font-chillax font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>ABOUT</Link>
         <Link href="/services" className={`font-chillax font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>SERVICES</Link>
-        <div className="flex items-center">
+        <div className="flex items-center mt-[5px]">
           <PortfolioDropdown textColor={textColor} navbarBackground={navbarBackground} isCaseStudyPage={isCaseStudyPage} />
         </div>
         <Link href="/careers" className={`font-chillax font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>CAREER</Link>

@@ -7,7 +7,7 @@ export const CTA = () => {
         <>
     
       {/* CTA Section */}
-      <section className="relative w-[90vw] mx-auto h-[60vh] bg-cover bg-center z-10 overflow-hidden rounded-[32px] group cursor-pointer transition-all hover:scale-[1.02] duration-500 hover:shadow-2xl">
+      <section className="relative w-[90vw] mx-auto  h-[300px] sm:h-[350px] lg:h-[400px] 2xl:h-[500px] bg-cover bg-center z-10 overflow-hidden rounded-[32px] group cursor-pointer transition-all hover:scale-[1.02] duration-500 hover:shadow-2xl">
         <div className="absolute inset-0 w-full h-full">
           <Link href="/casestudiesDetail">
             <Image

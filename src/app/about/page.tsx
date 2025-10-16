@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import {FlipCard} from '@/components/ui/FlipCard'
 import {CTA} from '@/components/ui/cta'
+import { motion } from 'framer-motion'
 
 export default function AboutPage() {
   const router = useRouter()
@@ -22,8 +23,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Team grid section */}
-      {/* Team grid section */}
       <section className="relative  mt-8 w-full">
         <div className="relative ">
           <Image
@@ -104,6 +103,7 @@ export default function AboutPage() {
         <div className=" mx-auto px-4 sm:px-8 lg:px-[130px]">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* First card: text only, custom background - NO FLIP */}
+
             <div className="col-span-1 sm:col-span-2 lg:col-span-2 flex flex-col justify-center items-start p-8 bg-cover bg-center rounded-xl min-h-[400px]">
               <h2
                 className="text-[#22306A] font-medium text-2xl sm:text-3xl mb-2"
@@ -312,26 +312,30 @@ everything we do."
             </button>
           </div>
           {/* Right: 3x3 Grid */}
-          <div className="flex-1 grid grid-cols-3 grid-rows-3 gap-6 w-full max-w-lg">
+          <motion.div className="flex-1 grid grid-cols-3 grid-rows-3 gap-6 w-full max-w-lg">
             {Array.from({ length: 9 }).map((_, i) => (
-              <div
+              <motion.div
                 key={i}
-                className="bg-[#17214D] rounded-xl relative h-32 w-full overflow-hidden flex items-center justify-center"
+                className="bg-[#17214D] rounded-xl cursor-pointer relative h-32 w-full overflow-hidden flex items-center justify-center"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                tabIndex={0}
               >
                 <img
                   src={`/images/grid_2_${i + 1}.png`}
                   alt={`Grid2 ${i + 1}`}
                   className="w-full h-full object-cover"
                 />
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
       {/* Hero Section with Background */}
       <section className="relative w-full flex items-center justify-center px-4 sm:px-8 lg:px-12 sm:mb-7">
         {/* Inner Container */}
-        <div className="relative w-full h-[300px] sm:h-[350px] lg:h-[400px] rounded-[32px] overflow-hidden flex items-center justify-center group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl">
+        <div className="relative w-full h-[300px] sm:h-[350px] lg:h-[400px] 2xl:h-[500px] rounded-[32px] overflow-hidden flex items-center justify-center group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl">
           {/* Background Image */}
           <Image src="/images/img15.png" alt="Background" fill className="object-cover transition-transform duration-700 group-hover:scale-110" priority />
           <div className="absolute inset-0 bg-black bg-opacity-40 transition-all duration-500 group-hover:bg-opacity-30" />

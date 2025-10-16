@@ -10,44 +10,54 @@ import { getCurrentDate } from '@/utils/utils'
 function AdminLayoutContent({ children }: { children: React.ReactNode }) {
   const [date, setDate] = useState('');
   const { title } = useTitle();
+
   const pathname = usePathname();
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-
+  
   useEffect(() => {
     getCurrentDate(setDate);
   }, []);
 
   useEffect(() => {
-    // Check authentication status, but skip for login page
+    // If we're on the login page, render it as a full page (no admin chrome)
     if (pathname === '/admin/login') {
-      setIsAuthenticated(true); // Allow access to login page
+      setIsAuthenticated(true);
       return;
     }
 
+    // For other admin routes, check client-side auth flag
     const authStatus = localStorage.getItem('isAuthenticated');
     if (!authStatus) {
       // Not authenticated, redirect to login
       window.location.href = '/admin/login';
       return;
     }
-    
+
     setIsAuthenticated(true);
   }, [pathname]);
 
-  // Show loading while checking authentication
+
+
+  // While checking auth, show a loading indicator
   if (isAuthenticated === null) {
     return (
       <div className="flex items-center justify-center h-screen">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900 mx-auto"></div>
+          <div className="animate-spin rounded-full h-20 w-20 border-b-2 border-gray-900 mx-auto"></div>
           <p className="mt-4 text-gray-600">Checking authentication...</p>
         </div>
       </div>
     );
   }
 
-  // Show title section only on dashboard page
-  const showTitleSection = pathname === '/admin/dashboard' || pathname === '/admin';
+  // If we're on the login route, render the page children without admin chrome (full-screen)
+  if (pathname === '/admin/login') {
+    return (
+      <main className="min-h-screen w-full">
+        {children}
+      </main>
+    );
+  }
 
   return (
     <div className="h-screen flex bg-[#ECEFF3]">
@@ -59,14 +69,17 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
         {/* Header */}
         <Header /> 
         
-       
-        {!showTitleSection && (
+
+  
+        {/* Page Title and Date */}
+        {pathname !== '/admin' && (
           <div className=' w-full ml-10 flex flex-col  py-3'>
             <h1 className="text-2xl font-medium text-[var(--foreground)] mb-1">All {title}</h1>
             <p className="text-gray-600 text-sm">Take a look your progress for today {date}.</p>
           </div>
         )}
-        
+
+       
         {/* Page Content */}
         <main className="flex-1  overflow-y-auto">
           {children}
