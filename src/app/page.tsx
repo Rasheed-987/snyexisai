@@ -215,37 +215,36 @@ export default function HomePage() {
         </div>
       </section>
 
+
     <section className="w-full relative">
-        <div
-          className="relative w-full 2xl:p-[25px] p-[40px] rounded-3xl "
-          style={{
-            background: 'linear-gradient(169.02deg, #132225 0%, #0B1016 108.44%)',
-          }}
+      <div
+        className="relative w-full p-2 sm:p-4 md:p-8 lg:p-[40px] 2xl:p-[25px] rounded-xl flex flex-col items-center justify-center"
+        style={{
+          background: 'linear-gradient(169.02deg, #132225 0%, #0B1016 108.44%)',
+        }}
+      >
+        {/* Badge: App Design */}
+        <span
+          className="sm:absolute sm:left-4 sm:top-4 inline-flex items-center px-3 py-1 rounded-full bg-white text-xs sm:text-sm font-medium text-[#0F1C3D] shadow-md mb-2 sm:mb-0"
+          aria-hidden="true"
         >
-            <span
-                  className="absolute left-4 top-4 inline-flex items-center px-3 py-1 rounded-full bg-white text-sm font-medium text-[#0F1C3D] shadow-md"
-                  aria-hidden="true"
-                >
-                  App Design
-                </span>
-          <div className="relative w-full h-[320px] sm:h-[480px] md:h-[560px] lg:h-[650px]">
-             {/* Badge: App Design */}
-              
-            <Link href="/casestudiesDetail" className="block w-full h-full">
-              <div className="relative w-full z-10 h-full">
-                <Image
-                  src="/images/mbl.png"
-                  alt="App Design Showcase"
-                  fill
-                  priority
-                  className="object-contain"
-                />
-               
-              </div>
-            </Link>
-          </div>
+          App Design
+        </span>
+        <div className="relative w-full h-[180px] sm:h-[320px] md:h-[480px] lg:h-[650px] flex items-center justify-center">
+          <Link href="/casestudiesDetail" className="block w-full h-full">
+            <div className="relative w-full z-10 h-full">
+              <Image
+                src="/images/mbl.png"
+                alt="App Design Showcase"
+                fill
+                priority
+                className="object-contain"
+              />
+            </div>
+          </Link>
         </div>
-      </section>
+      </div>
+    </section>
 
    <section className="mt-8">
   <div className="flex flex-col gap-4 lg:flex-row items-stretch">
