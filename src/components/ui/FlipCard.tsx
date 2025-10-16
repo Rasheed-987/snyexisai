@@ -18,7 +18,7 @@ export const FlipCard = ({ frontImage, frontAlt, title, description, bgColor = "
 
     return (
       <div
-        className="rounded-xl overflow-hidden xl:min-h-[400px] 2xl:min-h-[550px] cursor-pointer perspective-1000"
+        className="rounded-xl h-[350px] xl:min-h-[400px] 2xl:min-h-[550px] cursor-pointer perspective-1000"
         onClick={() => setIsFlipped(!isFlipped)}
         onMouseEnter={() => setIsFlipped(true)}
         onMouseLeave={() => setIsFlipped(false)}
