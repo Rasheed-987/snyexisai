@@ -138,7 +138,7 @@ export default function HomePage() {
             <div className="flex items-center gap-4 xl:gap-6">
               <img src="/images/home/img6.png" alt="Nedin Zahirovic" className="w-12 h-12  xl:w-15 xl:h-15 2xl:w-17 2xl:h-17 rounded-full object-cover" />
               <div>
-                <div className="text-base md:text-lg xl:text-xl font-semibold text-[#1A2853]">Nedin Zahirovic</div>
+                <div className="text-base md:text-lg 2xl:text-xl font-semibold text-[#1A2853]">Nedin Zahirovic</div>
                 <div className="text-xs md:text-sm xl:text-base text-[#1A2853]">Co-Founder, Konoam Software Technologies<br />Starnberg, Germany</div>
               </div>
             </div>
@@ -204,7 +204,7 @@ export default function HomePage() {
             CASE STUDIES
           </span>
 
-          <h2 className="font-chillax text-4xl sm:text-5xl xl:text-6xl text-[#0F1C3D] font-regular leading-tight mb-4">
+          <h2 className="font-chillax text-2xl sm:text-5xl xl:text-6xl text-[#0F1C3D] font-regular leading-tight mb-4">
             Our Latest Case Studies
           </h2>
 
@@ -218,14 +218,14 @@ export default function HomePage() {
 
     <section className="w-full relative">
       <div
-        className="relative w-full p-2 sm:p-4 md:p-8 lg:p-[40px] 2xl:p-[25px] rounded-xl flex flex-col items-center justify-center"
+        className="relative w-full p-4  md:p-8 lg:p-[40px] 2xl:p-[25px] rounded-xl flex flex-col items-center justify-center"
         style={{
           background: 'linear-gradient(169.02deg, #132225 0%, #0B1016 108.44%)',
         }}
       >
         {/* Badge: App Design */}
         <span
-          className="sm:absolute sm:left-4 sm:top-4 inline-flex items-center px-3 py-1 rounded-full bg-white text-xs sm:text-sm font-medium text-[#0F1C3D] shadow-md mb-2 sm:mb-0"
+          className="absolute left-2 top-2 inline-flex items-center px-3 py-1 rounded-full bg-white text-xs sm:text-sm font-medium text-[#0F1C3D] shadow-md mb-2 sm:mb-0"
           aria-hidden="true"
         >
           App Design
@@ -252,12 +252,12 @@ export default function HomePage() {
     <div className="w-full  lg:w-[40%]">
       <div className="w-full relative h-[350px]  md:h-[600px] lg:h-[700px] xl:h-[800px]">
             {/* Badge: App Design */}
-        <span
-          className="absolute top-[21px] lg:left-4 lg:top-4 inline-flex items-center px-3 py-1 rounded-full bg-white text-xs sm:text-sm font-medium text-[#0F1C3D] shadow-md "
+        {/* <span
+          className="absolute top-[7px] left-2 lg:left-4 lg:top-4 inline-flex items-center px-3 py-1 rounded-full bg-white text-xs sm:text-sm font-medium text-[#0F1C3D] shadow-md "
           aria-hidden="true"
         >
           App Design
-        </span>
+        </span> */}
         <Image
           src="/images/img11_1.png"
           alt="App Design Mobile"
