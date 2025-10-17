@@ -27,10 +27,10 @@ const PortfolioDropdown = ({ textColor, navbarBackground, isCaseStudyPage }: Pro
    <div
   className="relative"
   onMouseEnter={() => setOpen(true)}
-  onMouseLeave={() => setTimeout(() => setOpen(false), 300)}
+  onMouseLeave={() => setTimeout(() => setOpen(false), 500)}
 >
   <button
-    className={`font-semibold text-[14px] tracking-[0.5px] px-4 py-2 rounded-lg flex items-center gap-2 transition-colors duration-150 relative`}
+    className={`font-semibold text-[14px] tracking-[0.5px]  py-2 rounded-lg flex items-center gap-2 transition-colors duration-150 relative`}
     type="button"
   >
     <span className={`transition-colors duration-200 ${textColor}`}>
@@ -137,7 +137,7 @@ export const Navigation = () => {
       </button>
 
       {/* Navigation Links */}
-      <div className={`hidden md:flex mt-2 ml-3 items-center mr-3 gap-9 ${textColor}`}>
+      <div className={`hidden md:flex mt-2 ml-3 items-center mr-3 gap-5 ${textColor}`}>
         <Link href="/" className={` font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>HOME</Link>
         <Link href="/about" className={` font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>ABOUT</Link>
         <Link href="/services" className={` font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>SERVICES</Link>
