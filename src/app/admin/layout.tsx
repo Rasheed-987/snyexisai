@@ -10,33 +10,22 @@ import { getCurrentDate } from '@/utils/utils'
 function AdminLayoutContent({ children }: { children: React.ReactNode }) {
   const [date, setDate] = useState('');
   const { title } = useTitle();
-
   const pathname = usePathname();
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-  
+
   useEffect(() => {
     getCurrentDate(setDate);
   }, []);
 
   useEffect(() => {
-    // If we're on the login page, render it as a full page (no admin chrome)
-    if (pathname === '/admin/login') {
-      setIsAuthenticated(true);
-      return;
-    }
-
-    // For other admin routes, check client-side auth flag
+    
     const authStatus = localStorage.getItem('isAuthenticated');
-    if (!authStatus) {
-      // Not authenticated, redirect to login
+    if (!authStatus && pathname !== '/admin/login') {
       window.location.href = '/admin/login';
       return;
     }
-
     setIsAuthenticated(true);
   }, [pathname]);
-
-
 
   // While checking auth, show a loading indicator
   if (isAuthenticated === null) {
@@ -59,18 +48,15 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
     );
   }
 
+  // For all other /admin* routes (including /admin), render sidebar/header + children
   return (
     <div className="h-screen flex bg-[#ECEFF3]">
       {/* Sidebar */}
       <Sidebar />
-      
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Header */}
-        <Header /> 
-        
-
-  
+        <Header />
         {/* Page Title and Date */}
         {pathname !== '/admin' && (
           <div className=' w-full ml-10 flex flex-col  py-3'>
@@ -78,8 +64,6 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
             <p className="text-gray-600 text-sm">Take a look your progress for today {date}.</p>
           </div>
         )}
-
-       
         {/* Page Content */}
         <main className="flex-1  overflow-y-auto">
           {children}

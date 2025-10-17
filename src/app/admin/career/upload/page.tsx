@@ -102,7 +102,7 @@ export default function CareersUploadPage() {
         status: 'published'
       };
 
-      const response = await fetch('/api/career', {
+      const response = await fetch('/api/careers', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

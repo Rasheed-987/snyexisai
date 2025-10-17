@@ -29,7 +29,7 @@ const PortfolioDropdown = ({ textColor, navbarBackground, isCaseStudyPage }: Pro
         className={` font-semibold text-[14px] tracking-[0.5px]'} px-4 py-2 rounded-lg flex items-center gap-2 transition-colors duration-150`}
         onClick={() => setOpen((prev) => !prev)}
         onMouseEnter={() => setOpen(true)}
-        
+        onMouseLeave={() => setOpen(false)}
         type="button"
       >
         PORTFOLIO

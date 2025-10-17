@@ -1,6 +1,8 @@
 'use client'
 import './globals.css'
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Navigation } from '@/components/layout/Navigation'
 import Footer from '@/components/layout/Footer'
 import { usePathname } from 'next/navigation'
