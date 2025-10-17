@@ -3,7 +3,7 @@ import { CareerCardProps } from '@/types/admin'
 
 export function CareerCard({ career, onView, className = '' }: CareerCardProps) {
   return (
-    <div className={`flex items-center justify-between p-3 bg-[#F5F5F5] rounded-[21px] transition-colors ${className}`}>
+    <div className={`flex items-center justify-between p-3 bg-[#F5F5F5] rounded-[12px] transition-colors ${className}`}>
       <div className="flex-1">
         <h3 className="text-sm font-medium text-[#0F1C3D] mb-1">
           {career.jobTitle}
