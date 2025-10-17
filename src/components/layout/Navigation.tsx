@@ -102,7 +102,7 @@ export const Navigation = () => {
   const logoSrc = isCaseStudyPage ? '/images/logo_white.png' : '/images/logo.png';
   const border = isCaseStudyPage ? 'border-0' : 'border-[#E7E7E7]';
   return (
-    <nav className={`w-full h-[68px]  border ${border} ${navbarBackground}   flex items-center justify-between   px-6 relative z-[100]`}>
+    <nav className={`w-full h-[60px]  border ${border} ${navbarBackground}   flex items-center justify-between   px-6 relative z-[100]`}>
       {/* Logo */}
       <div className="flex items-center">
         <img 
@@ -137,7 +137,7 @@ export const Navigation = () => {
       </button>
 
       {/* Navigation Links */}
-      <div className={`hidden md:flex mt-2 ml-3 items-center mr-3 gap-5 ${textColor}`}>
+      <div className={`hidden md:flex mt-2 ml-3 items-center mr-3 gap-7 ${textColor}`}>
         <Link href="/" className={` font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>HOME</Link>
         <Link href="/about" className={` font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>ABOUT</Link>
         <Link href="/services" className={` font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>SERVICES</Link>
