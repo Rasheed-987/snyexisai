@@ -93,7 +93,7 @@ const CaseStudyPage = () => {
           <div className=" relative justify-center w-full h-[300px] md:w-[40%] md:h-[633px] lg:justify-start">
                  {/* Badge: App Design */}
         <span
-          className="absolute top-[21px] lg:left-4 lg:top-4 inline-flex items-center px-3 py-1 rounded-full bg-white text-xs sm:text-sm font-medium text-[#0F1C3D] shadow-md "
+          className="absolute left-4 top-[21px] lg:left-4 lg:top-4 inline-flex items-center px-3 py-1 rounded-full bg-white text-xs sm:text-sm font-medium text-[#0F1C3D] shadow-md "
           aria-hidden="true"
         >
           App Design
