@@ -253,7 +253,7 @@ export default function HomePage() {
       <div className="w-full relative h-[350px]  md:h-[600px] lg:h-[700px] xl:h-[800px]">
             {/* Badge: App Design */}
         <span
-          className="sm:absolute sm:left-4 sm:top-4 inline-flex items-center px-3 py-1 rounded-full bg-white text-xs sm:text-sm font-medium text-[#0F1C3D] shadow-md mb-2 sm:mb-0"
+          className="absolute top-[21px] lg:left-4 lg:top-4 inline-flex items-center px-3 py-1 rounded-full bg-white text-xs sm:text-sm font-medium text-[#0F1C3D] shadow-md "
           aria-hidden="true"
         >
           App Design
@@ -274,7 +274,7 @@ export default function HomePage() {
       <div className="w-full relative h-[300px] sm:h-[400px] md:h-[600px] lg:h-[700px] xl:h-[800px]">
             {/* Badge: App Design */}
         <span
-          className="sm:absolute sm:right-4 sm:top-4 inline-flex items-center px-3 py-1 rounded-full bg-white text-xs sm:text-sm font-medium text-[#0F1C3D] shadow-md mb-2 sm:mb-0"
+          className="absolute lg:right-4 right-2  top-4 inline-flex items-center px-3 py-1 rounded-full bg-white text-xs sm:text-sm font-medium text-[#0F1C3D] shadow-md mb-2 sm:mb-0"
           aria-hidden="true"
         >
           App Design
