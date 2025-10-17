@@ -252,12 +252,12 @@ export default function HomePage() {
     <div className="w-full  lg:w-[40%]">
       <div className="w-full relative h-[350px]  md:h-[600px] lg:h-[700px] xl:h-[800px]">
             {/* Badge: App Design */}
-        {/* <span
-          className="absolute top-[7px] left-2 lg:left-4 lg:top-4 inline-flex items-center px-3 py-1 rounded-full bg-white text-xs sm:text-sm font-medium text-[#0F1C3D] shadow-md "
+         <span
+          className="absolute top-[7px] left-2 lg:left-4 lg:top-[8px] inline-flex items-center px-3 py-1 rounded-full bg-white text-xs sm:text-sm font-medium text-[#0F1C3D] shadow-md "
           aria-hidden="true"
         >
           App Design
-        </span> */}
+        </span> 
         <Image
           src="/images/img11_1.png"
           alt="App Design Mobile"
