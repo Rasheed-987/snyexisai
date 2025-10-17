@@ -24,26 +24,49 @@ const PortfolioDropdown = ({ textColor, navbarBackground, isCaseStudyPage }: Pro
 
  
   return (
-    <div className="relative">
-      <button
-        className={` font-semibold text-[14px] tracking-[0.5px]'} px-4 py-2 rounded-lg flex items-center gap-2 transition-colors duration-150`}
-        onClick={() => setOpen((prev) => !prev)}
-        onMouseEnter={() => setOpen(true)}
-        onMouseLeave={() => setOpen(false)}
-        type="button"
+   <div
+  className="relative"
+  onMouseEnter={() => setOpen(true)}
+  onMouseLeave={() => setOpen(false)}
+>
+  <button
+    className={`font-semibold text-[14px] tracking-[0.5px] px-4 py-2 rounded-lg flex items-center gap-2 transition-colors duration-150 relative`}
+    type="button"
+  >
+    <span className={`transition-colors duration-200 ${textColor}`}>
+      PORTFOLIO
+    </span>
+    <img
+      src={isCaseStudyPage ? "/images/Services/arrow-down-white.svg" : "/images/arrow-down-solid-full.svg"}
+      alt="Portfolio Icon"
+      className={`w-4 mb-1 h-4 ml-1 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
+    />
+    {/* Blue top border indicator */}
+    {open && (
+      <span className="absolute bottom-0 left-0 w-60% h-[2px] bg-[#0A3AFF]"></span>
+    )}
+  </button>
+
+  {open && (
+    <div
+      className={`absolute left-0 mt-2 w-52 bg-white border border-gray-100 rounded-xl shadow-xl z-50 transition-all duration-200`}
+    >
+      <Link
+        href="/casestudies"
+        className="block px-5 py-2 text-[14px] text-[#0F1C3D] hover:text-[#0A3AFF] transition-colors"
       >
-        PORTFOLIO
-        {isCaseStudyPage?<img src="/images/Services/arrow-down-white.svg" alt="Portfolio Icon" className='w-4  mb-1 h-4 ml-1' />:<img src="/images/arrow-down-solid-full.svg" alt="Portfolio Icon" className='w-4  mb-1 h-4 ml-1' />
-        }
-        {/* <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg> */}
-      </button>
-      {open && (
-        <div className={`absolute right-0 mt-2 w-40  border border-gray-50  rounded-[12px ] shadow-lg z-50 ${navbarBackground}`}>
-          <Link href="/casestudies" className={`block px-4 py-2 text-sm ${textColor} `}>Case Studies</Link>
-          <Link href="/ourproject" className={`block px-4 py-2 text-sm ${textColor} `}>My Projects</Link>
-        </div>
-      )}
+        Case Studies
+      </Link>
+      <Link
+        href="/ourproject"
+        className="block px-5 py-2 text-[14px] text-[#0F1C3D] hover:text-[#0A3AFF] transition-colors"
+      >
+        My Projects
+      </Link>
     </div>
+  )}
+</div>
+
   );
 };
 

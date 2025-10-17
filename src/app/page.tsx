@@ -249,8 +249,15 @@ export default function HomePage() {
    <section className="mt-8">
   <div className="flex flex-col gap-4 lg:flex-row items-stretch">
     {/* Left: Mobile Image (40% on lg) */}
-    <div className="w-full lg:w-[40%]">
-      <div className="w-full h-[350px]  md:h-[600px] lg:h-[700px] xl:h-[800px]">
+    <div className="w-full  lg:w-[40%]">
+      <div className="w-full relative h-[350px]  md:h-[600px] lg:h-[700px] xl:h-[800px]">
+            {/* Badge: App Design */}
+        <span
+          className="sm:absolute sm:left-4 sm:top-4 inline-flex items-center px-3 py-1 rounded-full bg-white text-xs sm:text-sm font-medium text-[#0F1C3D] shadow-md mb-2 sm:mb-0"
+          aria-hidden="true"
+        >
+          App Design
+        </span>
         <Image
           src="/images/img11_1.png"
           alt="App Design Mobile"
@@ -264,9 +271,16 @@ export default function HomePage() {
 
     {/* Right: Laptop Image (60% on lg) */}
     <div className="w-full lg:w-[60%]">
-      <div className="w-full h-[300px] sm:h-[400px] md:h-[600px] lg:h-[700px] xl:h-[800px]">
+      <div className="w-full relative h-[300px] sm:h-[400px] md:h-[600px] lg:h-[700px] xl:h-[800px]">
+            {/* Badge: App Design */}
+        <span
+          className="sm:absolute sm:right-4 sm:top-4 inline-flex items-center px-3 py-1 rounded-full bg-white text-xs sm:text-sm font-medium text-[#0F1C3D] shadow-md mb-2 sm:mb-0"
+          aria-hidden="true"
+        >
+          App Design
+        </span>
         <Image
-          src="/images/home/img7.png"
+          src="/images/home/logistic.png"
           alt="App Design Laptop"
           width={907}
           height={780}
@@ -512,7 +526,21 @@ export default function HomePage() {
                   <span className="text-[#1A2341] text-base sm:text-lg lg:text-xl  font-normal">
                     {item.question}
                   </span>
-                  <span className={`mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full border border-gray-300 text-[#1A2341] transition-transform ${isOpen ? 'rotate-45' : ''}`}>+</span>
+                  <span
+                    className={`inline-flex h-8 w-8 aspect-square items-center justify-center rounded-full border border-gray-300 text-[#1A2341] transition-transform ${isOpen ? 'rotate-45' : ''}`}
+                  >
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 18 18"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-4 h-4"
+                    >
+                      <rect x="8" y="3" width="2" height="12" rx="1" fill="#1A2341" />
+                      <rect x="3" y="8" width="12" height="2" rx="1" fill="#1A2341" />
+                    </svg>
+                  </span>
                 </div>
                 <div className={`overflow-hidden transition-[max-height,opacity] duration-300 ease-out ${isOpen ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}>
                   <p className="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed">
