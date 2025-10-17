@@ -27,18 +27,31 @@ export default function CaseStudies() {
         </div>
       </section>
 
-      {/* Case Study Image Section */}
-      <section className="relative w-full flex justify-center mb-16 lg:mb-40  sm:px-8">
-        <div className="relative w-full  aspect-[16/10] ">
-          <Image
-            src="/images/img1.png"
-            alt="Case Study Preview"
-            fill
-            className="object-cover rounded-2xl sm:rounded-[45.87px]"
-            priority
-          />
+
+   <section className="w-full relative lg:px-10 s mb-16">
+      <div
+        className="relative w-full p-2 sm:p-4 md:p-8 lg:p-[40px] 2xl:p-[25px] rounded-2xl flex flex-col items-center justify-center"
+        style={{
+          background: 'linear-gradient(169.02deg, #132225 0%, #0B1016 108.44%)',
+        }}
+      >
+
+        <div className="relative w-full h-[180px] sm:h-[320px] md:h-[480px] lg:h-[650px] 2xl:h-[1000px] flex items-center justify-center">
+            <div className="relative w-full z-10 h-full">
+              <Image
+                src="/images/mbl.png"
+                alt="App Design Showcase"
+                fill
+                priority
+                className="object-contain"
+              />
+            </div>
         </div>
-      </section>
+      </div>
+    </section>
+
+
+
     
       {/* What We Did Section */}
       <section className="w-full  mx-auto flex flex-col md:flex-row items-start justify-between gap-8 lg:gap-16 mb-16 px-10 sm:px-12">
