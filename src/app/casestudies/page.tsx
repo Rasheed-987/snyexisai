@@ -90,13 +90,20 @@ const CaseStudyPage = () => {
       <section className='overflow-hidden'>
         {/* Two-column showcase (mobile + laptop) */}
         <div className="flex  flex-col gap-8 md:flex-row mt-8">
-          <div className="flex justify-center relative w-full h-[300px] md:w-[40%] md:h-[633px] lg:justify-start">
-            <Link href="/casestudiesDetail">
+          <div className=" relative justify-center relative w-full h-[300px] md:w-[40%] md:h-[633px] lg:justify-start">
+                 {/* Badge: App Design */}
+        <span
+          className="absolute top-[21px] lg:left-4 lg:top-4 inline-flex items-center px-3 py-1 rounded-full bg-white text-xs sm:text-sm font-medium text-[#0F1C3D] shadow-md "
+          aria-hidden="true"
+        >
+          App Design
+        </span>
+            <Link href="/casestudiesDetail"> 
               <Image
                 src="/images/img11_1.png"
                 alt="App Design Mobile"
                 fill
-                className="rounded-xl shadow-xl object-cover"
+                className="rounded-xl shadow-xl object-obtain object-right"
               />
             </Link>
           </div>
