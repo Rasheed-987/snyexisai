@@ -66,7 +66,7 @@ const CaseStudyPage = () => {
            >
              {/* Badge: App Design */}
              <span
-               className="sm:absolute sm:left-4 sm:top-4 inline-flex items-center px-3 py-1 rounded-full bg-white text-xs sm:text-sm font-medium text-[#0F1C3D] shadow-md mb-2 sm:mb-0"
+               className="sm:absolute sm:left-5 sm:top-4 inline-flex items-center px-3 py-1 rounded-full bg-white text-xs sm:text-sm font-medium text-[#0F1C3D] shadow-md mb-2 sm:mb-0"
                aria-hidden="true"
              >
                App Design
@@ -90,7 +90,7 @@ const CaseStudyPage = () => {
       <section className='overflow-hidden'>
         {/* Two-column showcase (mobile + laptop) */}
         <div className="flex  flex-col gap-8 md:flex-row mt-8">
-          <div className=" relative justify-center relative w-full h-[300px] md:w-[40%] md:h-[633px] lg:justify-start">
+          <div className=" relative justify-center w-full h-[300px] md:w-[40%] md:h-[633px] lg:justify-start">
                  {/* Badge: App Design */}
         <span
           className="absolute top-[21px] lg:left-4 lg:top-4 inline-flex items-center px-3 py-1 rounded-full bg-white text-xs sm:text-sm font-medium text-[#0F1C3D] shadow-md "
@@ -113,7 +113,7 @@ const CaseStudyPage = () => {
                 src="/images/img11_2.png"
                 alt="App Design Laptop"
                 fill
-                className="rounded-xl shadow-xl object-cover"
+                className="rounded-xl shadow-xl object-cover object-left"
               />
             </Link>
           </div>
@@ -128,7 +128,7 @@ const CaseStudyPage = () => {
               src="/images/img12_1.png"
               alt="App Design Laptop"
               fill
-              className="rounded-2xl shadow-lg object-cover"
+              className="rounded-2xl shadow-lg object-cover object-top"
               priority
             />
           </Link>
@@ -140,7 +140,7 @@ const CaseStudyPage = () => {
               src="/images/img12_2.png"
               alt="App Design Watches"
               fill
-              className="rounded-2xl shadow-lg object-cover"
+              className="rounded-2xl shadow-lg object-cover object-top"
               priority
             />
           </Link>

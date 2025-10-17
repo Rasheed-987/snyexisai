@@ -27,7 +27,7 @@ const PortfolioDropdown = ({ textColor, navbarBackground, isCaseStudyPage }: Pro
    <div
   className="relative"
   onMouseEnter={() => setOpen(true)}
-  onMouseLeave={() => setTimeout(() => setOpen(false), 500)}
+  onMouseLeave={() => setTimeout(() => setOpen(false), 1000)}
 >
   <button
     className={`font-semibold text-[14px] tracking-[0.5px]  py-2 rounded-lg flex items-center gap-2 transition-colors duration-150 relative`}
