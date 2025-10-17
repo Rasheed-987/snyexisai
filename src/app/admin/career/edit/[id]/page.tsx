@@ -3,6 +3,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useRouter, useParams } from 'next/navigation'
+import Alert from '@/components/ui/Alert'
 
 export default function CareerEditPage() {
   const router = useRouter()
@@ -255,17 +256,12 @@ export default function CareerEditPage() {
         </div>
 
         {/* Status Messages */}
-        {updateError && (
-          <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-            <p className="text-red-600 text-sm">❌ {updateError}</p>
-          </div>
-        )}
-
-        {updateSuccess && (
-          <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-            <p className="text-green-600 text-sm">✅ Career updated successfully! Redirecting...</p>
-          </div>
-        )}
+          {updateError && (
+            <Alert type="error" message={updateError} onClose={() => setUpdateError(null)} />
+          )}
+          {updateSuccess && (
+            <Alert type="success" message="Career updated successfully! Redirecting..." onClose={() => setUpdateSuccess(false)} />
+          )}
 
         {/* Action Buttons */}
         <div className="flex gap-4 pt-6">

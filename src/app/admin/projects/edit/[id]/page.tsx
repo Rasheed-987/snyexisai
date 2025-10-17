@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import Alert from '@/components/ui/Alert'
 import { useState, useEffect } from 'react'
 import { UploadBox } from '@/components/upload/UploadBox'
 import { useRouter, useParams } from 'next/navigation'
@@ -402,14 +403,13 @@ const ProjectEditPage = () => {
 
       {/* Error and Success Messages */}
       {updateError && (
-        <div className="w-full max-w-4xl mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
-          <p className="text-red-600 text-sm">❌ {updateError}</p>
+        <div className="w-full max-w-4xl mb-4">
+          <Alert type="error" message={updateError} onClose={() => setUpdateError(null)} />
         </div>
       )}
-      
       {updateSuccess && (
-        <div className="w-full max-w-4xl mb-4 p-4 bg-green-50 border border-green-200 rounded-lg">
-          <p className="text-green-600 text-sm">✅ Project updated successfully! Redirecting...</p>
+        <div className="w-full max-w-4xl mb-4">
+          <Alert type="success" message="Project updated successfully! Redirecting..." onClose={() => setUpdateSuccess(false)} />
         </div>
       )}
 

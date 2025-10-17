@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import Alert from '@/components/ui/Alert'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation';
 
@@ -217,14 +218,13 @@ export default function CareersUploadPage() {
 
         {/* Status Messages */}
         {uploadError && (
-          <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-            <p className="text-red-600 text-sm">❌ {uploadError}</p>
+          <div className="mb-4">
+            <Alert type="error" message={uploadError} onClose={() => setUploadError(null)} />
           </div>
         )}
-
         {uploadSuccess && (
-          <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-            <p className="text-green-600 text-sm">✅ Job saved successfully! Redirecting...</p>
+          <div className="mb-4">
+            <Alert type="success" message="Job saved successfully! Redirecting..." onClose={() => setUploadSuccess(false)} />
           </div>
         )}
 

@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import { UploadBox } from '@/components/upload/UploadBox'
 import { useRouter, useParams } from 'next/navigation'
 import { handleImageUpload } from '@/utils/dashboard'
+import Alert from '@/components/ui/Alert'
 
 interface ImageSlot {
   id: string
@@ -112,11 +113,9 @@ const ServiceEditPage = () => {
         throw new Error(result.error || 'Failed to save draft')
       }
       setUpdateSuccess(true)
-      alert('Service draft saved successfully!')
       router.push('/admin/services')
     } catch (error) {
       setUpdateError(error instanceof Error ? error.message : 'Save draft failed')
-      alert(error instanceof Error ? error.message : 'Save draft failed')
     } finally {
       setIsUpdating(false)
     }
@@ -146,11 +145,9 @@ const ServiceEditPage = () => {
         throw new Error(result.error || 'Failed to update service')
       }
       setUpdateSuccess(true)
-      alert('Service published successfully!')
       router.push('/admin/services')
     } catch (error) {
       setUpdateError(error instanceof Error ? error.message : 'Publish failed')
-      alert(error instanceof Error ? error.message : 'Publish failed')
     } finally {
       setIsUpdating(false)
     }
@@ -205,17 +202,7 @@ const ServiceEditPage = () => {
         <p className="text-gray-600">Update service information and image</p>
       </div>
 
-      {updateError && (
-        <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
-          Error: {updateError}
-        </div>
-      )}
-
-      {updateSuccess && (
-        <div className="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
-          Service updated successfully!
-        </div>
-      )}
+    
 
       <UploadBox
         label="Service Image"
@@ -238,6 +225,15 @@ const ServiceEditPage = () => {
           disabled={isUpdating}
         />
       </div>
+
+  {updateError && (
+        <Alert type="error" message={updateError} onClose={() => setUpdateError(null)} />
+      )}
+
+      {updateSuccess && (
+        <Alert type="success" message="Service updated successfully!" onClose={() => setUpdateSuccess(false)} />
+      )}
+
 
       <div className="flex gap-4">
         <button 

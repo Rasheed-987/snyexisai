@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import Alert from '@/components/ui/Alert'
 import { useState, useEffect } from 'react'
 import { UploadBox } from '@/components/upload/UploadBox'
 import {useRouter} from 'next/navigation'
@@ -329,14 +330,13 @@ const ProjectUploadPage = () => {
 
       {/* Error and Success Messages */}
       {uploadError && (
-        <div className="w-full max-w-4xl mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
-          <p className="text-red-600 text-sm">❌ {uploadError}</p>
+        <div className="w-full max-w-4xl mb-4">
+          <Alert type="error" message={uploadError} onClose={() => setUploadError(null)} />
         </div>
       )}
-      
       {uploadSuccess && (
-        <div className="w-full max-w-4xl mb-4 p-4 bg-green-50 border border-green-200 rounded-lg">
-          <p className="text-green-600 text-sm">✅ Project uploaded successfully!</p>
+        <div className="w-full max-w-4xl mb-4">
+          <Alert type="success" message="Project uploaded successfully!" onClose={() => setUploadSuccess(false)} />
         </div>
       )}
 

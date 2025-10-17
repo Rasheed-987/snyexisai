@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import { UploadBox } from '@/components/upload/UploadBox'
 import { useRouter, useParams } from 'next/navigation'
 import { handleImageUpload } from '@/utils/dashboard'
+import Alert from '@/components/ui/Alert'
 
 interface ImageSlot {
   id: string
@@ -245,17 +246,7 @@ const CaseStudyEditPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 flex flex-col items-center">
-      {updateError && (
-        <div className="w-full max-w-4xl mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
-          <p className="text-red-600 text-sm">❌ {updateError}</p>
-        </div>
-      )}
-      
-      {updateSuccess && (
-        <div className="w-full max-w-4xl mb-4 p-4 bg-green-50 border border-green-200 rounded-lg">
-          <p className="text-green-600 text-sm">✅ Case study updated successfully! Redirecting...</p>
-        </div>
-      )}
+     
 
       <div className="w-full max-w-4xl mb-6">
         <h1 className="text-2xl font-bold text-gray-800 mb-2">Edit Case Study</h1>
@@ -506,6 +497,16 @@ const CaseStudyEditPage = () => {
           onChange={(e) => setBodyTextBottom(e.target.value)}
         />
       </div>
+
+
+
+      {updateError && (
+        <Alert type="error" message={updateError} onClose={() => setUpdateError(null)} />
+      )}
+      {updateSuccess && (
+        <Alert type="success" message="Case study updated successfully! Redirecting..." onClose={() => setUpdateSuccess(false)} />
+      )}
+
 
       {/* Footer Buttons */}
       <div className="flex gap-4">

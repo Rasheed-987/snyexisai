@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import Alert from '@/components/ui/Alert'
 import { useState, useEffect } from 'react'
 import { UploadBox } from '@/components/upload/UploadBox'
 import { handleImageUpload } from '@/utils/dashboard'
@@ -16,6 +17,8 @@ export default function ServicesUploadPage() {
   const router = useRouter();
 
   const [serviceTitle, setServiceTitle] = useState<string | null>(null)
+  const [uploadError, setUploadError] = useState<string | null>(null)
+  const [uploadSuccess, setUploadSuccess] = useState<string | null>(null)
   const [imageSlots, setImageSlots] = useState<ImageSlot[]>([
     { id: 'banner', file: null, previewUrl: null }
   ])
@@ -33,7 +36,7 @@ export default function ServicesUploadPage() {
     }
     try {
       if (!serviceTitle) {
-        alert('Please provide a service title.');
+        setUploadError('Please provide a service title.');
         return;
       }
       const form = new FormData();
@@ -47,14 +50,17 @@ export default function ServicesUploadPage() {
         body: form,
       });
       if (response.ok) {
-        alert('Service draft saved successfully!');
-        router.push('/admin/services');
+        setUploadSuccess('Service draft saved successfully!');
+        setTimeout(() => {
+          setUploadSuccess(null);
+          router.push('/admin/services');
+        }, 2000);
       } else {
-        alert('Failed to save service draft.');
+        setUploadError('Failed to save service draft.');
       }
     } catch (error) {
       console.error('Error saving service draft:', error);
-      alert('An error occurred while saving the service draft.');
+      setUploadError('An error occurred while saving the service draft.');
     }
   }
 
@@ -66,7 +72,7 @@ export default function ServicesUploadPage() {
     }
     try {
       if (!serviceTitle || !imageSlots[0].file) {
-        alert('Please provide a service title and upload an image.');
+        setUploadError('Please provide a service title and upload an image.');
         return;
       }
       const form = new FormData();
@@ -78,20 +84,24 @@ export default function ServicesUploadPage() {
         body: form,
       });
       if (response.ok) {
-        alert('Service published successfully!');
-        router.push('/admin/services');
+        setUploadSuccess('Service published successfully!');
+        setTimeout(() => {
+          setUploadSuccess(null);
+          router.push('/admin/services');
+        }, 2000);
       } else {
-        alert('Failed to publish service.');
+        setUploadError('Failed to publish service.');
       }
     } catch (error) {
       console.error('Error publishing service:', error);
-      alert('An error occurred while publishing the service.');
+      setUploadError('An error occurred while publishing the service.');
     }
   }
 
   
   return (
     <div className="min-h-screen bg-gray-50 p-8 flex flex-col ">
+     
       <UploadBox
         label="Upload Service Image"
         image={imageSlots[0].previewUrl}
@@ -108,6 +118,19 @@ export default function ServicesUploadPage() {
           className="w-full max-w-lg rounded-full px-4 py-2 bg-white border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
         />
       </div>
+
+ {/* Error and Success Messages */}
+      {uploadError && (
+        <div className="w-full max-w-lg mb-4">
+          <Alert type="error" message={uploadError} onClose={() => setUploadError(null)} />
+        </div>
+      )}
+      {uploadSuccess && (
+        <div className="w-full max-w-lg mb-4">
+          <Alert type="success" message={uploadSuccess} onClose={() => setUploadSuccess(null)} />
+        </div>
+      )}
+
 
       <div className="flex gap-4">
         <button className="px-6 py-2 rounded-full bg-gray-200" onClick={() => router.push('/admin/services')}>Cancel</button>

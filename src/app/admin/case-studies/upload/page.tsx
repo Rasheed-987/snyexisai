@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import Alert from '@/components/ui/Alert'
 import { UploadBox } from '@/components/upload/UploadBox'
 import { handleImageUpload } from '@/utils/dashboard'
 import { useRouter } from 'next/navigation'
@@ -462,6 +463,17 @@ const CaseStudiesUploadPage: React.FC = () => {
         />
       </div>
 
+      {/* Error and Success Messages */}
+      {uploadError && (
+        <div className="w-full max-w-4xl mb-4">
+          <Alert type="error" message={uploadError} onClose={() => setUploadError(null)} />
+        </div>
+      )}
+      {uploadSuccess && (
+        <div className="w-full max-w-4xl mb-4">
+          <Alert type="success" message="Case study uploaded successfully!" onClose={() => setUploadSuccess(false)} />
+        </div>
+      )}
       {/* Footer Buttons */}
       <div className="flex gap-4">
         <button 
