@@ -59,27 +59,27 @@ const CaseStudyPage = () => {
 
      <section className="w-full relative">
            <div
-             className="relative w-full p-2 sm:p-4 md:p-8 lg:p-[40px] 2xl:p-[25px] rounded-xl flex flex-col items-center justify-center"
+             className="relative w-full p-8 md:p-8 lg:p-[40px]  rounded-xl flex flex-col items-center justify-center"
              style={{
                background: 'linear-gradient(169.02deg, #132225 0%, #0B1016 108.44%)',
              }}
            >
              {/* Badge: App Design */}
              <span
-               className="sm:absolute sm:left-5 sm:top-4 inline-flex items-center px-3 py-1 rounded-full bg-white text-xs sm:text-sm font-medium text-[#0F1C3D] shadow-md mb-2 sm:mb-0"
+               className="absolute left-2 top-2 inline-flex items-center px-3 py-1 rounded-full bg-white text-xs sm:text-sm font-medium text-[#0F1C3D] shadow-md mb-2 sm:mb-0"
                aria-hidden="true"
              >
                App Design
              </span>
              <div className="relative w-full h-[180px] sm:h-[320px] md:h-[480px] lg:h-[650px] flex items-center justify-center">
                <Link href="/casestudiesDetail" className="block w-full h-full">
-                 <div className="relative w-full z-10 h-full">
+                 <div className="relative w-full py-3 z-10 h-full">
                    <Image
                      src="/images/mbl.png"
                      alt="App Design Showcase"
                      fill
                      priority
-                     className="object-contain"
+                     className="object-obtain"
                    />
                  </div>
                </Link>
