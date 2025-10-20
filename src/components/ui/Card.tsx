@@ -15,6 +15,13 @@ interface JobCardProps {
 }
 
 export function JobCard({ id, count, title, location, company, type, description }: JobCardProps) {
+  const truncate = (text: string, max = 120) => {
+    if (!text) return ''
+    if (text.length <= max) return text
+    const truncated = text.slice(0, max)
+    const lastSpace = truncated.lastIndexOf(' ')
+    return `${truncated.slice(0, lastSpace > 0 ? lastSpace : max).trim()}...`
+  }
   return (
     <div className="bg-white border border-[#D2D2D2] rounded-2xl shadow-sm p-4 sm:p-6 mx-auto flex flex-col gap-2 sm:gap-4 max-w-sm sm:max-w-md">
       <div className="flex gap-2">
@@ -37,7 +44,7 @@ export function JobCard({ id, count, title, location, company, type, description
       </div>
       <div className="mt-2 sm:mt-4">
         <h4 className=" font-semibold text-xs sm:text-sm text-[#0F1C3D] mb-1 sm:mb-2">About this Role</h4>
-        <p className=" font-normal text-xs sm:text-sm text-[#0F1C3D] break-words">{description}</p>
+  <p title={description} className=" font-normal text-xs sm:text-sm text-[#0F1C3D] break-words">{truncate(description, 140)}</p>
       </div>
       <div className="flex flex-col sm:flex-row sm:justify-content gap-2 sm:gap-4 mt-2 sm:mt-4">
         <Link href={`/careers/${id}`}>
