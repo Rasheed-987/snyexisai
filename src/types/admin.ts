@@ -81,6 +81,9 @@ export interface JobCardProps {
   description: string
   className?: string
   status?: 'draft' | 'published' // Add status field
+  requirements?: string[]
+  responsibilities?: string[]
+  deadline?: Date
   onEdit: () => void
   onUnpublish: () => void
   onDelete: () => void

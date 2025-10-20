@@ -5,7 +5,8 @@ import Link from 'next/link'
 import '@/app/globals.css'
 
 interface JobCardProps {
-  id: string
+  id: number
+  count: number
   title: string
   location: string
   company: string
@@ -13,11 +14,11 @@ interface JobCardProps {
   description: string
 }
 
-export function JobCard({ id, title, location, company, type, description }: JobCardProps) {
+export function JobCard({ id, count, title, location, company, type, description }: JobCardProps) {
   return (
     <div className="bg-white border border-[#D2D2D2] rounded-2xl shadow-sm p-4 sm:p-6 mx-auto flex flex-col gap-2 sm:gap-4 max-w-sm sm:max-w-md">
       <div className="flex gap-2">
-        <span className=" font-normal text-sm sm:text-base text-[#0F1C3D]">({id})</span>
+        <span className=" font-normal text-sm sm:text-base text-[#0F1C3D]">({count})</span>
       </div>
       <h3 className=" font-medium text-lg sm:text-2xl text-[#0F1C3D] leading-tight break-words">{title}</h3>
       <div className="flex flex-col gap-2 sm:gap-4 sm:mt-2">

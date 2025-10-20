@@ -83,6 +83,42 @@ const sidebarMenuItems = [
 
 export default function Header() {
   const [searchQuery, setSearchQuery] = useState('')
+  const [searchResults, setSearchResults] = useState([])
+  const [showResults, setShowResults] = useState(false)
+
+  // Search API call
+  async function handleSearch(query:any) {
+    if (!query) {
+      setSearchResults([])
+      setShowResults(false)
+      return
+    }
+    // Example: fetch from a unified search API endpoint
+    const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`)
+    if (res.ok) {
+      const data = await res.json()
+      setSearchResults(data.results || [])
+      setShowResults(true)
+    } else {
+      setSearchResults([])
+      setShowResults(false)
+    }
+  }
+
+  // Handle input change
+  function onInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setSearchQuery(e.target.value)
+    handleSearch(e.target.value)
+  }
+
+  // Handle result click
+  function handleResultClick(item: any) {
+    setShowResults(false)
+    setSearchQuery('')
+    if (item && item.href) {
+      window.location.href = item.href
+    }
+  }
 
   return (
     <header className=" px-4 sm:px-6 py-4">
@@ -109,9 +145,26 @@ export default function Header() {
               type="text"
               placeholder="Search..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={onInputChange}
               className="block w-full  bg-[#ECEFF3] pl-10 pr-3 outline-none py-2 rounded-lg text-sm"
+              onFocus={() => searchQuery && setShowResults(true)}
+              onBlur={() => setTimeout(() => setShowResults(false), 200)}
             />
+            {/* Search Results Dropdown */}
+            {showResults && searchResults.length > 0 && (
+              <div className="absolute left-0 right-0 mt-2 bg-[#ECEFF3] border rounded-[21px] shadow-lg z-10 max-h-64 overflow-y-auto">
+                {searchResults.map((item: any) => (
+                  <div
+                    key={item.id || item.href}
+                    className="px-4 py-2 cursor-pointer "
+                    onMouseDown={() => handleResultClick(item)}
+                  >
+                    <span className="font-medium">{item.title}</span>
+                    <span className="ml-2 text-xs text-gray-500">{item.type}</span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 

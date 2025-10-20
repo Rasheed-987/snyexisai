@@ -2,6 +2,8 @@
 
 import React from 'react'
 import Alert from '@/components/ui/Alert'
+import RequirementsInput from '@/components/admin/RequirementsInput'
+import ResponsibilityInput from '@/components/admin/ResponsibilityInput'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation';
 
@@ -13,6 +15,9 @@ export default function CareersUploadPage() {
   const [location, setLocation] = useState<string>('')
   const [jobType, setJobType] = useState<'Full Time' | 'Part Time' | 'Contract' | 'Internship'>('Full Time')
   const [description, setDescription] = useState<string>('')
+  const [requirements, setRequirements] = useState<string[]>([])
+  const [responsibilities, setResponsibilities] = useState<Array<{ title: string; body: string }>>([])
+  const [deadline, setDeadline] = useState<string | null>(null)
   const [isRouterMounted, setIsRouterMounted] = useState(false);
 
   // Add loading and error states
@@ -48,7 +53,10 @@ export default function CareersUploadPage() {
         location: location.trim(),
         jobType,
         description: description.trim(),
-        status: 'draft'
+        status: 'draft',
+        requirements,
+        responsibilities,
+        deadline: deadline ? new Date(deadline).toISOString() : null,
       };
 
       const response = await fetch('/api/careers', {
@@ -100,7 +108,10 @@ export default function CareersUploadPage() {
         location: location.trim(),
         jobType,
         description: description.trim(),
-        status: 'published'
+        status: 'published',
+        requirements,
+        responsibilities,
+        deadline: deadline ? new Date(deadline).toISOString() : null,
       };
 
       const response = await fetch('/api/careers', {
@@ -112,6 +123,7 @@ export default function CareersUploadPage() {
       });
 
       if (response.ok) {
+        console.log('jobData:', jobData)
         setUploadSuccess(true)
         setTimeout(() => {
           router.push('/admin/career');
@@ -126,6 +138,24 @@ export default function CareersUploadPage() {
     } finally {
       setIsUploading(false)
     }
+  }
+
+  // Helpers for requirements/responsibilities array fields
+  const addRequirement = (text: string) => {
+    if (!text.trim()) return
+    setRequirements((prev) => [...prev, text.trim()])
+  }
+
+  const removeRequirement = (index: number) => {
+    setRequirements((prev) => prev.filter((_, i) => i !== index))
+  }
+
+  const addResponsibility = (item: { title: string; body: string }) => {
+    setResponsibilities((prev) => [...prev, item])
+  }
+
+  const removeResponsibility = (index: number) => {
+    setResponsibilities((prev) => prev.filter((_, i) => i !== index))
   }
 
   return (
@@ -213,6 +243,53 @@ export default function CareersUploadPage() {
             rows={8}
             className="w-full border-2 border-dashed border-gray-300 p-3 rounded-lg focus:border-blue-500 focus:outline-none resize-vertical"
             required
+          />
+        </div>
+
+        {/* Requirements */}
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-gray-700">Requirements</label>
+          <div className="space-y-2">
+            <RequirementsInput onAdd={addRequirement} />
+            <ul className="list-disc pl-5 space-y-1">
+              {requirements.map((r, idx) => (
+                <li key={idx} className="flex items-center justify-between">
+                  <span>{r}</span>
+                  <button type="button" onClick={() => removeRequirement(idx)} className="text-sm text-red-600 hover:underline">Remove</button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Responsibilities (title + description) */}
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-gray-700">Responsibilities</label>
+          <div className="space-y-2">
+            <ResponsibilityInput onAdd={(item) => setResponsibilities((prev) => [...prev, item])} />
+            <div className="space-y-3">
+              {responsibilities.map((r, idx) => (
+                <div key={idx} className="border rounded-lg p-3 bg-white">
+                  <div className="flex justify-between items-start">
+                    <h4 className="font-semibold">{r.title}</h4>
+                    <button type="button" onClick={() => removeResponsibility(idx)} className="text-sm text-red-600 hover:underline">Remove</button>
+                  </div>
+                  <p className="text-sm text-gray-700 mt-2">{r.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Deadline */}
+        <div className="space-y-2">
+          <label htmlFor="deadline" className="block text-sm font-medium text-gray-700">Application Deadline</label>
+          <input
+            id="deadline"
+            type="date"
+            value={deadline || ''}
+            onChange={(e) => setDeadline(e.target.value || null)}
+            className="w-full border-2 border-dashed border-gray-300 p-3 rounded-lg focus:border-blue-500 focus:outline-none bg-white"
           />
         </div>
 

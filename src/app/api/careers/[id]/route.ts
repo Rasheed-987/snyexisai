@@ -8,8 +8,8 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
     await connectDB();
     
     const { id } = await params;
-    const body = await req.json();
-    const { status, jobTitle, company, location, jobType, description } = body;
+  const body = await req.json();
+  const { status, jobTitle, company, location, jobType, description, requirements, responsibilities, deadline } = body;
 
     // Find the career
     const career = await Career.findById(id);
@@ -28,6 +28,18 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
     if (location) updateData.location = location;
     if (jobType) updateData.jobType = jobType;
     if (description) updateData.description = description;
+    if (Array.isArray(requirements)) updateData.requirements = requirements;
+    if (Array.isArray(responsibilities)) updateData.responsibilities = responsibilities;
+    if (deadline) {
+      try {
+        const d = new Date(deadline)
+        if (!isNaN(d.getTime())) updateData.deadline = d
+      } catch (e) {
+        // ignore invalid date
+      }
+    }
+
+    console.log('Career updateData:', updateData)
 
     // Update the career
     const updatedCareer = await Career.findByIdAndUpdate(

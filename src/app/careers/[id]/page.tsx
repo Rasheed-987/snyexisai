@@ -1,9 +1,9 @@
 'use client'
 
-import { notFound } from 'next/navigation';
-import { getJobById } from '@/lib/careers-data';
 import { CareerDetail } from '@/components/careers/CareerDetail';
-import { use } from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
+
 
 interface PageProps {
   params: Promise<{
@@ -12,13 +12,54 @@ interface PageProps {
 }
 
 export default function CareerDetailPage({ params }: PageProps) {
-  const resolvedParams = use(params);
-  const job = getJobById(resolvedParams.id);
+  const { id } = useParams();
 
-  // If job not found, show 404
-  if (!job) {
-    notFound();
+  const [job, setJob] = useState<any | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchJob = async () => {
+      try {
+        const response = await fetch(`/api/careers/${id}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch job');
+        }
+        const data = await response.json();
+        setJob(data.career);
+      } catch (error: any) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchJob();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="text-center w-full h-screen flex flex-col justify-center items-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+        <p className="text-gray-600">Loading job postings...</p>
+      </div>
+    );
   }
+
+  if (error) {
+    return (
+      <div className="text-center ">
+        <p className="text-red-600 mb-4">Error: {error}</p>
+        <button
+          onClick={() => window.location.reload()}
+          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+        >
+          Retry
+        </button>
+      </div>
+    );
+  }
+
 
   return (
     <div className="min-h-screen pb-24 rounded-b-[80px] relative z-50 bg-white">

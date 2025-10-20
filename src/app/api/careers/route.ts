@@ -6,9 +6,10 @@ export async function POST(req: Request) {
   try {
     await connectDB();
     
-    const body = await req.json();
-    const { jobTitle, company, location, jobType, description, status = 'published' } = body;
+  const body = await req.json();
+  const { jobTitle, company, location, jobType, description, status = 'published', requirements = [], responsibilities = [], deadline = null } = body;
 
+  console.log(body)
     // Validation
     if (status === 'published') {
       if (!jobTitle || !company || !location || !jobType || !description) {
@@ -30,18 +31,22 @@ export async function POST(req: Request) {
     const careerId = new Date().getTime().toString();
 
     // Create career document
-    const careerDoc = {
+    const careerDoc: any = {
       careerId,
       jobTitle,
       company: company || '',
       location: location || '',
       jobType: jobType || 'Full Time',
       description: description || '',
+      requirements: Array.isArray(requirements) ? requirements : [],
+      responsibilities: Array.isArray(responsibilities) ? responsibilities : [],
+      deadline: deadline ? new Date(deadline) : null,
       status: status as 'published' | 'draft'
     };
 
     const career = new Career(careerDoc);
-    await career.save();
+  console.log('Saving careerDoc:', careerDoc)
+  await career.save();
 
 
     return NextResponse.json({

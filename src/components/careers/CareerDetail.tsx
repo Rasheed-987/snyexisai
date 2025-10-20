@@ -1,13 +1,19 @@
 'use client'
 
-import { JobListing } from '@/lib/careers-data';
 import  Button  from '@/components/ui/Button';
 import Link from 'next/link';
 import Image from 'next/image';
 import { CareerApplicationForm } from './CareerApplicationForm';
+import { JobCardProps } from '@/types/admin';
+import  {highlightJobTitle}  from '@/utils/utils';
+
+type Responsibility = { title: string; body: string }
 
 interface CareerDetailProps {
-  job: JobListing;
+  job: JobCardProps & {
+    responsibilities?: Responsibility[] | string[]
+    requirements?: string[]
+  }
 }
 
 export function CareerDetail({ job }: CareerDetailProps) {
@@ -33,12 +39,12 @@ export function CareerDetail({ job }: CareerDetailProps) {
             
             {/* Job Title */}
             <div>
-              <h1 className="text-4xl lg:text-[59px] font-medium text-[#0f1c3d] mb-5">
-                {job.title}
+              <h1 className="text-4xl lg:text-[30px] font-medium text-[#0f1c3d] mb-5">
+                {job.jobTitle}
               </h1>
               <div className="text-sm text-gray-600 space-y-1">
                 <p>{job.location}</p>
-                <p>{job.company}</p>
+      
               </div>
             </div>
 
@@ -46,65 +52,75 @@ export function CareerDetail({ job }: CareerDetailProps) {
             <section>
               <h2 className="text-lg-[29px] font-medium text-[#0f1c3d] mb-4">Position Overview</h2>
               <p className="text-gray-700 leading-relaxed text-sm">
-                {job.overview.split(job.title)[0]}
-                <span style={{ fontWeight: 'bold' }}>{job.title}</span>
-                {job.overview.split(job.title)[1]}
+                 {highlightJobTitle(job, job.jobTitle)}
               </p>
             </section>
 
             {/* Key Responsibilities */}
             <section>
-              <h2 className="text-lg-[29px] font-medium text-[#0f1c3d] mb-4">Key Responsibilities</h2>
-              <div className="space-y-4">
-                <div>
-                  <h3 className="font-bold text-[14.88px] text-[#0f1c3d] mb-2">SEO Execution & Support:</h3>
-                  <ul className="space-y-2 text-sm text-gray-700">
-                    {job.responsibilities.slice(0, 3).map((responsibility, index) => (
-                      <li key={index} className="flex items-start gap-2">
-                        <span className="text-[#0f1c3d] mt-1">•</span>
-                        <span>{responsibility}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                
-                <div>
-                  <h3 className="font-bold text-[14.88px] text-[#0f1c3d] mb-2">Performance Tracking & Reporting:</h3>
-                  <ul className="space-y-2 text-sm text-gray-700">
-                    {job.responsibilities.slice(3, 5).map((responsibility, index) => (
-                      <li key={index} className="flex items-start gap-2">
-                        <span className="text-[#0f1c3d] mt-1">•</span>
-                        <span>{responsibility}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              <h2 className="font-medium text-[29.88px] text-[#0f1c3d] mb-4">Key Responsibilities:</h2>
+              {Array.isArray(job.responsibilities) && job.responsibilities.length > 0 ? (
+                <div className="space-y-6">
+                  {job.responsibilities.map((r: any, idx: number) => {
+                    // If responsibility is a plain string, render as simple bullet
+                    if (typeof r === 'string') {
+                      return (
+                        <div key={idx} className="text-sm text-gray-700">
+                          <div className="flex items-start gap-2">
+                            <span className="font-semibold mr-2">{idx + 1}.</span>
+                            <div>{r}</div>
+                          </div>
+                        </div>
+                      )
+                    }
 
-                <div>
-                  <h3 className="font-bold text-[14.88px] text-[#0f1c3d] mb-2">Collaboration & Learning:</h3>
-                  <ul className="space-y-2 text-sm text-gray-700">
-                    {job.responsibilities.slice(5).map((responsibility, index) => (
-                      <li key={index} className="flex items-start gap-2">
-                        <span className="text-[#0f1c3d] mt-1">•</span>
-                        <span>{responsibility}</span>
-                      </li>
-                    ))}
-                  </ul>
+                    // Object shape: { title, body }
+                    const title = r.title || `Responsibility ${idx + 1}`
+                    const body = r.body || ''
+                    // Split body into bullet lines by newline; fallback to sentences if no newlines
+// Split body into bullet lines by period; fallback to newlines if no periods
+const bullets = (
+  body.includes('.') 
+    ? body.split('.')
+    : body.split(/\n+/)
+)
+.map((s: string) => s.trim())
+.filter(Boolean);
+
+                    return (
+                      <div key={idx}>
+                        <h3 className="text-lg font-semibold text-[#0f1c3d]">{idx + 1}. {title}</h3>
+                        {bullets.length > 0 && (
+                          <ul className="mt-2 space-y-2 text-sm text-gray-700 list-disc pl-6">
+                            {bullets.map((b: string, bi: number) => (
+                              <li key={bi}>{b}</li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    )
+                  })}
                 </div>
-              </div>
+              ) : (
+                <p className="text-sm text-gray-700">No responsibilities listed.</p>
+              )}
             </section>
 
             {/* Key Requirements */}
             <section>
               <h2 className="font-medium text-[29.88px] text-[#0f1c3d] mb-4">Key Requirements:</h2>
-              <ul className="space-y-2 text-sm text-gray-700">
-                {job.requirements.map((requirement, index) => (
-                  <li key={index} className="flex items-start gap-2">
-                    <span className="text-[#0f1c3d] mt-1">•</span>
-                    <span>{requirement}</span>
-                  </li>
-                ))}
-              </ul>
+              {Array.isArray(job.requirements) && job.requirements.length > 0 ? (
+                <ul className="space-y-2 text-sm text-gray-700">
+                  {job.requirements.map((requirement, index) => (
+                    <li key={index} className="flex items-start gap-2">
+                      <span className="text-[#0f1c3d] mt-1">•</span>
+                      <span>{requirement}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-sm text-gray-700">No requirements listed.</p>
+              )}
             </section>
 
           </div>
@@ -112,10 +128,7 @@ export function CareerDetail({ job }: CareerDetailProps) {
           {/* Right Column - Application Form */}
           <div className="lg:pl-8">
             <div className="sticky top-8">
-              <CareerApplicationForm 
-                jobTitle={job.title}
-                jobId={job.id}
-              />
+              <CareerApplicationForm />
             </div>
           </div>
 

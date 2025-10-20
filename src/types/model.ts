@@ -89,6 +89,12 @@ export interface ICareer extends Document {
   location: string
   jobType: 'Full Time' | 'Part Time' | 'Contract' | 'Internship'
   description: string
+  responsibilities: Array<{
+    title: string
+    body: string
+  }>
+  requirements: string[]
+  deadline?: Date
   status: 'draft' | 'published' | 'archived'
   createdAt: Date
   updatedAt: Date

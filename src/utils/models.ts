@@ -84,6 +84,9 @@ const CareerSchema = new Schema<ICareer>({
   location: { type: String, required: true },
   jobType: { type: String, enum: ['Full Time', 'Part Time', 'Contract', 'Internship'], required: true },
   description: { type: String, required: true },
+  requirements: [{ type: String }],
+  responsibilities: [{ title: String, body: String }],
+  deadline: { type: Date },
   status: { type: String, enum: ['draft', 'published', 'archived'], default: 'draft' },
 },
 {

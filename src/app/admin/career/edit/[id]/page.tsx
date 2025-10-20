@@ -4,6 +4,8 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import Alert from '@/components/ui/Alert'
+import RequirementsInput from '@/components/admin/RequirementsInput'
+import ResponsibilityInput from '@/components/admin/ResponsibilityInput'
 
 export default function CareerEditPage() {
   const router = useRouter()
@@ -15,6 +17,14 @@ export default function CareerEditPage() {
   const [location, setLocation] = useState<string>('')
   const [jobType, setJobType] = useState<'Full Time' | 'Part Time' | 'Contract' | 'Internship'>('Full Time')
   const [description, setDescription] = useState<string>('')
+  const [requirements, setRequirements] = useState<string[]>([])
+  const [editingReqIndex, setEditingReqIndex] = useState<number | null>(null)
+  const [editingReqText, setEditingReqText] = useState<string>('')
+  const [editingRespIndex, setEditingRespIndex] = useState<number | null>(null)
+  const [editingRespTitle, setEditingRespTitle] = useState<string>('')
+  const [editingRespBody, setEditingRespBody] = useState<string>('')
+  const [responsibilities, setResponsibilities] = useState<Array<{ title: string; body: string }>>([])
+  const [deadline, setDeadline] = useState<string | null>(null)
 
   // Add loading and error states
   const [isLoading, setIsLoading] = useState(true)
@@ -43,6 +53,27 @@ export default function CareerEditPage() {
         setLocation(career.location || '')
         setJobType(career.jobType || 'Full Time')
         setDescription(career.description || '')
+        // Normalize and populate requirements
+        if (Array.isArray(career.requirements)) setRequirements(career.requirements)
+
+        // Responsibilities may be stored as array of objects {title, body}
+        if (Array.isArray(career.responsibilities)) {
+          const normalized = career.responsibilities.map((r: any) => {
+            if (typeof r === 'string') return { title: r, body: '' }
+            return { title: r.title || '', body: r.body || r.bodyText || '' }
+          })
+          setResponsibilities(normalized)
+        }
+
+        // Deadline: format to yyyy-mm-dd for input[type=date]
+        if (career.deadline) {
+          try {
+            const d = new Date(career.deadline)
+            setDeadline(isNaN(d.getTime()) ? null : d.toISOString().slice(0, 10))
+          } catch (e) {
+            setDeadline(null)
+          }
+        }
 
       } catch (error) {
         console.error('Failed to load career:', error)
@@ -73,7 +104,10 @@ export default function CareerEditPage() {
         location: location.trim(),
         jobType,
         description: description.trim(),
-        status: 'draft'
+        status: 'draft',
+        requirements,
+        responsibilities,
+        deadline: deadline ? new Date(deadline).toISOString() : null,
       }
 
       const response = await fetch(`/api/careers/${careerId}`, {
@@ -123,7 +157,10 @@ export default function CareerEditPage() {
         location: location.trim(),
         jobType,
         description: description.trim(),
-        status: 'published'
+        status: 'published',
+        requirements,
+        responsibilities,
+        deadline: deadline ? new Date(deadline).toISOString() : null,
       }
 
       const response = await fetch(`/api/careers/${careerId}`, {
@@ -252,6 +289,154 @@ export default function CareerEditPage() {
             rows={8}
             className="w-full border-2 border-dashed border-gray-300 p-3 rounded-lg focus:border-blue-500 focus:outline-none resize-vertical"
             required
+          />
+        </div>
+
+        {/* Requirements */}
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-gray-700">Requirements</label>
+          <div className="space-y-2">
+            <RequirementsInput onAdd={(text) => setRequirements((prev) => [...prev, text])} />
+            <ul className="list-disc pl-5 space-y-1">
+              {requirements.map((r, idx) => (
+                <li key={idx} className="flex items-center justify-between">
+                  {editingReqIndex === idx ? (
+                    <div className="flex-1 flex items-center gap-2">
+                      <input
+                        value={editingReqText}
+                        onChange={(e) => setEditingReqText(e.target.value)}
+                        placeholder="Edit requirement"
+                        className="flex-1 border p-2 rounded"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => {
+                          // Save
+                          const newText = editingReqText.trim()
+                          if (newText.length) {
+                            setRequirements(prev => prev.map((it, i) => i === idx ? newText : it))
+                          }
+                          setEditingReqIndex(null)
+                          setEditingReqText('')
+                        }}
+                        className="text-sm text-blue-600 hover:underline"
+                      >
+                        Save
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          // Cancel
+                          setEditingReqIndex(null)
+                          setEditingReqText('')
+                        }}
+                        className="text-sm text-gray-600 hover:underline"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  ) : (
+                    <>
+                      <span className="flex-1">{r}</span>
+                      <div className="flex gap-3 items-center">
+                        <button type="button" onClick={() => setRequirements((prev) => prev.filter((_, i) => i !== idx))} className="text-sm text-red-600 hover:underline">Remove</button>
+                        <button type="button" onClick={() => { setEditingReqIndex(idx); setEditingReqText(r) }} className="text-sm text-blue-600 hover:underline">Edit</button>
+                      </div>
+                    </>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Responsibilities */}
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-gray-700">Responsibilities</label>
+          <div className="space-y-2">
+            <ResponsibilityInput onAdd={(item) => setResponsibilities((prev) => [...prev, item])} />
+            <div className="space-y-3">
+              {responsibilities.map((r, idx) => (
+                <div key={idx} className="border rounded-lg p-3 bg-white">
+                  {editingRespIndex === idx ? (
+                    <div className="space-y-3">
+                      <input
+                        value={editingRespTitle}
+                        onChange={(e) => setEditingRespTitle(e.target.value)}
+                        placeholder="Responsibility title"
+                        className="w-full border p-2 rounded"
+                      />
+                      <textarea
+                        value={editingRespBody}
+                        onChange={(e) => setEditingRespBody(e.target.value)}
+                        placeholder="Responsibility description"
+                        rows={4}
+                        className="w-full border p-2 rounded resize-vertical"
+                      />
+                      <div className="flex gap-3">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const newTitle = editingRespTitle.trim()
+                            const newBody = editingRespBody.trim()
+                            if (newTitle || newBody) {
+                              setResponsibilities(prev => prev.map((it, i) => i === idx ? { title: newTitle, body: newBody } : it))
+                            }
+                            setEditingRespIndex(null)
+                            setEditingRespTitle('')
+                            setEditingRespBody('')
+                          }}
+                          className="text-sm text-blue-600 hover:underline"
+                        >
+                          Save
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setEditingRespIndex(null)
+                            setEditingRespTitle('')
+                            setEditingRespBody('')
+                          }}
+                          className="text-sm text-gray-600 hover:underline"
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setResponsibilities((prev) => prev.filter((_, i) => i !== idx))}
+                          className="text-sm text-red-600 hover:underline"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div>
+                      <div className="flex justify-between items-start">
+                        <h4 className="font-semibold">{r.title}</h4>
+                        <div className="flex gap-3 items-center">
+                          <button type="button" onClick={() => { setEditingRespIndex(idx); setEditingRespTitle(r.title); setEditingRespBody(r.body) }} className="text-sm text-blue-600 hover:underline">Edit</button>
+                          <button type="button" onClick={() => setResponsibilities((prev) => prev.filter((_, i) => i !== idx))} className="text-sm text-red-600 hover:underline">Remove</button>
+                        </div>
+                      </div>
+                      <p className="text-sm text-gray-700 mt-2">{r.body}</p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Deadline */}
+        <div className="space-y-2">
+          <label htmlFor="deadline" className="block text-sm font-medium text-gray-700">Application Deadline</label>
+          <input
+            id="deadline"
+            type="date"
+            value={deadline || ''}
+            onChange={(e) => setDeadline(e.target.value || null)}
+            className="w-full border-2 border-dashed border-gray-300 p-3 rounded-lg focus:border-blue-500 focus:outline-none bg-white"
           />
         </div>
 
