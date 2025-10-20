@@ -13,7 +13,7 @@ interface CareerFormData {
 
 interface CareerApplicationFormProps {
   jobTitle: string;
-  jobId: string;
+  jobId?: string;
 }
 
 export function CareerApplicationForm({ jobTitle, jobId }: CareerApplicationFormProps) {

@@ -128,7 +128,7 @@ const bullets = (
           {/* Right Column - Application Form */}
           <div className="lg:pl-8">
             <div className="sticky top-8">
-              <CareerApplicationForm />
+              <CareerApplicationForm jobId={job.id} jobTitle={job.jobTitle} />
             </div>
           </div>
 
