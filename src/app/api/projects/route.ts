@@ -8,16 +8,27 @@ export async function POST(request: NextRequest) {
     await connectDB()
     
     const formData = await request.formData()
-    
+
+    // helper to read string or blob values from formData
+    const readFormValue = async (key: string) => {
+      const v = formData.get(key)
+      if (!v) return ''
+      // If a Blob/File was appended by mistake, read text
+      if (v instanceof Blob) return await v.text()
+      return String(v)
+    }
+
     // Extract project data
-    const status = (formData.get('status') as string) || 'published'
+    const status = (String(formData.get('status') || 'published'))
     const projectData = {
-      title: formData.get('title') as string,
-      tagline: formData.get('tagline') as string,
-      addTitle: formData.get('addTitle') as string,
-      cards: JSON.parse(formData.get('cards') as string || '[]'),
-      largeCard: JSON.parse(formData.get('largeCard') as string || '{}'),
-      smallCards: JSON.parse(formData.get('smallCards') as string || '[]'),
+      title: String(formData.get('title') || ''),
+      tagline: String(formData.get('tagline') || ''),
+      addTitle: String(formData.get('addTitle') || ''),
+      cards: JSON.parse(String(formData.get('cards') || '[]')),
+      largeCard: JSON.parse(String(formData.get('largeCard') || '{}')),
+      smallCards: JSON.parse(String(formData.get('smallCards') || '[]')),
+      descriptionText: await readFormValue('descriptionText'),
+      requirements: JSON.parse(String(formData.get('requirements') || '[]')),
       status: status as 'published' | 'draft'
     }
 
@@ -84,7 +95,10 @@ export async function POST(request: NextRequest) {
       largeCard: projectData.largeCard.title ? projectData.largeCard : { title: '', body: '' },
       smallCards: projectData.smallCards.length > 0 ? projectData.smallCards : [
         { title: '', body: '' }, { title: '', body: '' }
+        
       ],
+      descriptionText: projectData.descriptionText || '',
+      requirements: Array.isArray(projectData.requirements) ? projectData.requirements : [],
       status: status as 'published' | 'draft'
     }
 

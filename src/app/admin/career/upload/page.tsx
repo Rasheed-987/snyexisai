@@ -5,6 +5,7 @@ import Alert from '@/components/ui/Alert'
 import RequirementsInput from '@/components/admin/RequirementsInput'
 import ResponsibilityInput from '@/components/admin/ResponsibilityInput'
 import { useState, useEffect } from 'react'
+import { addRequirement,removeRequirement } from '@/utils/utils'
 import { useRouter } from 'next/navigation';
 
 export default function CareersUploadPage() {
@@ -16,6 +17,8 @@ export default function CareersUploadPage() {
   const [jobType, setJobType] = useState<'Full Time' | 'Part Time' | 'Contract' | 'Internship'>('Full Time')
   const [description, setDescription] = useState<string>('')
   const [requirements, setRequirements] = useState<string[]>([])
+  const [editingReqIndex, setEditingReqIndex] = useState<number | null>(null)
+  const [editingReqText, setEditingReqText] = useState<string>('')
   const [responsibilities, setResponsibilities] = useState<Array<{ title: string; body: string }>>([])
   const [deadline, setDeadline] = useState<string | null>(null)
   const [isRouterMounted, setIsRouterMounted] = useState(false);
@@ -140,16 +143,7 @@ export default function CareersUploadPage() {
     }
   }
 
-  // Helpers for requirements/responsibilities array fields
-  const addRequirement = (text: string) => {
-    if (!text.trim()) return
-    setRequirements((prev) => [...prev, text.trim()])
-  }
-
-  const removeRequirement = (index: number) => {
-    setRequirements((prev) => prev.filter((_, i) => i !== index))
-  }
-
+  
   const addResponsibility = (item: { title: string; body: string }) => {
     setResponsibilities((prev) => [...prev, item])
   }
@@ -250,12 +244,52 @@ export default function CareersUploadPage() {
         <div className="space-y-2">
           <label className="block text-sm font-medium text-gray-700">Requirements</label>
           <div className="space-y-2">
-            <RequirementsInput onAdd={addRequirement} />
+            <RequirementsInput onAdd={(text: string) => addRequirement(text, setRequirements)} />
             <ul className="list-disc pl-5 space-y-1">
               {requirements.map((r, idx) => (
                 <li key={idx} className="flex items-center justify-between">
-                  <span>{r}</span>
-                  <button type="button" onClick={() => removeRequirement(idx)} className="text-sm text-red-600 hover:underline">Remove</button>
+                  {editingReqIndex === idx ? (
+                    <div className="flex-1 flex items-center gap-2">
+                      <input
+                        value={editingReqText}
+                        onChange={(e) => setEditingReqText(e.target.value)}
+                        placeholder="Edit requirement"
+                        className="flex-1 border p-2 rounded"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const newText = editingReqText.trim()
+                          if (newText.length) {
+                            setRequirements(prev => prev.map((it, i) => i === idx ? newText : it))
+                          }
+                          setEditingReqIndex(null)
+                          setEditingReqText('')
+                        }}
+                        className="text-sm text-blue-600 hover:underline"
+                      >
+                        Save
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setEditingReqIndex(null)
+                          setEditingReqText('')
+                        }}
+                        className="text-sm text-gray-600 hover:underline"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  ) : (
+                    <>
+                      <span className="flex-1">{r}</span>
+                      <div className="flex gap-3 items-center">
+                        <button type="button" onClick={() => removeRequirement(idx, setRequirements)} className="text-sm text-red-600 hover:underline">Remove</button>
+                        <button type="button" onClick={() => { setEditingReqIndex(idx); setEditingReqText(r) }} className="text-sm text-blue-600 hover:underline">Edit</button>
+                      </div>
+                    </>
+                  )}
                 </li>
               ))}
             </ul>

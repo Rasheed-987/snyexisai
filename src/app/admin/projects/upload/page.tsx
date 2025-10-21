@@ -6,6 +6,8 @@ import { useState, useEffect } from 'react'
 import { UploadBox } from '@/components/upload/UploadBox'
 import {useRouter} from 'next/navigation'
 import { handleImageUpload } from '@/utils/dashboard'
+import { addRequirement,removeRequirement } from '@/utils/utils'
+import RequirementsInput from '@/components/admin/RequirementsInput'
 
 interface ImageSlot {
   id: string
@@ -26,6 +28,10 @@ const ProjectUploadPage = () => {
     { title: '', body: '' },
     { title: '', body: '' },
   ])
+  const [descriptionText, setDescriptionText] = useState('')
+  const [requirements, setRequirements] = useState<string[]>([])
+  const [editingReqIndex, setEditingReqIndex] = useState<number | null>(null)
+  const [editingReqText, setEditingReqText] = useState<string>('')
 
   // Add loading and error states
   const [isUploading, setIsUploading] = useState(false)
@@ -52,6 +58,7 @@ const ProjectUploadPage = () => {
     }
   }, [])
 
+
   const handleSave = async () => {
     setIsUploading(true)
     setUploadError(null)
@@ -69,6 +76,9 @@ const ProjectUploadPage = () => {
       formData.append('cards', JSON.stringify(cards))
       formData.append('largeCard', JSON.stringify(largeCard))
       formData.append('smallCards', JSON.stringify(smallCardsA))
+      formData.append('descriptionText', descriptionText)
+      formData.append('requirements', JSON.stringify(requirements))
+
       formData.append('status', 'draft') // Mark as draft
 
       // Add banner image (first image slot)
@@ -82,7 +92,9 @@ const ProjectUploadPage = () => {
           formData.append('galleryImages', slot.file)
         }
       })
-      
+
+      console.log('Form data prepared:', Array.from(formData.entries()))
+
       // Send to API
       const response = await fetch('/api/projects', {
         method: 'POST',
@@ -119,7 +131,7 @@ const ProjectUploadPage = () => {
 
     try {
       // Validation
-     if (!projectTitle || !tagline || !addtitle || cards.some(c => !c.title || !c.body) || !largeCard.title || !largeCard.body || smallCardsA.some(c => !c.title || !c.body) || imageSlots.some(slot => !slot.file)) {
+     if (!projectTitle || !tagline || !addtitle || cards.some(c => !c.title || !c.body) || !largeCard.title || !largeCard.body || smallCardsA.some(c => !c.title || !c.body) || imageSlots.some(slot => !slot.file) || !descriptionText) {
         throw new Error('Please fill in all fields and upload all images for Publish')
       }
       if (!imageSlots[0]?.file) {
@@ -136,6 +148,8 @@ const ProjectUploadPage = () => {
       formData.append('cards', JSON.stringify(cards))
       formData.append('largeCard', JSON.stringify(largeCard))
       formData.append('smallCards', JSON.stringify(smallCardsA))
+      formData.append('descriptionText', descriptionText)
+      formData.append('requirements', JSON.stringify(requirements))
       formData.append('status', 'published') // Mark as published
 
       // Add banner image (first image slot)
@@ -170,6 +184,8 @@ const ProjectUploadPage = () => {
         setProjectTitle('')
         setTagline('')
         setAddtitle('')
+        setDescriptionText('')
+        setRequirements([])
         setCards(Array(6).fill({ title: '', body: '' }))
         setLargeCard({ title: '', body: '' })
         setSmallCardsA([{ title: '', body: '' }, { title: '', body: '' }])
@@ -234,6 +250,81 @@ const ProjectUploadPage = () => {
         />
       </div>
 
+    {/* two textareas for inner project page */}
+
+    <div className="grid grid-cols-1 gap-4 mb-6 w-full ">
+      <textarea
+        placeholder="description Textarea"
+        className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded text-sm min-h-[100px] resize-y focus:outline-none focus:ring-2 focus:ring-blue-200"
+        value={descriptionText}
+        onChange={(e) => setDescriptionText(e.target.value)}
+      />
+      
+    
+     {/* Requirements */}
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-gray-700">Bullets Points</label>
+          <div className="space-y-2">
+            <RequirementsInput onAdd={(text: string) => addRequirement(text, setRequirements)} />
+            <ul className="list-disc pl-5 space-y-1">
+              {requirements.map((r, idx) => (
+                <li key={idx} className="flex items-center justify-between">
+                  {editingReqIndex === idx ? (
+                    <div className="flex-1 flex items-center gap-2">
+                      <input
+                        value={editingReqText}
+                        onChange={(e) => setEditingReqText(e.target.value)}
+                        placeholder="Edit requirement"
+                        className="flex-1 border p-2 rounded"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const newText = editingReqText.trim()
+                          if (newText.length) {
+                            setRequirements(prev => prev.map((it, i) => i === idx ? newText : it))
+                          }
+                          setEditingReqIndex(null)
+                          setEditingReqText('')
+                        }}
+                        className="text-sm text-blue-600 hover:underline"
+                      >
+                        Save
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setEditingReqIndex(null)
+                          setEditingReqText('')
+                        }}
+                        className="text-sm text-gray-600 hover:underline"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  ) : (
+                    <>
+                      <span className="flex-1">{r}</span>
+                      <div className="flex gap-3 items-center">
+                        <button type="button" onClick={() => removeRequirement(idx, setRequirements)} className="text-sm text-red-600 hover:underline">Remove</button>
+                        <button type="button" onClick={() => { setEditingReqIndex(idx); setEditingReqText(r) }} className="text-sm text-blue-600 hover:underline">Edit</button>
+                      </div>
+                    </>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+
+
+
+
+
+    </div>
+
+      {/* Grid of 6 Title/Body cards */}
       <div className="grid grid-cols-3 gap-4 mb-6 w-full ">
         {cards.map((c, index) => (
           <div key={index} className="border-2 border-dashed rounded-lg p-4 flex flex-col">

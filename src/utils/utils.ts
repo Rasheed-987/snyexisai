@@ -37,3 +37,13 @@ export function highlightJobTitle(
     return part;
   });
 }
+
+// Helpers for requirements/responsibilities array fields
+export const addRequirement = (text: string, setRequirements: React.Dispatch<React.SetStateAction<string[]>>) => {
+    if (!text.trim()) return
+    setRequirements((prev) => [...prev, text.trim()])
+  }
+
+ export const removeRequirement = (index: number, setRequirements: React.Dispatch<React.SetStateAction<string[]>>) => {
+    setRequirements((prev) => prev.filter((_, i) => i !== index))
+  }

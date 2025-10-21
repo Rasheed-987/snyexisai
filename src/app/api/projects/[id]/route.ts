@@ -52,7 +52,15 @@ export async function PUT(
     const { id } = await context.params
     
     const formData = await request.formData()
-    
+
+    // helper to read string or blob values from formData
+    const readFormValue = async (key: string) => {
+      const v = formData.get(key)
+      if (!v) return ''
+      if (v instanceof Blob) return await v.text()
+      return String(v)
+    }
+
     // Get existing project first to preserve status if not provided
     const existingProject = await Project.findById(id)
     
@@ -64,14 +72,17 @@ export async function PUT(
     }
 
     // Extract updated data
-    const status = formData.get('status') as string
+    const status = String(formData.get('status') || '')
     const updateData: any = {
-      title: formData.get('title') as string,
-      tagline: formData.get('tagline') as string,
-      addTitle: formData.get('addTitle') as string,
-      cards: JSON.parse(formData.get('cards') as string || '[]'),
-      largeCard: JSON.parse(formData.get('largeCard') as string || '{}'),
-      smallCards: JSON.parse(formData.get('smallCards') as string || '[]'),
+      title: String(formData.get('title') || ''),
+      tagline: String(formData.get('tagline') || ''),
+      addTitle: String(formData.get('addTitle') || ''),
+      cards: JSON.parse(String(formData.get('cards') || '[]')),
+      largeCard: JSON.parse(String(formData.get('largeCard') || '{}')),
+      smallCards: JSON.parse(String(formData.get('smallCards') || '[]')),
+      descriptionText: await readFormValue('descriptionText'),
+    
+      requirements: JSON.parse(String(formData.get('requirements') || '[]')),
       // Preserve existing status if no new status provided
       status: status || existingProject.status,
     }

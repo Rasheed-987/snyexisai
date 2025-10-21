@@ -1,6 +1,6 @@
 
 import mongoose, { Schema, Document, Model } from 'mongoose'
-import { IProject,ICaseStudy,IServices, ICareer } from '@/types/model'
+import { IProject,ICaseStudy,IServices, ICareer } from '@/types/modelType'
 
 
 const ProjectSchema = new Schema<IProject>({
@@ -28,6 +28,8 @@ const ProjectSchema = new Schema<IProject>({
     title: { type: String, required: true },
     body: { type: String, required: true }
   }],
+  descriptionText: { type: String, required: true },
+  requirements: [{ type: String }],
   status: { type: String, enum: ['draft', 'published', 'archived'], default: 'draft' },
 }, {
   timestamps: true

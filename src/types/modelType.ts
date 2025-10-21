@@ -63,7 +63,8 @@ export interface IProject extends Document {
     title: string
     body: string
   }>
-  
+  descriptionText: string
+   requirements: string[]
  
   status: 'draft' | 'published' | 'archived'
   createdAt: Date
