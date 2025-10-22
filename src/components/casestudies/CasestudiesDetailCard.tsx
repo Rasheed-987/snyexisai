@@ -185,8 +185,9 @@ export default function CaseStudyDetailPage({
           <p className="text-gray-700">{bodyTextMiddle}</p>
         </section>
       )}
+      
       {images.gallery[12] && (
-        <div className="relative w-full max-w-5xl mx-auto aspect-[16/9] rounded-2xl overflow-hidden mb-20">
+        <div className="relative w-full  mx-auto aspect-[16/9] rounded-2xl overflow-hidden mb-20">
           <Image src={images.gallery[12]} alt="Final image" fill className="object-cover" />
         </div>
       )}
