@@ -36,7 +36,7 @@ export function JobCard({ id, count, title, location, company, type, description
           <span className="font-normal text-sm sm:text-base text-[#0F1C3D]">({count})</span>
         </div>
 
-        <h3 className="font-semibold text-lg sm:text-2xl text-[#0F1C3D] leading-snug break-words line-clamp-2">
+        <h3 className="font-medium text-lg sm:text-2xl text-[#0F1C3D] leading-snug break-words line-clamp-2">
           {title}
         </h3>
 

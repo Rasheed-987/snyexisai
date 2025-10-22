@@ -13,7 +13,7 @@ const OurProjectPage = () => {
     const fetchProjects = async () => {
       try {
         setLoading(true)
-        const response = await fetch('/api/projects')
+        const response = await fetch('/api/projects?status=Published')
         if (!response.ok) throw new Error('Failed to fetch projects')
         const json = await response.json()
         setProjectData(json.projects || [])
