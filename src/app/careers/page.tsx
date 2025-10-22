@@ -13,7 +13,7 @@ export default function CareersPage() {
   useEffect(() => {
     const fetchJobListings = async () => {
       try {
-        const response = await fetch('/api/careers');
+        const response = await fetch('/api/careers?status=published');
         if (!response.ok) {
           throw new Error('Failed to fetch job listings');
         }

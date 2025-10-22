@@ -13,9 +13,10 @@ const OurProjectPage = () => {
     const fetchProjects = async () => {
       try {
         setLoading(true)
-        const response = await fetch('/api/projects?status=Published')
+        const response = await fetch('/api/projects?status=published')
         if (!response.ok) throw new Error('Failed to fetch projects')
         const json = await response.json()
+        console.log('Fetched projects:', json)
         setProjectData(json.projects || [])
       } catch (err: any) {
         setError(err?.message || 'Failed to load projects')
@@ -25,6 +26,7 @@ const OurProjectPage = () => {
     }
 
     fetchProjects()
+
   }, [])
 
   if (loading) {
@@ -33,6 +35,15 @@ const OurProjectPage = () => {
         <div className="text-center ">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
           <p className="text-gray-600">Loading projects...</p>
+        </div>
+      </div>
+    )
+  }
+  if(error){
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-red-600">{error}</p>
         </div>
       </div>
     )
