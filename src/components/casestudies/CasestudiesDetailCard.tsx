@@ -173,7 +173,7 @@ export default function CaseStudyDetailPage({
       {/* Two Square Images (Lower Again) */}
       <section className=" mx-auto px-5 grid md:grid-cols-2 gap-6 mb-20">
         {[images.gallery[10], images.gallery[11]].map((img, i) => (
-          <div key={i} className="relative aspect-square rounded-2xl overflow-hidden">
+          <div key={i} className="relative aspect-[16/9] rounded-2xl overflow-hidden">
             <Image src={img} alt={`Lower set ${i}`} fill className="object-cover" />
           </div>
         ))}
@@ -185,12 +185,13 @@ export default function CaseStudyDetailPage({
           <p className="text-gray-700">{bodyTextMiddle}</p>
         </section>
       )}
-      
+      <div className='w-full px-10 mb-16'>    
       {images.gallery[12] && (
-        <div className="relative w-full  mx-auto aspect-[16/9] rounded-2xl overflow-hidden mb-20">
+        <div className="relative w-full  px-10 mx-auto aspect-[16/9] rounded-2xl overflow-hidden mb-20">
           <Image src={images.gallery[12]} alt="Final image" fill className="object-cover" />
         </div>
       )}
+      </div>
 
       {/* Bottom Body Text */}
       {bodyTextBottom && (

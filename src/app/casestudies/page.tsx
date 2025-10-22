@@ -16,7 +16,7 @@ const CaseStudyPage = () => {
    useEffect(() => {
         const fetchCaseStudy = async () => {
             try {
-                const response = await fetch(`/api/case-studies`)
+                const response = await fetch(`/api/case-studies?status=published`)
                 if (!response.ok) throw new Error(`HTTP ${response.status}`)
         const data = await response.json()
       

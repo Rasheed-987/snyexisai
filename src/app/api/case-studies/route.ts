@@ -110,6 +110,7 @@ export async function POST(request: NextRequest) {
 export async function GET(request:NextRequest) {
     try {
         await connectDB();
+        
         const {searchParams}= new URL(request.url)
   const limit = parseInt(searchParams.get('limit') || '10')
     const page = parseInt(searchParams.get('page') || '1')
