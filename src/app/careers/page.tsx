@@ -66,7 +66,7 @@ export default function CareersPage() {
         </div>
 
         {/* Job Listings Container */}
-        <div className="w-full  min-h-[944px] mx-auto opacity-100  rotate-0 relative">
+        <div className="w-full  mx-auto opacity-100  rotate-0 relative">
           {/* Job Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-2 lg:gap-2 place-items-center">
             {jobListings.map((job,index:number) => (

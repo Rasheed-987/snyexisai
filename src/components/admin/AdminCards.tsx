@@ -286,6 +286,16 @@ export function CaseStudyCard({
 export function JobCard({ id,jobTitle, location, company, jobType, description, status, onEdit,
   onUnpublish,
   onDelete, className = "" }: JobCardProps) {
+
+
+ const truncate = (text: string, max = 120) => {
+    if (!text) return ''
+    if (text.length <= max) return text
+    const truncated = text.slice(0, max)
+    const lastSpace = truncated.lastIndexOf(' ')
+    return `${truncated.slice(0, lastSpace > 0 ? lastSpace : max).trim()}...`
+  }
+
   return (
      <div
       className={`bg-[#ECEFF3] border border-gray-200 rounded-[15px] p-6 shadow-sm h-[350px] flex flex-col ${className}`}
@@ -335,7 +345,7 @@ export function JobCard({ id,jobTitle, location, company, jobType, description, 
           About this Role
         </h4>
         <p className="text-gray-600 text-xs sm:text-sm leading-relaxed flex-1 line-clamp-4">
-          {description}
+          {truncate(description, 110)}
         </p>
       </div>
 
