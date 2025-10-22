@@ -2,10 +2,61 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { CTA } from '@/components/ui/cta';
+
+
 const CaseStudyPage = () => {
-  const router = useRouter();
+
+  const [caseStudy, setCaseStudy] = useState<any[]>([])
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState<string | null>(null)
+
+
+   useEffect(() => {
+        const fetchCaseStudy = async () => {
+            try {
+                const response = await fetch(`/api/case-studies`)
+                if (!response.ok) throw new Error(`HTTP ${response.status}`)
+        const data = await response.json()
+      
+        const items = Array.isArray(data.caseStudies)
+          ? data.caseStudies
+          : Array.isArray(data)
+          ? data
+          : Array.isArray(data?.data)
+          ? data.data
+          : []
+
+        setCaseStudy(items)
+              } catch (err: any) {
+
+                setError(err?.message ?? 'Failed to load')
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        fetchCaseStudy()
+    }, [])
+
+
+if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center ">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading CaseStudies...</p>
+        </div>
+      </div>
+    )
+  }
+
+
+    if (error) return <div>Error: {error}</div>
+
+
+
   return (
     <div className='rounded-b-[80px]  min-h-screen  relative z-50 bg-white pb-24 lg:pb-40  mx-auto'>
    
@@ -57,36 +108,27 @@ const CaseStudyPage = () => {
         </div>
       </section>
 
-     <section className="w-full relative">
-           <div
-             className="relative w-full p-8 md:p-8 lg:p-[40px]  rounded-xl flex flex-col items-center justify-center"
-             style={{
-               background: 'linear-gradient(169.02deg, #132225 0%, #0B1016 108.44%)',
-             }}
-           >
-             {/* Badge: App Design */}
-             <span
-               className="absolute left-2 top-2 inline-flex items-center px-3 py-1 rounded-full bg-white text-xs sm:text-sm font-medium text-[#0F1C3D] shadow-md mb-2 sm:mb-0"
-               aria-hidden="true"
-             >
-               App Design
-             </span>
-             <div className="relative w-full h-[180px] sm:h-[320px] md:h-[480px] lg:h-[650px] flex items-center justify-center">
-               <Link href="/casestudiesDetail" className="block w-full h-full">
-                 <div className="relative w-full py-3 z-10 h-full">
-                   <Image
-                     src="/images/mbl.png"
-                     alt="App Design Showcase"
-                     fill
-                     priority
-                     className="object-obtain"
-                   />
-                 </div>
-               </Link>
-             </div>
-           </div>
-         </section>
-     
+    <section className="w-full mt-8 bg-gray-100 space-y-8">
+  {Array.isArray(caseStudy) && caseStudy.map((caseItem: any) => (
+    <div
+      key={caseItem._id}
+      className="relative w-full h-[250px] sm:h-[400px] md:h-[550px] lg:h-[650px] rounded-2xl overflow-hidden"
+    >
+      <Link href={`/caseStudiesDetails/${caseItem._id}`} className="block w-full h-full">
+        <Image
+          src={caseItem.images?.banner}
+          alt={caseItem.caseTitle || caseItem.title || 'Case Study Banner'}
+          fill
+          priority={false}
+          className="object-obtain"
+        />
+      </Link>
+
+    </div>
+  ))}
+</section>
+
+
       <section className='overflow-hidden'>
         {/* Two-column showcase (mobile + laptop) */}
         <div className="flex  flex-col gap-8 md:flex-row mt-8">

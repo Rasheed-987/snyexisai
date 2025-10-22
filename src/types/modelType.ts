@@ -7,8 +7,7 @@ export interface ICaseStudy extends Document {
   caseTitle: string
   subtitle: string
   leftTextBox: string
-  whatWeDid: string
-  addLine: string
+  requirements: string[]
   largeCard: {
     title: string
     body: string
@@ -22,6 +21,7 @@ export interface ICaseStudy extends Document {
     body: string
   }>
   bodyTextTop: string
+  bodyTextMiddle: string
   bodyTextBottom: string
   images:{
     banner?: string // Main banner image S3 URL

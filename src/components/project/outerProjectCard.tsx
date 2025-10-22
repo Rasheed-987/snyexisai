@@ -3,6 +3,10 @@
 import Image from 'next/image'
 
 import { OuterProjectCardProps } from '@/types/types'
+import {CTA} from '@/components/ui/cta'
+
+
+
 
 export default function OuterProjectCard({
   title,
@@ -87,6 +91,7 @@ export default function OuterProjectCard({
           </p>
         </div>
       </section>
+      <CTA className="mt-12" />
     </main>
   )
 }

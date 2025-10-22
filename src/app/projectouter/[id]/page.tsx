@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import OuterProjectCard from '@/components/project/outerProjectCard'
 
+
  const ProjectDetailPage = () => {
    const params = useParams()
    const id = params?.id as string
@@ -48,7 +49,6 @@ import OuterProjectCard from '@/components/project/outerProjectCard'
    return (
      <div className="">
     <OuterProjectCard {...project} />
-
 
      </div>
    )

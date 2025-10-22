@@ -6,6 +6,8 @@ import { UploadBox } from '@/components/upload/UploadBox'
 import { useRouter, useParams } from 'next/navigation'
 import { handleImageUpload } from '@/utils/dashboard'
 import Alert from '@/components/ui/Alert'
+import RequirementsInput from '@/components/admin/RequirementsInput'
+import { addRequirement, removeRequirement } from '@/utils/utils'
 
 interface ImageSlot {
   id: string
@@ -34,7 +36,12 @@ const CaseStudyEditPage = () => {
     { title: '', body: '' },
   ])
   const [bodyTextTop, setBodyTextTop] = useState('')
+  const [bodyTextMiddle, setBodyTextMiddle] = useState('')
   const [bodyTextBottom, setBodyTextBottom] = useState('')
+
+  const [requirements, setRequirements] = useState<string[]>([])
+  const [editingReqIndex, setEditingReqIndex] = useState<number | null>(null)
+  const [editingReqText, setEditingReqText] = useState<string>('')
 
   // Add loading and error states
   const [isLoading, setIsLoading] = useState(true)
@@ -42,6 +49,7 @@ const CaseStudyEditPage = () => {
   const [updateError, setUpdateError] = useState<string | null>(null)
   const [updateSuccess, setUpdateSuccess] = useState(false)
 
+  // Match upload page: expand to 14 slots to support new images
   const initialImageSlots: ImageSlot[] = [
     { id: 'banner1', file: null, previewUrl: null, existingUrl: null },
     { id: 'banner2', file: null, previewUrl: null, existingUrl: null },
@@ -53,6 +61,10 @@ const CaseStudyEditPage = () => {
     { id: 'banner8', file: null, previewUrl: null, existingUrl: null },
     { id: 'banner9', file: null, previewUrl: null, existingUrl: null },
     { id: 'banner10', file: null, previewUrl: null, existingUrl: null },
+    { id: 'banner11', file: null, previewUrl: null, existingUrl: null },
+    { id: 'banner12', file: null, previewUrl: null, existingUrl: null },
+    { id: 'banner13', file: null, previewUrl: null, existingUrl: null },
+    { id: 'banner14', file: null, previewUrl: null, existingUrl: null },
   ]
 
   const [imageSlots, setImageSlots] = useState(initialImageSlots)
@@ -81,7 +93,9 @@ const CaseStudyEditPage = () => {
         setSmallCardsA(caseStudy.smallCardsA || [{ title: '', body: '' }, { title: '', body: '' }])
         setSmallCardsB(caseStudy.smallCardsB || [{ title: '', body: '' }, { title: '', body: '' }])
         setBodyTextTop(caseStudy.bodyTextTop || '')
-        setBodyTextBottom(caseStudy.bodyTextBottom || '')
+  setBodyTextMiddle(caseStudy.bodyTextMiddle || '')
+  setBodyTextBottom(caseStudy.bodyTextBottom || '')
+  setRequirements(caseStudy.requirements || [])
 
         // Set existing images
         const newImageSlots = [...initialImageSlots]
@@ -94,9 +108,11 @@ const CaseStudyEditPage = () => {
         }
         if (caseStudy.images?.gallery) {
           caseStudy.images.gallery.forEach((imageUrl: string, index: number) => {
-            if (index < 9 && newImageSlots[index + 1]) {
-              newImageSlots[index + 1] = {
-                ...newImageSlots[index + 1],
+            // gallery images start at slot 1 in newImageSlots (after banner)
+            const slotIndex = index + 1
+            if (slotIndex < newImageSlots.length && newImageSlots[slotIndex]) {
+              newImageSlots[slotIndex] = {
+                ...newImageSlots[slotIndex],
                 existingUrl: imageUrl,
                 previewUrl: imageUrl
               }
@@ -144,8 +160,10 @@ const CaseStudyEditPage = () => {
       formData.append('leftTextBox', leftTextBox)
       formData.append('whatWeDid', whatWeDid)
       formData.append('addLine', addLine)
-      formData.append('bodyTextTop', bodyTextTop)
-      formData.append('bodyTextBottom', bodyTextBottom)
+  formData.append('bodyTextTop', bodyTextTop)
+  formData.append('bodyTextMiddle', bodyTextMiddle)
+  formData.append('bodyTextBottom', bodyTextBottom)
+  formData.append('requirements', JSON.stringify(requirements))
       formData.append('largeCard', JSON.stringify(largeCard))
       formData.append('smallCardsA', JSON.stringify(smallCardsA))
       formData.append('smallCardsB', JSON.stringify(smallCardsB))
@@ -156,6 +174,7 @@ const CaseStudyEditPage = () => {
       imageSlots.slice(1).forEach((slot, index) => {
         if (slot?.file) {
           formData.append('galleryImages', slot.file)
+          // gallerySlots index corresponds to actual gallery position
           formData.append('gallerySlots', index.toString())
         }
       })
@@ -184,17 +203,23 @@ const CaseStudyEditPage = () => {
     setUpdateError(null)
     setUpdateSuccess(false)
     try {
-      if (!caseTitle || !subtitle || !leftTextBox || !whatWeDid || !largeCard.title || !largeCard.body || smallCardsA.some(c => !c.title || !c.body) || imageSlots.some(slot => !slot.file)) {
+      // Validation: require filled fields and ensure either a new file or existingUrl is present for each image slot
+      const missingSmallA = smallCardsA.some(c => !c.title || !c.body)
+      const missingSmallB = smallCardsB.some(c => !c.title || !c.body)
+      const missingImages = imageSlots.some(slot => !(slot.file || slot.existingUrl))
+
+      if (!caseTitle || !subtitle || !leftTextBox || !largeCard.title || !largeCard.body || missingSmallA || missingSmallB || missingImages) {
         throw new Error('Please fill in all fields and upload all images for Publish')
       }
       const formData = new FormData()
       formData.append('caseTitle', caseTitle)
       formData.append('subtitle', subtitle)
       formData.append('leftTextBox', leftTextBox)
-      formData.append('whatWeDid', whatWeDid)
-      formData.append('addLine', addLine)
-      formData.append('bodyTextTop', bodyTextTop)
-      formData.append('bodyTextBottom', bodyTextBottom)
+      
+  formData.append('bodyTextTop', bodyTextTop)
+  formData.append('bodyTextMiddle', bodyTextMiddle)
+  formData.append('bodyTextBottom', bodyTextBottom)
+  formData.append('requirements', JSON.stringify(requirements))
       formData.append('largeCard', JSON.stringify(largeCard))
       formData.append('smallCardsA', JSON.stringify(smallCardsA))
       formData.append('smallCardsB', JSON.stringify(smallCardsB))
@@ -206,6 +231,7 @@ const CaseStudyEditPage = () => {
         if (slot?.file) {
           formData.append('galleryImages', slot.file)
           formData.append('gallerySlots', index.toString())
+          console.log('Appending gallery image at slot:', index)
         }
       })
       const response = await fetch(`/api/case-studies/${caseStudyId}`, {
@@ -257,7 +283,7 @@ const CaseStudyEditPage = () => {
       <input
         type="text"
         placeholder="Project Title Here"
-        className="border border-gray-300 rounded-full px-6 py-2 text-center text-lg font-semibold mb-4 w-full max-w-lg bg-white focus:outline-none focus:ring-2 focus:ring-blue-300"
+        className="w-full max-w-lg mb-4 rounded-full px-6 py-2 bg-white border border-gray-300 text-center text-lg font-semibold shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
         value={caseTitle}
         onChange={(e) => setCaseTitle(e.target.value)}
       />
@@ -266,7 +292,7 @@ const CaseStudyEditPage = () => {
       <input
         type="text"
         placeholder="Sub Title Here"
-        className="border border-gray-300 rounded-full px-4 py-2 text-center mb-6 w-full max-w-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-300"
+        className="w-full max-w-md mb-6 rounded-full px-4 py-2 bg-white border border-gray-300 text-center shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
         value={subtitle}
         onChange={(e) => setSubtitle(e.target.value)}
       />
@@ -294,22 +320,78 @@ const CaseStudyEditPage = () => {
           />
         </div>
 
-        {/* right column with "What we did" and "+ Add line" */}
-        <div className="w-full md:w-1/2 flex flex-col gap-3 items-end">
-          <input
-            type="text"
-            placeholder="What we did"
-            className="border border-gray-300 rounded-full px-4 py-2 w-40 text-sm text-center bg-white focus:outline-none focus:ring-2 focus:ring-blue-200"
-            value={whatWeDid}
-            onChange={(e) => setWhatWeDid(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="+ Add line"
-            className="border border-gray-300 rounded-full px-4 py-2 w-40 text-sm text-center bg-white focus:outline-none focus:ring-2 focus:ring-blue-200"
-            value={addLine}
-            onChange={(e) => setAddLine(e.target.value)}
-          />
+        {/* right column: Requirements (match upload page) */}
+        <div className="w-full md:w-1/2 flex flex-col gap-2">
+          <div className="space-y-2">
+            <label className="block text-sm font-medium text-gray-700">Bullets Points</label>
+            <div className="space-y-2">
+              <RequirementsInput onAdd={(text: string) => addRequirement(text, setRequirements)} />
+              <ul className="list-disc pl-5 space-y-1">
+                {requirements.map((r, idx) => (
+                  <li key={idx} className="flex items-center justify-between">
+                    {editingReqIndex === idx ? (
+                      <div className="flex-1 flex items-center gap-2">
+                        <input
+                          value={editingReqText}
+                          onChange={(e) => setEditingReqText(e.target.value)}
+                          placeholder="Edit requirement"
+                          className="flex-1 border p-2 rounded"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const newText = editingReqText.trim()
+                            if (newText.length) {
+                              setRequirements((prev) => prev.map((it, i) => (i === idx ? newText : it)))
+                            }
+                            setEditingReqIndex(null)
+                            setEditingReqText('')
+                          }}
+                          className="text-sm text-blue-600 hover:underline"
+                        >
+                          Save
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setEditingReqIndex(null)
+                            setEditingReqText('')
+                          }}
+                          className="text-sm text-gray-600 hover:underline"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    ) : (
+                      <>
+                        <span className="flex-1">{r}</span>
+                        <div className="flex gap-3 items-center">
+                          <button
+                            type="button"
+                            onClick={() => removeRequirement(idx, setRequirements)}
+                            className="text-sm text-red-600 hover:underline"
+                          >
+                            Remove
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setEditingReqIndex(idx)
+                              setEditingReqText(r)
+                            }}
+                            className="text-sm text-blue-600 hover:underline"
+                          >
+                            Edit
+                          </button>
+                        </div>
+                      </>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <div />
         </div>
       </div>
 
@@ -478,21 +560,81 @@ const CaseStudyEditPage = () => {
         />
       </div>
 
-      {/* A larger full-width image */}
+      {/* (bodyTextMiddle will be rendered later to match upload page layout) */}
+
+      {/* three images section (slots 8-10) */}
+      <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div className="h-40">
+          <UploadBox
+            label="Image Here"
+            image={imageSlots[8]?.previewUrl}
+            onUpload={(e) => handleImageUpload(e, 8, imageSlots, setImageSlots)}
+            className="w-full h-full"
+          />
+        </div>
+        <div className="h-40">
+          <UploadBox
+            label="Image Here"
+            image={imageSlots[9]?.previewUrl}
+            onUpload={(e) => handleImageUpload(e, 9, imageSlots, setImageSlots)}
+            className="w-full h-full"
+          />
+        </div>
+        <div className="h-40">
+          <UploadBox
+            label="Image Here"
+            image={imageSlots[10]?.previewUrl}
+            onUpload={(e) => handleImageUpload(e, 10, imageSlots, setImageSlots)}
+            className="w-full h-full"
+          />
+        </div>
+      </div>
+
+      {/* Two square images (lower) slots 11-12 */}
+      <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div className="h-40">
+          <UploadBox
+            label="Image Here"
+            image={imageSlots[11]?.previewUrl}
+            onUpload={(e) => handleImageUpload(e, 11, imageSlots, setImageSlots)}
+            className="w-full h-full"
+          />
+        </div>
+        <div className="h-40">
+          <UploadBox
+            label="Image Here"
+            image={imageSlots[12]?.previewUrl}
+            onUpload={(e) => handleImageUpload(e, 12, imageSlots, setImageSlots)}
+            className="w-full h-full"
+          />
+        </div>
+      </div>
+
+      {/*  Body text (middle) */}
+      <div className="w-full max-w-4xl mb-8">
+        <textarea
+          placeholder="Body text"
+          className="border-2 border-dashed rounded-lg p-6 w-full h-24 text-sm"
+          value={bodyTextMiddle}
+          onChange={(e) => setBodyTextMiddle(e.target.value)}
+        />
+      </div>
+
+      {/* Full-width image (slot 13) */}
       <div className="w-full max-w-4xl h-56 mb-6">
         <UploadBox
           label="Image Here"
-          image={imageSlots[9]?.previewUrl}
-          onUpload={(e) => handleImageUpload(e, 9, imageSlots, setImageSlots)}
+          image={imageSlots[13]?.previewUrl}
+          onUpload={(e) => handleImageUpload(e, 13, imageSlots, setImageSlots)}
           className="w-full h-full"
         />
       </div>
 
-      {/* Bottom Body text */}
+      {/*  Body text (bottom) */}
       <div className="w-full max-w-4xl mb-8">
         <textarea
           placeholder="Body text"
-          className="w-full text-sm px-3 py-4 bg-gray-50 border border-gray-200 rounded min-h-[96px] resize-y focus:outline-none focus:ring-2 focus:ring-blue-200"
+          className="border-2 border-dashed rounded-lg p-6 w-full h-24 text-sm"
           value={bodyTextBottom}
           onChange={(e) => setBodyTextBottom(e.target.value)}
         />

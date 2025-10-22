@@ -19,20 +19,20 @@ export async function POST(request: NextRequest) {
     const caseStudyData = {
       caseTitle: formData.get('caseTitle') as string,
       subtitle: formData.get('subtitle') as string,
+      requirements: JSON.parse(formData.get('requirements') as string || '[]'),
       leftTextBox: formData.get('leftTextBox') as string,
-      whatWeDid: formData.get('whatWeDid') as string,
-      addLine: formData.get('addLine') as string,
       largeCard: largeCard,
       smallCardsA: smallCardsA,
       smallCardsB: smallCardsB,
       bodyTextTop: formData.get('bodyTextTop') as string,
+      bodyTextMiddle: formData.get('bodyTextMiddle') as string,
       bodyTextBottom: formData.get('bodyTextBottom') as string,
       status: status as 'published' | 'draft'
     };
 
     // Validation
     if (status === 'published') {
-      if (!caseStudyData.caseTitle || !caseStudyData.subtitle || !caseStudyData.leftTextBox || !caseStudyData.whatWeDid || !caseStudyData.largeCard?.title || !caseStudyData.largeCard?.body) {
+      if (!caseStudyData.caseTitle || !caseStudyData.subtitle || !caseStudyData.leftTextBox || !caseStudyData.bodyTextTop || !caseStudyData.bodyTextMiddle || !caseStudyData.bodyTextBottom || !caseStudyData.largeCard?.title || !caseStudyData.largeCard?.body) {
         return NextResponse.json({ error: 'All fields are required for published case studies' }, { status: 400 });
       }
     } else if (status === 'draft') {
@@ -64,12 +64,12 @@ export async function POST(request: NextRequest) {
       caseTitle: caseStudyData.caseTitle,
       subtitle: caseStudyData.subtitle || '',
       leftTextBox: caseStudyData.leftTextBox || '',
-      whatWeDid: caseStudyData.whatWeDid || '',
-      addLine: caseStudyData.addLine || '',
+      requirements: caseStudyData.requirements || [],
       largeCard: caseStudyData.largeCard.title ? caseStudyData.largeCard : { title: '', body: '' },
       smallCardsA: caseStudyData.smallCardsA.length > 0 ? caseStudyData.smallCardsA : [],
       smallCardsB: caseStudyData.smallCardsB.length > 0 ? caseStudyData.smallCardsB : [],
       bodyTextTop: caseStudyData.bodyTextTop || '',
+      bodyTextMiddle: caseStudyData.bodyTextMiddle || '',
       bodyTextBottom: caseStudyData.bodyTextBottom || '',
       images: uploadedImages,
       status: status as 'published' | 'draft'

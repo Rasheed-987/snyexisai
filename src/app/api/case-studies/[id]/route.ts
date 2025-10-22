@@ -167,7 +167,7 @@ export async function PUT(
 
     // Validation
     if (updateData.status === 'published') {
-      if (!updateData.caseTitle || !updateData.subtitle || !updateData.leftTextBox || !updateData.whatWeDid || !updateData.largeCard?.title || !updateData.largeCard?.body) {
+      if (!updateData.caseTitle || !updateData.subtitle || !updateData.leftTextBox   || !updateData.largeCard?.title || !updateData.largeCard?.body) {
         return NextResponse.json({ error: 'All fields are required for published case studies' }, { status: 400 })
       }
     } else if (updateData.status === 'draft') {

@@ -1,10 +1,14 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+
+import { useRouter } from 'next/navigation'
+
+import RequirementsInput from '@/components/admin/RequirementsInput'
+import {addRequirement,removeRequirement} from '@/utils/utils'
 import Alert from '@/components/ui/Alert'
 import { UploadBox } from '@/components/upload/UploadBox'
 import { handleImageUpload } from '@/utils/dashboard'
-import { useRouter } from 'next/navigation'
 
 interface ImageSlot {
   id: string
@@ -17,8 +21,7 @@ const CaseStudiesUploadPage: React.FC = () => {
   const [caseTitle, setCaseTitle] = useState('')
   const [subtitle, setSubtitle] = useState('')
   const [leftTextBox, setLeftTextBox] = useState('') // "Text here" small box
-  const [whatWeDid, setWhatWeDid] = useState('') // "What we did"
-  const [addLine, setAddLine] = useState('') // "+ Add line"
+  
   const [largeCard, setLargeCard] = useState({ title: '', body: '' }) // A central large title + body card
   const [smallCardsA, setSmallCardsA] = useState([
     // two small title/body cards (pair)
@@ -33,7 +36,11 @@ const CaseStudiesUploadPage: React.FC = () => {
   ])
 
   const [bodyTextTop, setBodyTextTop] = useState('') // Top body text block
+  const [bodyTextMiddle, setBodyTextMiddle] = useState('') // Middle body text block
   const [bodyTextBottom, setBodyTextBottom] = useState('')
+  const [requirements, setRequirements] = useState<string[]>([])
+  const [editingReqIndex, setEditingReqIndex] = useState<number | null>(null)
+  const [editingReqText, setEditingReqText] = useState<string>('')
 
   const initialImageSlots: ImageSlot[] = [
     { id: 'banner1', file: null, previewUrl: null },
@@ -46,6 +53,10 @@ const CaseStudiesUploadPage: React.FC = () => {
     { id: 'banner8', file: null, previewUrl: null },
     { id: 'banner9', file: null, previewUrl: null },
     { id: 'banner10', file: null, previewUrl: null },
+    { id: 'banner11', file: null, previewUrl: null },
+    { id: 'banner12', file: null, previewUrl: null },
+    { id: 'banner13', file: null, previewUrl: null },
+    { id: 'banner14', file: null, previewUrl: null },
   ]
 
   const [imageSlots, setImageSlots] = useState(initialImageSlots)
@@ -58,7 +69,7 @@ const CaseStudiesUploadPage: React.FC = () => {
   // Cleanup object URLs when component unmounts to prevent memory leaks
   useEffect(() => {
     return () => {
-      imageSlots.forEach(slot => {
+      imageSlots.forEach((slot) => {
         if (slot.previewUrl) {
           URL.revokeObjectURL(slot.previewUrl)
         }
@@ -80,9 +91,9 @@ const CaseStudiesUploadPage: React.FC = () => {
       formData.append('caseTitle', caseTitle)
       formData.append('subtitle', subtitle)
       formData.append('leftTextBox', leftTextBox)
-      formData.append('whatWeDid', whatWeDid)
-      formData.append('addLine', addLine)
+      formData.append('requirements', JSON.stringify(requirements))
       formData.append('bodyTextTop', bodyTextTop)
+      formData.append('bodyTextMiddle', bodyTextMiddle)
       formData.append('bodyTextBottom', bodyTextBottom)
       formData.append('largeCard', JSON.stringify(largeCard))
       formData.append('smallCardsA', JSON.stringify(smallCardsA))
@@ -98,7 +109,7 @@ const CaseStudiesUploadPage: React.FC = () => {
       })
       const response = await fetch('/api/case-studies', {
         method: 'POST',
-        body: formData
+        body: formData,
       })
       const result = await response.json()
       if (!response.ok) {
@@ -109,14 +120,20 @@ const CaseStudiesUploadPage: React.FC = () => {
         setCaseTitle('')
         setSubtitle('')
         setLeftTextBox('')
-        setWhatWeDid('')
-        setAddLine('')
+        setRequirements([])
         setLargeCard({ title: '', body: '' })
-        setSmallCardsA([{ title: '', body: '' }, { title: '', body: '' }])
-        setSmallCardsB([{ title: '', body: '' }, { title: '', body: '' }])
+        setSmallCardsA([
+          { title: '', body: '' },
+          { title: '', body: '' },
+        ])
+        setSmallCardsB([
+          { title: '', body: '' },
+          { title: '', body: '' },
+        ])
         setBodyTextTop('')
+        setBodyTextMiddle('')
         setBodyTextBottom('')
-        imageSlots.forEach(slot => {
+        imageSlots.forEach((slot) => {
           if (slot.previewUrl) {
             URL.revokeObjectURL(slot.previewUrl)
           }
@@ -138,19 +155,31 @@ const CaseStudiesUploadPage: React.FC = () => {
     setUploadError(null)
     setUploadSuccess(false)
     try {
-      if (!caseTitle || !subtitle || !leftTextBox || !whatWeDid || !largeCard.title || !largeCard.body || smallCardsA.some(c => !c.title || !c.body) || imageSlots.some(slot => !slot.file)) {
+      if (
+        !caseTitle ||
+        !subtitle ||
+        !leftTextBox ||
+        !largeCard.title ||
+        !largeCard.body ||
+        !requirements.length ||
+        !bodyTextTop ||
+        !bodyTextMiddle ||
+        !bodyTextBottom ||
+        smallCardsA.some((c) => !c.title || !c.body) ||
+        imageSlots.some((slot) => !slot.file)
+      ) {
         throw new Error('Please fill in all fields and upload all images for Publish')
       }
       if (!imageSlots[0].file) {
-        throw new Error('Please upload at least a banner image');
+        throw new Error('Please upload at least a banner image')
       }
       const formData = new FormData()
       formData.append('caseTitle', caseTitle)
       formData.append('subtitle', subtitle)
       formData.append('leftTextBox', leftTextBox)
-      formData.append('whatWeDid', whatWeDid)
-      formData.append('addLine', addLine)
+      formData.append('requirements', JSON.stringify(requirements))
       formData.append('bodyTextTop', bodyTextTop)
+      formData.append('bodyTextMiddle', bodyTextMiddle)
       formData.append('bodyTextBottom', bodyTextBottom)
       formData.append('largeCard', JSON.stringify(largeCard))
       formData.append('smallCardsA', JSON.stringify(smallCardsA))
@@ -164,11 +193,13 @@ const CaseStudiesUploadPage: React.FC = () => {
           formData.append('galleryImages', slot.file)
         }
       })
+      
       const response = await fetch('/api/case-studies', {
         method: 'POST',
-        body: formData
+        body: formData,
       })
       const result = await response.json()
+      console.log(result)
       if (!response.ok) {
         throw new Error(result.error || 'Failed to publish case study')
       }
@@ -177,14 +208,20 @@ const CaseStudiesUploadPage: React.FC = () => {
         setCaseTitle('')
         setSubtitle('')
         setLeftTextBox('')
-        setWhatWeDid('')
-        setAddLine('')
+        setRequirements([])
         setLargeCard({ title: '', body: '' })
-        setSmallCardsA([{ title: '', body: '' }, { title: '', body: '' }])
-        setSmallCardsB([{ title: '', body: '' }, { title: '', body: '' }])
+        setSmallCardsA([
+          { title: '', body: '' },
+          { title: '', body: '' },
+        ])
+        setSmallCardsB([
+          { title: '', body: '' },
+          { title: '', body: '' },
+        ])
         setBodyTextTop('')
+        setBodyTextMiddle('')
         setBodyTextBottom('')
-        imageSlots.forEach(slot => {
+        imageSlots.forEach((slot) => {
           if (slot.previewUrl) {
             URL.revokeObjectURL(slot.previewUrl)
           }
@@ -235,7 +272,6 @@ const CaseStudiesUploadPage: React.FC = () => {
         onChange={(e) => setSubtitle(e.target.value)}
       />
 
-   
       {/* Project Banner (full width) */}
       <div className="w-full max-w-4xl mb-6 h-56">
         <UploadBox
@@ -260,24 +296,82 @@ const CaseStudiesUploadPage: React.FC = () => {
         </div>
 
         {/* right column with "What we did" and "+ Add line" */}
-        <div className="w-full md:w-1/2 flex flex-col gap-3 items-end">
-          <input
-            type="text"
-            placeholder="What we did"
-            className="rounded-full px-4 py-2 w-40 text-sm text-center bg-white border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
-            value={whatWeDid}
-            onChange={(e) => setWhatWeDid(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="+ Add line"
-            className="rounded-full px-4 py-2 w-40 text-sm text-center bg-white border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
-            value={addLine}
-            onChange={(e) => setAddLine(e.target.value)}
-          />
+        <div className="w-full md:w-1/2 flex flex-col gap-2">
+          {/* Requirements */}
+          <div className="space-y-2">
+            <label className="block text-sm font-medium text-gray-700">Bullets Points</label>
+            <div className="space-y-2">
+              <RequirementsInput onAdd={(text: string) => addRequirement(text, setRequirements)} />
+              <ul className="list-disc pl-5 space-y-1">
+                {requirements.map((r, idx) => (
+                  <li key={idx} className="flex items-center justify-between">
+                    {editingReqIndex === idx ? (
+                      <div className="flex-1 flex items-center gap-2">
+                        <input
+                          value={editingReqText}
+                          onChange={(e) => setEditingReqText(e.target.value)}
+                          placeholder="Edit requirement"
+                          className="flex-1 border p-2 rounded"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const newText = editingReqText.trim()
+                            if (newText.length) {
+                              setRequirements((prev) =>
+                                prev.map((it, i) => (i === idx ? newText : it))
+                              )
+                            }
+                            setEditingReqIndex(null)
+                            setEditingReqText('')
+                          }}
+                          className="text-sm text-blue-600 hover:underline"
+                        >
+                          Save
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setEditingReqIndex(null)
+                            setEditingReqText('')
+                          }}
+                          className="text-sm text-gray-600 hover:underline"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    ) : (
+                      <>
+                        <span className="flex-1">{r}</span>
+                        <div className="flex gap-3 items-center">
+                          <button
+                            type="button"
+                            onClick={() => removeRequirement(idx, setRequirements)}
+                            className="text-sm text-red-600 hover:underline"
+                          >
+                            Remove
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setEditingReqIndex(idx)
+                              setEditingReqText(r)
+                            }}
+                            className="text-sm text-blue-600 hover:underline"
+                          >
+                            Edit
+                          </button>
+                        </div>
+                      </>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <div />
         </div>
       </div>
-
       {/* Large Image Here (full width) */}
       <div className="w-full max-w-4xl h-56 mb-6">
         <UploadBox
@@ -403,18 +497,16 @@ const CaseStudiesUploadPage: React.FC = () => {
         ))}
       </div>
 
-      {/* Full-width image (middle) */}
-      <div className="w-full max-w-4xl h-56 mb-6">
-        <UploadBox
-          label="Image Here"
-          image={imageSlots[6]?.previewUrl}
-          onUpload={(e) => handleImageUpload(e, 6, imageSlots, setImageSlots)}
-          className="w-full h-full"
-        />
-      </div>
-
       {/* Two square images (lower) */}
       <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div className="h-40">
+          <UploadBox
+            label="Image Here"
+            image={imageSlots[6]?.previewUrl}
+            onUpload={(e) => handleImageUpload(e, 6, imageSlots, setImageSlots)}
+            className="w-full h-full"
+          />
+        </div>
         <div className="h-40">
           <UploadBox
             label="Image Here"
@@ -423,17 +515,9 @@ const CaseStudiesUploadPage: React.FC = () => {
             className="w-full h-full"
           />
         </div>
-        <div className="h-40">
-          <UploadBox
-            label="Image Here"
-            image={imageSlots[8]?.previewUrl}
-            onUpload={(e) => handleImageUpload(e, 8, imageSlots, setImageSlots)}
-            className="w-full h-full"
-          />
-        </div>
       </div>
 
-      {/* Mid Body text */}
+      {/* top Body text */}
       <div className="w-full max-w-4xl mb-6">
         <textarea
           placeholder="Body text"
@@ -443,17 +527,77 @@ const CaseStudiesUploadPage: React.FC = () => {
         />
       </div>
 
-      {/* A larger full-width image */}
+      {/* three images section */}
+
+      {/* Three square images (lower) */}
+      <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div className="h-40">
+          <UploadBox
+            label="Image Here"
+            image={imageSlots[8]?.previewUrl}
+            onUpload={(e) => handleImageUpload(e, 8, imageSlots, setImageSlots)}
+            className="w-full h-full"
+          />
+        </div>
+        <div className="h-40">
+          <UploadBox
+            label="Image Here"
+            image={imageSlots[9]?.previewUrl}
+            onUpload={(e) => handleImageUpload(e, 9, imageSlots, setImageSlots)}
+            className="w-full h-full"
+          />
+        </div>
+        <div className="h-40">
+          <UploadBox
+            label="Image Here"
+            image={imageSlots[10]?.previewUrl}
+            onUpload={(e) => handleImageUpload(e, 10, imageSlots, setImageSlots)}
+            className="w-full h-full"
+          />
+        </div>
+      </div>
+
+      {/* Two square images (lower) */}
+      <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div className="h-40">
+          <UploadBox
+            label="Image Here"
+            image={imageSlots[11]?.previewUrl}
+            onUpload={(e) => handleImageUpload(e, 11, imageSlots, setImageSlots)}
+            className="w-full h-full"
+          />
+        </div>
+        <div className="h-40">
+          <UploadBox
+            label="Image Here"
+            image={imageSlots[12]?.previewUrl}
+            onUpload={(e) => handleImageUpload(e, 12, imageSlots, setImageSlots)}
+            className="w-full h-full"
+          />
+        </div>
+      </div>
+
+      {/*  Body text */}
+      <div className="w-full max-w-4xl mb-8">
+        <textarea
+          placeholder="Body text"
+          className="border-2 border-dashed rounded-lg p-6 w-full h-24 text-sm"
+          value={bodyTextMiddle}
+          onChange={(e) => setBodyTextMiddle(e.target.value)}
+        />
+      </div>
+
+      {/* Full-width image (middle) */}
       <div className="w-full max-w-4xl h-56 mb-6">
         <UploadBox
           label="Image Here"
-          image={imageSlots[9]?.previewUrl}
-          onUpload={(e) => handleImageUpload(e, 9, imageSlots, setImageSlots)}
+          image={imageSlots[13]?.previewUrl}
+          onUpload={(e) => handleImageUpload(e, 13, imageSlots, setImageSlots)}
           className="w-full h-full"
         />
       </div>
 
-      {/* Bottom Body text */}
+      {/*  Body text */}
       <div className="w-full max-w-4xl mb-8">
         <textarea
           placeholder="Body text"
@@ -471,32 +615,34 @@ const CaseStudiesUploadPage: React.FC = () => {
       )}
       {uploadSuccess && (
         <div className="w-full max-w-4xl mb-4">
-          <Alert type="success" message="Case study uploaded successfully!" onClose={() => setUploadSuccess(false)} />
+          <Alert
+            type="success"
+            message="Case study uploaded successfully!"
+            onClose={() => setUploadSuccess(false)}
+          />
         </div>
       )}
       {/* Footer Buttons */}
       <div className="flex gap-4">
-        <button 
+        <button
           className="px-6 py-2 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors"
           disabled={isUploading}
           onClick={handleCancel}
         >
           Cancel
         </button>
-        <button 
+        <button
           className="px-6 py-2 rounded-full bg-gray-300 hover:bg-gray-400 transition-colors"
           disabled={isUploading}
           onClick={handleSaveDraft}
         >
           Save
         </button>
-        <button 
-          onClick={handlePublish} 
+        <button
+          onClick={handlePublish}
           disabled={isUploading}
           className={`px-6 py-2 rounded-full text-white transition-colors ${
-            isUploading 
-              ? 'bg-blue-400 cursor-not-allowed' 
-              : 'bg-blue-600 hover:bg-blue-700'
+            isUploading ? 'bg-blue-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'
           }`}
         >
           {isUploading ? (

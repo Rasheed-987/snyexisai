@@ -40,8 +40,7 @@ const CaseStudySchema = new Schema<ICaseStudy>({
   caseTitle: { type: String, required: true },
   subtitle: { type: String, required: true },
   leftTextBox: { type: String, required: true },
-  whatWeDid: { type: String, required: true },
-  addLine: { type: String, required: true },
+  requirements: [{ type: String }],
   largeCard: {
     title: { type: String, required: true },
     body: { type: String, required: true }
@@ -55,6 +54,7 @@ const CaseStudySchema = new Schema<ICaseStudy>({
     body: { type: String, required: true }
   }],
   bodyTextTop: { type: String, required: true },
+  bodyTextMiddle: { type: String, required: true },
   bodyTextBottom: { type: String, required: true },
   images: {
     banner: { type: String },

@@ -1,13 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-export const CTA = () => {
-    const router=useRouter();
-    return (
-        <>
-    
+import React from 'react'
+
+type CTAProps = React.HTMLAttributes<HTMLElement> & {
+  className?: string
+}
+
+export const CTA: React.FC<CTAProps> = ({ className = '', ...rest }) => {
+  const router = useRouter();
+  return (
+    <>
+
       {/* CTA Section */}
-      <section className="relative w-[90vw] mx-auto  h-[300px] sm:h-[350px] lg:h-[400px] 2xl:h-[500px] bg-cover bg-center z-10 overflow-hidden rounded-[32px] group cursor-pointer transition-all hover:scale-[1.02] duration-500 hover:shadow-2xl">
+      <section {...rest} className={`relative ${className} w-[90vw] mx-auto  h-[300px] sm:h-[350px] lg:h-[400px] 2xl:h-[500px] bg-cover bg-center z-10 overflow-hidden rounded-[32px] group cursor-pointer transition-all hover:scale-[1.02] duration-500 hover:shadow-2xl`}>
         <div className="absolute inset-0 w-full h-full">
           <Link href="/casestudiesDetail">
             <Image
