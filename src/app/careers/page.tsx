@@ -2,35 +2,10 @@
 'use client'
 
 import { JobCard } from '@/components/ui/Card'
-import { useEffect, useState } from 'react'
+import { useCareerContext } from '@/context/CareerContext';
  
 export default function CareersPage() {
-
-  const [jobListings, setJobListings] = useState<any[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchJobListings = async () => {
-      try {
-        const response = await fetch('/api/careers?status=published');
-        if (!response.ok) {
-          throw new Error('Failed to fetch job listings');
-        }
-        const data = await response.json();
-        console.log('API response:', data);
-        // Support different shapes: prefer data.careers or data
-        const listings = Array.isArray(data.careers) ? data.careers : Array.isArray(data) ? data : [];
-        setJobListings(listings);
-      } catch (err: any) {
-        console.error('Error fetching careers:', err);
-        setError(err?.message || 'Failed to fetch job listings');
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchJobListings();
-  }, []);
+  const { careersData:jobListings, loading, error } = useCareerContext();
 
   if (loading) {
     return (

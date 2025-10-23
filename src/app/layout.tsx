@@ -8,6 +8,10 @@ import Footer from '@/components/layout/Footer'
 import { usePathname } from 'next/navigation'
 import {ServicesProvider} from '@/context/ServicesContext';
 import { CaseStudyProvider } from '@/context/CaseStudyContext';
+import { ProjectProvider } from '@/context/ProjectContext';
+import { CareerProvider } from '@/context/CareerContext';
+import { Car } from 'lucide-react';
+import { Career } from '@/utils/models';
 
 
 
@@ -26,6 +30,8 @@ export default function RootLayout({
     <html lang="en" >
       <body className="min-h-screen bg-background font-sans antialiased">
         <div className="relative flex min-h-screen flex-col">
+          <CareerProvider>
+          <ProjectProvider>
         <CaseStudyProvider>
  <ServicesProvider>        
           {!isAdmin ? (
@@ -40,6 +46,8 @@ export default function RootLayout({
             )}
             </ServicesProvider>
             </CaseStudyProvider>
+          </ProjectProvider>
+          </CareerProvider>
             </div>
       </body>
     </html>

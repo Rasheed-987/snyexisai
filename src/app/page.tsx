@@ -155,7 +155,7 @@ export default function HomePage() {
               <img src="/images/home/img6.png" alt="Nedin Zahirovic" className="w-12 h-12  xl:w-15 xl:h-15 2xl:w-17 2xl:h-17 rounded-full object-cover" />
               <div>
                 <div className="text-base md:text-lg 2xl:text-xl font-semibold text-[#1A2853]">louise Nonweiler</div>
-                <div className="text-xs md:text-sm xl:text-base text-[#1A2853]">Co-Founder, Konoam Software Technologies<br />Starnberg, Germany</div>
+                <div className="text-xs md:text-sm xl:text-base text-[#1A2853]">Founder, Trader 365<br />Starnberg, Germany</div>
               </div>
             </div>
           </div>
@@ -163,7 +163,7 @@ export default function HomePage() {
       </section>
 
       {/* Services Section */}
-      <section className="py-16 xl:py-24">
+      <section id="services" className="py-16 xl:py-24">
         <div className='pt-20'>
         <h2 className="text-[#1A2341] text-3xl text-center sm:text-4xl lg:text-5xl font-medium leading-tight mb-20">
           Our Services
@@ -216,12 +216,12 @@ export default function HomePage() {
     </div>
   </div>
 </section>
-
-  <section className=" mx-auto px-10">
-      <section className="   py-12">
-        <div className="mb-12">
-          <span className="inline-flex items-center text-sm text-slate-500 font-regular mb-4">
-            <span className="w-2 h-2 rounded-full bg-sky-900 mr-2" />
+      {/* Case Studies Section */}
+      <section id="case-studies" className=" mx-auto px-10">
+        <section className="   py-12">
+          <div className="mb-12">
+            <span className="inline-flex items-center text-sm text-slate-500 font-regular mb-4">
+              <span className="w-2 h-2 rounded-full bg-sky-900 mr-2" />
             CASE STUDIES
           </span>
 
@@ -386,7 +386,7 @@ export default function HomePage() {
         <div className="overflow-hidden w-full">
           <motion.div
             className="flex flex-row gap-x-4 sm:gap-x-10 py-4 sm:py-6"
-            animate={{ x: ["0%", "-50%"] }}
+            animate={{ x: ["-50%", "0%"] }}
             transition={{ duration: 10, ease: "linear", repeat: Infinity }}
             style={{ width: "max-content" }}
           >

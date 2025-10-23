@@ -1,33 +1,11 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import { useProjectContext } from '@/context/ProjectContext'
 
 import InnerCard from '@/components/project/innerCard'
 
 const OurProjectPage = () => {
-  const [loading, setLoading] = React.useState(true)
-  const [error, setError] = React.useState<string | null>(null)
-  const [projectData, setProjectData] = useState<any[] | null>(null)
-
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        setLoading(true)
-        const response = await fetch('/api/projects?status=published')
-        if (!response.ok) throw new Error('Failed to fetch projects')
-        const json = await response.json()
-        console.log('Fetched projects:', json)
-        setProjectData(json.projects || [])
-      } catch (err: any) {
-        setError(err?.message || 'Failed to load projects')
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchProjects()
-
-  }, [])
+  const { projectsData:projectData, loading, error } = useProjectContext()
 
   if (loading) {
     return (
