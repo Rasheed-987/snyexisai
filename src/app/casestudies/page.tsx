@@ -4,44 +4,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { CTA } from '@/components/ui/cta';
+import { useCaseStudies } from '@/context/CaseStudyContext';
+import CaseStudyCard from '@/components/casestudies/CasestudiesDetailCard';
 
 
 const CaseStudyPage = () => {
+  const { caseStudiesData, loading, error } = useCaseStudies();
 
-  const [caseStudy, setCaseStudy] = useState<any[]>([])
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState<string | null>(null)
-
-
-   useEffect(() => {
-        const fetchCaseStudy = async () => {
-            try {
-                const response = await fetch(`/api/case-studies?status=published`)
-                if (!response.ok) throw new Error(`HTTP ${response.status}`)
-        const data = await response.json()
-      
-        const items = Array.isArray(data.caseStudies)
-          ? data.caseStudies
-          : Array.isArray(data)
-          ? data
-          : Array.isArray(data?.data)
-          ? data.data
-          : []
-
-        setCaseStudy(items)
-              } catch (err: any) {
-
-                setError(err?.message ?? 'Failed to load')
-            } finally {
-                setLoading(false)
-            }
-        }
-
-        fetchCaseStudy()
-    }, [])
-
-
-if (loading) {
+  if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center ">
@@ -52,10 +22,7 @@ if (loading) {
     )
   }
 
-
-    if (error) return <div>Error: {error}</div>
-
-
+  if (error) return <div>Error: {error}</div>
 
   return (
     <div className='rounded-b-[80px]  min-h-screen  relative z-50 bg-white pb-24 lg:pb-40  mx-auto'>
@@ -109,7 +76,7 @@ if (loading) {
       </section>
 
     <section className="w-full mt-8 bg-gray-100 space-y-8">
-  {Array.isArray(caseStudy) && caseStudy.map((caseItem: any) => (
+  {Array.isArray(caseStudiesData) && caseStudiesData.map((caseItem: any) => (
     <div
       key={caseItem._id}
       className="relative w-full h-[250px] sm:h-[400px] md:h-[550px] lg:h-[650px] rounded-2xl overflow-hidden"

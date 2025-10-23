@@ -1,31 +1,11 @@
-  'use client';
-import React, { useState, useEffect } from 'react';
+'use client';
+import React from 'react';
+import { useServices } from '@/context/ServicesContext';
 import Image from 'next/image';
 import ServicesCard from '@/components/services/servicesCard';
 
 const Service = () => {
-  const [loading, setLoading] = useState(true);
-  const [servicesData, setServicesData] = useState([]);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchServicesData = async () => {
-      try {
-        const response = await fetch('/api/services?status=published');
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        setServicesData(data.services || []);
-      } catch (error: any) {
-        setError(error.message || 'Something went wrong');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchServicesData();
-  }, []);
+  const { servicesData, loading, error } = useServices();
 
   if (loading) {
     return (
@@ -60,6 +40,7 @@ const Service = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {servicesData.map((service: any) => (
             <ServicesCard
+              key={service._id}
               title={service.serviceTitle}
               image={service.images?.banner} // Adjusted based on schema
             />

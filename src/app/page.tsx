@@ -5,42 +5,19 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { motion } from "motion/react"
 import { useState,useEffect } from 'react';
+import { useServices } from '@/context/ServicesContext';
+import { useCaseStudies } from '@/context/CaseStudyContext';
+import ServicesCard from '@/components/services/servicesCard';
+
 
 
 export default function HomePage() {
+
+
+
+  const { servicesData:service, loading, error } = useServices();
+  const { caseStudiesData:caseStudy, loading: caseStudiesLoading, error: caseStudiesError } = useCaseStudies();
   const router = useRouter();
-  const [caseStudy, setCaseStudy] = useState<any[]>([])
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState<string | null>(null)
-
-
-   useEffect(() => {
-        const fetchCaseStudy = async () => {
-            try {
-                const response = await fetch(`/api/case-studies?status=published`)
-                if (!response.ok) throw new Error(`HTTP ${response.status}`)
-        const data = await response.json()
-      
-        const items = Array.isArray(data.caseStudies)
-          ? data.caseStudies
-          : Array.isArray(data)
-          ? data
-          : Array.isArray(data?.data)
-          ? data.data
-          : []
-
-        setCaseStudy(items)
-              } catch (err: any) {
-
-                setError(err?.message ?? 'Failed to load')
-            } finally {
-                setLoading(false)
-            }
-        }
-
-        fetchCaseStudy()
-    }, [])
-
 
 
 
@@ -183,22 +160,27 @@ export default function HomePage() {
 
       {/* Services Section */}
       <section className="py-16 xl:py-24">
-        <div className=" mx-auto px-10">
-          <div className="flex flex-col gap-2">
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-[#1A2853]" />
-              <span className="text-xs tracking-wide text-[#1A2853] uppercase">EXPERTISE</span>
-            </div>
-            <h2 className=" text-[#1A2853] text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-regular leading-tight mt-4">
-              Our<br />Services
-            </h2>
-          </div>
+        <div className='pt-20'>
+        <h2 className="text-[#1A2341] text-3xl text-center sm:text-4xl lg:text-5xl font-medium leading-tight mb-20">
+          Our Services
+        </h2>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {service.map((service: any) => (
+            <ServicesCard
+              key={service._id}
+              title={service.serviceTitle}
+              image={service.images?.banner} // Adjusted based on schema
+            />
+          ))}
         </div>
+      </div>
       </section>
 
-      <section className='w-full md:min-h-[485px]'>
-  <Image src="/images/home/Section.png" alt="Services" width={1600} height={485} className="w-full h-full object-cover rounded-xl" />
-      </section>
+      {/* Stats Section */}
+      
 <section className="w-full my-12   py-12">
   <div className="   px-10">
     <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 text-center">
