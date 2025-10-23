@@ -73,6 +73,7 @@ const PortfolioDropdown = ({ textColor, navbarBackground, isCaseStudyPage }: Pro
 export const Navigation = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
+  const [portfolioOpen, setPortfolioOpen] = useState(false);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -151,53 +152,78 @@ export const Navigation = () => {
       {/* Mobile Navigation Menu */}
       {menuOpen && (
         <>
-          {/* Menu Content */}
-          <div className="fixed top-[68px] left-0 w-full h-auto bg-[#F9F9F9] z-[100] shadow-lg md:hidden overflow-y-auto">
-            <div className="flex flex-col p-6">
-              <Link 
-                href="/" 
-                className="text-[#0F1C3D]  font-semibold 2xl:text-[20px]  tracking-[0.5px] py-4 text-center border-b border-gray-200"
+         <div className="fixed top-[68px] left-0 w-full h-full bg-[#F9F9F9] z-[100] shadow-lg md:hidden overflow-y-auto">
+      <div className="flex flex-col p-6 space-y-2">
+        <Link 
+          href="/" 
+          className="text-[#0F1C3D] font-semibold text-[18px] tracking-[0.5px] py-4 text-center"
+          onClick={closeMenu}
+        >
+          HOME
+        </Link>
+
+        <Link 
+          href="/about" 
+          className="text-[#0F1C3D] font-semibold text-[18px] tracking-[0.5px] py-4 text-center"
+          onClick={closeMenu}
+        >
+          ABOUT
+        </Link>
+
+        <Link 
+          href="/services" 
+          className="text-[#0F1C3D] font-semibold text-[18px] tracking-[0.5px] py-4 text-center"
+          onClick={closeMenu}
+        >
+          SERVICES
+        </Link>
+
+        {/* Portfolio with Dropdown */}
+        <div className="flex flex-col items-center">
+          <button
+            onClick={() => setPortfolioOpen(!portfolioOpen)}
+            className="text-[#0F1C3D] font-semibold text-[18px] tracking-[0.5px] py-4 text-center focus:outline-none"
+          >
+            PORTFOLIO {portfolioOpen ? "▲" : "▼"}
+          </button>
+
+          {portfolioOpen && (
+            <div className="flex flex-col items-center w-full mt-1 space-y-2">
+              <Link
+                href="/case-studies"
+                className="text-[#0F1C3D] text-[16px] font-medium py-2"
                 onClick={closeMenu}
               >
-                HOME
+                Case Studies
               </Link>
-              <Link 
-                href="/about" 
-                className="text-[#0F1C3D]  font-semibold text-[14px] tracking-[0.5px] py-4 text-center border-b border-gray-200"
+              <Link
+                href="/projects"
+                className="text-[#0F1C3D] text-[16px] font-medium py-2"
                 onClick={closeMenu}
               >
-                ABOUT
-              </Link>
-              <Link 
-                href="/services" 
-                className="text-[#0F1C3D]  font-semibold text-[14px] tracking-[0.5px] py-4 text-center border-b border-gray-200"
-                onClick={closeMenu}
-              >
-                SERVICES
-              </Link>
-              {/* <Link 
-                href="#" 
-                className="text-[#0F1C3D]  font-semibold text-[14px] tracking-[0.5px] py-4 text-center border-b border-gray-200"
-                onClick={closeMenu}
-              >
-                PORTFOLIO
-              </Link> */}
-              <Link 
-                href="/careers" 
-                className="text-[#0F1C3D]  font-semibold text-[14px] tracking-[0.5px] py-4 text-center border-b border-gray-200"
-                onClick={closeMenu}
-              >
-                CAREER
-              </Link>
-              <Link 
-                href="/contact" 
-                className="text-[#0F1C3D]  font-semibold text-[14px] tracking-[0.5px] py-4 text-center"
-                onClick={closeMenu}
-              >
-                CONTACT US
+                My Projects
               </Link>
             </div>
-          </div>
+          )}
+        </div>
+
+        <Link 
+          href="/careers" 
+          className="text-[#0F1C3D] font-semibold text-[18px] tracking-[0.5px] py-4 text-center"
+          onClick={closeMenu}
+        >
+          CAREER
+        </Link>
+
+        <Link 
+          href="/contact" 
+          className="text-[#0F1C3D] font-semibold text-[18px] tracking-[0.5px] py-4 text-center"
+          onClick={closeMenu}
+        >
+          CONTACT US
+        </Link>
+      </div>
+    </div>
         </>
       )}
     </nav>

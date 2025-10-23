@@ -153,7 +153,7 @@ export default function Header() {
             />
             {/* Search Results Dropdown */}
             {showResults && searchResults.length > 0 && (
-              <div className="absolute left-0 right-0 mt-2 bg-[#ECEFF3] border rounded-[21px] shadow-lg z-10 max-h-64 overflow-y-auto">
+              <div className="absolute left-0 right-0 mt-2 bg-[white]  rounded-[18px] shadow-lg z-10 max-h-64 overflow-y-auto">
                 {searchResults.map((item: any) => (
                   <div
                     key={item.id || item.href}

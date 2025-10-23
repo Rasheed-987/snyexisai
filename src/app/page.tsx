@@ -166,7 +166,7 @@ export default function HomePage() {
         </h2>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className=" mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {service.map((service: any) => (
             <ServicesCard
@@ -366,8 +366,8 @@ export default function HomePage() {
         <div className="overflow-hidden w-full">
           <motion.div
             className="flex flex-row gap-x-4 sm:gap-x-10 py-4 sm:py-6"
-            animate={{ x: ["0%", "-100%"] }}
-            transition={{ duration: 20, ease: "linear", repeat: Infinity ,repeatType: 'loop',repeatDelay: 0}}
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{ duration: 10, ease: "linear", repeat: Infinity ,repeatType: 'loop',repeatDelay: 0}}
             style={{ width: "max-content" }}
           >
             {/* Logos duplicated for seamless loop */}
@@ -382,8 +382,8 @@ export default function HomePage() {
         <div className="overflow-hidden w-full">
           <motion.div
             className="flex flex-row gap-x-4 sm:gap-x-10 py-4 sm:py-6"
-            animate={{ x: ["0%", "-100%"] }}
-            transition={{ duration: 22, ease: "linear", repeat: Infinity }}
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{ duration: 10, ease: "linear", repeat: Infinity }}
             style={{ width: "max-content" }}
           >
             {["/images/client/img7.png","/images/client/img8.png","/images/client/img9.png","/images/client/img10.png","/images/client/img11.png","/images/client/img12.png",
@@ -397,8 +397,8 @@ export default function HomePage() {
         <div className="overflow-hidden w-full">
           <motion.div
             className="flex flex-row sm:gap-x-3 py-4 sm:py-6 w-full"
-            animate={{ x: ["0%", "-100%"] }}
-            transition={{ duration: 20, ease: "linear", repeat: Infinity }}
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{ duration: 10, ease: "linear", repeat: Infinity }}
             style={{ width: "max-content" }}
           >
             {["/images/client/img13.png","/images/client/img14.png","/images/client/img15.png","/images/client/img16.png","/images/client/img17.png","/images/client/img18.png","/images/client/img19.png",
