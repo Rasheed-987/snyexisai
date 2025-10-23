@@ -93,61 +93,29 @@ export default function ProjectsPage() {
   const handleUnpublish = async (id: string, currentStatus: string) => {
     try {
       setLoading(true)
-      
-      if (currentStatus === 'draft') {
-        // For draft projects, publish them
-        console.log('Publishing draft project:', id)
-        
-        const formData = new FormData()
-        formData.append('status', 'published')
-        
-        const response = await fetch(`/api/projects/${id}`, {
-          method: 'PUT',
-          body: formData
-        })
-        
-        const result = await response.json()
-        
-        if (!response.ok) {
-          throw new Error(result.error || 'Failed to publish project')
-        }
-        
-        console.log('✅ Project published successfully')
-        
-        // Update project in local state
-        setProjects(prev => prev.map(project => 
-          project._id === id 
-            ? { ...project, status: 'published' }
-            : project
-        ))
-        
-      } else {
-        // For published projects, unpublish them (set to draft)
-        console.log('Unpublishing project:', id)
-        
         const formData = new FormData()
         formData.append('status', 'draft')
         
+        
         const response = await fetch(`/api/projects/${id}`, {
           method: 'PUT',
           body: formData
         })
         
         const result = await response.json()
-        
+          console.log(result)
         if (!response.ok) {
           throw new Error(result.error || 'Failed to unpublish project')
         }
         
-        console.log('✅ Project unpublished successfully')
         
         // Update project in local state
         setProjects(prev => prev.map(project => 
           project._id === id 
-            ? { ...project, status: 'draft' }
+            ? { ...project, ...result.project }
             : project
         ))
-      }
+      
       
     } catch (error) {
       console.error('Error toggling project status:', error)

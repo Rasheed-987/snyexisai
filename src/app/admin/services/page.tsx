@@ -78,9 +78,35 @@ export default function ServicesPage() {
     router.push(`/admin/services/edit/${id}`);
   };
 
-  const handleUnpublish = (id: string) => {
-    console.log('Unpublish service:', id)
-    // Add unpublish logic here
+  const handleUnpublish = async (id: string) => {
+    try {
+      setLoading(true);
+      const formData = new FormData();
+      formData.append('status', 'draft');
+
+      const response = await fetch(`/api/services/${id}`, {
+        method: 'PUT',
+        body: formData,
+      });
+
+      const result = await response.json();
+      console.log(result);
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to unpublish service');
+      }
+
+      // Update service in local state
+      setServices((prev) =>
+        prev.map((service) =>
+          service._id === id ? { ...service, ...result.service } : service
+        )
+      );
+    } catch (error) {
+      console.error('Error toggling service status:', error);
+      // You can add toast notification here
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleDelete = async (id: string) => {

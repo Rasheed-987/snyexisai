@@ -135,10 +135,6 @@ export async function PUT(
 
     const formData = await request.formData()
 
-    // Parse JSON fields
-    const largeCard = JSON.parse(formData.get('largeCard') as string || '{}')
-    const smallCardsA = JSON.parse(formData.get('smallCardsA') as string || '[]')
-    const smallCardsB = JSON.parse(formData.get('smallCardsB') as string || '[]')
 
     // Get existing case study first to preserve status if not provided
     const existingCaseStudy = await CaseStudy.findById(id)
@@ -149,30 +145,50 @@ export async function PUT(
       )
     }
 
-    // Extract status
-    const status = formData.get('status') as string
-    const updateData: any = {
-      caseTitle: formData.get('caseTitle') as string,
-      subtitle: formData.get('subtitle') as string,
-      leftTextBox: formData.get('leftTextBox') as string,
-      whatWeDid: formData.get('whatWeDid') as string,
-      addLine: formData.get('addLine') as string,
-      largeCard: largeCard,
-      smallCardsA: smallCardsA,
-      smallCardsB: smallCardsB,
-      bodyTextTop: formData.get('bodyTextTop') as string,
-      bodyTextBottom: formData.get('bodyTextBottom') as string,
-      status: status || existingCaseStudy.status,
+    const updateData: any = {}
+
+ // 🔹 Helper function — only add field if exists
+    const appendIfExists = async (key: string, parser?: (v: string) => any) => {
+      const value = formData.get(key)
+      if (value !== null && value !== undefined && value !== '') {
+        if (value instanceof Blob) {
+          updateData[key] = await value.text()
+        } else {
+          updateData[key] = parser ? parser(String(value)) : String(value)
+        }
+      }
     }
+    // 🔸 Your structured update fields
+    await appendIfExists('caseTitle')
+    await appendIfExists('subtitle')
+    await appendIfExists('leftTextBox')
+    await appendIfExists('whatWeDid')
+    await appendIfExists('addLine')
+    await appendIfExists('bodyTextTop')
+    await appendIfExists('bodyTextMiddle')
+    await appendIfExists('bodyTextBottom')
+    await appendIfExists('largeCard', JSON.parse)
+    await appendIfExists('smallCardsA', JSON.parse)
+    await appendIfExists('smallCardsB', JSON.parse)
+
+    // 🔹 Handle status
+    const status = formData.get('status')
+    if (status) updateData.status = String(status)
+
+    // Merge existing data with updateData to preserve fields not provided in formData
+    const mergedData = {
+      ...existingCaseStudy.toObject(), // Convert Mongoose document to plain object
+      ...updateData,
+    };
 
     // Validation
-    if (updateData.status === 'published') {
-      if (!updateData.caseTitle || !updateData.subtitle || !updateData.leftTextBox   || !updateData.largeCard?.title || !updateData.largeCard?.body) {
-        return NextResponse.json({ error: 'All fields are required for published case studies' }, { status: 400 })
+    if (mergedData.status === 'published') {
+      if (!mergedData.caseTitle || !mergedData.subtitle || !mergedData.leftTextBox || !mergedData.largeCard?.title || !mergedData.largeCard?.body) {
+        return NextResponse.json({ error: 'All fields are required for published case studies' }, { status: 400 });
       }
-    } else if (updateData.status === 'draft') {
-      if (!updateData.caseTitle) {
-        return NextResponse.json({ error: 'Title is required to save draft' }, { status: 400 })
+    } else if (mergedData.status === 'draft') {
+      if (!mergedData.caseTitle) {
+        return NextResponse.json({ error: 'Title is required to save draft' }, { status: 400 });
       }
     }
 

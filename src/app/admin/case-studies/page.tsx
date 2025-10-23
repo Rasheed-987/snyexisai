@@ -42,9 +42,35 @@ export default function CaseStudiesPage() {
     router.push(`/admin/case-studies/edit/${id}`);
   };
 
-  const handleUnpublish = (id: string) => {
-    console.log('Unpublish case study:', id);
-    // Add unpublish logic here
+  const handleUnpublish = async (id: string) => {
+    try {
+      setLoading(true);
+      const formData = new FormData();
+      formData.append('status', 'draft');
+
+      const response = await fetch(`/api/case-studies/${id}`, {
+        method: 'PUT',
+        body: formData,
+      });
+
+      const result = await response.json();
+      console.log(result);
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to unpublish case study');
+      }
+
+      // Update case study in local state
+      setCaseStudies((prev) =>
+        prev.map((caseStudy) =>
+          caseStudy._id === id ? { ...caseStudy, ...result.caseStudy } : caseStudy
+        )
+      );
+    } catch (error) {
+      console.error('Error toggling case study status:', error);
+      // You can add toast notification here
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleDelete = async (id: string) => {

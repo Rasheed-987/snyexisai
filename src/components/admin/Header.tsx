@@ -171,6 +171,7 @@ export default function Header() {
         {/* Right side - Notifications and User Profile */}
         <div className="flex items-center space-x-4">
           {/* Notifications */}
+          {/* 
           <button className="relative p-2 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-lg">
             <span className="sr-only">View notifications</span>
             <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -181,9 +182,9 @@ export default function Header() {
                 d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
               />
             </svg>
-            {/* Notification badge */}
             <span className="absolute top-1 right-1 block h-2 w-2 rounded-full bg-red-400"></span>
           </button>
+          */}
 
           {/* User Profile Dropdown */}
           <div className="relative">
@@ -199,7 +200,7 @@ export default function Header() {
                     alt="Alex Smith"
                     className="h-8 w-8 rounded-full object-cover"
                   />
-                  <span className="ml-2 mr-1 text-[#0F1C3D]">Alex Smith</span>
+                  <span className="ml-2 mr-1 text-[#0F1C3D]">Admin</span>
                 </span>
                 <ChevronDownIcon className="h-4 w-4 text-[#327AED]" aria-hidden="true" />
               </MenuButton>

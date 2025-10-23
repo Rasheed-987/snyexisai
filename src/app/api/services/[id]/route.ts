@@ -54,10 +54,30 @@ export async function PUT(
     
     const formData = await request.formData()
     
-    // Extract fields from form data
-    const serviceTitle = formData.get('title') as string
+
+ const updateData: any = {}
+
+ // 🔹 Helper function — only add field if exists
+    const appendIfExists = async (key: string, parser?: (v: string) => any) => {
+      const value = formData.get(key)
+      if (value !== null && value !== undefined && value !== '') {
+        if (value instanceof Blob) {
+          updateData[key] = await value.text()
+        } else {
+          updateData[key] = parser ? parser(String(value)) : String(value)
+        }
+      }
+    }
+    // 🔸 Your structured update fields
+    await appendIfExists('title')
+
+   // 🔹 Handle status
+    const status = formData.get('status')
+    if (status) updateData.status = String(status)
+
+
+
     const imageFile = formData.get('image') as File | null
-    const status = formData.get('status') as string
     // Find existing service
     const existingService = await Services.findById(id)
     if (!existingService) {
@@ -66,48 +86,67 @@ export async function PUT(
         { status: 404 }
       )
     }
+
+
+ // Ensure mergedData includes all required fields
+    const mergedData = {
+      ...existingService.toObject(), // Convert Mongoose document to plain object
+      ...updateData,
+    };
+
     // Validation
-    const newStatus = status || existingService.status
+    const newStatus = status || existingService.status;
     if (newStatus === 'published') {
-      if (!serviceTitle || (!imageFile && !existingService.images.banner)) {
-        return NextResponse.json({ error: 'Title and image are required for published services.' }, { status: 400 })
+      if (!mergedData.serviceTitle || (!imageFile && !existingService.images.banner)) {
+        return NextResponse.json({ error: 'Service title and banner image are required for published services.' }, { status: 400 });
       }
     } else if (newStatus === 'draft') {
-      if (!serviceTitle) {
-        return NextResponse.json({ error: 'Title is required to save draft.' }, { status: 400 })
+      if (!mergedData.serviceTitle) {
+        return NextResponse.json({ error: 'Service title is required to save draft.' }, { status: 400 });
       }
     }
-    let updatedImageUrl = existingService.images.banner
-    // If new image is provided, upload it
+
+    // Handle image upload if a new image is provided
+    let updatedImageUrl = existingService.images.banner;
     if (imageFile && imageFile.size > 0) {
       updatedImageUrl = await S3Service.uploadFileToS3(
         imageFile,
         'services',
         existingService.serviceId
-      )
+      );
     }
-    // Published must have a banner image
+
+    // Ensure published services have a banner image
     if (newStatus === 'published' && !updatedImageUrl) {
-      return NextResponse.json({ error: 'Banner image is required for published services.' }, { status: 400 })
+      return NextResponse.json({ error: 'Banner image is required for published services.' }, { status: 400 });
     }
+
     // Update service data
     const updatedService = await Services.findByIdAndUpdate(
       id,
       {
-        serviceTitle: serviceTitle || existingService.serviceTitle,
+        serviceTitle: mergedData.serviceTitle,
         images: {
           banner: updatedImageUrl,
-          gallery: existingService.images.gallery || []
+          gallery: existingService.images.gallery || [],
         },
-        status: newStatus
+        status: newStatus,
       },
-      { new: true }
-    )
-    console.log('✅ Service updated successfully:', updatedService._id)
+      { new: true } // Return updated document
+    );
+
+    if (!updatedService) {
+      return NextResponse.json(
+        { error: 'Failed to update service.' },
+        { status: 500 }
+      );
+    }
+
+    console.log('✅ Service updated successfully:', updatedService._id);
     return NextResponse.json({
       success: true,
       service: updatedService,
-      message: newStatus === 'draft' ? 'Draft saved successfully!' : 'Service updated successfully!'
+      message: newStatus === 'draft' ? 'Draft saved successfully!' : 'Service updated successfully!',
     })
     
   } catch (error) {

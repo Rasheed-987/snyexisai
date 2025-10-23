@@ -186,7 +186,7 @@ export default function AdminDashboardPage() {
       {/* Header Section */}
       <div className="mb-6 md:mb-8">
         <h1 className="text-2xl md:text-3xl font-medium text-[#0F1C3D] mb-2">
-          Welcome back, Alex
+          Welcome back, Admin
         </h1>
         <p className="text-sm md:text-base text-gray-600">
           Take a look your progress for today {date}.

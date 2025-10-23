@@ -71,21 +71,33 @@ export async function PUT(
       )
     }
 
-    // Extract updated data
-    const status = String(formData.get('status') || '')
-    const updateData: any = {
-      title: String(formData.get('title') || ''),
-      tagline: String(formData.get('tagline') || ''),
-      addTitle: String(formData.get('addTitle') || ''),
-      cards: JSON.parse(String(formData.get('cards') || '[]')),
-      largeCard: JSON.parse(String(formData.get('largeCard') || '{}')),
-      smallCards: JSON.parse(String(formData.get('smallCards') || '[]')),
-      descriptionText: await readFormValue('descriptionText'),
-    
-      requirements: JSON.parse(String(formData.get('requirements') || '[]')),
-      // Preserve existing status if no new status provided
-      status: status || existingProject.status,
+    const updateData: any = {}
+
+     // 🔹 Helper: only set if exists and not empty
+    const appendIfExists = async (key: string, parser?: (v: string) => any) => {
+      const value = formData.get(key)
+      if (value !== null && value !== undefined && value !== '') {
+        if (value instanceof Blob) {
+          updateData[key] = await value.text()
+        } else {
+          updateData[key] = parser ? parser(String(value)) : String(value)
+        }
+      }
     }
+
+    // 🔸 Add fields (your pattern)
+    await appendIfExists('title')
+    await appendIfExists('tagline')
+    await appendIfExists('addTitle')
+    await appendIfExists('cards', JSON.parse)
+    await appendIfExists('largeCard', JSON.parse)
+    await appendIfExists('smallCards', JSON.parse)
+    await appendIfExists('descriptionText')
+    await appendIfExists('requirements', JSON.parse)
+
+    // 🔹 Status (if provided)
+    const status = formData.get('status')
+    if (status) updateData.status = String(status)
     // Handle image uploads if new images are provided
     const bannerFile = formData.get('bannerImage') as File
     const galleryFiles = formData.getAll('galleryImages') as File[]
@@ -170,6 +182,7 @@ export async function PUT(
       )
     }
     
+    console.log('Updated project with ID:change right now', id)
     return NextResponse.json({
       success: true,
       project,

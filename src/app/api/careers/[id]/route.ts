@@ -41,12 +41,42 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
 
     console.log('Career updateData:', updateData)
 
+    // Merge existing data with updateData to preserve fields not provided in the request
+    const mergedData = {
+      ...career.toObject(), // Convert Mongoose document to plain object
+      ...updateData,
+    };
+
+    // Validation
+    if (mergedData.status === 'published') {
+      if (!mergedData.jobTitle || !mergedData.company || !mergedData.location || !mergedData.description) {
+        return NextResponse.json({
+          success: false,
+          error: 'All required fields must be provided to publish a career',
+        }, { status: 400 });
+      }
+    } else if (mergedData.status === 'draft') {
+      if (!mergedData.jobTitle) {
+        return NextResponse.json({
+          success: false,
+          error: 'Job title is required to save as draft',
+        }, { status: 400 });
+      }
+    }
+
     // Update the career
     const updatedCareer = await Career.findByIdAndUpdate(
       id,
-      updateData,
-      { new: true }
+      mergedData,
+      { new: true } // Return updated document
     );
+
+    if (!updatedCareer) {
+      return NextResponse.json({
+        success: false,
+        error: 'Failed to update career',
+      }, { status: 500 });
+    }
 
     return NextResponse.json({
       success: true,
