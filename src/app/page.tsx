@@ -145,12 +145,16 @@ export default function HomePage() {
           </button>
           <div className="bg-white  rounded-xl p-6  mt-6">
             <p className=" text-[#1A2853] xl:text-xl font-medium mb-4">
-              “Musemind was amazing to work with. Their design skills and tech expertise were on point and they really delivered.”
+              “The team at Synexis made everything
+ simple, clear, and exciting. They genuinely
+ cared about our goals and treated the
+ project like their own. It was a creative
+ partnership from start to finish”
             </p>
             <div className="flex items-center gap-4 xl:gap-6">
               <img src="/images/home/img6.png" alt="Nedin Zahirovic" className="w-12 h-12  xl:w-15 xl:h-15 2xl:w-17 2xl:h-17 rounded-full object-cover" />
               <div>
-                <div className="text-base md:text-lg 2xl:text-xl font-semibold text-[#1A2853]">Nedin Zahirovic</div>
+                <div className="text-base md:text-lg 2xl:text-xl font-semibold text-[#1A2853]">louise Nonweiler</div>
                 <div className="text-xs md:text-sm xl:text-base text-[#1A2853]">Co-Founder, Konoam Software Technologies<br />Starnberg, Germany</div>
               </div>
             </div>
