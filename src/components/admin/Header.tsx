@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/24/solid'
 
+
 // Sidebar menu items (copied for mobile dropdown)
 
  const logout = () => {
@@ -94,7 +95,7 @@ export default function Header() {
       return
     }
     // Example: fetch from a unified search API endpoint
-    const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`)
+    const res = await fetch(`/api/search?q=${encodeURIComponent(query)}&pathname=${window.location.pathname}`)
     if (res.ok) {
       const data = await res.json()
       setSearchResults(data.results || [])

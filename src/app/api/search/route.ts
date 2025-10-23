@@ -1,51 +1,50 @@
 import { NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
-import { Career } from '@/utils/models';
-import { Project } from '@/utils/models';
-import { CaseStudy } from '@/utils/models';
-import { Services } from '@/utils/models';
+import { Career, Project, CaseStudy, Services } from '@/utils/models';
 
 export async function GET(req: Request) {
   await connectDB();
   const { searchParams } = new URL(req.url);
   const q = searchParams.get('q')?.trim();
-  if (!q) return NextResponse.json({ results: [] });
+  const pathname = searchParams.get('pathname');
 
-  // Search all collections by title/name
-  const [careers, projects, caseStudies, services] = await Promise.all([
-    Career.find({ jobTitle: { $regex: q, $options: 'i' } }).limit(2),
-    Project.find({ title: { $regex: q, $options: 'i' } }).limit(2),
-    CaseStudy.find({ caseTitle: { $regex: q, $options: 'i' } }).limit(2),
-    Services.find({ serviceTitle: { $regex: q, $options: 'i' } }).limit(2),
-  ]);
+  if (!q || !pathname) return NextResponse.json({ results: [] });
 
-  // Format results for dropdown
-  const results = [
-    ...careers.map((c) => ({
+  let results: { id: string; title: string; type: string; href: string }[] = [];
+
+  if (pathname.includes('career')) {
+    const careers = await Career.find({ jobTitle: { $regex: q, $options: 'i' } }).limit(2);
+    results = careers.map((c) => ({
       id: c._id,
       title: c.jobTitle,
       type: 'Career',
       href: `/admin/career/edit/${c._id}`,
-    })),
-    ...projects.map((p) => ({
+    }));
+  } else if (pathname.includes('project')) {
+    const projects = await Project.find({ title: { $regex: q, $options: 'i' } }).limit(2);
+    results = projects.map((p) => ({
       id: p._id,
       title: p.title,
       type: 'Project',
       href: `/admin/projects/edit/${p._id}`,
-    })),
-    ...caseStudies.map((cs) => ({
+    }));
+  } else if (pathname.includes('case-studies')) {
+    const caseStudies = await CaseStudy.find({ caseTitle: { $regex: q, $options: 'i' } }).limit(2);
+    results = caseStudies.map((cs) => ({
       id: cs._id,
       title: cs.caseTitle,
       type: 'Case Study',
       href: `/admin/case-studies/edit/${cs._id}`,
-    })),
-    ...services.map((s) => ({
+    }));
+  } else if (pathname.includes('services')) {
+    const services = await Services.find({ serviceTitle: { $regex: q, $options: 'i' } }).limit(2);
+    results = services.map((s) => ({
       id: s._id,
       title: s.serviceTitle,
       type: 'Service',
       href: `/admin/services/edit/${s._id}`,
-    })),
-  ];
-
+    }));
+  }
   return NextResponse.json({ results });
 }
+
