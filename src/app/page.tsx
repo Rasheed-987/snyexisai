@@ -4,11 +4,46 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { motion } from "motion/react"
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 
 
 export default function HomePage() {
   const router = useRouter();
+  const [caseStudy, setCaseStudy] = useState<any[]>([])
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState<string | null>(null)
+
+
+   useEffect(() => {
+        const fetchCaseStudy = async () => {
+            try {
+                const response = await fetch(`/api/case-studies?status=published`)
+                if (!response.ok) throw new Error(`HTTP ${response.status}`)
+        const data = await response.json()
+      
+        const items = Array.isArray(data.caseStudies)
+          ? data.caseStudies
+          : Array.isArray(data)
+          ? data
+          : Array.isArray(data?.data)
+          ? data.data
+          : []
+
+        setCaseStudy(items)
+              } catch (err: any) {
+
+                setError(err?.message ?? 'Failed to load')
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        fetchCaseStudy()
+    }, [])
+
+
+
+
   const faqs: { question: string; answer: string }[] = [
     {
       question: 'Why should I choose Synexis for my project?',
@@ -217,33 +252,34 @@ export default function HomePage() {
 
 
     <section className="w-full relative">
-      <div
-        className="relative w-full p-4  md:p-8 lg:p-[40px] 2xl:p-[25px] rounded-xl flex flex-col items-center justify-center"
-        style={{
+      
+
+        {loading ? (
+          <p className="text-white">Loading case studies...</p>
+        ) :    <section className="w-full mt-8 bg-gray-100 space-y-8">
+  {Array.isArray(caseStudy) && caseStudy.map((caseItem: any) => (
+    <div
+      key={caseItem._id}
+      className="relative w-full h-[250px] sm:h-[400px] md:h-[550px] lg:h-[650px] rounded-2xl overflow-hidden"
+     style={{
           background: 'linear-gradient(169.02deg, #132225 0%, #0B1016 108.44%)',
         }}
-      >
-        {/* Badge: App Design */}
-        <span
-          className="absolute left-2 top-2 inline-flex items-center px-3 py-1 rounded-full bg-white text-xs sm:text-sm font-medium text-[#0F1C3D] shadow-md mb-2 sm:mb-0"
-          aria-hidden="true"
-        >
-          App Design
-        </span>
-        <div className="relative w-full h-[180px] sm:h-[320px] md:h-[480px] lg:h-[650px] flex items-center justify-center">
-          <Link href="/casestudiesDetail" className="block w-full h-full">
-            <div className="relative w-full z-10 h-full">
-              <Image
-                src="/images/mbl.png"
-                alt="App Design Showcase"
-                fill
-                priority
-                className="object-contain"
-              />
-            </div>
-          </Link>
-        </div>
-      </div>
+    >
+      <Link href={`/caseStudiesDetails/${caseItem._id}`} className="block w-full h-full">
+        <Image
+          src={caseItem.images?.banner}
+          alt={caseItem.caseTitle || caseItem.title || 'Case Study Banner'}
+          fill
+          priority={false}
+          className="object-obtain"
+        />
+      </Link>
+
+    </div>
+  ))}
+</section>
+}
+    
     </section>
 
    <section className="mt-8">

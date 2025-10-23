@@ -59,12 +59,12 @@ export default function CaseStudyDetailPage({
   </section>
 
       {/* Banner Image */}
-      <div className="relative w-full mx-auto aspect-[16/9] rounded-2xl  mb-16">
+      <div className="relative w-full mx-auto p-4  rounded-xl  md:p-8 lg:p-[40px] 2xl:p-[25px]  aspect-[16/9]   mb-16">
         <Image
           src={images.banner}
           alt={caseTitle}
           fill
-          className="object-fit"
+          className="object-cover rounded-xl"
           priority
         />
       </div>
