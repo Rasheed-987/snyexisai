@@ -11,11 +11,26 @@ export default function AdminLogin() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (username === 'admin' && password === 'password') {
-      localStorage.setItem('isAuthenticated', 'true');
+    try {
+      const response = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Login failed');
+      }
+
+      const data = await response.json();
+      // Assuming the backend sends a token or session info
+      document.cookie = `authToken=${data.token}; path=/; secure; HttpOnly`;
       window.location.href = '/admin/dashboard';
-    } else {
-      setError('Invalid username or password');
+    } catch (err: any) {
+      setError(err.message || 'Something went wrong');
     }
   };
 

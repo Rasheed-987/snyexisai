@@ -10,9 +10,23 @@ import { ChevronDownIcon } from '@heroicons/react/24/solid'
 
 // Sidebar menu items (copied for mobile dropdown)
 
- const logout = () => {
-  localStorage.removeItem('isAuthenticated');
-  window.location.href = '/'; // Redirect to home page
+ const logout = async () => {
+  try {
+    // Call the backend API to clear the session
+    const response = await fetch('/api/admin/logout', {
+      method: 'POST',
+      credentials: 'include', // Ensure cookies are included in the request
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to log out');
+    }
+
+    // Redirect to the login page after successful logout
+    window.location.href = '/';
+  } catch (error) {
+    console.error('Logout failed:', error);
+  }
 };
 const sidebarMenuItems = [
   {

@@ -16,19 +16,36 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     getCurrentDate(setDate);
   }, []);
-
-  useEffect(() => {
-    
-    const authStatus = localStorage.getItem('isAuthenticated');
-    if (!authStatus && pathname !== '/admin/login') {
-      window.location.href = '/admin/login';
-      return;
-    }
+useEffect(() => {
+  // Skip authentication check if we're on the login page
+  if (pathname === '/admin/login') {
     setIsAuthenticated(true);
-  }, [pathname]);
+    return;
+  }
+
+  const checkAuth = async () => {
+    try {
+      const response = await fetch('/api/admin/auth-status', {
+        method: 'GET',
+        credentials: 'include',
+      });
+
+      if (!response.ok) {
+        throw new Error('Not authenticated');
+      }
+
+      setIsAuthenticated(true);
+    } catch (error) {
+      setIsAuthenticated(false);
+      window.location.href = '/admin/login';
+    }
+  };
+
+  checkAuth();
+}, [pathname]);
 
   // While checking auth, show a loading indicator
-  if (isAuthenticated === null) {
+  if (isAuthenticated === null || isAuthenticated === false) {
     return (
       <div className="flex items-center justify-center h-screen">
         <div className="text-center">
@@ -61,7 +78,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
         {pathname !== '/admin' && pathname !== '/admin/dashboard' && (
           <div className=' w-full ml-10 flex flex-col  py-3'>
             <h1 className="text-2xl font-medium text-[var(--foreground)] mb-1">All {title}</h1>
-            <p className="text-gray-600 text-sm">Take a look your progress for today {date}.</p>
+            <p className="text-gray-600 text-sm">Take a look at your progress for today {date}.</p>
           </div>
         )}
         {/* Page Content */}
