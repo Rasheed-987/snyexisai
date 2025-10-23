@@ -190,14 +190,14 @@ export const Navigation = () => {
           {portfolioOpen && (
             <div className="flex flex-col items-center w-full mt-1 space-y-2">
               <Link
-                href="/case-studies"
+                href="/casestudies"
                 className="text-[#0F1C3D] text-[16px] font-medium py-2"
                 onClick={closeMenu}
               >
                 Case Studies
               </Link>
               <Link
-                href="/projects"
+                href="/ourproject"
                 className="text-[#0F1C3D] text-[16px] font-medium py-2"
                 onClick={closeMenu}
               >
