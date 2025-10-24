@@ -25,6 +25,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
     );
   }
 
+
   // For all other /admin* routes (including /admin), render sidebar/header + children
   return (
     <div className="h-screen flex bg-[#ECEFF3]">

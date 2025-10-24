@@ -27,30 +27,25 @@ export default function HomeDropdown({ textColor }: { textColor: string }) {
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute top-[36px] left-0 bg-white shadow-lg rounded-xl py-2 w-[300px] z-50">
-          <Link
-            href="/#hero"
-            className="block px-4 py-2 text-[14px] text-[#0F1C3D] hover:text-blue-600"
-          >
-            Hero Section
-          </Link>
+        <div className="absolute top-[45px] left-0 bg-white shadow-lg flex flex-col items-center justify-center rounded-xl py-2 w-[250px] h-[200px] z-50">
+      
           <Link
             href="/#services"
-            className="block px-4 py-2 text-[14px] text-[#0F1C3D] hover:text-blue-600"
+            className="block px-4 py-2 text-[16px] text-[#0F1C3D] hover:text-blue-600"
           >
-            Our Services
+             Services
           </Link>
           <Link
             href="/#case-studies"
-            className="block px-4 py-2 text-[14px] text-[#0F1C3D] hover:text-blue-600"
+            className="block px-4 py-2 text-[16px] text-[#0F1C3D] hover:text-blue-600"
           >
-            Our Case Studies
+            Case Studies
           </Link>
           <Link
             href="/#contact"
-            className="block px-4 py-2 text-[14px] text-[#0F1C3D] hover:text-blue-600"
+            className="block px-4 py-2 text-[16px] text-[#0F1C3D] hover:text-blue-600"
           >
-            Contact Section
+            Contact
           </Link>
         </div>
       )}

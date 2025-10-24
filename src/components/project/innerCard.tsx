@@ -19,7 +19,7 @@ const InnerCard = ({ banner, title, description, requirements, project }: InnerC
       {/* Left Side - Image */}
       <div className="flex justify-center">
         <div className="relative w-[90%] max-w-[500px] aspect-[16/10] rounded-2xl overflow-hidden shadow-md">
-          <Image src={banner} alt={title} fill className="object-cover rounded-2xl" />
+          <Image src={banner} alt={title} fill className="object-obtain rounded-2xl" />
         </div>
       </div>
 

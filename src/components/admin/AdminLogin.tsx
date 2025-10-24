@@ -14,7 +14,8 @@ export default function AdminLogin() {
     try {
       // Simulate login logic (replace with actual external auth API if needed)
       if (username === 'admin' && password === 'password') {
-        document.cookie = `authToken=mock-token; path=/; secure; SameSite=Strict`;
+        // Set cookie without HttpOnly (cannot be set from JS)
+        document.cookie = 'authToken=mock-token; path=/; SameSite=Strict; Secure';
         window.location.href = '/admin/dashboard';
       } else {
         throw new Error('Invalid username or password');

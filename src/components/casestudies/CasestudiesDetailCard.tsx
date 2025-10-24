@@ -165,9 +165,12 @@ export default function CaseStudyDetailPage({
       )}
 
       {/* 3 Horizontal Images */}
-      <section className=" mx-auto px-20 grid bg-[#EDEDED] md:grid-cols-1 gap-6 mb-20">
+      <div>
+        
+      </div>
+      <section className=" mx-auto  grid bg-[#EDEDED] p-20  md:grid-cols-1 gap-6 mb-20">
         {[images.gallery[7], images.gallery[8], images.gallery[9]].map((img, i) => (
-          <div key={i} className="relative aspect-[16/10] rounded-2xl overflow-hidden">
+          <div key={i} className="relative aspect-[16/3]   rounded-2xl overflow-hidden">
             <Image src={img} alt={`Horizontal ${i}`} fill className="object-fit" />
           </div>
         ))}

@@ -77,7 +77,7 @@ const CaseStudyPage = () => {
 
         {loading ? (
              <p className="text-white">Loading case studies...</p>
-           ) :    <section className="w-full mt-8 bg-gray-100 space-y-8">
+           ) :    <section className="w-full mt-8 bg-gray-100 space-y-20 mb-40">
      {Array.isArray(caseStudy) && caseStudy.map((caseItem: any) => (
        <div
          key={caseItem._id}
