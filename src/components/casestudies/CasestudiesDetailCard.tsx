@@ -59,16 +59,19 @@ export default function CaseStudyDetailPage({
   </section>
 
       {/* Banner Image */}
+      <div>
+
+      
       <div className="relative w-full mx-auto p-4  rounded-xl  md:p-8 lg:p-[40px] 2xl:p-[25px]  aspect-[16/9]   mb-16">
         <Image
           src={images.banner}
           alt={caseTitle}
           fill
-          className="object-cover rounded-xl"
+          className="object-contain rounded-xl"
           priority
         />
       </div>
-
+</div>
       {/* Left Text and Requirements */}
       <section className=" mx-auto px-7 flex md:justify-between gap-10 mb-20">
         <div>
@@ -171,10 +174,10 @@ export default function CaseStudyDetailPage({
       </section>
 
       {/* Two Square Images (Lower Again) */}
-      <section className=" mx-auto px-5 grid md:grid-cols-2 gap-6 mb-20">
+      <section className=" mx-auto  px-5 grid md:grid-cols-2 gap-6 mb-20">
         {[images.gallery[10], images.gallery[11]].map((img, i) => (
-          <div key={i} className="relative aspect-[16/9] rounded-2xl overflow-hidden">
-            <Image src={img} alt={`Lower set ${i}`} fill className="object-cover" />
+          <div key={i} className="relative aspect-[4/4] rounded-2xl overflow-hidden">
+            <Image src={img} alt={`Lower set ${i}`} fill className="object-fill" />
           </div>
         ))}
       </section>

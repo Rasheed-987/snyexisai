@@ -9,7 +9,7 @@ import CaseStudyCard from '@/components/casestudies/CasestudiesDetailCard';
 
 
 const CaseStudyPage = () => {
-  const { caseStudiesData, loading, error } = useCaseStudies();
+  const { caseStudiesData:caseStudy, loading, error } = useCaseStudies();
 
   if (loading) {
     return (
@@ -75,86 +75,43 @@ const CaseStudyPage = () => {
         </div>
       </section>
 
-    <section className="w-full mt-8 bg-gray-100 space-y-8">
-  {Array.isArray(caseStudiesData) && caseStudiesData.map((caseItem: any) => (
-    <div
-      key={caseItem._id}
-      className="relative w-full h-[250px] sm:h-[400px] md:h-[550px] lg:h-[650px] rounded-2xl overflow-hidden"
-    >
-      <Link href={`/caseStudiesDetails/${caseItem._id}`} className="block w-full h-full">
-        <Image
-          src={caseItem.images?.banner}
-          alt={caseItem.caseTitle || caseItem.title || 'Case Study Banner'}
-          fill
-          priority={false}
-          className="object-obtain"
-        />
-      </Link>
+        {loading ? (
+             <p className="text-white">Loading case studies...</p>
+           ) :    <section className="w-full mt-8 bg-gray-100 space-y-8">
+     {Array.isArray(caseStudy) && caseStudy.map((caseItem: any) => (
+       <div
+         key={caseItem._id}
+         className="relative w-full h-[250px]  sm:h-[400px]  md:h-[550px] lg:h-[750px] rounded-2xl overflow-hidden group"
+        style={{
+             background: 'linear-gradient(169.02deg, #132225 0%, #0B1016 108.44%)',
+           }}
+       >
+         <Link href={`/caseStudiesDetails/${caseItem._id}`} className="block w-full h-full">
+           <Image
+             src={caseItem.images?.banner}
+             alt={caseItem.caseTitle || caseItem.title || 'Case Study Banner'}
+             fill
+             priority={false}
+             className="object-contain px-2 group-hover:blur-sm transition duration-300"
+           />
+         </Link>
+         <div
+           className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300"
+         >
+           <Link
+             href={`/caseStudiesDetails/${caseItem._id}`}
+             className="bg-white text-black px-4 py-2 rounded-xl shadow-md hover:bg-gray-200"
+           >
+             Read More
+           </Link>
+         </div>
+       </div>
+     ))}
+   </section>
+   }
+       
 
-    </div>
-  ))}
-</section>
-
-
-      <section className='overflow-hidden'>
-        {/* Two-column showcase (mobile + laptop) */}
-        <div className="flex  flex-col gap-8 md:flex-row mt-8">
-          <div className=" relative justify-center w-full h-[300px] md:w-[40%] md:h-[633px] lg:justify-start">
-                 {/* Badge: App Design */}
-        <span
-          className="absolute left-4 top-[21px] lg:left-4 lg:top-4 inline-flex items-center px-3 py-1 rounded-full bg-white text-xs sm:text-sm font-medium text-[#0F1C3D] shadow-md "
-          aria-hidden="true"
-        >
-          App Design
-        </span>
-            <Link href="/casestudiesDetail"> 
-              <Image
-                src="/images/img11_1.png"
-                alt="App Design Mobile"
-                fill
-                className="rounded-xl shadow-xl object-obtain object-right"
-              />
-            </Link>
-          </div>
-          <div className="flex md:flex-1 relative justify-center w-full h-[300px] md:h-[633px]">
-            <Link href="/casestudiesDetail">
-              <Image
-                src="/images/img11_2.png"
-                alt="App Design Laptop"
-                fill
-                className="rounded-xl shadow-xl object-cover object-left"
-              />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="w-full flex flex-col md:flex-row gap-8 items-center justify-center py-12">
-        {/* Left Image */}
-        <div className="md:flex-1 flex flex-col w-full h-[250px] md:h-[589px] items-center relative">
-          <Link href="/casestudiesDetail">
-            <Image
-              src="/images/img12_1.png"
-              alt="App Design Laptop"
-              fill
-              className="rounded-2xl shadow-lg object-cover object-top"
-              priority
-            />
-          </Link>
-        </div>
-        {/* Right Image */}
-        <div className="md:flex-1 flex flex-col w-full h-[250px] md:h-[589px] items-center relative">
-          <Link href="/casestudiesDetail">
-            <Image
-              src="/images/img12_2.png"
-              alt="App Design Watches"
-              fill
-              className="rounded-2xl shadow-lg object-cover object-top"
-              priority
-            />
-          </Link>
-        </div>
-      </section>
+     
       <CTA />
     </div>
             </div>

@@ -246,7 +246,7 @@ export default function HomePage() {
   {Array.isArray(caseStudy) && caseStudy.map((caseItem: any) => (
     <div
       key={caseItem._id}
-      className="relative w-full h-[250px]  sm:h-[400px]  md:h-[550px] lg:h-[750px] rounded-2xl overflow-hidden"
+      className="relative w-full h-[250px]  sm:h-[400px]  md:h-[550px] lg:h-[750px] rounded-2xl overflow-hidden group"
      style={{
           background: 'linear-gradient(169.02deg, #132225 0%, #0B1016 108.44%)',
         }}
@@ -257,10 +257,19 @@ export default function HomePage() {
           alt={caseItem.caseTitle || caseItem.title || 'Case Study Banner'}
           fill
           priority={false}
-          className="object-contain px-2"
+          className="object-contain px-2 group-hover:blur-sm transition duration-300"
         />
       </Link>
-
+      <div
+        className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300"
+      >
+        <Link
+          href={`/caseStudiesDetails/${caseItem._id}`}
+          className="bg-white text-black px-4 py-2 rounded-xl shadow-md hover:bg-gray-200"
+        >
+          Read More
+        </Link>
+      </div>
     </div>
   ))}
 </section>
