@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { usePathname } from 'next/navigation';
 
 import Image from 'next/image'
 
@@ -8,21 +9,19 @@ import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/24/solid'
 
 
-// Sidebar menu items (copied for mobile dropdown)
 
- const logout = async () => {
+const logout = async () => {
   try {
     // Call the backend API to clear the session
     const response = await fetch('/api/admin/logout', {
       method: 'POST',
-      credentials: 'include', // Ensure cookies are included in the request
+      credentials: 'include',
     });
 
     if (!response.ok) {
       throw new Error('Failed to log out');
     }
 
-    // Redirect to the login page after successful logout
     window.location.href = '/';
   } catch (error) {
     console.error('Logout failed:', error);
@@ -97,6 +96,7 @@ const sidebarMenuItems = [
 ]
 
 export default function Header() {
+  const pathname = usePathname();
   const [searchQuery, setSearchQuery] = useState('')
   const [searchResults, setSearchResults] = useState([])
   const [showResults, setShowResults] = useState(false)
@@ -108,7 +108,6 @@ export default function Header() {
       setShowResults(false)
       return
     }
-    // Example: fetch from a unified search API endpoint
     const res = await fetch(`/api/search?q=${encodeURIComponent(query)}&pathname=${window.location.pathname}`)
     if (res.ok) {
       const data = await res.json()
@@ -139,68 +138,65 @@ export default function Header() {
     <header className=" px-4 sm:px-6 py-4">
       <div className="flex items-center justify-between w-full">
         {/* Center - Search Bar */}
-        <div className="flex-1 max-w-md mx-4">
-          <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <svg
-                className="h-5 w-5 text-gray-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-            </div>
-            <input
-              type="text"
-              placeholder="Search..."
-              value={searchQuery}
-              onChange={onInputChange}
-              className="block w-full  bg-[#ECEFF3] pl-10 pr-3 outline-none py-2 rounded-lg text-sm"
-              onFocus={() => searchQuery && setShowResults(true)}
-              onBlur={() => setTimeout(() => setShowResults(false), 200)}
-            />
-            {/* Search Results Dropdown */}
-            {showResults && searchResults.length > 0 && (
-              <div className="absolute left-0 right-0 mt-2 bg-[white]  rounded-[18px] shadow-lg z-10 max-h-64 overflow-y-auto">
-                {searchResults.map((item: any) => (
-                  <div
-                    key={item.id || item.href}
-                    className="px-4 py-2 cursor-pointer "
-                    onMouseDown={() => handleResultClick(item)}
-                  >
-                    <span className="font-medium">{item.title}</span>
-                    <span className="ml-2 text-xs text-gray-500">{item.type}</span>
-                  </div>
-                ))}
+        {pathname !== '/admin/dashboard' && (
+          <div className="flex-1 max-w-md mx-4">
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg
+                  className="h-5 w-5 text-gray-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
               </div>
-            )}
+              <div className="relative w-full">
+  {/* White container wrapping input + results */}
+  <div className="bg-white rounded-[18px] shadow-md w-full">
+    <div className="relative">
+      <input
+        type="text"
+        placeholder="Search..."
+        value={searchQuery}
+        onChange={onInputChange}
+        className="block w-full pl-10 pr-3 outline-none py-2 rounded-[18px] text-sm"
+        onFocus={() => searchQuery && setShowResults(true)}
+        onBlur={() => setTimeout(() => setShowResults(false), 200)}
+      />
+    </div>
+
+    {/* Search Results (inside the same white box) */}
+    {showResults && searchResults.length > 0 && (
+      <div className="mt-2 rounded-b-[18px] max-h-64 overflow-y-auto">
+        {searchResults.map((item: any) => (
+          <div
+            key={item.id || item.href}
+            className="px-4 py-2 cursor-pointer hover:bg-gray-100"
+            onMouseDown={() => handleResultClick(item)}
+          >
+            <span className="font-medium">{item.title}</span>
+            <span className="ml-2 text-xs text-gray-500">{item.type}</span>
           </div>
-        </div>
+        ))}
+      </div>
+    )}
+  </div>
+</div>
+
+            </div>
+          </div>
+        )}
 
         {/* Right side - Notifications and User Profile */}
-        <div className="flex items-center space-x-4">
-          {/* Notifications */}
-          {/* 
-          <button className="relative p-2 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-lg">
-            <span className="sr-only">View notifications</span>
-            <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-              />
-            </svg>
-            <span className="absolute top-1 right-1 block h-2 w-2 rounded-full bg-red-400"></span>
-          </button>
-          */}
-
+        <div
+          className={`flex items-center space-x-4 ${pathname === '/admin/dashboard' ? 'ml-auto' : ''}`}
+        >
           {/* User Profile Dropdown */}
           <div className="relative">
             <Menu>
@@ -256,14 +252,6 @@ export default function Header() {
                     </a>
                   </MenuItem>
                   <div className="my-1 h-px bg-[#F4F0ED]" />
-                  {/* <MenuItem>
-                    <a
-                      href="/license"
-                      className="group flex w-full items-center gap-2 rounded-md px-3 py-2 text-[#0F1C3D] hover:bg-[#F4F0ED] focus:bg-[#F4F0ED] data-[focus]:bg-[#F4F0ED]"
-                    >
-                      License
-                    </a>
-                  </MenuItem> */}
                 </div>
               </MenuItems>
             </Menu>

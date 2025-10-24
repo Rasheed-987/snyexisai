@@ -12,23 +12,13 @@ export default function AdminLogin() {
     e.preventDefault();
 
     try {
-      const response = await fetch('/api/admin/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Login failed');
+      // Simulate login logic (replace with actual external auth API if needed)
+      if (username === 'admin' && password === 'password') {
+        document.cookie = `authToken=mock-token; path=/; secure; SameSite=Strict`;
+        window.location.href = '/admin/dashboard';
+      } else {
+        throw new Error('Invalid username or password');
       }
-
-      const data = await response.json();
-      // Assuming the backend sends a token or session info
-      document.cookie = `authToken=${data.token}; path=/; secure; HttpOnly`;
-      window.location.href = '/admin/dashboard';
     } catch (err: any) {
       setError(err.message || 'Something went wrong');
     }

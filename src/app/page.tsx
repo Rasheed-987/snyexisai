@@ -246,7 +246,7 @@ export default function HomePage() {
   {Array.isArray(caseStudy) && caseStudy.map((caseItem: any) => (
     <div
       key={caseItem._id}
-      className="relative w-full h-[250px] sm:h-[400px] md:h-[550px] lg:h-[650px] rounded-2xl overflow-hidden"
+      className="relative w-full h-[250px]  sm:h-[400px]  md:h-[550px] lg:h-[750px] rounded-2xl overflow-hidden"
      style={{
           background: 'linear-gradient(169.02deg, #132225 0%, #0B1016 108.44%)',
         }}
@@ -257,7 +257,7 @@ export default function HomePage() {
           alt={caseItem.caseTitle || caseItem.title || 'Case Study Banner'}
           fill
           priority={false}
-          className="object-obtain"
+          className="object-contain px-2"
         />
       </Link>
 
