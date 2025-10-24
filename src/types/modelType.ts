@@ -78,6 +78,7 @@ export interface IServices extends Document {
     banner?: string,
     gallery?: string[]
   },
+  requirements: string[],
   status: 'draft' | 'published' | 'archived'
   createdAt: Date
   updatedAt: Date

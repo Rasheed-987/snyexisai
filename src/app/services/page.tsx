@@ -42,7 +42,8 @@ const Service = () => {
             <ServicesCard
               key={service._id}
               title={service.serviceTitle}
-              image={service.images?.banner} // Adjusted based on schema
+              image={service.images?.banner}
+              requirements={service.requirements}
             />
           ))}
         </div>

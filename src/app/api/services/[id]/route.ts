@@ -70,6 +70,7 @@ export async function PUT(
     }
     // 🔸 Your structured update fields
     await appendIfExists('title')
+    await appendIfExists('requirements', (v) => JSON.parse(v))
 
    // 🔹 Handle status
     const status = formData.get('status')
@@ -131,6 +132,8 @@ export async function PUT(
           gallery: existingService.images.gallery || [],
         },
         status: newStatus,
+        requirements: mergedData.requirements,
+
       },
       { new: true } // Return updated document
     );

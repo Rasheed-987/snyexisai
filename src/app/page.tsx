@@ -71,14 +71,14 @@ export default function HomePage() {
         <p className="text-sm uppercase tracking-wide 2xl:text-lg font-semibold text-[#0F1C3D] mb-4">
           Design & Webflow Agency / UAE
         </p>
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl 2xl:text-7xl font-medium text-[#0F1C3D] mb-4">
-          Award-Winning   Agency
+        <h1 className="text-4xl max-w-[900px] mx-auto sm:text-5xl lg:text-6xl xl:text-7xl 2xl:text-7xl font-medium text-[#0F1C3D] mb-4">
+          Where Intelligence Meets Imagination
         </h1>
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-medium text-[#327AED] mb-6">
-          For Digital-First Brands.
+        <h2 className="text-3xl max-w-[900px] sm:text-4xl lg:text-5xl xl:text-6xl font-medium text-[#327AED] mb-6">
+          Crafting Tomorrow’s Digital Experiences, Today.
         </h2>
         <p className="text-lg xl:text-xl font-regular text-[#0F1C3D] mb-8">
-          We unite Brand, Website and Digital Product under one vision
+          Synexis AI is a future-ready creative & technology agency
         </p>
         <div className="flex flex-wrap justify-center gap-4 mb-12">
           <button
@@ -176,7 +176,8 @@ export default function HomePage() {
             <ServicesCard
               key={service._id}
               title={service.serviceTitle}
-              image={service.images?.banner} // Adjusted based on schema
+              image={service.images?.banner}
+              requirements={service.requirements} // Adjusted based on schema
             />
           ))}
         </div>
@@ -246,11 +247,15 @@ export default function HomePage() {
   {Array.isArray(caseStudy) && caseStudy.map((caseItem: any) => (
     <div
       key={caseItem._id}
-      className="relative w-full h-[250px]  sm:h-[400px]  md:h-[550px] lg:h-[750px] rounded-2xl overflow-hidden group"
+      className="relative w-full py-10 h-[250px]  sm:h-[400px]  md:h-[550px] lg:h-[750px] rounded-2xl overflow-hidden group"
      style={{
           background: 'linear-gradient(169.02deg, #132225 0%, #0B1016 108.44%)',
         }}
+
     >
+       <span className="absolute top-4 left-4 bg-white  text-black px-2 py-1 rounded-xl text-sm font-semibold">
+        {caseItem.caseTitle}
+      </span>
       <Link href={`/caseStudiesDetails/${caseItem._id}`} className="block w-full h-full">
         <Image
           src={caseItem.images?.banner}
@@ -265,11 +270,12 @@ export default function HomePage() {
       >
         <Link
           href={`/caseStudiesDetails/${caseItem._id}`}
-          className="bg-white text-black px-4 py-2 rounded-xl shadow-md hover:bg-gray-200"
+          className="bg-white text-black px-4 py-2 rounded-xl shadow-md hover:bg-gray-200 active:scale-95 transform transition duration-200"
         >
           Read More
         </Link>
       </div>
+     
     </div>
   ))}
 </section>
@@ -277,51 +283,6 @@ export default function HomePage() {
     
     </section>
 
-   <section className="mt-8">
-  <div className="flex flex-col gap-4 lg:flex-row items-stretch">
-    {/* Left: Mobile Image (40% on lg) */}
-    <div className="w-full  lg:w-[40%]">
-      <div className="w-full relative h-[350px]  md:h-[600px] lg:h-[700px] xl:h-[800px]">
-            {/* Badge: App Design */}
-         <span
-          className="absolute top-[7px] left-2 lg:left-4 lg:top-[8px] inline-flex items-center px-3 py-1 rounded-full bg-white text-xs sm:text-sm font-medium text-[#0F1C3D] shadow-md "
-          aria-hidden="true"
-        >
-          App Design
-        </span> 
-        <Image
-          src="/images/img11_1.png"
-          alt="App Design Mobile"
-          width={439}
-          height={633}
-          sizes="(min-width:1024px) 40vw, 100vw"
-          className="rounded-xl shadow-xl w-full h-full object-obtain"
-        />
-      </div>
-    </div>
-
-    {/* Right: Laptop Image (60% on lg) */}
-    <div className="w-full lg:w-[60%]">
-      <div className="w-full relative h-[300px] sm:h-[400px] md:h-[600px] lg:h-[700px] xl:h-[800px]">
-            {/* Badge: App Design */}
-        <span
-          className="absolute lg:right-4 right-2  top-4 inline-flex items-center px-3 py-1 rounded-full bg-white text-xs sm:text-sm font-medium text-[#0F1C3D] shadow-md mb-2 sm:mb-0"
-          aria-hidden="true"
-        >
-          App Design
-        </span>
-        <Image
-          src="/images/home/logistic.png"
-          alt="App Design Laptop"
-          width={907}
-          height={780}
-          sizes="(min-width:1024px) 60vw, 100vw"
-          className="rounded-xl shadow-xl w-full h-full object-obtain"
-        />
-      </div>
-    </div>
-  </div>
-</section>
 
     </section>
 

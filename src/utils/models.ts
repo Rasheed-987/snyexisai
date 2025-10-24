@@ -72,6 +72,7 @@ const ServiceSchema = new Schema<IServices>({
     banner: { type: String },
     gallery: [{ type: String }]
   },
+  requirements: [{ type: String }],
   status: { type: String, enum: ['draft', 'published', 'archived'], default: 'draft' },
 },
 {

@@ -13,7 +13,7 @@ export async function POST(req: Request) {
     const status = (formData.get('status') as string) || 'published';
     const serviceTitle = formData.get('title') as string;
     const imageFile = formData.get('image') as File;
-
+    const requirements = JSON.parse(String(formData.get('requirements') || '[]'));
     // Validation
     if (status === 'published') {
       if (!serviceTitle || !imageFile) {
@@ -47,7 +47,8 @@ export async function POST(req: Request) {
         banner: uploadedImage,
         gallery: []
       },
-      status: status as 'published' | 'draft'
+      status: status as 'published' | 'draft',
+      requirements
     };
 
     const service = new Services(serviceDoc);

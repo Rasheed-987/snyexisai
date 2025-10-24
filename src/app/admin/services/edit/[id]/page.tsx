@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import RequirementsInput from '@/components/admin/RequirementsInput'
 import { useState, useEffect } from 'react'
 import { UploadBox } from '@/components/upload/UploadBox'
 import { useRouter, useParams } from 'next/navigation'
@@ -20,6 +21,9 @@ const ServiceEditPage = () => {
   const serviceId = params.id as string
   
   const [serviceTitle, setServiceTitle] = useState('')
+  const [requirements, setRequirements] = useState<string[]>([]);
+  const [editingReqIndex, setEditingReqIndex] = useState<number | null>(null);
+  const [editingReqText, setEditingReqText] = useState<string>('');
   
   // Add loading and error states
   const [isLoading, setIsLoading] = useState(true)
@@ -62,6 +66,7 @@ const ServiceEditPage = () => {
           
           // Populate form fields
           setServiceTitle(service.serviceTitle || '')
+          setRequirements(service.requirements || []);
           
           // Set existing image if available
           if (service.images?.banner) {
@@ -101,6 +106,7 @@ const ServiceEditPage = () => {
       const formData = new FormData()
       formData.append('title', serviceTitle)
       formData.append('status', 'draft')
+      formData.append('requirements', JSON.stringify(requirements))
       if (imageSlots[0].file) {
         formData.append('image', imageSlots[0].file)
       }
@@ -132,10 +138,11 @@ const ServiceEditPage = () => {
       setIsUpdating(true)
       setUpdateError(null)
       setUpdateSuccess(false)
-      const formData = new FormData()
-      formData.append('title', serviceTitle)
-      formData.append('image', imageSlots[0].file)
-      formData.append('status', 'published')
+  const formData = new FormData()
+  formData.append('title', serviceTitle)
+  formData.append('image', imageSlots[0].file)
+  formData.append('status', 'published')
+  formData.append('requirements', JSON.stringify(requirements))
       const response = await fetch(`/api/services/${serviceId}`, {
         method: 'PUT',
         body: formData
@@ -224,6 +231,62 @@ const ServiceEditPage = () => {
           className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
           disabled={isUpdating}
         />
+      </div>
+
+      {/* Requirements */}
+      <div className="space-y-2 mb-6">
+        <label className="block text-sm font-medium text-gray-700">Bullets Points</label>
+        <div className="space-y-2">
+          <RequirementsInput onAdd={(text: string) => setRequirements(prev => [...prev, text.trim()])} />
+          <ul className="list-disc pl-5 space-y-1">
+            {requirements.map((r, idx) => (
+              <li key={idx} className="flex items-center justify-between">
+                {editingReqIndex === idx ? (
+                  <div className="flex-1 flex items-center gap-2">
+                    <input
+                      value={editingReqText}
+                      onChange={(e) => setEditingReqText(e.target.value)}
+                      placeholder="Edit requirement"
+                      className="flex-1 border p-2 rounded"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const newText = editingReqText.trim();
+                        if (newText.length) {
+                          setRequirements(prev => prev.map((it, i) => i === idx ? newText : it));
+                        }
+                        setEditingReqIndex(null);
+                        setEditingReqText('');
+                      }}
+                      className="text-sm text-blue-600 hover:underline"
+                    >
+                      Save
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEditingReqIndex(null);
+                        setEditingReqText('');
+                      }}
+                      className="text-sm text-gray-600 hover:underline"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                ) : (
+                  <>
+                    <span className="flex-1">{r}</span>
+                    <div className="flex gap-3 items-center">
+                      <button type="button" onClick={() => setRequirements(prev => prev.filter((_, i) => i !== idx))} className="text-sm text-red-600 hover:underline">Remove</button>
+                      <button type="button" onClick={() => { setEditingReqIndex(idx); setEditingReqText(r); }} className="text-sm text-blue-600 hover:underline">Edit</button>
+                    </div>
+                  </>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
   {updateError && (
