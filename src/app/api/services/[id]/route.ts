@@ -57,22 +57,11 @@ export async function PUT(
 
  const updateData: any = {}
 
- // 🔹 Helper function — only add field if exists
-    const appendIfExists = async (key: string, parser?: (v: string) => any) => {
-      const value = formData.get(key)
-      if (value !== null && value !== undefined && value !== '') {
-        if (value instanceof Blob) {
-          updateData[key] = await value.text()
-        } else {
-          updateData[key] = parser ? parser(String(value)) : String(value)
-        }
-      }
-    }
-    // 🔸 Your structured update fields
-    await appendIfExists('title')
-    await appendIfExists('requirements', (v) => JSON.parse(v))
 
-   // 🔹 Handle status
+    const serviceTitle = formData.get('title')
+    if (serviceTitle) updateData.serviceTitle = String(serviceTitle)
+    const requirements = formData.get('requirements')
+    if (requirements) updateData.requirements = JSON.parse(String(requirements))
     const status = formData.get('status')
     if (status) updateData.status = String(status)
 

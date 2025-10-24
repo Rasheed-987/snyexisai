@@ -104,9 +104,6 @@ export default function ServicesUploadPage() {
       if (response.ok) {
         setUploadSuccess('Service published successfully!');
         
-        for (let pair of form.entries()) {
-  console.log(pair[0], pair[1]);
-}
         setTimeout(() => {
           setUploadSuccess(null);
           router.push('/admin/services');
