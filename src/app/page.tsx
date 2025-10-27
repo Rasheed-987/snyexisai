@@ -141,7 +141,7 @@ export default function HomePage() {
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             <button
               onClick={() => router.push('/contact')}
-              className="bg-[#327AED] text-white pr-3 pl-6 md:px-10 py-5 rounded-full flex items-center gap-3  text-base font-normal shadow-md transition-all duration-150"
+              className="bg-[#327AED] text-white pr-3 pl-6 md:px-10  py-5 rounded-full flex items-center gap-3  text-base font-normal shadow-md transition-all duration-150"
             >
               Work With Us
               <img src="/images/home/button_arrow.png" alt="Arrow Right" className="w-4 h-4 invert" />
@@ -166,25 +166,24 @@ export default function HomePage() {
             </h3>
           </div>
           <div className="w-full flex flex-col lg:mt-8 items-center justify-center">
-<motion.div
-          initial={{ y: 100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 1, ease: 'easeOut' }}
-          >
-<div className="max-w-xl xl:max-w-3xl mx-auto text-center">
-              
-              <h4 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-medium text-gray-900 mb-2">
-                Meticulous Iteration
-              </h4>
-              <h5 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl text-gray-600 mb-4">
-                Uncompromising Quality
-              </h5>
-            
-              <p className="text-md sm:text-lg lg:text-xl xl:text-2xl text-gray-500">
-                Our streamlined process allows for continuous refinement, ensuring every detail aligns with your vision. Don't worry, we craft excellence.
-              </p>
-            </div>
-</motion.div>
+            <motion.div
+              initial={{ y: 100, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 1, ease: 'easeOut' }}
+            >
+              <div className="max-w-xl xl:max-w-3xl mx-auto text-center">
+                <h4 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-medium text-gray-900 mb-2">
+                  Meticulous Iteration
+                </h4>
+                <h5 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl text-gray-600 mb-4">
+                  Uncompromising Quality
+                </h5>
+                <p className="text-md sm:text-lg lg:text-xl xl:text-2xl text-gray-500">
+                  Our streamlined process allows for continuous refinement, ensuring every detail aligns with your vision. Don't worry, we craft excellence.
+                </p>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
