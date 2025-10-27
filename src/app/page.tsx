@@ -539,7 +539,7 @@ export default function HomePage() {
       {testimonials.map((testimonial) => (
           <div key={testimonial.name} className="flex flex-col md:flex-row bg-white rounded-3xl interactive-card overflow-hidden flex-shrink-0 w-full">
           {/* Left: Image */}
-          <div className="w-full md:w-1/2 h-[300px] md:h-[500px] relative bg-[#181C23]">
+          <div className="w-full md:w-1/2 h-[300px] md:h-[400px] relative bg-[#181C23]">
             <Image src={testimonial.image} alt="Project Screenshot" fill className="rounded-xl object-obtain" />
           </div>
           {/* Right: Content */}

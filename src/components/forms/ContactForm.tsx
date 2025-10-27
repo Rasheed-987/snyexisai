@@ -3,6 +3,7 @@
 import React, { useState, useRef } from 'react'
 import Button from '@/components/ui/Button'
 import ReCAPTCHA from 'react-google-recaptcha'
+import Alert from '@/components/ui/Alert'
 
 interface FormData {
   name: string
@@ -28,6 +29,8 @@ export default function ContactForm() {
 
   const [errors, setErrors] = useState<Partial<FormData>>({})
   const [submitting, setSubmitting] = useState(false)
+  const [uploadError, setUploadError] = useState<string | null>(null)
+  const [uploadSuccess, setUploadSuccess] = useState<boolean>(false)
 
   const recaptchaRef = useRef<ReCAPTCHA>(null)
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null)
@@ -88,7 +91,7 @@ export default function ContactForm() {
       const captchaData = await captchaRes.json()
 
       if (!captchaData.success) {
-        alert('reCAPTCHA verification failed. Please try again.')
+        setUploadError('reCAPTCHA verification failed. Please try again.')
         recaptchaRef.current?.reset()
         setRecaptchaToken(null)
         setSubmitting(false)
@@ -104,6 +107,7 @@ export default function ContactForm() {
 
       if (res.ok) {
         setStatus('success')
+        setUploadSuccess(true)
         setFormData({
           name: '',
           email: '',
@@ -117,10 +121,12 @@ export default function ContactForm() {
         setRecaptchaToken(null)
       } else {
         setStatus('error')
+        setUploadError('Form submission failed. Please try again.')
       }
     } catch (err) {
       console.error('Form submission failed:', err)
       setStatus('error')
+      setUploadError('An unexpected error occurred. Please try again later.')
     } finally {
       setSubmitting(false)
     }
@@ -130,14 +136,26 @@ export default function ContactForm() {
   // UI Classes
   // ----------------------------
   const inputClass =
-    'w-full h-[60px] px-4 py-3 bg-[#F9F9F9] border border-gray-200 rounded-lg text-[#0F1C3D] font-chillax text-sm focus:outline-none focus:ring-2 focus:ring-[#327AED]/30 focus:border-[#327AED] transition-all'
-  const labelClass = 'block text-sm font-normal text-[#0F1C3D] font-chillax mb-2'
+    'w-full h-[60px] px-4 py-3 bg-[#F9F9F9] border border-gray-200 rounded-lg text-[#0F1C3D]  text-sm focus:outline-none focus:ring-2 focus:ring-[#327AED]/30 focus:border-[#327AED] transition-all'
+  const labelClass = 'block text-sm font-normal text-[#0F1C3D]  mb-2'
 
   return (
     <form onSubmit={handleSubmit} className="w-full h-full space-y-6 overflow-visible">
+      {/* Status Messages */}
+      {uploadError && (
+        <div className="mb-4">
+          <Alert type="error" message={uploadError} onClose={() => setUploadError(null)} />
+        </div>
+      )}
+      {uploadSuccess && (
+        <div className="mb-4">
+          <Alert type="success" message="Form submitted successfully!" onClose={() => setUploadSuccess(false)} />
+        </div>
+      )}
+
       {/* Basic Details */}
       <div className="space-y-4">
-        <h2 className="text-2xl font-normal text-[#0F1C3D] font-chillax">
+        <h2 className="text-2xl font-normal text-[#0F1C3D] ">
           Basic Details
         </h2>
 
@@ -215,7 +233,7 @@ export default function ContactForm() {
 
       {/* Project Details */}
       <div className="space-y-4">
-        <h2 className="text-2xl font-normal text-[#0F1C3D] font-chillax">
+        <h2 className="text-2xl font-normal text-[#0F1C3D] ">
           Tell us more about the project
         </h2>
         <textarea
@@ -224,7 +242,7 @@ export default function ContactForm() {
           value={formData.projectDetails}
           onChange={handleChange}
           rows={4}
-          className="w-full px-4 py-3 border border-gray-200 rounded-lg text-[#0F1C3D] bg-[#F9F9F9] font-chillax text-sm focus:outline-none focus:ring-2 focus:ring-[#327AED]/30 focus:border-[#327AED] transition-all resize-none"
+          className="w-full px-4 py-3 border border-gray-200 rounded-lg text-[#0F1C3D] bg-[#F9F9F9]  text-sm focus:outline-none focus:ring-2 focus:ring-[#327AED]/30 focus:border-[#327AED] transition-all resize-none"
           placeholder="Describe your project, timeline, and services needed..."
         />
       </div>
@@ -243,11 +261,11 @@ export default function ContactForm() {
           <div className="flex flex-col sm:flex-row sm:items-start sm:gap-4">
             <label
               htmlFor="receiveUpdates"
-              className="text-sm text-[#0F1C3D] font-chillax leading-relaxed"
+              className="text-sm text-[#0F1C3D]  leading-relaxed"
             >
               Yes, I want to receive updates from Synexis from time to time.
             </label>
-            <p className="text-xs text-[#0F1C3D]/70 font-chillax leading-relaxed max-w-xs">
+            <p className="text-xs text-[#0F1C3D]/70  leading-relaxed max-w-xs">
               We promise to only send emails related to our work. You can unsubscribe anytime.
             </p>
           </div>
@@ -273,24 +291,12 @@ export default function ContactForm() {
         <Button
           type="submit"
           disabled={submitting}
-          className={`w-full h-[62px] rounded-full font-chillax text-sm text-white transition-all ${
+          className={`w-full h-[62px] rounded-full  text-sm text-white transition-all ${
             submitting ? 'bg-[#327AED]/70 cursor-not-allowed' : 'bg-[#327AED] hover:bg-[#285FCC]'
           }`}
         >
           {submitting ? 'Sending...' : 'Send Request'}
         </Button>
-
-        {/* Status Messages */}
-        {status === 'success' && (
-          <p className="text-green-600 text-sm text-center mt-3">
-            ✅ Message sent successfully!
-          </p>
-        )}
-        {status === 'error' && (
-          <p className="text-red-500 text-sm text-center mt-3">
-            ❌ Something went wrong. Please try again.
-          </p>
-        )}
       </div>
     </form>
   )
