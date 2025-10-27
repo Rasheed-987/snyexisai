@@ -101,3 +101,10 @@ export interface ICareer extends Document {
   createdAt: Date
   updatedAt: Date
 }
+
+export interface IAdmin extends Document {
+  username: string
+  password: string
+  createdAt: Date
+  updatedAt: Date
+}

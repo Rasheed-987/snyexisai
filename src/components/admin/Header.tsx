@@ -245,10 +245,10 @@ export default function Header() {
                   </MenuItem>
                   <MenuItem>
                     <a
-                      href="/Setting"
+                      href="/admin/settings"
                       className="group flex w-full items-center gap-2 rounded-md px-3 py-2 text-[#0F1C3D] hover:bg-[#ECEFF3] transition-colors duration-150"
                     >
-                      Setting
+                      Settings
                     </a>
                   </MenuItem>
                   <div className="my-1 h-px bg-[#F4F0ED]" />

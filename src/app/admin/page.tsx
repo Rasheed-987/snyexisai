@@ -1,15 +1,16 @@
 'use client'
 
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+
 export default function AdminHomePage() {
- 
-  if (typeof window !== 'undefined') {
-    const cookies = document.cookie.split(';').map(c => c.trim());
-    const authToken = cookies.find(c => c.startsWith('authToken='));
-    if (authToken && authToken.split('=')[1] === 'mock-token') {
-      window.location.href = '/admin/dashboard';
-      return null;
-    }
-  }
-  // Render nothing, let middleware handle unauthenticated redirect
+  const router = useRouter();
+
+  useEffect(() => {
+    // Redirect to dashboard if authenticated
+    // Middleware will handle redirecting to login if not authenticated
+    router.push('/admin/dashboard');
+  }, [router]);
+
   return null;
 }

@@ -7,21 +7,38 @@ export default function AdminLogin() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError('');
+    setLoading(true);
 
     try {
-      // Simulate login logic (replace with actual external auth API if needed)
-      if (username === 'admin' && password === 'password') {
-        // Set cookie without HttpOnly (cannot be set from JS)
-        document.cookie = 'authToken=mock-token; path=/; SameSite=Strict; Secure';
-        window.location.href = '/admin/dashboard';
+      const response = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include', // Include cookies in the request
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+      console.log('Login response:', data);
+      console.log('Response headers:', response.headers);
+
+      if (response.ok) {
+        console.log('Login successful, redirecting...');
+        // Force a reload to ensure middleware picks up the cookie
+        window.location.replace('/admin/dashboard');
       } else {
-        throw new Error('Invalid username or password');
+        setError(data.message || 'Invalid username or password');
       }
     } catch (err: any) {
       setError(err.message || 'Something went wrong');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -79,9 +96,10 @@ export default function AdminLogin() {
           {/* Submit */}
           <Button
             type="submit"
-            className="w-full h-[62px] bg-[#327AED] text-white rounded-full font-chillax text-sm hover:opacity-90 transition-all"
+            disabled={loading}
+            className="w-full h-[62px] bg-[#327AED] text-white rounded-full font-chillax text-sm hover:opacity-90 transition-all disabled:opacity-50"
           >
-            Login
+            {loading ? 'Logging in...' : 'Login'}
           </Button>
         </form>
       </div>

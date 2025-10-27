@@ -3,8 +3,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { motion } from "motion/react"
-import { useState,useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { useState,useEffect,useRef } from 'react';
 import { useServices } from '@/context/ServicesContext';
 import { useCaseStudies } from '@/context/CaseStudyContext';
 import ServicesCard from '@/components/services/servicesCard';
@@ -18,6 +18,58 @@ export default function HomePage() {
   const { servicesData:service, loading, error } = useServices();
   const { caseStudiesData:caseStudy, loading: caseStudiesLoading, error: caseStudiesError } = useCaseStudies();
   const router = useRouter();
+  
+  // Testimonial carousel state
+  const testimonialScrollRef = useRef<HTMLDivElement>(null);
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+
+  // Testimonial data
+  const testimonials = [
+    {
+      image: "/images/home/img8.png",
+      profileImage: "/images/home/profile.png",
+      name: "Robin Fish",
+      role: "Founder & CEO, Arrive",
+      quote: "They brought our app redesign to life beyond expectations! We're thrilled with the results and truly loved collaborating with their incredibly talented team.",
+      logo: "/images/home/arrive.png",
+      location: "New York, USA"
+    },
+    {
+      image: "/images/client/img1_1.png",
+      profileImage: "/images/home/profile.png",
+      name: "Sarah Chen",
+      role: "Product Director, TechFlow",
+      quote: "Working with Synexis was a game-changer. Their attention to detail and innovative approach helped us deliver a product that exceeded all our expectations.",
+      logo: null,
+      location: "San Francisco, USA"
+    },
+    {
+      image: "/images/client/img1_2.png",
+      profileImage: "/images/home/profile.png",
+      name: "James Anderson",
+      role: "CEO, Digital Solutions",
+      quote: "The team's expertise in UI/UX design transformed our platform. Every interaction feels intuitive and seamless. Highly recommend their services!",
+      logo: null,
+      location: "London, UK"
+    },
+    {
+      image: "/images/client/img1_3.png",
+      profileImage: "/images/home/profile.png",
+      name: "Maria Rodriguez",
+      role: "Founder, Innovation Lab",
+      quote: "From concept to launch, Synexis guided us every step of the way. Their creative vision and technical excellence are unmatched. Truly exceptional work!",
+      logo: null,
+      location: "Barcelona, Spain"
+    }
+  ];
+
+  const scrollTestimonial = (direction: 'left' | 'right') => {
+    if (direction === 'left') {
+      setCurrentTestimonial((prev) => (prev > 0 ? prev - 1 : testimonials.length - 1));
+    } else {
+      setCurrentTestimonial((prev) => (prev < testimonials.length - 1 ? prev + 1 : 0));
+    }
+  };
 
 
 
@@ -68,35 +120,40 @@ export default function HomePage() {
       <div className=" bg-white   rounded-b-[80px] mb-30   relative z-50">
       {/* Hero Section */}
       <section className="bg-[#F9F9F9] min-h-screen flex flex-col justify-center items-center text-center px-10">
-        <p className="text-sm uppercase tracking-wide 2xl:text-lg font-semibold text-[#0F1C3D] mb-4">
-          Design & Webflow Agency / UAE
-        </p>
-        <h1 className="text-4xl max-w-[900px] mx-auto sm:text-5xl lg:text-6xl xl:text-7xl 2xl:text-7xl font-medium text-[#0F1C3D] mb-4">
-          Where Intelligence Meets Imagination
-        </h1>
-        <h2 className="text-3xl max-w-[900px] sm:text-4xl lg:text-5xl xl:text-6xl font-medium text-[#327AED] mb-6">
-          Crafting Tomorrow’s Digital Experiences, Today.
-        </h2>
-        <p className="text-lg xl:text-xl font-regular text-[#0F1C3D] mb-8">
-          Synexis AI is a future-ready creative & technology agency
-        </p>
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
-          <button
-            onClick={() => router.push('/contact')}
-            className="bg-[#327AED] text-white px-3 md:px-10 py-5 rounded-full flex items-center gap-3 font-chillax text-base font-normal shadow-md transition-all duration-150"
-          >
-            Work With Us
-            <img src="/images/home/button_arrow.png" alt="Arrow Right" className="w-4 h-4 invert" />
-          </button>
-          <button
-            onClick={() => router.push('/casestudies')}
-            className="border border-[#0F1C3D] text-[#0F1C3D] px-3 md:px-10 py-5 rounded-full flex items-center gap-3 font-chillax text-base font-normal transition-all duration-150"
-          >
-            Explore Our Case Studies
-            <img src="/images/home/button_arrow.png" alt="Arrow Right" className="w-4 h-4" />
-          </button>
-        </div>
-
+        <motion.div
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1, ease: 'easeOut' }}
+        >
+          <p className="text-sm uppercase tracking-wide 2xl:text-lg font-semibold text-[#0F1C3D] mb-4">
+            Design & Webflow Agency / UAE
+          </p>
+          <h1 className="text-4xl max-w-[900px] mx-auto sm:text-5xl lg:text-6xl xl:text-7xl 2xl:text-7xl font-medium text-[#0F1C3D] mb-4">
+            Where Intelligence Meets Imagination
+          </h1>
+          <h2 className="text-3xl max-w-[900px] sm:text-4xl lg:text-5xl xl:text-6xl font-medium text-[#327AED] mb-6">
+            Crafting Tomorrow’s Digital Experiences, Today.
+          </h2>
+          <p className="text-lg xl:text-xl font-regular text-[#0F1C3D] mb-8">
+            Synexis AI is a future-ready creative & technology agency
+          </p>
+          <div className="flex flex-wrap justify-center gap-4 mb-12">
+            <button
+              onClick={() => router.push('/contact')}
+              className="bg-[#327AED] text-white px-3 md:px-10 py-5 rounded-full flex items-center gap-3 font-chillax text-base font-normal shadow-md transition-all duration-150"
+            >
+              Work With Us
+              <img src="/images/home/button_arrow.png" alt="Arrow Right" className="w-4 h-4 invert" />
+            </button>
+            <button
+              onClick={() => router.push('/casestudies')}
+              className="border border-[#0F1C3D] text-[#0F1C3D] px-3 md:px-10 py-5 rounded-full flex items-center gap-3 font-chillax text-base font-normal transition-all duration-150"
+            >
+              Explore Our Case Studies
+              <img src="/images/home/button_arrow.png" alt="Arrow Right" className="w-4 h-4" />
+            </button>
+          </div>
+        </motion.div>
       </section>
 
       {/* Why Synexis AI Section */}
@@ -108,7 +165,13 @@ export default function HomePage() {
             </h3>
           </div>
           <div className="w-full flex flex-col lg:mt-8 items-center justify-center">
-            <div className="max-w-xl xl:max-w-3xl mx-auto text-center">
+<motion.div
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1, ease: 'easeOut' }}
+          >
+<div className="max-w-xl xl:max-w-3xl mx-auto text-center">
+              
               <h4 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-medium text-gray-900 mb-2">
                 Meticulous Iteration
               </h4>
@@ -120,6 +183,7 @@ export default function HomePage() {
                 Our streamlined process allows for continuous refinement, ensuring every detail aligns with your vision. Don't worry, we craft excellence.
               </p>
             </div>
+</motion.div>
           </div>
         </div>
       </section>
@@ -217,6 +281,8 @@ export default function HomePage() {
     </div>
   </div>
 </section>
+
+
       {/* Case Studies Section */}
       <section id="case-studies" className=" mx-auto px-10">
         <section className="   py-12">
@@ -293,37 +359,57 @@ export default function HomePage() {
       <p className="text-[#6B7280] text-base sm:text-lg lg:text-xl xl:text-2xl text-center max-w-2xl xl:max-w-4xl mb-12">We blend strategic insight, advanced technology, and a commitment to excellence to drive transformative results for your business.</p>
       <div className="w-full max-w-6xl xl:max-w-8xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         {/* Card 1 */}
-        <div className="flex flex-col items-center text-center">
+        <motion.div 
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0 }}
+          className="flex flex-col items-center text-center"
+        >
           <span className="mb-10">
               <Image src="/images/home/img1_1.png" alt="POC" width={130} height={130} className="object-contain w-[130px] h-[130px] xl:w-[160px] xl:h-[160px] approach-img-hover" />
           </span>
           <h3 className="text-[#1A2341] text-xl xl:text-2xl font-medium mb-2">POC in 4 – 6 weeks</h3>
           <p className="text-[#6B7280] text-base xl:text-lg">See impact quickly with our rapid prototyping approach.</p>
-        </div>
+        </motion.div>
         {/* Card 2 */}
-        <div className="flex flex-col items-center text-center">
+        <motion.div 
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="flex flex-col items-center text-center"
+        >
           <span className="mb-10">
               <Image src="/images/home/img1_2.png" alt="End-to-End AI Delivery" width={130} height={130} className="object-contain w-[130px] h-[130px] xl:w-[160px] xl:h-[160px] approach-img-hover" />
           </span>
           <h3 className="text-[#1A2341] text-xl xl:text-2xl font-medium mb-2">End-to-End AI Delivery</h3>
           <p className="text-[#6B7280] text-base xl:text-lg">From data prep to deployment to monitoring – we handle it all.</p>
-        </div>
+        </motion.div>
         {/* Card 3 */}
-        <div className="flex flex-col items-center text-center">
+        <motion.div 
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="flex flex-col items-center text-center"
+        >
           <span className="mb-10">
               <Image src="/images/home/img1_3.png" alt="Regulatory Compliance" width={130} height={130} className="object-contain w-[130px] h-[130px] xl:w-[160px] xl:h-[160px] approach-img-hover" />
           </span>
           <h3 className="text-[#1A2341] text-xl xl:text-2xl font-medium mb-2">Regulatory Compliance</h3>
           <p className="text-[#6B7280] text-base xl:text-lg">HIPAA, CDPR, and SOC2 practices implemented from the ground up – so your AI is secure and scalable.</p>
-        </div>
+        </motion.div>
         {/* Card 4 */}
-        <div className="flex flex-col items-center text-center">
+        <motion.div 
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="flex flex-col items-center text-center"
+        >
           <span className="mb-10">
               <Image src="/images/home/img1_4.png" alt="Proven ROI" width={130} height={130} className="object-contain w-[130px] h-[130px] xl:w-[160px] xl:h-[160px] approach-img-hover" />
           </span>
           <h3 className="text-[#1A2341] text-xl xl:text-2xl font-medium mb-2">Proven ROI</h3>
           <p className="text-[#6B7280] text-base xl:text-lg">Documented case studies with measurable, quantifiable results.</p>
-        </div>
+        </motion.div>
       </div>
     </section>
 
@@ -397,71 +483,151 @@ export default function HomePage() {
             <button onClick={() => router.push('/about')}   className="custom-about-btn">More About Us</button>
           </div>
         </div>
-<div className="w-full   grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div className=" flex items-center justify-center">
-            <img src="/images/client/img1_1.png" alt="Office 1" className="w-[370px] h-[274px] 2xl:w-[500px] 2xl:h-[360px] object-cover" />
-          </div>
-          <div className=" flex items-center justify-center">
-            <img src="/images/client/img1_4.png" alt="Office 2" className="w-[370px] h-[499px] 2xl:w-[500px] 2xl:h-[640px] object-cover" />
-          </div>
-          <div className=" flex items-center justify-center">
-            <img src="/images/client/img1_2.png" alt="Office 3" className="w-[370px] h-[273px] 2xl:w-[500px] 2xl:h-[360px] object-cover" />
-          </div>
-          <div className=" flex items-center justify-center">
-            <img src="/images/client/img1_3.png" alt="Office 4" className="w-[370px] h-[499px] 2xl:w-[500px] 2xl:h-[640px] object-cover" />
+<div className="w-full overflow-x-auto py-4 hide-scrollbar" style={{ scrollBehavior: 'smooth', scrollSnapType: 'x mandatory' }}>
+          <div className="flex flex-row gap-8 px-4" style={{ minWidth: 'max-content' }}>
+            <motion.div 
+              className="flex-shrink-0"
+              initial={{ x: -100, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0 }}
+            >
+              <img src="/images/client/img1_1.png" alt="Office 1" className="w-[370px] h-[274px] 2xl:w-[500px] 2xl:h-[360px] object-cover rounded-lg" style={{ scrollSnapAlign: 'start' }} />
+            </motion.div>
+            <motion.div 
+              className="flex-shrink-0"
+              initial={{ x: -100, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+            >
+              <img src="/images/client/img1_4.png" alt="Office 2" className="w-[370px] h-[499px] 2xl:w-[500px] 2xl:h-[640px] object-cover rounded-lg" style={{ scrollSnapAlign: 'start' }} />
+            </motion.div>
+            <motion.div 
+              className="flex-shrink-0"
+              initial={{ x: -100, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <img src="/images/client/img1_2.png" alt="Office 3" className="w-[370px] h-[273px] 2xl:w-[500px] 2xl:h-[360px] object-cover rounded-lg" style={{ scrollSnapAlign: 'start' }} />
+            </motion.div>
+            <motion.div 
+              className="flex-shrink-0"
+              initial={{ x: -100, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
+              <img src="/images/client/img1_3.png" alt="Office 4" className="w-[370px] h-[499px] 2xl:w-[500px] 2xl:h-[640px] object-cover rounded-lg" style={{ scrollSnapAlign: 'start' }} />
+            </motion.div>
           </div>
         </div>
 </section>
 
 <section className="w-full bg-white py-16 space-y-8 px-10 flex flex-col items-center">
-  <div className="w-full flex md:justify-between   items-center">
-    <div className="w-full md:w-[5 0%] flex flex-col justify-center">
-      <h2 className="text-[#1A2341] text-1xl sm:text-lg lg:text-xl xl:text-4xl 2xl:text-5xl   font-medium text-center md:text-left tracking-tight mb-4 md:mb-0 w-full">Words that define our UI/UX<br />design capabilities</h2>
+  <div className="w-full flex md:justify-between items-center">
+    <div className="w-full md:w-[50%] flex flex-col justify-center">
+      <h2 className="text-[#1A2341] text-1xl sm:text-lg lg:text-xl xl:text-4xl 2xl:text-5xl font-medium text-center md:text-left tracking-tight mb-4 md:mb-0 w-full">Words that define our UI/UX<br />design capabilities</h2>
     </div>
     <div className="hidden md:flex flex-row gap-4 items-center mr-20">
-      <span className="bg-white shadow flex items-center justify-center" style={{ borderRadius: '21px', width: '43px', height: '43px' }}>
+      <button 
+        onClick={() => scrollTestimonial('left')}
+        aria-label="Previous testimonial"
+        className="bg-white shadow flex items-center justify-center cursor-pointer hover:scale-110 transition-transform" 
+        style={{ borderRadius: '21px', width: '43px', height: '43px' }}
+      >
         <img src="/images/home/arrow-left-solid-full.svg" alt="Left Arrow" style={{ width: '35px', height: '21px' }} />
-      </span>
-      <span className="bg-white shadow flex items-center justify-center" style={{ borderRadius: '21px', width: '43px', height: '43px' }}>
+      </button>
+      <button 
+        onClick={() => scrollTestimonial('right')}
+        aria-label="Next testimonial"
+        className="bg-white shadow flex items-center justify-center cursor-pointer hover:scale-110 transition-transform" 
+        style={{ borderRadius: '21px', width: '43px', height: '43px' }}
+      >
         <img src="/images/home/arrow-right-solid-full.svg" alt="Right Arrow" style={{ width: '21px', height: '21px' }} />
-      </span>
+      </button>
     </div>
   </div>
- {/* Card Div */}
-  <div className=" flex flex-col md:flex-row bg-white rounded-3xl interactive-card  overflow-hidden max-w-5xl 2xl:max-w-7xl mx-auto w-full" >
+
+  {/* Card Div with Carousel */}
+  <div className="overflow-hidden max-w-5xl 2xl:max-w-7xl mx-auto w-full">
+    <div 
+      ref={testimonialScrollRef}
+      className="flex flex-row gap-6 hide-scrollbar transition-transform duration-500 ease-in-out"
+      style={{ transform: `translateX(-${currentTestimonial * 100}%)` }}
+    >
+      {testimonials.map((testimonial, index) => (
+        <motion.div
+          key={index}
+          className="flex flex-col md:flex-row bg-white rounded-3xl interactive-card overflow-hidden flex-shrink-0 w-full"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          {/* Left: Image */}
+          <div className="md:w-1/2 bg-[#181C23]">
+            <img src={testimonial.image} alt="Project Screenshot" className="rounded-xl w-full h-full object-cover object-left" />
+          </div>
+          {/* Right: Content */}
+          <div className="md:w-1/2 flex flex-col justify-center p-8 h-full gap-4">
+            <div className="flex items-center gap-3 mb-2">
+              <img src={testimonial.profileImage} alt={testimonial.name} className="w-12 h-12 rounded-full object-cover" />
+              <div>
+                <div className="text-[#181C23] font-semibold text-base">{testimonial.name}</div>
+                <div className="text-xs text-gray-500">{testimonial.role}</div>
+              </div>
+            </div>
+            <blockquote className="text-[#181C23] text-lg xl:text-2xl font-medium mb-4">"{testimonial.quote}"</blockquote>
+            <div className="flex flex-col gap-1">
+              {testimonial.logo && (
+                <img src={testimonial.logo} alt="Company Logo" className="w-[119.77px] h-[42.58px] object-contain" />
+              )}
+              <span className="text-gray-500 text-xs">{testimonial.location}</span>
+            </div>
+          </div>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+
   {/* Mobile arrow nav below card */}
-  
-    {/* Left: Project Info */}
-    <div className="md:w-1/2  bg-[#181C23] ">
-        <img src="/images/home/img8.png" alt="Project Screenshot" className="rounded-xl w-full h-full object-cover object-left" />
-    </div>
-    {/* Right:  */}
-    <div className="md:w-1/2 flex flex-col justify-center p-8 h-full gap-4">
-      <div className="flex items-center gap-3 mb-2">
-        <img src="/images/home/profile.png" alt="Robin Fish" className="w-12 h-12 rounded-full object-cover" />
-        <div>
-          <div className="text-[#181C23] font-semibold text-base">Robin Fish</div>
-          <div className="text-xs text-gray-500">Founder &amp; CEO, Arrive</div>
-        </div>
-      </div>
-      <blockquote className="text-[#181C23] text-lg xl:text-2xl font-medium mb-4">“They brought our app redesign to life beyond expectations! We’re thrilled with the results and truly loved collaborating with their incredibly talented team.”</blockquote>
-      <div className="flex flex-col gap-1">
-        <img src="/images/home/arrive.png" alt="Location" className="w-[119.77px] h-[42.58px] object-contain" />
-        <span className="text-gray-500 text-xs">New York, USA</span>
-      </div>
-    </div>
-
-  </div>
-  <div className="flex  flex-row gap-4 items-center mt-6 justify-center sm:hidden">
-    <span className="bg-white shadow flex items-center justify-center" style={{ borderRadius: '21px', width: '43px', height: '43px' }}>
+  <div className="flex flex-row gap-4 items-center mt-6 justify-center sm:hidden">
+    <button 
+      onClick={() => scrollTestimonial('left')}
+      aria-label="Previous testimonial"
+      className="bg-white shadow flex items-center justify-center cursor-pointer hover:scale-110 transition-transform" 
+      style={{ borderRadius: '21px', width: '43px', height: '43px' }}
+    >
       <img src="/images/home/arrow-left-solid-full.svg" alt="Left Arrow" style={{ width: '35px', height: '21px' }} />
-    </span>
-    <span className="bg-white shadow flex items-center justify-center" style={{ borderRadius: '21px', width: '43px', height: '43px' }}>
+    </button>
+    <button 
+      onClick={() => scrollTestimonial('right')}
+      aria-label="Next testimonial"
+      className="bg-white shadow flex items-center justify-center cursor-pointer hover:scale-110 transition-transform" 
+      style={{ borderRadius: '21px', width: '43px', height: '43px' }}
+    >
       <img src="/images/home/arrow-right-solid-full.svg" alt="Right Arrow" style={{ width: '21px', height: '21px' }} />
-    </span>
+    </button>
   </div>
 
- 
+  {/* Dots indicator */}
+  <div className="flex gap-2 mt-4">
+    {testimonials.map((_, index) => (
+      <button
+        key={index}
+        onClick={() => setCurrentTestimonial(index)}
+        aria-label={`Go to testimonial ${index + 1}`}
+        className={`h-2 rounded-full transition-all ${
+          currentTestimonial === index ? 'w-8 bg-[#327AED]' : 'w-2 bg-gray-300'
+        }`}
+      />
+    ))}
+  </div>
+
+</section>
+
 {/* Enhanced CTA Section */}
 <section className="w-full  max-w-5xl 2xl:max-w-7xl mx-auto rounded-[40px] group overflow-hidden cursor-pointer relative mt-8 shadow-lg transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl">
   
@@ -493,7 +659,6 @@ export default function HomePage() {
   </div>
 </section>
 
-</section>
     {/* FAQ Section */}
     <section className="w-full py-16 px-7 flex">
       <div className="w-full flex flex-col md:flex-row md:justify-between md:gap-[120px] 2xl:gap-[150px]">
@@ -545,6 +710,6 @@ export default function HomePage() {
         </div>
       </div>
     </section>
-    </div>
+  </div>
   );
 }
