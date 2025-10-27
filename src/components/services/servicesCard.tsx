@@ -4,7 +4,7 @@ import Image from 'next/image';
 interface ServicesCardProps {
   title: string;
   image: string;
-  requirements: string[];
+  requirements?: string[];
 }
 
 

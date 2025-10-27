@@ -23,6 +23,7 @@ export default function HomePage() {
   // Testimonial carousel state
   const testimonialScrollRef = useRef<HTMLDivElement>(null);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+   const carouselRef = useRef(null)
 
   // Testimonial data
   const testimonials = [
@@ -235,16 +236,29 @@ export default function HomePage() {
       </div>
 
       <div className=" mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {service.map((service: any) => (
+       <motion.div
+      ref={carouselRef}
+      className="overflow-hidden cursor-grab"
+      whileTap={{ cursor: "grabbing" }}
+    >
+      <motion.div
+        drag="x"
+        dragConstraints={{ right: 0, left: -1800 }} // adjust width based on items
+        className="flex gap-8"
+      >
+        {service.map((item: any) => (
+          <motion.div
+            key={item._id}
+            className="min-w-[90%] sm:min-w-[45%] lg:min-w-[30%]"
+          >
             <ServicesCard
-              key={service._id}
-              title={service.serviceTitle}
-              image={service.images?.banner}
-              requirements={service.requirements} // Adjusted based on schema
+              title={item.serviceTitle}
+              image={item.images?.banner}
             />
-          ))}
-        </div>
+          </motion.div>
+        ))}
+      </motion.div>
+    </motion.div>
       </div>
       </section>
 
