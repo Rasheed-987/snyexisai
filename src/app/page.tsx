@@ -35,21 +35,21 @@ export default function HomePage() {
       location: "New York, USA"
     },
     {
-      image: "/images/client/img1_1.png",
+      image: "/images/chronedo.jpeg",
       profileImage: "/images/home/profile.png",
       name: "Sarah Chen",
       role: "Product Director, TechFlow",
       quote: "Working with Synexis was a game-changer. Their attention to detail and innovative approach helped us deliver a product that exceeded all our expectations.",
-      logo: null,
+      logo: "/images/chronedo_logo.jpeg",
       location: "San Francisco, USA"
     },
     {
-      image: "/images/client/img1_2.png",
+      image: "/images/soarfare.jpeg",
       profileImage: "/images/home/profile.png",
       name: "James Anderson",
       role: "CEO, Digital Solutions",
       quote: "The team's expertise in UI/UX design transformed our platform. Every interaction feels intuitive and seamless. Highly recommend their services!",
-      logo: null,
+      logo: "/images/sorarFare_logo.jpeg",
       location: "London, UK"
     },
     {
@@ -478,7 +478,7 @@ export default function HomePage() {
             <h2 className="text-[#1A2341] text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-medium leading-tight mb-4">Innovative design is<br />our tool to reshape<br />business</h2>
           </div>
           <div className="flex-1 flex flex-col justify-center">
-            <p className="text-[#1A2341] text-base sm:text-lg 2xl:text-xl mb-4">We're a passionate team of UI/UX designers dedicated to creating intuitive digital experiences. With years of experience, we blend creativity and strategy to design solutions that engage users and drive business success.</p>
+            <p className="text-[#2d3346] text-base sm:text-lg 2xl:text-xl mb-4">We're a passionate team of UI/UX designers dedicated to creating intuitive digital experiences. With years of experience, we blend creativity and strategy to design solutions that engage users and drive business success.</p>
             <p className="text-[#1A2341] text-base sm:text-lg 2xl:xl mb-6">We turn ideas into seamless, Beautiful designs. Let's build digital experiences that not only look stunning but also deliver real results.</p>
             <button onClick={() => router.push('/about')}   className="custom-about-btn">More About Us</button>
           </div>
@@ -554,40 +554,33 @@ export default function HomePage() {
   <div className="overflow-hidden max-w-5xl 2xl:max-w-7xl mx-auto w-full">
     <div 
       ref={testimonialScrollRef}
-      className="flex flex-row gap-6 hide-scrollbar transition-transform duration-500 ease-in-out"
+      className="flex flex-row gap-6 hide-scrollbar transition-transform duration-500 ease-in-out" 
       style={{ transform: `translateX(-${currentTestimonial * 100}%)` }}
     >
-      {testimonials.map((testimonial, index) => (
-        <motion.div
-          key={index}
-          className="flex flex-col md:flex-row bg-white rounded-3xl interactive-card overflow-hidden flex-shrink-0 w-full"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
+      {testimonials.map((testimonial) => (
+          <div key={testimonial.name} className="flex flex-col md:flex-row bg-white rounded-3xl interactive-card overflow-hidden flex-shrink-0 w-full">
           {/* Left: Image */}
-          <div className="md:w-1/2 bg-[#181C23]">
-            <img src={testimonial.image} alt="Project Screenshot" className="rounded-xl w-full h-full object-cover object-left" />
+          <div className="w-full md:w-1/2 h-[300px] md:h-[500px] relative bg-[#181C23]">
+            <Image src={testimonial.image} alt="Project Screenshot" fill className="rounded-xl object-obtain" />
           </div>
           {/* Right: Content */}
-          <div className="md:w-1/2 flex flex-col justify-center p-8 h-full gap-4">
-            <div className="flex items-center gap-3 mb-2">
-              <img src={testimonial.profileImage} alt={testimonial.name} className="w-12 h-12 rounded-full object-cover" />
+          <div className="w-full md:w-1/2 flex flex-col justify-center p-4 md:p-8 h-full gap-2 md:gap-4">
+            <div className="flex items-center gap-2 md:gap-3 mb-1 md:mb-2">
+              <img src={testimonial.profileImage} alt={testimonial.name} className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover" />
               <div>
-                <div className="text-[#181C23] font-semibold text-base">{testimonial.name}</div>
-                <div className="text-xs text-gray-500">{testimonial.role}</div>
+                <div className="text-[#181C23] font-semibold text-sm md:text-base">{testimonial.name}</div>
+                <div className="text-[10px] md:text-xs text-gray-500">{testimonial.role}</div>
               </div>
             </div>
-            <blockquote className="text-[#181C23] text-lg xl:text-2xl font-medium mb-4">"{testimonial.quote}"</blockquote>
+            <blockquote className="text-[#181C23] text-sm md:text-lg xl:text-2xl font-medium mb-2 md:mb-4">"{testimonial.quote}"</blockquote>
             <div className="flex flex-col gap-1">
               {testimonial.logo && (
-                <img src={testimonial.logo} alt="Company Logo" className="w-[119.77px] h-[42.58px] object-contain" />
+                <img src={testimonial.logo} alt="Company Logo" className="w-[100px] md:w-[119.77px] h-[36px] md:h-[42.58px] object-contain" />
               )}
-              <span className="text-gray-500 text-xs">{testimonial.location}</span>
+              <span className="text-gray-500 text-[10px] md:text-xs">{testimonial.location}</span>
             </div>
           </div>
-        </motion.div>
+          </div>
       ))}
     </div>
   </div>

@@ -10,9 +10,8 @@
     "lint:fix": "next lint --fix",
     "type-check": "tsc --noEmit",
     "format": "prettier --write .",
-    "format:check": "prettier --check .",
-    "init-admin": "node scripts/init-admin.js",
-    "fix-admin": "node scripts/fix-admin-password.js"
+    "format:check": "prettier --check ."
+    
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.907.0",
