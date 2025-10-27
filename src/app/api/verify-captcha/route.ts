@@ -14,11 +14,19 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: false, message: 'Server configuration error' }, { status: 500 })
     }
 
-    const res = await fetch(
-      `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${token}`,
-      { method: 'POST' }
-    )
+    console.log('Sending reCAPTCHA verification request:', {
+      secretKey,
+      token,
+    })
 
+// In your /api/verify-captcha route, replace the fetch call:
+const res = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded',
+  },
+  body: `secret=${encodeURIComponent(secretKey)}&response=${encodeURIComponent(token)}`
+})
     const data = await res.json()
     
     if (data.success) {
