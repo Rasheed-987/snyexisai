@@ -53,25 +53,25 @@ export default function AboutPage() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 text-center">
             {/* Stat 1 */}
             <div>
-              <h3 className="text-3xl sm:text-4xl font-medium text-blue-600">250+</h3>
+              <h3 className="text-3xl sm:text-6xl font-medium text-blue-600">250+</h3>
               <p className="text-slate-600 mt-2 text-sm sm:text-base">Projects Completed</p>
             </div>
 
             {/* Stat 2 */}
             <div>
-              <h3 className="text-3xl sm:text-4xl font-medium text-blue-600">180+</h3>
+              <h3 className="text-3xl sm:text-6xl font-medium text-blue-600">180+</h3>
               <p className="text-slate-600 mt-2 text-sm sm:text-base">Happy Clients</p>
             </div>
 
             {/* Stat 3 */}
             <div>
-              <h3 className="text-3xl sm:text-4xl font-medium text-blue-600">10+</h3>
+              <h3 className="text-3xl sm:text-6xl font-medium text-blue-600">10+</h3>
               <p className="text-slate-600 mt-2 text-sm sm:text-base">Years of Experience</p>
             </div>
 
             {/* Stat 4 */}
             <div>
-              <h3 className="text-3xl sm:text-4xl font-medium text-blue-600">50+</h3>
+              <h3 className="text-3xl sm:text-6xl font-medium text-blue-600">50+</h3>
               <p className="text-slate-600 mt-2 text-sm sm:text-base">Team Members</p>
             </div>
           </div>

@@ -8,6 +8,7 @@ import { useState,useEffect,useRef } from 'react';
 import { useServices } from '@/context/ServicesContext';
 import { useCaseStudies } from '@/context/CaseStudyContext';
 import ServicesCard from '@/components/services/servicesCard';
+import CaseStudyBannerLayout from '@/components/casestudies/CaseStudyBannerLayout';
 
 
 
@@ -119,7 +120,7 @@ export default function HomePage() {
   return (
       <div className=" bg-white   rounded-b-[80px] mb-30   relative z-50">
       {/* Hero Section */}
-      <section className="bg-[#F9F9F9] min-h-screen flex flex-col justify-center items-center text-center px-10">
+      <section className="bg-[rgb(249,249,249)] min-h-screen flex flex-col justify-center mt-10 items-center text-center px-10">
         <motion.div
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -140,14 +141,14 @@ export default function HomePage() {
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             <button
               onClick={() => router.push('/contact')}
-              className="bg-[#327AED] text-white px-3 md:px-10 py-5 rounded-full flex items-center gap-3 font-chillax text-base font-normal shadow-md transition-all duration-150"
+              className="bg-[#327AED] text-white pr-3 pl-6 md:px-10 py-5 rounded-full flex items-center gap-3  text-base font-normal shadow-md transition-all duration-150"
             >
               Work With Us
               <img src="/images/home/button_arrow.png" alt="Arrow Right" className="w-4 h-4 invert" />
             </button>
             <button
               onClick={() => router.push('/casestudies')}
-              className="border border-[#0F1C3D] text-[#0F1C3D] px-3 md:px-10 py-5 rounded-full flex items-center gap-3 font-chillax text-base font-normal transition-all duration-150"
+              className="border border-[#0F1C3D] text-[#0F1C3D] px-3 md:px-10 py-5 rounded-full flex items-center gap-3  text-base font-normal transition-all duration-150"
             >
               Explore Our Case Studies
               <img src="/images/home/button_arrow.png" alt="Arrow Right" className="w-4 h-4" />
@@ -256,25 +257,25 @@ export default function HomePage() {
       
       {/* Stat 1 */}
       <div>
-  <h3 className="text-3xl sm:text-4xl  font-medium text-black">250+</h3>
+  <h3 className="text-3xl sm:text-6xl  font-medium text-black">250+</h3>
   <p className="text-[#0F1C3D] mt-2 text-sm sm:text-base xl:text-lg">Projects Completed</p>
       </div>
 
       {/* Stat 2 */}
       <div>
-  <h3 className="text-3xl sm:text-4xl  font-medium text-black">180+</h3>
+  <h3 className="text-3xl sm:text-6xl  font-medium text-black">180+</h3>
   <p className="text-[#0F1C3D] mt-2 text-sm sm:text-base xl:text-lg">Happy Clients</p>
       </div>
 
       {/* Stat 3 */}
       <div>
-  <h3 className="text-3xl sm:text-4xl  font-medium text-black">10+</h3>
+  <h3 className="text-3xl sm:text-6xl  font-medium text-black">10+</h3>
   <p className="text-[#0F1C3D] mt-2 text-sm sm:text-base xl:text-lg">Years of Experience</p>
       </div>
 
       {/* Stat 4 */}
       <div>
-  <h3 className="text-3xl sm:text-4xl  font-medium text-black">50+</h3>
+  <h3 className="text-3xl sm:text-6xl  font-medium text-black">50+</h3>
   <p className="text-[#0F1C3D] mt-2 text-sm sm:text-base xl:text-lg">Team Members</p>
       </div>
 
@@ -292,7 +293,7 @@ export default function HomePage() {
             CASE STUDIES
           </span>
 
-          <h2 className="font-chillax text-2xl sm:text-5xl xl:text-6xl text-[#0F1C3D] font-regular leading-tight mb-4">
+          <h2 className=" text-2xl sm:text-5xl xl:text-6xl ml-2 text-[#0F1C3D] font-regular leading-tight mb-4">
             Our Latest Case Studies
           </h2>
 
@@ -305,53 +306,32 @@ export default function HomePage() {
 
 
     <section className="w-full relative">
-      
-
-        {loading ? (
-          <p className="text-white">Loading case studies...</p>
-        ) :    <section className="w-full mt-8 bg-gray-100 space-y-8">
-  {Array.isArray(caseStudy) && caseStudy.map((caseItem: any) => (
-    <div
-      key={caseItem._id}
-      className="relative w-full py-10 h-[250px]  sm:h-[400px]  md:h-[550px] lg:h-[750px] rounded-2xl overflow-hidden group"
-     style={{
-          background: 'linear-gradient(169.02deg, #132225 0%, #0B1016 108.44%)',
-        }}
-
-    >
-       <span className="absolute top-4 left-4 bg-white  text-black px-2 py-1 rounded-xl text-sm font-semibold">
-        {caseItem.caseTitle}
-      </span>
-      <Link href={`/caseStudiesDetails/${caseItem._id}`} className="block w-full h-full">
-        <Image
-          src={caseItem.images?.banner}
-          alt={caseItem.caseTitle || caseItem.title || 'Case Study Banner'}
-          fill
-          priority={false}
-          className="object-contain px-2 group-hover:blur-sm transition duration-300"
-        />
-      </Link>
-      <div
-        className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300"
-      >
-        <Link
-          href={`/caseStudiesDetails/${caseItem._id}`}
-          className="bg-white text-black px-4 py-2 rounded-xl shadow-md hover:bg-gray-200 active:scale-95 transform transition duration-200"
-        >
-          Read More
-        </Link>
-      </div>
-     
-    </div>
-  ))}
-</section>
-}
-    
+      {caseStudiesLoading ? (
+        <div className="flex items-center justify-center py-20">
+          <p className="text-gray-600">Loading case studies...</p>
+        </div>
+      ) : Array.isArray(caseStudy) && caseStudy.length > 0 ? (
+        <>
+          <CaseStudyBannerLayout caseStudies={caseStudy} maxDisplay={3} />
+          {caseStudy.length > 3 && (
+            <div className="flex justify-center mt-8">
+              <Link 
+                href="/casestudies"
+                className="bg-white text-[#0F1C3D] px-6 py-3 rounded-full flex items-center gap-2 font-medium transition-all hover:bg-gray-50"
+              >
+                View All Case Studies
+                <img src="/images/home/button_arrow.png" alt="Arrow Right" className="w-4 h-4" />
+              </Link>
+            </div>
+          )}
+        </>
+      ) : (
+        <div className="flex items-center justify-center py-20">
+          <p className="text-gray-600">No case studies available</p>
+        </div>
+      )}
     </section>
-
-
-    </section>
-
+      </section>
 
     {/* Our Approach to AI Success Section */}
       <section className="w-full bg-white py-16 xl:py-24 px-4 flex flex-col items-center">
@@ -561,7 +541,7 @@ export default function HomePage() {
           <div key={testimonial.name} className="flex flex-col md:flex-row bg-white rounded-3xl interactive-card overflow-hidden flex-shrink-0 w-full">
           {/* Left: Image */}
           <div className="w-full md:w-1/2 h-[300px] md:h-[500px] relative bg-[#181C23]">
-            <Image src={testimonial.image} alt="Project Screenshot" fill className="rounded-xl object-obtain" />
+            <Image src={testimonial.image} alt="Project Screenshot" fill className="rounded-xl object-cover" />
           </div>
           {/* Right: Content */}
           <div className="w-full md:w-1/2 flex flex-col justify-center p-4 md:p-8 h-full gap-2 md:gap-4">
