@@ -141,14 +141,14 @@ export default function HomePage() {
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             <button
               onClick={() => router.push('/contact')}
-              className="bg-[#327AED] text-white pr-3 pl-6 md:px-10  py-5 rounded-full flex items-center gap-3  text-base font-normal shadow-md transition-all duration-150"
+              className="bg-[#327AED] text-white pr-3 pl-6 md:px-10  hover:scale-90 py-5 rounded-full flex items-center gap-3  text-base font-normal shadow-md transition-all duration-150"
             >
               Work With Us
               <img src="/images/home/button_arrow.png" alt="Arrow Right" className="w-4 h-4 invert" />
             </button>
             <button
               onClick={() => router.push('/casestudies')}
-              className="border border-[#0F1C3D] text-[#0F1C3D] px-3 md:px-10 py-5 rounded-full flex items-center gap-3  text-base font-normal transition-all duration-150"
+              className="border border-[#0F1C3D] text-[#0F1C3D] px-3 md:px-10 py-5 hover:scale-90 rounded-full flex items-center gap-3  text-base font-normal transition-all duration-150"
             >
               Explore Our Case Studies
               <img src="/images/home/button_arrow.png" alt="Arrow Right" className="w-4 h-4" />
@@ -540,7 +540,7 @@ export default function HomePage() {
           <div key={testimonial.name} className="flex flex-col md:flex-row bg-white rounded-3xl interactive-card overflow-hidden flex-shrink-0 w-full">
           {/* Left: Image */}
           <div className="w-full md:w-1/2 h-[300px] md:h-[500px] relative bg-[#181C23]">
-            <Image src={testimonial.image} alt="Project Screenshot" fill className="rounded-xl object-cover" />
+            <Image src={testimonial.image} alt="Project Screenshot" fill className="rounded-xl object-obtain" />
           </div>
           {/* Right: Content */}
           <div className="w-full md:w-1/2 flex flex-col justify-center p-4 md:p-8 h-full gap-2 md:gap-4">

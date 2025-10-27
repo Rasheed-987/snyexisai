@@ -295,12 +295,7 @@ everything we do."
               className="text-[#17214D] text-base sm:text-lg mb-6"
               style={{ fontFamily: 'Chillax, sans-serif' }}
             >
-              Markovate’s team of <span className="font-bold">generative AI experts</span> relies on
-              an advanced suite of technologies like AI, ML, Generative AI, Blockchain, Web3,
-              Mobile, and more to drive innovation. Incorporating machine learning frameworks, cloud
-              computing, and data analytics tools, our tech stack is designed for scalability,
-              reliability, and optimum performance. It’s the backbone that ensures each software
-              solution we deliver meets industry standards and exceeds client expectations.
+            At Synexis, our expertise spans a wide spectrum of technologies, allowing us to craft intelligent, scalable, and future-ready solutions. From AI-driven automation to secure cloud architectures, we combine innovation with precision engineering to deliver systems that empower businesses to evolve and thrive in the digital era.
             </p>
 
             <button

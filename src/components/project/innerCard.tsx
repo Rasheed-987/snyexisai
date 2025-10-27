@@ -25,13 +25,13 @@ const InnerCard = ({ banner, title, description, requirements, project }: InnerC
 
       {/* Right Side - Content */}
       <div className="space-y-4 px-0 md:px-4">
-        <h2 className="text-2xl md:text-3xl font-semibold my-7 leading-snug">{title}</h2>
+        <h2 className="text-2xl md:text-3xl text-[#0F1C34] font-semibold my-7 leading-snug">{title}</h2>
         {/* thin horizontal line */}
         <div className="h-px bg-black my-10" />
         <p className="text-gray-600 leading-relaxed">{description}</p>
 
         <div className="my-7">
-          <Link href={`/projectouter/${project._id}`} className="text-blue-600 ">
+          <Link href={`/projectouter/${project._id}`} className="text-blue-600 underline">
             Read More-&gt;
           </Link>
         </div>

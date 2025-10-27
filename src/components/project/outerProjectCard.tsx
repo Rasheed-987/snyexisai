@@ -21,7 +21,7 @@ export default function OuterProjectCard({
     <main className="px-5 rounded-b-[80px] min-h-screen relative z-50 bg-white pb-24 lg:pb-40">
       {/* Hero Section */}
       <section className="mx-auto py-10">
-        <h1 className="md:text-[46.93px] text-[30px] leading-[57.36px] mx-auto py-10 tracking-[-2.35px] text-center font-chillax font-medium mb-4 w-[70vw]">
+        <h1 className="md:text-[46.93px] text-[30px] leading-[57.36px] mx-auto py-10 tracking-[-2.35px] text-center  font-medium mb-4 w-[70vw]">
           {title}
         </h1>
         <div className="relative w-full mx-auto px-2">
@@ -83,10 +83,10 @@ export default function OuterProjectCard({
       {/* AI Agents Section */}
       <section className="w-full bg-[#F4F0ED] py-12 flex items-center justify-center">
         <div className="max-w-4xl w-full mx-auto text-center px-4">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium mb-8 text-[#142047] font-chillax">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium mb-8 text-[#0F1C34] ">
             {largeCard.title}
           </h2>
-          <p className="text-base sm:text-lg md:text-xl leading-relaxed mb-6 text-[#142047] font-chillax">
+          <p className="text-base sm:text-lg md:text-xl leading-relaxed mb-6 text-[#0F1C34] ">
             {largeCard.body}
           </p>
         </div>

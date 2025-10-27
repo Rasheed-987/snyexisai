@@ -165,16 +165,16 @@ export default function CaseStudyDetailPage({
       )}
 
       {/* 3 Horizontal Images */}
-      <div>
-        
-      </div>
-      <section className=" mx-auto  grid bg-[#EDEDED] p-20  md:grid-cols-1 gap-6 mb-20">
+      <div className='px-12' >
+      <section className=" mx-auto  grid bg-[#EDEDED] p-20  rounded-[50px] md:grid-cols-1 gap-6 mb-20">
         {[images.gallery[7], images.gallery[8], images.gallery[9]].map((img, i) => (
           <div key={i} className="relative aspect-[16/3]   rounded-2xl overflow-hidden">
             <Image src={img} alt={`Horizontal ${i}`} fill className="object-fit" />
           </div>
         ))}
       </section>
+      </div>
+    
 
       {/* Two Square Images (Lower Again) */}
       <section className=" mx-auto  px-5 grid md:grid-cols-2 gap-6 mb-20">
