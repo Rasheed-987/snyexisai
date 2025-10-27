@@ -6,12 +6,13 @@ import { useEffect, useState } from 'react';
 import { CTA } from '@/components/ui/cta';
 import { useCaseStudies } from '@/context/CaseStudyContext';
 import CaseStudyCard from '@/components/casestudies/CasestudiesDetailCard';
+import CaseStudyBannerLayout from '@/components/casestudies/CaseStudyBannerLayout';
 
 
 const CaseStudyPage = () => {
-  const { caseStudiesData:caseStudy, loading, error } = useCaseStudies();
+  const { caseStudiesData:caseStudy, loading:caseStudiesLoading, error } = useCaseStudies();
 
-  if (loading) {
+  if (caseStudiesLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center ">
@@ -74,42 +75,30 @@ const CaseStudyPage = () => {
           </p>
         </div>
       </section>
-
-        {loading ? (
-             <p className="text-white">Loading case studies...</p>
-           ) :    <section className="w-full mt-8 bg-gray-100 space-y-20 mb-40">
-     {Array.isArray(caseStudy) && caseStudy.map((caseItem: any) => (
-       <div
-         key={caseItem._id}
-         className="relative w-full h-[250px]  sm:h-[400px]  md:h-[550px] lg:h-[750px] rounded-2xl overflow-hidden group"
-        style={{
-             background: 'linear-gradient(169.02deg, #132225 0%, #0B1016 108.44%)',
-           }}
-       >
-         <Link href={`/caseStudiesDetails/${caseItem._id}`} className="block w-full h-full">
-           <Image
-             src={caseItem.images?.banner}
-             alt={caseItem.caseTitle || caseItem.title || 'Case Study Banner'}
-             fill
-             priority={false}
-             className="object-contain px-2 group-hover:blur-sm transition duration-300"
-           />
-         </Link>
-         <div
-           className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300"
-         >
-           <Link
-             href={`/caseStudiesDetails/${caseItem._id}`}
-             className="bg-white text-black px-4 py-2 rounded-xl shadow-md hover:bg-gray-200"
-           >
-             Read More
-           </Link>
-         </div>
-       </div>
-     ))}
-   </section>
-   }
-       
+      {caseStudiesLoading ? (
+        <div className="flex items-center justify-center py-20">
+          <p className="text-gray-600">Loading case studies...</p>
+        </div>
+      ) : Array.isArray(caseStudy) && caseStudy.length > 0 ? (
+        <>
+          <CaseStudyBannerLayout caseStudies={caseStudy} maxDisplay={3} />
+          {caseStudy.length > 3 && (
+            <div className="flex justify-center mt-8">
+              <Link 
+                href="/casestudies"
+                className="bg-white text-[#0F1C3D] px-6 py-3 rounded-full flex items-center gap-2 font-medium transition-all hover:bg-gray-50"
+              >
+                View All Case Studies
+                <img src="/images/home/button_arrow.png" alt="Arrow Right" className="w-4 h-4" />
+              </Link>
+            </div>
+          )}
+        </>
+      ) : (
+        <div className="flex items-center justify-center py-20">
+          <p className="text-gray-600">No case studies available</p>
+        </div>
+      )} 
 
      
       <CTA />

@@ -284,8 +284,8 @@ export default function HomePage() {
 
 
       {/* Case Studies Section */}
-      <section id="case-studies" className=" mx-auto px-10">
-        <section className="   py-12">
+      <section id="case-studies" className=" mx-auto ">
+        <section className=" px-6  py-12">
           <div className="mb-12">
             <span className="inline-flex items-center text-sm text-slate-500 font-regular mb-4">
               <span className="w-2 h-2 rounded-full bg-sky-900 mr-2" />
@@ -601,33 +601,35 @@ export default function HomePage() {
 </section>
 
 {/* Enhanced CTA Section */}
-<section className="w-full  max-w-5xl 2xl:max-w-7xl mx-auto rounded-[40px] group overflow-hidden cursor-pointer relative mt-8 shadow-lg transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl">
-  
-  {/* Background Image: Scales up on group hover */}
-  <div className="absolute inset-0 w-full h-full">
-    <img
-      src="/images/home/background.png"
-      alt="Abstract background"
-      className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
-    />
-  </div>
-
-  {/* Overlay: Becomes slightly more transparent on group hover */}
-  <div className="absolute inset-0 bg-[#0A2341]/80 transition-all duration-500 group-hover:bg-[#0A2341]/70" />
-
-  
-  <div className="relative z-10 flex flex-col items-center justify-center py-16 xl:py-24 px-4 ">
-    <h2 className=" text-white text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-medium text-center tracking-tight mb-4">
-      Let’s Create Tomorrow<br />Hand in Hand!
-    </h2>
-    <p className="text-white text-base sm:text-lg xl:text-xl text-center max-w-xl xl:max-w-3xl mb-8">
-      It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
-    </p>
+<section className="w-full mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+  <div className="max-w-5xl 2xl:max-w-7xl mx-auto rounded-2xl sm:rounded-[30px] lg:rounded-[40px] group overflow-hidden cursor-pointer relative shadow-lg transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl">
     
-    {/* Button: Enhanced hover effects */}
-    <button className="bg-white text-[#0A2341] px-8 py-3 rounded-full font-medium shadow-md transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:-translate-y-1 active:scale-95">
-      Free Consultation
-    </button>
+    {/* Background Image: Scales up on group hover */}
+    <div className="absolute inset-0 w-full h-full">
+      <img
+        src="/images/home/background.png"
+        alt="Abstract background"
+        className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
+      />
+    </div>
+
+    {/* Overlay: Becomes slightly more transparent on group hover */}
+    <div className="absolute inset-0 bg-[#0A2341]/80 transition-all duration-500 group-hover:bg-[#0A2341]/70" />
+
+    
+    <div className="relative z-10 flex flex-col items-center justify-center py-8 px-4 sm:py-12 sm:px-6 md:py-16 lg:px-8 xl:py-24">
+      <h2 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-medium text-center tracking-tight mb-3 sm:mb-4 leading-tight">
+        Let's Create Tomorrow<br className="hidden sm:block" /><span className="sm:hidden"> </span>Hand in Hand!
+      </h2>
+      <p className="text-white text-sm sm:text-base md:text-lg lg:text-xl text-center max-w-xl xl:max-w-3xl mb-4 sm:mb-6 lg:mb-8 px-2">
+        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
+      </p>
+      
+      {/* Button: Enhanced hover effects */}
+      <button className="bg-white text-[#0A2341] px-6 py-2.5 sm:px-8 sm:py-3 rounded-full text-sm sm:text-base font-medium shadow-md transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:-translate-y-1 active:scale-95">
+        Free Consultation
+      </button>
+    </div>
   </div>
 </section>
 
