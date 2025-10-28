@@ -81,7 +81,7 @@ export default function AboutPage() {
         <p
           className="mx-auto px-4 sm:px-6 lg:px-20"
           style={{
-            fontFamily: 'Chillax, sans-serif',
+        
             fontWeight: 300,
             fontStyle: 'Light',
             fontSize: '20px',
@@ -103,10 +103,20 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* First card: text only, custom background - NO FLIP */}
 
-            <div className="col-span-1 sm:col-span-2 lg:col-span-2 flex flex-col justify-center items-start p-8 bg-cover bg-center rounded-xl min-h-[400px]">
+            <motion.div 
+
+           initial={{ x: -200 }}       // start 200px left
+      whileInView={{ x: 0 }}      // slide to original position
+      transition={{
+        duration: 1,              // speed of animation
+        ease: "easeOut",
+      }}
+      viewport={{ once: false }} 
+            
+            className="col-span-1 sm:col-span-2 lg:col-span-2 flex flex-col justify-center items-start p-8 bg-cover bg-center rounded-xl min-h-[400px]">
               <h2
                 className="text-[#22306A] font-medium text-2xl sm:text-3xl mb-2"
-                style={{ fontFamily: 'Chillax, sans-serif' }}
+               
               >
                 Where Collaboration
                 <br />
@@ -114,14 +124,13 @@ export default function AboutPage() {
               </h2>
               <p
                 className="text-[#22306A] text-base sm:text-lg opacity-80 mt-2"
-                style={{ fontFamily: 'Chillax, sans-serif' }}
               >
                 We foster an open, inclusive culture where teamwork,
                 <br /> smart thinking, and curiosity spark innovation—
                 <br />
                 balancing growth, fun, and shared success.
               </p>
-            </div>
+            </motion.div>
 
             {/* Card 1 - Flippable */}
             <FlipCard
@@ -287,13 +296,13 @@ everything we do."
           <div className="flex-1 mb-10 lg:mb-0">
             <h2
               className="text-[#17214D] font-medium text-2xl sm:text-4xl lg:text-5xl mb-6"
-              style={{ fontFamily: 'Chillax, sans-serif' }}
+             
             >
               Expertise across a range of technologies
             </h2>
             <p
               className="text-[#17214D] text-base sm:text-lg mb-6"
-              style={{ fontFamily: 'Chillax, sans-serif' }}
+             
             >
             At Synexis, our expertise spans a wide spectrum of technologies, allowing us to craft intelligent, scalable, and future-ready solutions. From AI-driven automation to secure cloud architectures, we combine innovation with precision engineering to deliver systems that empower businesses to evolve and thrive in the digital era.
             </p>
@@ -338,7 +347,7 @@ everything we do."
           <div className="relative z-10 text-center px-4 flex flex-col items-center justify-center transition-all duration-500 group-hover:transform group-hover:-translate-y-2">
             <h1
               className="text-white font-bold text-2xl sm:text-4xl lg:text-6xl mb-4 sm:mb-6 transition-all duration-500 group-hover:text-shadow-lg"
-              style={{ fontFamily: 'Chillax, sans-serif' }}
+             
             >
               Shaping the next
               <br />
@@ -346,7 +355,7 @@ everything we do."
             </h1>
             <p
               className="text-white text-base sm:text-lg lg:text-xl font-light mb-6 sm:mb-8 max-w-[600px] transition-all duration-500 group-hover:opacity-90"
-              style={{ fontFamily: 'Chillax, sans-serif' }}
+             
             >
               Partner with us to unlock innovation and accelerate your digital future.
             </p>

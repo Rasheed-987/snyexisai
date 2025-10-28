@@ -16,7 +16,7 @@ const ServicesCard = ({ title, image, requirements }: ServicesCardProps) => {
         <Image src={image} alt={title} fill className="object-fit" />
       </div>
       <div className="mt-4 text-center">
-        <h3 className="text-lg font-semibold text-gray-800">{title}</h3>
+        <h3 className="text-xl font-semibold text-gray-800">{title}</h3>
       </div>
        {/* Bullets */}
         <ul className="space-y-2 pt-3">

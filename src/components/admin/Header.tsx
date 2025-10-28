@@ -160,6 +160,7 @@ export default function Header() {
   {/* White container wrapping input + results */}
   <div className="bg-white rounded-[18px] shadow-md w-full">
     <div className="relative">
+      <Image src="/images/admin/search.png" alt="Search" className="absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none" width={16} height={16} />
       <input
         type="text"
         placeholder="Search..."

@@ -9,20 +9,22 @@ interface CareerFormData {
   location: string;
   websiteOrPortfolio: string;
   socialLinks: string;
+  cv: string[];
 }
 
 interface CareerApplicationFormProps {
   jobTitle: string;
-  jobId?: string;
+  Id?: string;
 }
 
-export function CareerApplicationForm({ jobTitle, jobId }: CareerApplicationFormProps) {
+export function CareerApplicationForm({ jobTitle, Id }: CareerApplicationFormProps) {
   const [formData, setFormData] = useState<CareerFormData>({
     name: '',
     email: '',
     location: '',
     websiteOrPortfolio: '',
     socialLinks: '',
+    cv: []
   });
 
   const [errors, setErrors] = useState<Partial<CareerFormData>>({});
@@ -70,7 +72,7 @@ export function CareerApplicationForm({ jobTitle, jobId }: CareerApplicationForm
       console.log('Application submitted:', {
         ...formData,
         jobTitle,
-        jobId,
+        Id,
         submittedAt: new Date().toISOString()
       });
       
@@ -87,6 +89,8 @@ export function CareerApplicationForm({ jobTitle, jobId }: CareerApplicationForm
         location: '',
         websiteOrPortfolio: '',
         socialLinks: '',
+        cv: []
+
       });
     } catch (error) {
       console.error('Error submitting application:', error);
@@ -159,6 +163,9 @@ export function CareerApplicationForm({ jobTitle, jobId }: CareerApplicationForm
           />
         </div>
 
+      <div>
+
+      </div>
         {/* Social Links Field */}
         <div>
           <input
@@ -167,6 +174,27 @@ export function CareerApplicationForm({ jobTitle, jobId }: CareerApplicationForm
             placeholder="A social link* (perhaps your Dribbble or LinkedIn)"
             value={formData.socialLinks}
             onChange={handleChange}
+            className={`${inputFieldStyles}`}
+          />
+        </div>
+
+        {/* Upload CV Field */}
+        <div>
+          <label htmlFor="cv" className="block text-sm font-medium text-gray-700 mb-1">Upload Your CV</label>
+          <input
+            type="file"
+            id="cv"
+            name="cv"
+            accept=".pdf,.doc,.docx"
+            onChange={(e) => {
+              if (e.target.files && e.target.files[0]) {
+                console.log('Uploaded CV:', e.target.files[0]);
+              }
+              setFormData(prev => ({
+                ...prev,
+                cv: e.target.files ? Array.from(e.target.files).map(file => file.name) : []
+              }));
+            }}
             className={`${inputFieldStyles}`}
           />
         </div>

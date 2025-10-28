@@ -42,10 +42,7 @@ const PortfolioDropdown = ({ textColor, navbarBackground, isCaseStudyPage }: Pro
       alt="Portfolio Icon"
       className={`w-4 mb-1 h-4 ml-1 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
     />
-    {/* Blue top border indicator */}
-    {open && (
-      <span className="absolute bottom-0 left-0 w-60% h-[2px] bg-[#0A3AFF]"></span>
-    )}
+    
   </button>
 
   {open && (
@@ -140,8 +137,8 @@ export const Navigation = () => {
 
       {/* Navigation Links */}
       <div className={`hidden md:flex mt-2 ml-3 items-center mr-3 gap-7 ${textColor}`}>
-        {/* <Link href="/" className={` font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>HOME</Link> */}
-         <HomeDropdown textColor={textColor} />
+        <Link href="/" className={` font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>HOME</Link>
+         {/* <HomeDropdown textColor={textColor} /> */}
         <Link href="/about" className={` font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>ABOUT</Link>
         <Link href="/services" className={` font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>SERVICES</Link>
         <div className="flex items-center ">

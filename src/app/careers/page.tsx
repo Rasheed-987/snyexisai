@@ -1,7 +1,7 @@
 
 'use client'
 
-import { JobCard } from '@/components/ui/Card'
+import { JobCard } from '@/components/careers/careerCard'
 import { useCareerContext } from '@/context/CareerContext';
  
 export default function CareersPage() {
@@ -43,7 +43,7 @@ export default function CareersPage() {
         {/* Job Listings Container */}
         <div className="w-full  mx-auto opacity-100  rotate-0 relative">
           {/* Job Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 lg:gap-2 place-items-center">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 lg:gap-4  place-items-center">
             {jobListings.map((job,index:number) => (
               <JobCard
                 key={String(job.id || job._id || job.careerId)}

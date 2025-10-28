@@ -64,8 +64,6 @@ export async function POST(request: NextRequest) {
       path: '/',
     };
 
-    console.log('Setting cookie with options:', JSON.stringify(cookieOptions, null, 2));
-
     // Set HttpOnly cookie
     const response = NextResponse.json(
       { message: 'Login successful', username: admin.username },
@@ -81,8 +79,6 @@ export async function POST(request: NextRequest) {
       path: '/',
     });
 
-    console.log('Login successful - cookie set for user:', admin.username);
-    console.log('Cookie value preview:', token.substring(0, 20) + '...');
     
     return response;
   } catch (error) {

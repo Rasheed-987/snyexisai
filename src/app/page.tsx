@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
+import { motion,useAnimation,useInView } from 'framer-motion';
 import { useState,useEffect,useRef } from 'react';
 import { useServices } from '@/context/ServicesContext';
 import { useCaseStudies } from '@/context/CaseStudyContext';
@@ -24,6 +24,20 @@ export default function HomePage() {
   const testimonialScrollRef = useRef<HTMLDivElement>(null);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
    const carouselRef = useRef(null)
+   const controls = useAnimation()
+  const inView = useInView(carouselRef, { once: true }) // triggers once when visible
+
+  useEffect(() => {
+    if (inView) {
+      controls.start({
+        x: -1800, // adjust to match your total scroll width
+        transition: {
+          duration: 15, // speed of scroll (increase for slower)
+          ease: "easeInOut",
+        },
+      })
+    }
+  }, [inView, controls])
 
   // Testimonial data
   const testimonials = [
@@ -235,31 +249,33 @@ export default function HomePage() {
         </h2>
       </div>
 
-      <div className=" mx-auto px-4 sm:px-6 lg:px-8">
-       <motion.div
-      ref={carouselRef}
-      className="overflow-hidden cursor-grab"
-      whileTap={{ cursor: "grabbing" }}
-    >
+   <div className="mx-auto px-4 sm:px-6 lg:px-8">
       <motion.div
-        drag="x"
-        dragConstraints={{ right: 0, left: -1800 }} // adjust width based on items
-        className="flex gap-8"
+        ref={carouselRef}
+        className="overflow-hidden cursor-grab"
+          whileTap={{ cursor: "grabbing" }}
       >
-        {service.map((item: any) => (
-          <motion.div
-            key={item._id}
-            className="min-w-[90%] sm:min-w-[45%] lg:min-w-[30%]"
-          >
-            <ServicesCard
-              title={item.serviceTitle}
-              image={item.images?.banner}
-            />
-          </motion.div>
-        ))}
+        <motion.div
+          className="flex gap-8"
+          initial={{ x: 0 }}
+          drag="x"
+          animate={controls}
+           dragConstraints={{ right: 0, left: -1800 }} // limit drag range
+        >
+          {service.map((item: any) => (
+            <motion.div
+              key={item._id}
+              className="min-w-[90%] sm:min-w-[45%] lg:min-w-[30%]"
+            >
+              <ServicesCard
+                title={item.serviceTitle}
+                image={item.images?.banner}
+              />
+            </motion.div>
+          ))}
+        </motion.div>
       </motion.div>
-    </motion.div>
-      </div>
+    </div>
       </section>
 
       {/* Stats Section */}
@@ -640,7 +656,7 @@ export default function HomePage() {
       </p>
       
       {/* Button: Enhanced hover effects */}
-      <button className="bg-white text-[#0A2341] px-6 py-2.5 sm:px-8 sm:py-3 rounded-full text-sm sm:text-base font-medium shadow-md transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:-translate-y-1 active:scale-95">
+      <button onClick={()=>router.push('/contact')} className="bg-white text-[#0A2341] px-6 py-2.5 sm:px-8 sm:py-3 rounded-full text-sm sm:text-base font-medium shadow-md transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:-translate-y-1 active:scale-95">
         Free Consultation
       </button>
     </div>
