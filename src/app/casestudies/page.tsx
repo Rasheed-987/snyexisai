@@ -26,7 +26,7 @@ const CaseStudyPage = () => {
   if (error) return <div>Error: {error}</div>
 
   return (
-    <div className='rounded-b-[80px]  min-h-screen  relative z-50 bg-white pb-24 lg:pb-40  mx-auto'>
+    <div className='rounded-b-[80px]  min-h-screen  relative z-50 bg-[#F9F9F9] pb-24 lg:pb-40  mx-auto'>
    
       <section className="relative min-h-screen w-full h-[90vh] bg-[rgba(15,28,61,0.68)] flex flex-col items-center justify-center">
     

@@ -46,7 +46,7 @@ if (loading) {
     if (!caseStudy) return <div>No case study found.</div>
 
     return (
-        <div className='rounded-b-[80px]  min-h-screen  relative z-50 bg-white pb-24 lg:pb-40 ' >
+        <div className='rounded-b-[80px]  min-h-screen  relative z-50 bg-[#F9F9F9] pb-24 lg:pb-40 ' >
             <CaseStudyDetailPage { ...caseStudy } />
             
             {/* CTA Section - Partner with us & Subscribe */}

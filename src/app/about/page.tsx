@@ -2,7 +2,6 @@
 
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
 import {FlipCard} from '@/components/ui/FlipCard'
 import {CTA} from '@/components/ui/cta'
 import { motion } from 'framer-motion'
@@ -12,7 +11,7 @@ export default function AboutPage() {
 
 
   return (
-    <main className="min-h-screen bg-[#F4F0ED] mb-30 z-50 relative rounded-b-[80px]   pb-[160px]">
+    <main className="min-h-screen bg-[#FFFFFF] mb-30 z-50 relative rounded-b-[80px]   pb-[160px]">
       <section className="w-full flex justify-center lg:min-h-[500px] items-center py-8 sm:py-12">
         <div className="text-center max-w-[1020px] w-full mx-auto px-4 ">
           <h2 className="text-[#17214D] font-medium text-xl sm:text-3xl md:text-4xl lg:text-[50px] leading-snug sm:leading-normal md:leading-[60px] lg:leading-[70px]">

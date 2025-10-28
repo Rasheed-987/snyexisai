@@ -29,7 +29,7 @@ const Service = () => {
   }
 
   return (
-    <section className=" bg-white    rounded-b-[80px] pb-[150px]    relative z-50">
+    <section className=" bg-[#F9F9F9]    rounded-b-[80px] pb-[150px]    relative z-50">
       <div className='pt-20'>
         <h2 className="text-[#1A2341] text-3xl text-center sm:text-4xl lg:text-5xl font-medium leading-tight mb-20">
           Our Services
