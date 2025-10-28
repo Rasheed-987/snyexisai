@@ -14,15 +14,15 @@ export default function ContactPage() {
             {/* Main Heading */}
             <div className="space-y-4">
               <div className="space-y-2">
-                <h1 className="text-6xl lg:text-7xl font-normal leading-tight tracking-tight text-[#0F1C3D] font-chillax">
+                <h1 className="text-6xl lg:text-7xl font-normal leading-tight tracking-tight text-[#0F1C3D] ">
                   Tell us about
                 </h1>
                 <div className="flex items-center space-x-4">
-                  <span className="text-5xl lg:text-6xl font-normal leading-tight tracking-tight text-[#0F1C3D] font-chillax">
+                  <span className="text-5xl lg:text-6xl font-normal leading-tight tracking-tight text-[#0F1C3D] ">
                     your
                   </span>
                 </div>
-                <h1 className="text-5xl lg:text-6xl font-normal leading-tight tracking-tight text-[#0F1C3D] font-chillax">
+                <h1 className="text-5xl lg:text-6xl font-normal leading-tight tracking-tight text-[#0F1C3D] ">
                   project
                 </h1>
               </div>
@@ -30,21 +30,21 @@ export default function ContactPage() {
 
             {/* Description */}
             <div className="max-w-2xl">
-              <p className="text-lg lg:text-xl leading-relaxed text-[#0F1C3D] font-chillax">
+              <p className="text-lg lg:text-xl leading-relaxed text-[#0F1C3D] ">
                 At Synexis.ai, we believe in building intelligent collaborations, not just client relationships. We don't operate as a typical agency we integrate as your innovation partner, focused on scaling your vision with AI-driven solutions. From advanced digital platforms to smart brand experiences, we deliver end-to-end services that transform ideas into intelligent realities.
               </p>
             </div>
 
             {/* CTA Section */}
             <div className="space-y-6 pt-8 border-t border-[#E3E3E3]">
-              <p className="text-sm text-[#0F1C3D] font-chillax">
+              <p className="text-sm text-[#0F1C3D] ">
                 Hate forms? Chat now or schedule a call with our founder to discuss your project directly.
               </p>
               
               <Button 
                 variant="nav-contact"
                 size="nav-contact"
-                className="bg-[#F9F9F9] border border-[#0F1C3D] text-[#0F1C3D] hover:bg-[#0F1C3D] hover:text-white rounded-full px-8 py-4 font-chillax transition-all duration-300"
+                className="bg-[#F9F9F9] border border-[#0F1C3D] text-[#0F1C3D] hover:bg-[#0F1C3D] hover:text-white rounded-full px-8 py-4  transition-all duration-300"
               >
                 Book A Meeting
                 <svg className="ml-2 w-4 h-4" fill="currentColor" viewBox="0 0 16 16">
