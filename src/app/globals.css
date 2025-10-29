@@ -58,14 +58,17 @@
   /* Updated to use the provided color palette in hex format for Tailwind */
   --background: #F9F9F9; /* Very light gray (almost white) */
   --foreground: #0f1c34; /* Maastricht Blue */
-  --card: #ffffff; /* White */
+  --primary: #3276ed; /* Bleu De France */
+  --secondary: #f4f0ed; /* Isabelline */
+  --secondary-foreground: #0f1c34; /* Maastricht Blue */
+  --primary-foreground: #ffffff; /* White */
+  --white: #ffffff; /* White */
+  --border:  #d1d5db;
   --card-foreground: #0f1c34; /* Maastricht Blue */
   --popover: #ffffff; /* White */
   --popover-foreground: #0f1c34; /* Maastricht Blue */
-  --primary: #3276ed; /* Bleu De France */
-  --primary-foreground: #ffffff; /* White */
-  --secondary: #f4f0ed; /* Isabelline */
-  --secondary-foreground: #0f1c34; /* Maastricht Blue */
+  --black: #000000; /* Black */
+  --muted: #EDEDED; 
 }
 
 .dark {

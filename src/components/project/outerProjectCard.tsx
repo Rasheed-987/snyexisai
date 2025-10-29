@@ -18,7 +18,7 @@ export default function OuterProjectCard({
   images,
 }: OuterProjectCardProps) {
   return (
-    <main className="px-5 rounded-b-[80px] min-h-screen relative z-50 bg-white pb-24 lg:pb-40">
+    <main className="px-5 rounded-b-[80px] min-h-screen relative text-foreground z-50 bg-background pb-24 lg:pb-40">
       {/* Hero Section */}
       <section className="mx-auto py-10">
         <h1 className="md:text-[46.93px] text-[30px] leading-[57.36px] mx-auto py-10 tracking-[-2.35px] text-center  font-medium mb-4 w-[70vw]">
@@ -43,7 +43,7 @@ export default function OuterProjectCard({
           {cards.map((card, index) => (
             <div key={index} className="py-6 rounded-lg">
               <h3 className="text-xl md:font-bold font-medium mb-4">{card.title}</h3>
-              <p className="text-gray-700 text-[15px] leading-relaxed">{card.body}</p>
+              <p className="text-foreground text-[15px] leading-relaxed">{card.body}</p>
             </div>
           ))}
         </div>
@@ -68,11 +68,11 @@ export default function OuterProjectCard({
       <section className="relative w-full mx-auto mb-16 px-4 sm:px-8 flex flex-col lg:flex-row gap-8 lg:gap-16">
         {smallCards.map((card, index) => (
           <div key={index} className="flex-1">
-            <h2 className="text-[#0F1C3D] font-normal text-3xl sm:text-4xl lg:text-[45px] leading-tight capitalize mb-6">
+            <h2 className=" font-normal text-3xl sm:text-4xl lg:text-[45px] leading-tight capitalize mb-6">
               {card.title}
             </h2>
             <div className="space-y-6">
-              <p className="text-[#0F1C3D] font-normal text-sm sm:text-base leading-relaxed">
+              <p className=" font-normal text-sm sm:text-base leading-relaxed">
                 {card.body}
               </p>
             </div>
@@ -83,10 +83,10 @@ export default function OuterProjectCard({
       {/* AI Agents Section */}
       <section className="w-full bg-[#F4F0ED] py-12 flex items-center justify-center">
         <div className="max-w-4xl w-full mx-auto text-center px-4">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium mb-8 text-[#0F1C34] ">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-medium mb-8  ">
             {largeCard.title}
           </h2>
-          <p className="text-base sm:text-lg md:text-xl leading-relaxed mb-6 text-[#0F1C34] ">
+          <p className="text-base sm:text-lg md:text-xl leading-relaxed mb-6  ">
             {largeCard.body}
           </p>
         </div>

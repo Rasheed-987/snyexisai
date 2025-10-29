@@ -11,8 +11,8 @@ const OurProjectPage = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center ">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading projects...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-foreground">Loading projects...</p>
         </div>
       </div>
     )
@@ -28,7 +28,7 @@ const OurProjectPage = () => {
   }
 
   return (
-    <div className="rounded-b-[80px]  min-h-screen  relative z-50 bg-white pb-24 lg:pb-40  ">
+    <div className="rounded-b-[80px]  min-h-screen  relative z-50 bg-background pb-24 lg:pb-40  ">
       {projectData?.map((project: any, index: number) => (
         <div key={project._id || index} className="mb-8">
           <InnerCard

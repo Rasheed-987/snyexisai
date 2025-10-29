@@ -18,16 +18,13 @@ module.exports = {
     },
     extend: {
       colors: {
-        // Custom color palette from brand guidelines
-        'maastricht-blue': '#0F1C34',
-        'bleu-de-france': '#3275EA',
-        'isabelline': '#F4F0ED',
         
         // Design system colors
         border: "var(--border)",
         input: "var(--input)",
         ring: "var(--ring)",
-        background: "var(--background)",
+        muted: "var(--muted)",
+        background: "var(--background)", 
         foreground: "var(--foreground)",
         primary: {
           DEFAULT: "var(--primary)",
@@ -37,18 +34,7 @@ module.exports = {
           DEFAULT: "var(--secondary)",
           foreground: "var(--secondary-foreground)",
         },
-        destructive: {
-          DEFAULT: "var(--destructive)",
-          foreground: "var(--destructive-foreground)",
-        },
-        muted: {
-          DEFAULT: "var(--muted)",
-          foreground: "var(--muted-foreground)",
-        },
-        accent: {
-          DEFAULT: "var(--accent)",
-          foreground: "var(--accent-foreground)",
-        },
+       
         popover: {
           DEFAULT: "var(--popover)",
           foreground: "var(--popover-foreground)",
@@ -57,6 +43,8 @@ module.exports = {
           DEFAULT: "var(--card)",
           foreground: "var(--card-foreground)",
         },
+        black: "var(--black)",
+        white: "var(--white)",
       },
       borderRadius: {
         lg: "var(--radius)",

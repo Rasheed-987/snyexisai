@@ -11,8 +11,18 @@ const Service = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading services...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-foreground">Loading services...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-red-600">{error}</p>
         </div>
       </div>
     );
@@ -29,9 +39,9 @@ const Service = () => {
   }
 
   return (
-    <section className=" bg-[#F9F9F9]    rounded-b-[80px] pb-[150px]    relative z-50">
+    <section className=" bg-background   rounded-b-[80px] pb-[150px]    relative z-50">
       <div className='pt-20'>
-        <h2 className="text-[#1A2341] text-3xl text-center sm:text-4xl lg:text-5xl font-medium leading-tight mb-20">
+        <h2 className="text-foreground text-3xl text-center sm:text-4xl lg:text-5xl font-medium leading-tight mb-20">
           Our Services
         </h2>
       </div>

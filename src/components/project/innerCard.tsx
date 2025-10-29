@@ -25,21 +25,21 @@ const InnerCard = ({ banner, title, description, requirements, project }: InnerC
 
       {/* Right Side - Content */}
       <div className="space-y-4 px-4">
-        <h2 className="text-2xl md:text-3xl text-[#0F1C34] font-semibold my-7 leading-snug">{title}</h2>
+        <h2 className="text-2xl md:text-3xl text-foreground font-semibold my-7 leading-snug">{title}</h2>
         {/* thin horizontal line */}
         <div className="h-px bg-black my-10" />
-        <p className="text-gray-600 leading-relaxed">{description}</p>
+        <p className="text-foreground leading-relaxed">{description}</p>
 
         <div className="my-7">
-          <Link href={`/projectouter/${project._id}`} className="text-blue-600 underline">
+          <Link href={`/projectouter/${project._id}`} className="text-primary underline">
             Read More-&gt;
           </Link>
         </div>
         {/* Bullets */}
         <ul className="space-y-2 pt-3">
           {requirements?.map((req, i) => (
-            <li key={i} className="flex items-start gap-2 text-gray-700">
-              <span className="w-2 h-2 mt-2 bg-blue-500 rounded-full flex-shrink-0"></span>
+            <li key={i} className="flex items-start gap-2 text-foreground">
+              <span className="w-2 h-2 mt-2 bg-primary rounded-full flex-shrink-0"></span>
               <span>{req}</span>
             </li>
           ))}

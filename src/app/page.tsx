@@ -133,37 +133,37 @@ export default function HomePage() {
   ];
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   return (
-      <div className=" bg-white   rounded-b-[80px] mb-30   relative z-50">
+      <div className=" bg-[var(--background)]   rounded-b-[80px] mb-30   relative z-50">
       {/* Hero Section */}
-      <section className="bg-[rgb(249,249,249)] min-h-screen flex flex-col justify-center mt-10 items-center text-center px-10">
+      <section className="bg-[var(--background)] min-h-screen flex flex-col justify-center mt-10 items-center text-center px-10">
         <motion.div
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 1, ease: 'easeOut' }}
         >
-          <p className="text-sm uppercase tracking-wide 2xl:text-lg font-semibold text-[#0F1C3D] mb-4">
+          <p className="text-sm uppercase tracking-wide 2xl:text-lg font-semibold text-foreground mb-4">
             Design & Webflow Agency / UAE
           </p>
-          <h1 className="text-4xl max-w-[900px] mx-auto sm:text-5xl lg:text-6xl xl:text-7xl 2xl:text-7xl font-medium text-[#0F1C3D] mb-4">
+          <h1 className="text-4xl max-w-[900px] mx-auto sm:text-5xl lg:text-6xl xl:text-7xl 2xl:text-7xl font-medium text-foreground mb-4">
             Where Intelligence Meets Imagination
           </h1>
-          <h2 className="text-3xl max-w-[900px] sm:text-4xl lg:text-5xl xl:text-6xl font-medium text-[#327AED] mb-6">
+          <h2 className="text-3xl max-w-[900px] sm:text-4xl lg:text-5xl xl:text-6xl font-medium text-primary mb-6">
             Crafting Tomorrow’s Digital Experiences, Today.
           </h2>
-          <p className="text-lg xl:text-xl font-regular text-[#0F1C3D] mb-8">
+          <p className="text-lg xl:text-xl font-regular text-foreground mb-8">
             Synexis AI is a future-ready creative & technology agency
           </p>
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             <button
               onClick={() => router.push('/contact')}
-              className="bg-[#327AED] text-white pr-3 pl-6 md:px-10  hover:scale-90 py-5 rounded-full flex items-center gap-3  text-base font-normal shadow-md transition-all duration-150"
+              className="bg-primary text-primary-foreground pr-3 pl-6 md:px-10  hover:scale-90 py-5 rounded-full flex items-center gap-3  text-base font-normal shadow-md transition-all duration-150"
             >
               Work With Us
               <img src="/images/home/button_arrow.png" alt="Arrow Right" className="w-4 h-4 invert" />
             </button>
             <button
               onClick={() => router.push('/casestudies')}
-              className="border border-[#0F1C3D] text-[#0F1C3D] px-3 md:px-10 py-5 hover:scale-90 rounded-full flex items-center gap-3  text-base font-normal transition-all duration-150"
+              className="border border-foreground text-foreground px-3 md:px-10 py-5 hover:scale-90 rounded-full flex items-center gap-3  text-base font-normal transition-all duration-150"
             >
               Explore Our Case Studies
               <img src="/images/home/button_arrow.png" alt="Arrow Right" className="w-4 h-4" />
@@ -173,10 +173,10 @@ export default function HomePage() {
       </section>
 
       {/* Why Synexis AI Section */}
-      <section className="bg-[#F4F0ED] lg:min-h-[700px] xl:min-h-[1000px] py-16 xl:py-24 ">
+      <section className="bg-[var(--secondary)] lg:min-h-[700px] xl:min-h-[1000px] py-16 xl:py-24 ">
         <div className=" mx-auto flex flex-col lg:gap-[120px] xl:gap-[160px] px-10">
           <div className="w-full flex items-start justify-start mb-8">
-            <h3 className="text-3xl xl:text-5xl font-normal text-gray-900 leading-tight">
+            <h3 className="text-3xl xl:text-5xl font-normal text-[var(--foreground)] leading-tight">
               Why<br />Synexis AI
             </h3>
           </div>
@@ -188,13 +188,13 @@ export default function HomePage() {
               transition={{ duration: 1, ease: 'easeOut' }}
             >
               <div className="max-w-xl xl:max-w-3xl mx-auto text-center">
-                <h4 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-medium text-gray-900 mb-2">
+                <h4 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-medium text-[var(--foreground)] mb-2">
                   Meticulous Iteration
                 </h4>
-                <h5 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl text-gray-600 mb-4">
+                <h5 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl text-[var(--foreground)] mb-4">
                   Uncompromising Quality
                 </h5>
-                <p className="text-md sm:text-lg lg:text-xl xl:text-2xl text-gray-500">
+                <p className="text-md sm:text-lg lg:text-xl xl:text-2xl text-[var(--foreground)]">
                   Our streamlined process allows for continuous refinement, ensuring every detail aligns with your vision. Don't worry, we craft excellence.
                 </p>
               </div>
@@ -209,21 +209,21 @@ export default function HomePage() {
           <img src="/images/home/img5.png" alt="Office" className="w-full lg:h-[100vh] object-cover rounded-l-xl" />
         </div>  
         {/* cards */}
-        <div className="w-full lg:w-1/2 flex flex-col justify-center bg-white p-8 lg:p-5 ">
-          <h2 className="text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-medium text-[#1A2853] mb-6 leading-tight">
+        <div className="w-full lg:w-1/2 flex flex-col justify-center bg-[var(--white)] p-8 lg:p-5 ">
+          <h2 className="text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-medium text-[var(--foreground)] mb-6 leading-tight">
             Empowering businesses,<br />Redefining experiences...
           </h2>
-          <p className="text-base md:text-sm lg:text-md xl:text-lg 2xl:text-xl font-regular text-[#1A2853] mb-4 leading-relaxed">
+          <p className="text-base md:text-sm lg:text-md xl:text-lg 2xl:text-xl font-regular text-[var(--foreground)] mb-4 leading-relaxed">
             We don’t just design—we craft experiences that engage, convert, and inspire. Backed by innovation and industry expertise, we transform insights into pixel-perfect digital solutions.
           </p>
-          <p className="text-base md:text-sm lg:text-md xl:text-lg 2xl:text-xl font-regular text-[#1A2853] mb-6 leading-relaxed">
+          <p className="text-base md:text-sm lg:text-md xl:text-lg 2xl:text-xl font-regular text-[var(--foreground)] mb-6 leading-relaxed">
             From apps to websites, we deliver seamless, high-impact designs that redefine user experience. Let’s build something extraordinary together!
           </p>
           <button onClick={() => router.push('/about')} className="custom-about-btn">
             More About Us
           </button>
-          <div className="bg-white  rounded-xl p-6  mt-6">
-            <p className=" text-[#1A2853] xl:text-xl font-medium mb-4">
+          <div className="bg-[var(--white)]  rounded-xl p-6  mt-6">
+            <p className=" text-[var(--foreground)] xl:text-xl font-medium mb-4">
               “The team at Synexis made everything
  simple, clear, and exciting. They genuinely
  cared about our goals and treated the
@@ -233,8 +233,8 @@ export default function HomePage() {
             <div className="flex items-center gap-4 xl:gap-6">
               <img src="/images/home/img6.png" alt="Nedin Zahirovic" className="w-12 h-12  xl:w-15 xl:h-15 2xl:w-17 2xl:h-17 rounded-full object-cover" />
               <div>
-                <div className="text-base md:text-lg 2xl:text-xl font-semibold text-[#1A2853]">louise Nonweiler</div>
-                <div className="text-xs md:text-sm xl:text-base text-[#1A2853]">Founder, Trader 365<br />Starnberg, Germany</div>
+                <div className="text-base md:text-lg 2xl:text-xl font-semibold text-[var(--foreground)]">louise Nonweiler</div>
+                <div className="text-xs md:text-sm xl:text-base text-[var(--foreground)]">Founder, Trader 365<br />Starnberg, Germany</div>
               </div>
             </div>
           </div>
@@ -244,7 +244,7 @@ export default function HomePage() {
       {/* Services Section */}
       <section id="services" className="py-16 xl:py-24">
         <div className='pt-20'>
-        <h2 className="text-[#1A2341] text-3xl text-center sm:text-4xl lg:text-5xl font-medium leading-tight mb-20">
+        <h2 className="text-[var(--foreground)] text-3xl text-center sm:text-4xl lg:text-5xl font-medium leading-tight mb-20">
           Our Services
         </h2>
       </div>
@@ -286,26 +286,26 @@ export default function HomePage() {
       
       {/* Stat 1 */}
       <div>
-  <h3 className="text-3xl sm:text-6xl  font-medium text-black">250+</h3>
-  <p className="text-[#0F1C3D] mt-2 text-sm sm:text-base xl:text-lg">Projects Completed</p>
+  <h3 className="text-3xl sm:text-6xl  font-medium text-[var(--black)]">250+</h3>
+  <p className="text-[var(--black)] mt-2 text-sm sm:text-base xl:text-lg">Projects Completed</p>
       </div>
 
       {/* Stat 2 */}
       <div>
-  <h3 className="text-3xl sm:text-6xl  font-medium text-black">180+</h3>
-  <p className="text-[#0F1C3D] mt-2 text-sm sm:text-base xl:text-lg">Happy Clients</p>
+  <h3 className="text-3xl sm:text-6xl  font-medium text-[var(--black)]">180+</h3>
+  <p className="text-[var(--black)] mt-2 text-sm sm:text-base xl:text-lg">Happy Clients</p>
       </div>
 
       {/* Stat 3 */}
       <div>
-  <h3 className="text-3xl sm:text-6xl  font-medium text-black">10+</h3>
-  <p className="text-[#0F1C3D] mt-2 text-sm sm:text-base xl:text-lg">Years of Experience</p>
+  <h3 className="text-3xl sm:text-6xl  font-medium text-[var(--black)]">10+</h3>
+  <p className="text-[var(--black)] mt-2 text-sm sm:text-base xl:text-lg">Years of Experience</p>
       </div>
 
       {/* Stat 4 */}
       <div>
-  <h3 className="text-3xl sm:text-6xl  font-medium text-black">50+</h3>
-  <p className="text-[#0F1C3D] mt-2 text-sm sm:text-base xl:text-lg">Team Members</p>
+  <h3 className="text-3xl sm:text-6xl  font-medium text-[var(--black)]">50+</h3>
+  <p className="text-[var(--black)] mt-2 text-sm sm:text-base xl:text-lg">Team Members</p>
       </div>
 
     </div>
@@ -317,16 +317,16 @@ export default function HomePage() {
       <section id="case-studies" className=" mx-auto ">
         <section className=" px-6  py-12">
           <div className="mb-12">
-            <span className="inline-flex items-center text-sm text-slate-500 font-regular mb-4">
-              <span className="w-2 h-2 rounded-full bg-sky-900 mr-2" />
+            <span className="inline-flex items-center text-sm text-[var(--foreground)] font-regular mb-4">
+              <span className="w-2 h-2 rounded-full bg-[var(--foreground)] mr-2" />
             CASE STUDIES
           </span>
 
-          <h2 className=" text-2xl sm:text-5xl xl:text-6xl ml-2 text-[#0F1C3D] font-regular leading-tight mb-4">
+          <h2 className=" text-2xl sm:text-5xl xl:text-6xl ml-2 text-[var(--foreground)] font-regular leading-tight mb-4">
             Our Latest Case Studies
           </h2>
 
-          <p className="text-slate-600 max-w-md xl:max-w-2xl text-base xl:text-xl">
+          <p className="text-[var(--foreground)] max-w-md xl:max-w-2xl text-base xl:text-xl">
             As a UI/UX design company in Dubai, we don't just build websites — we craft immersive digital
             experiences that push boundaries and deliver business results.
           </p>
@@ -337,7 +337,7 @@ export default function HomePage() {
     <section className="w-full relative">
       {caseStudiesLoading ? (
         <div className="flex items-center justify-center py-20">
-          <p className="text-gray-600">Loading case studies...</p>
+          <p className="text-[var(--foreground)]">Loading case studies...</p>
         </div>
       ) : Array.isArray(caseStudy) && caseStudy.length > 0 ? (
         <>
@@ -346,7 +346,7 @@ export default function HomePage() {
             <div className="flex justify-center mt-8">
               <Link 
                 href="/casestudies"
-                className="bg-white text-[#0F1C3D] px-6 py-3 rounded-full flex items-center gap-2 font-medium transition-all hover:bg-gray-50"
+                className="bg-[var(--white)] text-[var(--foreground)] px-6 py-3 rounded-full flex items-center gap-2 font-medium transition-all hover:bg-gray-50"
               >
                 View All Case Studies
                 <img src="/images/home/button_arrow.png" alt="Arrow Right" className="w-4 h-4" />
@@ -356,7 +356,7 @@ export default function HomePage() {
         </>
       ) : (
         <div className="flex items-center justify-center py-20">
-          <p className="text-gray-600">No case studies available</p>
+          <p className="text-[var(--foreground)]">No case studies available</p>
         </div>
       )}
     </section>
@@ -364,8 +364,8 @@ export default function HomePage() {
 
     {/* Our Approach to AI Success Section */}
       <section className="w-full bg-white py-16 xl:py-24 px-4 flex flex-col items-center">
-      <h2 className="text-[#1A2341] text-3xl sm:text-3xl lg:text-4xl xl:text-7xl font-medium text-center tracking-tight mb-4">Our Approach to AI Success</h2>
-      <p className="text-[#6B7280] text-base sm:text-lg lg:text-xl xl:text-2xl text-center max-w-2xl xl:max-w-4xl mb-12">We blend strategic insight, advanced technology, and a commitment to excellence to drive transformative results for your business.</p>
+      <h2 className="text-[var(--foreground)] text-3xl sm:text-3xl lg:text-4xl xl:text-7xl font-medium text-center tracking-tight mb-4">Our Approach to AI Success</h2>
+      <p className="text-[var(--foreground)] text-base sm:text-lg lg:text-xl xl:text-2xl text-center max-w-2xl xl:max-w-4xl mb-12">We blend strategic insight, advanced technology, and a commitment to excellence to drive transformative results for your business.</p>
       <div className="w-full max-w-6xl xl:max-w-8xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         {/* Card 1 */}
         <motion.div 
@@ -377,8 +377,8 @@ export default function HomePage() {
           <span className="mb-10">
               <Image src="/images/home/img1_1.png" alt="POC" width={130} height={130} className="object-contain w-[130px] h-[130px] xl:w-[160px] xl:h-[160px] approach-img-hover" />
           </span>
-          <h3 className="text-[#1A2341] text-xl xl:text-2xl font-medium mb-2">POC in 4 – 6 weeks</h3>
-          <p className="text-[#6B7280] text-base xl:text-lg">See impact quickly with our rapid prototyping approach.</p>
+          <h3 className="text-[var(--foreground)] text-xl xl:text-2xl font-medium mb-2">POC in 4 – 6 weeks</h3>
+          <p className="text-[var(--foreground)] text-base xl:text-lg">See impact quickly with our rapid prototyping approach.</p>
         </motion.div>
         {/* Card 2 */}
         <motion.div 
@@ -390,8 +390,8 @@ export default function HomePage() {
           <span className="mb-10">
               <Image src="/images/home/img1_2.png" alt="End-to-End AI Delivery" width={130} height={130} className="object-contain w-[130px] h-[130px] xl:w-[160px] xl:h-[160px] approach-img-hover" />
           </span>
-          <h3 className="text-[#1A2341] text-xl xl:text-2xl font-medium mb-2">End-to-End AI Delivery</h3>
-          <p className="text-[#6B7280] text-base xl:text-lg">From data prep to deployment to monitoring – we handle it all.</p>
+          <h3 className="text-[var(--foreground)] text-xl xl:text-2xl font-medium mb-2">End-to-End AI Delivery</h3>
+          <p className="text-[var(--foreground)] text-base xl:text-lg">From data prep to deployment to monitoring we handle it all.</p>
         </motion.div>
         {/* Card 3 */}
         <motion.div 
@@ -403,8 +403,8 @@ export default function HomePage() {
           <span className="mb-10">
               <Image src="/images/home/img1_3.png" alt="Regulatory Compliance" width={130} height={130} className="object-contain w-[130px] h-[130px] xl:w-[160px] xl:h-[160px] approach-img-hover" />
           </span>
-          <h3 className="text-[#1A2341] text-xl xl:text-2xl font-medium mb-2">Regulatory Compliance</h3>
-          <p className="text-[#6B7280] text-base xl:text-lg">HIPAA, CDPR, and SOC2 practices implemented from the ground up – so your AI is secure and scalable.</p>
+          <h3 className="text-[var(--foreground)] text-xl xl:text-2xl font-medium mb-2">Regulatory Compliance</h3>
+          <p className="text-[var(--muted-foreground)] text-base xl:text-lg">HIPAA, CDPR, and SOC2 practices implemented from the ground up so your AI is secure and scalable.</p>
         </motion.div>
         {/* Card 4 */}
         <motion.div 
@@ -416,16 +416,16 @@ export default function HomePage() {
           <span className="mb-10">
               <Image src="/images/home/img1_4.png" alt="Proven ROI" width={130} height={130} className="object-contain w-[130px] h-[130px] xl:w-[160px] xl:h-[160px] approach-img-hover" />
           </span>
-          <h3 className="text-[#1A2341] text-xl xl:text-2xl font-medium mb-2">Proven ROI</h3>
-          <p className="text-[#6B7280] text-base xl:text-lg">Documented case studies with measurable, quantifiable results.</p>
+          <h3 className="text-[var(--foreground)] text-xl xl:text-2xl font-medium mb-2">Proven ROI</h3>
+          <p className="text-[var(--muted-foreground)] text-base xl:text-lg">Documented case studies with measurable, quantifiable results.</p>
         </motion.div>
       </div>
     </section>
 
 <section className="w-full bg-white py-16 px-4 flex flex-col items-center">
   <div>
-    <h2 className="text-[#1A2341] text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-medium text-center tracking-tight mb-4">Delight Clients</h2>
-    <p className="text-[#6B7280] text-base sm:text-lg lg:text-xl text-center max-w-2xl xl:max-w-4xl mb-12">We blend strategic insight, advanced technology, and a commitment to excellence to drive transformative results for your business.</p>
+    <h2 className="text-[var(--foreground)] text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-medium text-center tracking-tight mb-4">Delight Clients</h2>
+    <p className="text-[var(--foreground)] text-base sm:text-lg lg:text-xl text-center max-w-2xl xl:max-w-4xl mb-12">We blend strategic insight, advanced technology, and a commitment to excellence to drive transformative results for your business.</p>
   </div>
 
 
@@ -440,9 +440,26 @@ export default function HomePage() {
             style={{ width: "max-content" }}
           >
             {/* Logos duplicated for seamless loop */}
-            {["/images/client/img1.png","/images/client/img2.png","/images/client/img3.png","/images/client/img4.png","/images/client/img5.png","/images/client/img6.png",
-              "/images/client/img1.png","/images/client/img2.png","/images/client/img3.png","/images/client/img4.png","/images/client/img5.png","/images/client/img6.png"].map((src, i) => (
-              <img key={i} src={src} alt={`Logo ${i+1}`} className="h-[40px] w-[90px] sm:h-[61px] sm:w-[150px] object-contain flex-shrink-0" />
+            {[
+              "/images/client/img1.png",
+              "/images/client/img2.png",
+              "/images/client/img3.png",
+              "/images/client/img4.png",
+              "/images/client/img5.png",
+              "/images/client/img6.png",
+              "/images/client/img1.png",
+              "/images/client/img2.png",
+              "/images/client/img3.png",
+              "/images/client/img4.png",
+              "/images/client/img5.png",
+              "/images/client/img6.png"
+            ].map((src, i) => (
+              <img
+                key={i}
+                src={src}
+                alt={`Logo ${i + 1}`}
+                className="h-[40px] w-[90px] sm:h-[61px] sm:w-[150px] object-contain flex-shrink-0"
+              />
             ))}
           </motion.div>
         </div>
@@ -471,7 +488,7 @@ export default function HomePage() {
             style={{ width: "max-content" }}
           >
             {["/images/client/img13.png","/images/client/img14.png","/images/client/img15.png","/images/client/img16.png","/images/client/img17.png","/images/client/img18.png","/images/client/img19.png",
-              "/images/client/img13.png","/images/client/img14.png","/images/client/img15.png","/images/client/img16.png","/images/client/img17.png","/images/client/img18.png","/images/client/img19.png"].map((src, i) => (
+              "/images/client/img13.png","/images/client/img14.png","/images/client/img15.png","/images/client/img16.png","/images/client/img17.png","/images/client/img18.png","images/client/img19.png"].map((src, i) => (
               <img key={i} src={src} alt={`Logo ${i+13}`} className="h-[40px] w-[90px] sm:h-[61px] sm:w-[150px] object-contain flex-shrink-0 inline-block" />
             ))}
           </motion.div>
@@ -481,14 +498,14 @@ export default function HomePage() {
 
 </section>
 
-<section className='w-full   pt-30 bg-[#F4F0ED] mb-20'>
+<section className='w-full   pt-30 bg-[var(--secondary)] mb-20'>
 <div className="w-full   flex flex-col md:flex-row md:justify-between p-6 md:p-10 xl:p-16 gap-8  ">
           <div className="flex-1 flex flex-col ">
-            <h2 className="text-[#1A2341] text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-medium leading-tight mb-4">Innovative design is<br />our tool to reshape<br />business</h2>
+            <h2 className="text-[var(--foreground)] text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-medium leading-tight mb-4">Innovative design is<br />our tool to reshape<br />business</h2>
           </div>
           <div className="flex-1 flex flex-col justify-center">
-            <p className="text-[#2d3346] text-base sm:text-lg 2xl:text-xl mb-4">We're a passionate team of UI/UX designers dedicated to creating intuitive digital experiences. With years of experience, we blend creativity and strategy to design solutions that engage users and drive business success.</p>
-            <p className="text-[#1A2341] text-base sm:text-lg 2xl:xl mb-6">We turn ideas into seamless, Beautiful designs. Let's build digital experiences that not only look stunning but also deliver real results.</p>
+            <p className="text-[var(--foreground)] text-base sm:text-lg 2xl:text-xl mb-4">We're a passionate team of UI/UX designers dedicated to creating intuitive digital experiences. With years of experience, we blend creativity and strategy to design solutions that engage users and drive business success.</p>
+            <p className="text-[var(--foreground)] text-base sm:text-lg 2xl:xl mb-6">We turn ideas into seamless, Beautiful designs. Let's build digital experiences that not only look stunning but also deliver real results.</p>
             <button onClick={() => router.push('/about')}   className="custom-about-btn">More About Us</button>
           </div>
         </div>
@@ -537,7 +554,7 @@ export default function HomePage() {
 <section className="w-full bg-white py-16 space-y-8 px-10 flex flex-col items-center">
   <div className="w-full flex md:justify-between items-center">
     <div className="w-full md:w-[50%] flex flex-col justify-center">
-      <h2 className="text-[#1A2341] text-1xl sm:text-lg lg:text-xl xl:text-4xl 2xl:text-5xl font-medium text-center md:text-left tracking-tight mb-4 md:mb-0 w-full">Words that define our UI/UX<br />design capabilities</h2>
+      <h2 className="text-[var(--foreground)] text-1xl sm:text-lg lg:text-xl xl:text-4xl 2xl:text-5xl font-medium text-center md:text-left tracking-tight mb-4 md:mb-0 w-full">Words that define our UI/UX<br />design capabilities</h2>
     </div>
     <div className="hidden md:flex flex-row gap-4 items-center mr-20">
       <button 
@@ -569,24 +586,24 @@ export default function HomePage() {
       {testimonials.map((testimonial) => (
           <div key={testimonial.name} className="flex flex-col md:flex-row bg-white rounded-3xl interactive-card overflow-hidden flex-shrink-0 w-full">
           {/* Left: Image */}
-          <div className="w-full md:w-1/2 h-[300px] md:h-[400px] relative bg-[#181C23]">
-            <Image src={testimonial.image} alt="Project Screenshot" fill className="rounded-xl object-obtain" />
+          <div className="w-full md:w-1/2 h-[300px] md:h-[400px] relative ">
+            <Image src={testimonial.image} alt="Project Screenshot" fill className=" object-obtain" />
           </div>
           {/* Right: Content */}
           <div className="w-full md:w-1/2 flex flex-col justify-center p-4 md:p-8 h-full gap-2 md:gap-4">
             <div className="flex items-center gap-2 md:gap-3 mb-1 md:mb-2">
               <img src={testimonial.profileImage} alt={testimonial.name} className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover" />
               <div>
-                <div className="text-[#181C23] font-semibold text-sm md:text-base">{testimonial.name}</div>
-                <div className="text-[10px] md:text-xs text-gray-500">{testimonial.role}</div>
+                <div className="text-[var(--foreground)] font-semibold text-sm md:text-base">{testimonial.name}</div>
+                <div className="text-[10px] md:text-xs text-[var(--foreground)]">{testimonial.role}</div>
               </div>
             </div>
-            <blockquote className="text-[#181C23] text-sm md:text-lg xl:text-2xl font-medium mb-2 md:mb-4">"{testimonial.quote}"</blockquote>
+            <blockquote className="text-[var(--foreground)] text-sm md:text-lg xl:text-2xl font-medium mb-2 md:mb-4">"{testimonial.quote}"</blockquote>
             <div className="flex flex-col gap-1">
               {testimonial.logo && (
                 <img src={testimonial.logo} alt="Company Logo" className="w-[100px] md:w-[119.77px] h-[36px] md:h-[42.58px] object-contain" />
               )}
-              <span className="text-gray-500 text-[10px] md:text-xs">{testimonial.location}</span>
+              <span className="text-[var(--foreground)] text-[10px] md:text-xs">{testimonial.location}</span>
             </div>
           </div>
           </div>
@@ -622,7 +639,7 @@ export default function HomePage() {
         onClick={() => setCurrentTestimonial(index)}
         aria-label={`Go to testimonial ${index + 1}`}
         className={`h-2 rounded-full transition-all ${
-          currentTestimonial === index ? 'w-8 bg-[#327AED]' : 'w-2 bg-gray-300'
+          currentTestimonial === index ? 'w-8 bg-[var(--primary)]' : 'w-2 bg-[var(--background)]'
         }`}
       />
     ))}
@@ -644,7 +661,7 @@ export default function HomePage() {
     </div>
 
     {/* Overlay: Becomes slightly more transparent on group hover */}
-    <div className="absolute inset-0 bg-[#0A2341]/80 transition-all duration-500 group-hover:bg-[#0A2341]/70" />
+    <div className="absolute inset-0 bg[--var(--foreground)/80] transition-all duration-500 group-hover:bg[--var(--foreground)/70]" />
 
     
     <div className="relative z-10 flex flex-col items-center justify-center py-8 px-4 sm:py-12 sm:px-6 md:py-16 lg:px-8 xl:py-24">
@@ -656,7 +673,7 @@ export default function HomePage() {
       </p>
       
       {/* Button: Enhanced hover effects */}
-      <button onClick={()=>router.push('/contact')} className="bg-white text-[#0A2341] px-6 py-2.5 sm:px-8 sm:py-3 rounded-full text-sm sm:text-base font-medium shadow-md transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:-translate-y-1 active:scale-95">
+      <button onClick={()=>router.push('/contact')} className="bg-white text-[var(--foreground)] px-6 py-2.5 sm:px-8 sm:py-3 rounded-full text-sm sm:text-base font-medium shadow-md transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-xl hover:-translate-y-1 active:scale-95">
         Free Consultation
       </button>
     </div>
@@ -668,11 +685,11 @@ export default function HomePage() {
       <div className="w-full flex flex-col md:flex-row md:justify-between md:gap-[120px] 2xl:gap-[150px]">
         {/* Left: Heading */}
         <div className="md:w-1/3 w-full flex flex-col justify-start items-start pl-4 md:pr-8 mb-8 md:mb-0">
-          <h2 className="text-[#1A2341] text-2xl sm:text-3xl lg:text-4xl  font-medium leading-tight mb-2">Frequently</h2>
-          <div className="text-[#1A2341] text-2xl sm:text-2xl lg:text-3xl font-normal leading-tight">Asked<br />Questions</div>
+          <h2 className="text-[var(--foreground)] text-2xl sm:text-3xl lg:text-4xl  font-medium leading-tight mb-2">Frequently</h2>
+          <div className="text-[var(--foreground)] text-2xl sm:text-2xl lg:text-3xl font-normal leading-tight">Asked<br />Questions</div>
         </div>
         {/* Right: FAQ List - interactive accordion */}
-        <div className="md:w-2/3 w-full flex flex-col divide-y divide-gray-200 rounded-2xl bg-white/60 backdrop-blur">
+        <div className="md:w-2/3 w-full flex flex-col divide-y divide-[var(--border)] rounded-2xl bg-white/60 backdrop-blur">
           {faqs.map((item, i) => {
             const isOpen = openIndex === i;
             return (
@@ -684,11 +701,11 @@ export default function HomePage() {
                 
               >
                 <div className="flex items-start justify-between gap-4">
-                  <span className="text-[#1A2341] text-base sm:text-lg lg:text-xl  font-normal">
+                  <span className="text-[var(--foreground)] text-base sm:text-lg lg:text-xl  font-normal">
                     {item.question}
                   </span>
                   <span
-                    className={`inline-flex h-8 w-8 aspect-square items-center justify-center rounded-full border border-gray-300 text-[#1A2341] transition-transform ${isOpen ? 'rotate-45' : ''}`}
+                    className={`inline-flex h-8 w-8 aspect-square items-center justify-center rounded-full border border-[var(--border)] text-[var(--foreground)] transition-transform ${isOpen ? 'rotate-45' : ''}`}
                   >
                     <svg
                       width="18"
@@ -704,7 +721,7 @@ export default function HomePage() {
                   </span>
                 </div>
                 <div className={`overflow-hidden transition-[max-height,opacity] duration-300 ease-out ${isOpen ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}>
-                  <p className="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed">
+                  <p className="mt-3 text-[var(--foreground)] text-sm sm:text-base leading-relaxed">
                     {item.answer}
                   </p>
                 </div>

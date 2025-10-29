@@ -45,15 +45,15 @@ export default function CaseStudyDetailPage({
  
 
   return (
-    <main className="bg-white  w-full text-[#0a0a0a]">
+    <main className="bg-background  w-full ">
     {/* Hero Section */}
   <section className="w-full flex flex-col justify-center items-center text-center py-16 px-6">
     {/* Case Title */}
-    <h1 className="text-[40px] sm:text-[60px] md:text-[90px] lg:text-[105px] font-medium leading-tight tracking-tight mb-6 break-words">
+    <h1 className="text-[40px] text-foreground sm:text-[60px] md:text-[90px] lg:text-[105px] font-medium leading-tight tracking-tight mb-6 break-words">
       {caseTitle}
     </h1>
 
-    <p className="text-gray-600 max-w-3xl mx-auto text-base sm:text-lg leading-relaxed">
+    <p className="text-foreground max-w-3xl mx-auto text-base sm:text-lg leading-relaxed">
       {subtitle}
     </p>
   </section>
@@ -73,15 +73,15 @@ export default function CaseStudyDetailPage({
       </div>
 </div>
       {/* Left Text and Requirements */}
-      <section className=" mx-auto px-7 flex md:justify-between gap-10 mb-20">
+      <section className=" mx-auto text-foreground px-7 flex md:justify-between gap-10 mb-20">
         <div>
           <h3 className="text-2xl max-w-[400px]   font-medium mb-4">{leftTextBox}</h3>
         </div>
-        <ul className="space-y-2 text-gray-700">
+        <ul className="space-y-2 ">
           <h4 className="font-semibold">What we did</h4>
           {requirements?.map((req, idx) => (
             <li key={idx} className="flex items-start gap-2">
-              <span className="text-blue-500 mt-1">•</span>
+              <span className=" mt-1">•</span>
               {req}
             </li>
           ))}
@@ -100,14 +100,14 @@ export default function CaseStudyDetailPage({
   </div>
 </div>
 
-     <section className="mx-auto px-10 grid md:grid-cols-2 gap-6 mb-20">
+     <section className="mx-auto px-10  grid md:grid-cols-2 gap-6 mb-20">
   {[images.gallery[1], images.gallery[2]].map((img, i) => (
-    <div key={i} className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden">
+    <div key={i} className="relative aspect-[9/16] w-full  rounded-2xl overflow-hidden">
       <Image
         src={img}
         alt={`Gallery ${i}`}
         fill
-        className="object-cover"
+        className="object-obtain"
       />
     </div>
   ))}
@@ -115,8 +115,8 @@ export default function CaseStudyDetailPage({
 
       {/* Center Text Div (LargeCard) */}
       <section className="max-w-3xl mx-auto px-5 text-center mb-20">
-        <h2 className="text-2xl md:text-3xl font-semibold mb-3">{largeCard.title}</h2>
-        <p className="text-gray-700">{largeCard.body}</p>
+        <h2 className="text-2xl md:text-3xl text-foreground font-semibold mb-3">{largeCard.title}</h2>
+        <p className="text-foreground">{largeCard.body}</p>
       </section>
 
       {/* Two Small Cards A */}
@@ -166,7 +166,7 @@ export default function CaseStudyDetailPage({
 
       {/* 3 Horizontal Images */}
       <div className='px-12' >
-      <section className=" mx-auto  grid bg-[#EDEDED] p-20  rounded-[50px] md:grid-cols-1 gap-6 mb-20">
+      <section className=" mx-auto  grid bg-muted p-20  rounded-[50px] md:grid-cols-1 gap-6 mb-20">
         {[images.gallery[7], images.gallery[8], images.gallery[9]].map((img, i) => (
           <div key={i} className="relative aspect-[16/3]   rounded-2xl overflow-hidden">
             <Image src={img} alt={`Horizontal ${i}`} fill className="object-fit" />
@@ -188,7 +188,7 @@ export default function CaseStudyDetailPage({
       {/* Middle Body Text + Single Image */}
       {bodyTextMiddle && (
         <section className="max-w-3xl mx-auto px-5 text-center mb-10">
-          <p className="text-gray-700">{bodyTextMiddle}</p>
+          <p className="text-foreground">{bodyTextMiddle}</p>
         </section>
       )}
       <div className='w-full px-10 mb-16'>    
@@ -202,7 +202,7 @@ export default function CaseStudyDetailPage({
       {/* Bottom Body Text */}
       {bodyTextBottom && (
         <section className="max-w-3xl mx-auto px-5 text-center pb-24">
-          <p className="text-gray-700">{bodyTextBottom}</p>
+          <p className="text-foreground">{bodyTextBottom}</p>
         </section>
       )}
     </main>

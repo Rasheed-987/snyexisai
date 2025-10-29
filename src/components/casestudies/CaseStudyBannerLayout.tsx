@@ -60,7 +60,7 @@ export default function CaseStudyBannerLayout({
             
             {/* Hover overlay */}
             <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-black/20 transition duration-300">
-              <button className="bg-white text-black px-6 py-3 rounded-xl shadow-md hover:bg-gray-100 active:scale-95 transform transition duration-200">
+              <button className="bg-white text-black px-6 py-3 rounded-xl shadow-md hover:bg-background active:scale-95 transform transition duration-200">
                 Read More
               </button>
             </div>
@@ -90,7 +90,7 @@ export default function CaseStudyBannerLayout({
                 
                 {/* Hover overlay */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-black/20 transition duration-300">
-                  <button className="bg-white text-black px-4 py-2 rounded-xl shadow-md hover:bg-gray-100 active:scale-95 transform transition duration-200 text-sm">
+                  <button className="bg-white text-black px-4 py-2 rounded-xl shadow-md hover:bg-background active:scale-95 transform transition duration-200 text-sm">
                     Read More
                   </button>
                 </div>
