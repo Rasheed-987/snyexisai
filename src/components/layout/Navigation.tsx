@@ -179,8 +179,8 @@ const toggleContainer: React.CSSProperties = {
   MozUserSelect: 'none',
   cursor: 'pointer',
   position: 'absolute',
-  top: 11, // MODIFIED: Position on right
-  right: 4,
+  top: 7, // MODIFIED: Position on right
+  right: 0,
   width: 50,
   height: 50,
   borderRadius: '50%',
@@ -342,7 +342,7 @@ const AnimatedLinkList = ({ closeMenu }: { closeMenu: () => void }) => {
            
         {portfolioOpen && (
           <motion.div // MODIFIED: Align items-end and use pr-6
-            className="flex flex-col items-end w-full pr-6"
+            className="flex flex-col items-center  w-full pr-6"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
@@ -501,7 +501,6 @@ export const Navigation = () => {
      custom={height}
      ref={containerRef}
      style={nav}
-     // MODIFIED: Replaced 'bottom-0' with 'h-dvh' and 'bottom-auto'
      className=" absolute top-0 right-0 h-dvh bottom-auto z-[100]"
     >
       <motion.div style={background} variants={sidebarVariants} />
