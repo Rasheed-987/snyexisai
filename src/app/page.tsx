@@ -617,7 +617,7 @@ export default function HomePage() {
   </div>
 
   {/* Card Div with Carousel */}
-  <div className="overflow-hidden max-w-5xl 2xl:max-w-7xl mx-auto w-full">
+  <div id="testimonials" className="overflow-hidden max-w-5xl 2xl:max-w-7xl mx-auto w-full">
     <div 
       ref={testimonialScrollRef}
       className="flex flex-row gap-6 hide-scrollbar transition-transform duration-500 ease-in-out" 

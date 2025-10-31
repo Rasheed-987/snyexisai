@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation'
 import type { Variants } from 'motion/react'
 import { stagger } from 'motion/react'
 import * as motion from 'motion/react-client'
+import HomeDropdown from '../ui/HomeDropdown'
 
 
 type Props = {
@@ -454,9 +455,11 @@ export const Navigation = () => {
          {/* --- DESKTOP NAVIGATION LINKS (Unchanged) --- */}  
       <div className={`hidden md:flex mt-2 ml-3 items-center mr-3 gap-7 ${textColor}`}>
            
-        <Link href="/" className={` font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>
+        {/* <Link href="/" className={` font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>
           HOME
-        </Link>
+        </Link> */}
+      <HomeDropdown  textColor={textColor} />
+
            
         <Link href="/about" className={` font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>
           ABOUT
