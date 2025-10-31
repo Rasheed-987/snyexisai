@@ -37,11 +37,11 @@ const CaseStudyPage = () => {
           />
       
 
-        <div className="absolute top-30 right-20 max-w-[500px] px-4 lg:px-0 text-right">
+        <div className="absolute top-30 lg:right-20 max-w-[500px] px-4  ">
           <p className=" font-normal text-[16px] mb-4 sm:text-[18px] lg:text-[20px] 2xl:text-[24px] text-white">
             Every solution we create is powered by intelligence and intent. Our case studies highlight how Synexis.ai transforms challenges into opportunities — blending AI, creativity, and strategy to deliver outcomes that truly move businesses forward.
           </p>
-          <button className="px-6 py-3 bg-white rounded-full  font-medium text-[16px] sm:text-[18px] text-foreground shadow-lg hover:scale-105 hover:bg-gray-100 transition-colors">
+          <button className="px-6 py-3 bg-white rounded-full  font-medium text-[16px] sm:text-[18px] text-foreground shadow-lg hover:scale-105 hover:border transition-colors">
             Get Started Now
           </button>
         </div>
@@ -55,9 +55,9 @@ const CaseStudyPage = () => {
       </section>
  
 
-         <div className="w-full mx-auto px-4">
-      <section className="w-full mx-auto px-4 sm:px-8 lg:px-4 py-12">
-        <div className="mb-12">
+         <div className="w-full mx-auto">
+      <section className="w-full mx-auto  py-12">
+        <div className="mb-12 px-3 lg:px-10">
           <span className="inline-flex items-center text-sm text-foreground font-regular mb-4">
             <span className="w-2 h-2 rounded-full bg-foreground mr-2" />
             CASE STUDIES

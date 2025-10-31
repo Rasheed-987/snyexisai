@@ -50,7 +50,7 @@ if (loading) {
             <CaseStudyDetailPage { ...caseStudy } />
             
             {/* CTA Section - Partner with us & Subscribe */}
-            <section className="w-full py-20 mb-20 px-6 md:px-10 bg-background">
+            <section className="w-full py-20 mb-20 px-3 lg:px-10 bg-background">
                 <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-8">
                     {/* Partner with us Card */}
                     <div className="bg-white rounded-3xl p-8 md:p-10 shadow-sm hover:shadow-lg transition-shadow">

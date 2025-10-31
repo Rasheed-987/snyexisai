@@ -87,6 +87,27 @@ export default function HomePage() {
     }
   };
 
+   // Parent controls the stagger timing
+  const containerVariants:any = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.25, // delay between children
+        delayChildren: 0.3, // initial delay before animation starts
+      },
+    },
+  }
+
+  // Children animation (slide-up + fade-in)
+  const itemVariants:any = {
+    hidden: { y: 40, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.6, ease: 'easeOut' },
+    },
+  }
 
 
   const faqs: { question: string; answer: string }[] = [
@@ -133,72 +154,91 @@ export default function HomePage() {
   ];
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   return (
-      <div className=" bg-[var(--background)]   rounded-b-[80px] mb-30   relative z-50">
-      {/* Hero Section */}
-      <section className="bg-[var(--background)] min-h-screen flex flex-col justify-center mt-10 items-center text-center px-10">
-        <motion.div
-          initial={{ y: 100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 1, ease: 'easeOut' }}
+      <div className=" bg-background   rounded-b-[80px] mb-30   relative z-50">
+      <section className="bg-background min-h-screen flex flex-col justify-center mt-10 items-center text-center px-3 lg:px-10">
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+           whileInView="visible"
+        animate="visible"
+      >
+        <motion.p
+          variants={itemVariants}
+          className="text-sm uppercase tracking-wide 2xl:text-lg font-semibold text-foreground mb-4"
         >
-          <p className="text-sm uppercase tracking-wide 2xl:text-lg font-semibold text-foreground mb-4">
-            Design & Webflow Agency / UAE
-          </p>
-          <h1 className="text-4xl max-w-[900px] mx-auto sm:text-5xl lg:text-6xl xl:text-7xl 2xl:text-7xl font-medium text-foreground mb-4">
-            Where Intelligence Meets Imagination
-          </h1>
-          <h2 className="text-3xl max-w-[900px] sm:text-4xl lg:text-5xl xl:text-6xl font-medium text-primary mb-6">
-            Crafting Tomorrow’s Digital Experiences, Today.
-          </h2>
-          <p className="text-lg xl:text-xl font-regular text-foreground mb-8">
-            Synexis AI is a future-ready creative & technology agency
-          </p>
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
-            <button
-              onClick={() => router.push('/contact')}
-              className="bg-primary text-primary-foreground pr-3 pl-6 md:px-10  hover:scale-90 py-5 rounded-full flex items-center gap-3  text-base font-normal shadow-md transition-all duration-150"
-            >
-              Work With Us
-              <img src="/images/home/button_arrow.png" alt="Arrow Right" className="w-4 h-4 invert" />
-            </button>
-            <button
-              onClick={() => router.push('/casestudies')}
-              className="border border-foreground text-foreground px-3 md:px-10 py-5 hover:scale-90 rounded-full flex items-center gap-3  text-base font-normal transition-all duration-150"
-            >
-              Explore Our Case Studies
-              <img src="/images/home/button_arrow.png" alt="Arrow Right" className="w-4 h-4" />
-            </button>
-          </div>
+          Design & Webflow Agency / UAE
+        </motion.p>
+
+        <motion.h1
+          variants={itemVariants}
+          className="text-4xl max-w-[900px] mx-auto sm:text-5xl lg:text-6xl xl:text-7xl 2xl:text-7xl font-medium text-foreground mb-4"
+        >
+          Where Intelligence Meets Imagination
+        </motion.h1>
+
+        <motion.h2
+          variants={itemVariants}
+          className="text-3xl max-w-[900px] sm:text-4xl lg:text-5xl xl:text-6xl font-medium text-primary mb-6"
+        >
+          Crafting Tomorrow’s Digital Experiences, Today.
+        </motion.h2>
+
+        <motion.p
+          variants={itemVariants}
+          className="text-lg xl:text-xl font-regular text-foreground mb-8"
+        >
+          Synexis AI is a future-ready creative & technology agency
+        </motion.p>
+
+        <motion.div
+          variants={itemVariants}
+          className="flex flex-wrap justify-center gap-4 mb-12"
+        >
+          <button
+            onClick={() => router.push('/contact')}
+            className="bg-primary text-primary-foreground pr-3 pl-6 md:px-10 hover:scale-90 py-5 rounded-full flex items-center gap-3 text-base font-normal shadow-md transition-all duration-150"
+          >
+            Work With Us
+            <img src="/images/home/button_arrow.png" alt="Arrow Right" className="w-4 h-4 invert" />
+          </button>
+
+          <button
+            onClick={() => router.push('/casestudies')}
+            className="border border-foreground text-foreground px-3 md:px-10 py-5 hover:scale-90 rounded-full flex items-center gap-3 text-base font-normal transition-all duration-150"
+          >
+            Explore Our Case Studies
+            <img src="/images/home/button_arrow.png" alt="Arrow Right" className="w-4 h-4" />
+          </button>
         </motion.div>
-      </section>
+      </motion.div>
+    </section>
 
       {/* Why Synexis AI Section */}
-      <section className="bg-[var(--secondary)] lg:min-h-[700px] xl:min-h-[1000px] py-16 xl:py-24 ">
-        <div className=" mx-auto flex flex-col lg:gap-[120px] xl:gap-[160px] px-10">
+      <section className="bg-secondary lg:min-h-[700px] xl:min-h-[1000px] py-16 xl:py-24 ">
+        <div className=" mx-auto flex flex-col lg:gap-[120px] xl:gap-[160px] px-3 lg:px-10">
           <div className="w-full flex items-start justify-start mb-8">
-            <h3 className="text-3xl xl:text-5xl font-normal text-[var(--foreground)] leading-tight">
+            <h3 className="text-3xl xl:text-5xl font-normal text-foreground leading-tight">
               Why<br />Synexis AI
             </h3>
           </div>
           <div className="w-full flex flex-col lg:mt-8 items-center justify-center">
-            <motion.div
-              initial={{ y: 100, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 1, ease: 'easeOut' }}
-            >
-              <div className="max-w-xl xl:max-w-3xl mx-auto text-center">
-                <h4 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-medium text-[var(--foreground)] mb-2">
+          
+              <motion.div
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.35 }}
+                className="max-w-xl xl:max-w-3xl mx-auto text-center">
+                <motion.h4  variants={itemVariants} className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-medium text-foreground mb-2">
                   Meticulous Iteration
-                </h4>
-                <h5 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl text-[var(--foreground)] mb-4">
+                </motion.h4>
+                <motion.h5 variants={itemVariants} className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl text-foreground mb-4">
                   Uncompromising Quality
-                </h5>
-                <p className="text-md sm:text-lg lg:text-xl xl:text-2xl text-[var(--foreground)]">
+                </motion.h5>
+                <motion.p variants={itemVariants} className="text-md sm:text-lg lg:text-xl xl:text-2xl text-foreground">
                   Our streamlined process allows for continuous refinement, ensuring every detail aligns with your vision. Don't worry, we craft excellence.
-                </p>
-              </div>
-            </motion.div>
+                </motion.p>
+              </motion.div>
           </div>
         </div>
       </section>
@@ -209,21 +249,21 @@ export default function HomePage() {
           <img src="/images/home/img5.png" alt="Office" className="w-full lg:h-[100vh] object-cover rounded-l-xl" />
         </div>  
         {/* cards */}
-        <div className="w-full lg:w-1/2 flex flex-col justify-center bg-[var(--white)] p-8 lg:p-5 ">
-          <h2 className="text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-medium text-[var(--foreground)] mb-6 leading-tight">
+        <div className="w-full lg:w-1/2 flex flex-col justify-center bg-white p-8 lg:p-5 ">
+          <h2 className="text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-medium text-foreground mb-6 leading-tight">
             Empowering businesses,<br />Redefining experiences...
           </h2>
-          <p className="text-base md:text-sm lg:text-md xl:text-lg 2xl:text-xl font-regular text-[var(--foreground)] mb-4 leading-relaxed">
+          <p className="text-base md:text-sm lg:text-md xl:text-lg 2xl:text-xl font-regular text-foreground mb-4 leading-relaxed">
             We don’t just design—we craft experiences that engage, convert, and inspire. Backed by innovation and industry expertise, we transform insights into pixel-perfect digital solutions.
           </p>
-          <p className="text-base md:text-sm lg:text-md xl:text-lg 2xl:text-xl font-regular text-[var(--foreground)] mb-6 leading-relaxed">
+          <p className="text-base md:text-sm lg:text-md xl:text-lg 2xl:text-xl font-regular text-foreground mb-6 leading-relaxed">
             From apps to websites, we deliver seamless, high-impact designs that redefine user experience. Let’s build something extraordinary together!
           </p>
           <button onClick={() => router.push('/about')} className="custom-about-btn">
             More About Us
           </button>
-          <div className="bg-[var(--white)]  rounded-xl p-6  mt-6">
-            <p className=" text-[var(--foreground)] xl:text-xl font-medium mb-4">
+          <div className="bg-white rounded-xl p-6 mt-6">
+            <p className=" text-foreground xl:text-xl font-medium mb-4">
               “The team at Synexis made everything
  simple, clear, and exciting. They genuinely
  cared about our goals and treated the
@@ -233,8 +273,8 @@ export default function HomePage() {
             <div className="flex items-center gap-4 xl:gap-6">
               <img src="/images/home/img6.png" alt="Nedin Zahirovic" className="w-12 h-12  xl:w-15 xl:h-15 2xl:w-17 2xl:h-17 rounded-full object-cover" />
               <div>
-                <div className="text-base md:text-lg 2xl:text-xl font-semibold text-[var(--foreground)]">louise Nonweiler</div>
-                <div className="text-xs md:text-sm xl:text-base text-[var(--foreground)]">Founder, Trader 365<br />Starnberg, Germany</div>
+                <div className="text-base md:text-lg 2xl:text-xl font-semibold text-foreground">louise Nonweiler</div>
+                <div className="text-xs md:text-sm xl:text-base text-foreground">Founder, Trader 365<br />Starnberg, Germany</div>
               </div>
             </div>
           </div>
@@ -244,12 +284,12 @@ export default function HomePage() {
       {/* Services Section */}
       <section id="services" className="py-16 xl:py-24">
         <div className='pt-20'>
-        <h2 className="text-[var(--foreground)] text-3xl text-center sm:text-4xl lg:text-5xl font-medium leading-tight mb-20">
+        <h2 className="text-foreground text-3xl text-center sm:text-4xl lg:text-5xl font-medium leading-tight mb-20">
           Our Services
         </h2>
       </div>
-
-   <div className="mx-auto px-4 sm:px-6 lg:px-8">
+    
+   <div className="mx-auto px-3 lg:px-10">
       <motion.div
         ref={carouselRef}
         className="overflow-hidden cursor-grab"
@@ -281,31 +321,31 @@ export default function HomePage() {
       {/* Stats Section */}
       
 <section className="w-full my-12   py-12">
-  <div className="   px-10">
+  <div className="   px-3 lg:px-10">
     <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 text-center">
       
       {/* Stat 1 */}
       <div>
-  <h3 className="text-3xl sm:text-6xl  font-medium text-[var(--black)]">250+</h3>
-  <p className="text-[var(--black)] mt-2 text-sm sm:text-base xl:text-lg">Projects Completed</p>
+  <h3 className="text-3xl sm:text-6xl  font-medium text-black">250+</h3>
+  <p className="text-black mt-2 text-sm sm:text-base xl:text-lg">Projects Completed</p>
       </div>
 
       {/* Stat 2 */}
       <div>
-  <h3 className="text-3xl sm:text-6xl  font-medium text-[var(--black)]">180+</h3>
-  <p className="text-[var(--black)] mt-2 text-sm sm:text-base xl:text-lg">Happy Clients</p>
+  <h3 className="text-3xl sm:text-6xl  font-medium text-black">180+</h3>
+  <p className="text-black mt-2 text-sm sm:text-base xl:text-lg">Happy Clients</p>
       </div>
 
       {/* Stat 3 */}
       <div>
-  <h3 className="text-3xl sm:text-6xl  font-medium text-[var(--black)]">10+</h3>
-  <p className="text-[var(--black)] mt-2 text-sm sm:text-base xl:text-lg">Years of Experience</p>
+  <h3 className="text-3xl sm:text-6xl  font-medium text-black">10+</h3>
+  <p className="text-black mt-2 text-sm sm:text-base xl:text-lg">Years of Experience</p>
       </div>
 
       {/* Stat 4 */}
       <div>
-  <h3 className="text-3xl sm:text-6xl  font-medium text-[var(--black)]">50+</h3>
-  <p className="text-[var(--black)] mt-2 text-sm sm:text-base xl:text-lg">Team Members</p>
+  <h3 className="text-3xl sm:text-6xl  font-medium text-black">50+</h3>
+  <p className="text-black mt-2 text-sm sm:text-base xl:text-lg">Team Members</p>
       </div>
 
     </div>
@@ -315,18 +355,18 @@ export default function HomePage() {
 
       {/* Case Studies Section */}
       <section id="case-studies" className=" mx-auto ">
-        <section className=" px-6  py-12">
+        <section className=" px-3 lg:px-10  py-12">
           <div className="mb-12">
-            <span className="inline-flex items-center text-sm text-[var(--foreground)] font-regular mb-4">
-              <span className="w-2 h-2 rounded-full bg-[var(--foreground)] mr-2" />
+            <span className="inline-flex items-center text-sm text-foreground font-regular mb-4">
+              <span className="w-2 h-2 rounded-full bg-foreground mr-2" />
             CASE STUDIES
           </span>
 
-          <h2 className=" text-2xl sm:text-5xl xl:text-6xl ml-2 text-[var(--foreground)] font-regular leading-tight mb-4">
+          <h2 className=" text-2xl sm:text-5xl xl:text-6xl  text-foreground font-regular leading-tight mb-4">
             Our Latest Case Studies
           </h2>
 
-          <p className="text-[var(--foreground)] max-w-md xl:max-w-2xl text-base xl:text-xl">
+          <p className="text-foreground max-w-md xl:max-w-2xl text-base xl:text-xl">
             As a UI/UX design company in Dubai, we don't just build websites — we craft immersive digital
             experiences that push boundaries and deliver business results.
           </p>
@@ -337,7 +377,7 @@ export default function HomePage() {
     <section className="w-full relative">
       {caseStudiesLoading ? (
         <div className="flex items-center justify-center py-20">
-          <p className="text-[var(--foreground)]">Loading case studies...</p>
+          <p className="text-foreground">Loading case studies...</p>
         </div>
       ) : Array.isArray(caseStudy) && caseStudy.length > 0 ? (
         <>
@@ -346,7 +386,7 @@ export default function HomePage() {
             <div className="flex justify-center mt-8">
               <Link 
                 href="/casestudies"
-                className="bg-[var(--white)] text-[var(--foreground)] px-6 py-3 rounded-full flex items-center gap-2 font-medium transition-all hover:bg-gray-50"
+                className="bg-white text-foreground px-6 py-3 rounded-full flex items-center gap-2 font-medium transition-all hover:bg-border"
               >
                 View All Case Studies
                 <img src="/images/home/button_arrow.png" alt="Arrow Right" className="w-4 h-4" />
@@ -356,7 +396,7 @@ export default function HomePage() {
         </>
       ) : (
         <div className="flex items-center justify-center py-20">
-          <p className="text-[var(--foreground)]">No case studies available</p>
+          <p className="text-foreground">No case studies available</p>
         </div>
       )}
     </section>
@@ -364,8 +404,8 @@ export default function HomePage() {
 
     {/* Our Approach to AI Success Section */}
       <section className="w-full bg-white py-16 xl:py-24 px-4 flex flex-col items-center">
-      <h2 className="text-[var(--foreground)] text-3xl sm:text-3xl lg:text-4xl xl:text-7xl font-medium text-center tracking-tight mb-4">Our Approach to AI Success</h2>
-      <p className="text-[var(--foreground)] text-base sm:text-lg lg:text-xl xl:text-2xl text-center max-w-2xl xl:max-w-4xl mb-12">We blend strategic insight, advanced technology, and a commitment to excellence to drive transformative results for your business.</p>
+      <h2 className="text-foreground text-3xl sm:text-3xl lg:text-4xl xl:text-7xl font-medium text-center tracking-tight mb-4">Our Approach to AI Success</h2>
+      <p className="text-foreground text-base sm:text-lg lg:text-xl xl:text-2xl text-center max-w-2xl xl:max-w-4xl mb-12">We blend strategic insight, advanced technology, and a commitment to excellence to drive transformative results for your business.</p>
       <div className="w-full max-w-6xl xl:max-w-8xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         {/* Card 1 */}
         <motion.div 
@@ -377,8 +417,8 @@ export default function HomePage() {
           <span className="mb-10">
               <Image src="/images/home/img1_1.png" alt="POC" width={130} height={130} className="object-contain w-[130px] h-[130px] xl:w-[160px] xl:h-[160px] approach-img-hover" />
           </span>
-          <h3 className="text-[var(--foreground)] text-xl xl:text-2xl font-medium mb-2">POC in 4 – 6 weeks</h3>
-          <p className="text-[var(--foreground)] text-base xl:text-lg">See impact quickly with our rapid prototyping approach.</p>
+          <h3 className="text-foreground text-xl xl:text-2xl font-medium mb-2">POC in 4 – 6 weeks</h3>
+          <p className="text-foreground text-base xl:text-lg">See impact quickly with our rapid prototyping approach.</p>
         </motion.div>
         {/* Card 2 */}
         <motion.div 
@@ -390,8 +430,8 @@ export default function HomePage() {
           <span className="mb-10">
               <Image src="/images/home/img1_2.png" alt="End-to-End AI Delivery" width={130} height={130} className="object-contain w-[130px] h-[130px] xl:w-[160px] xl:h-[160px] approach-img-hover" />
           </span>
-          <h3 className="text-[var(--foreground)] text-xl xl:text-2xl font-medium mb-2">End-to-End AI Delivery</h3>
-          <p className="text-[var(--foreground)] text-base xl:text-lg">From data prep to deployment to monitoring we handle it all.</p>
+          <h3 className="text-foreground text-xl xl:text-2xl font-medium mb-2">End-to-End AI Delivery</h3>
+          <p className="text-foreground text-base xl:text-lg">From data prep to deployment to monitoring we handle it all.</p>
         </motion.div>
         {/* Card 3 */}
         <motion.div 
@@ -403,8 +443,8 @@ export default function HomePage() {
           <span className="mb-10">
               <Image src="/images/home/img1_3.png" alt="Regulatory Compliance" width={130} height={130} className="object-contain w-[130px] h-[130px] xl:w-[160px] xl:h-[160px] approach-img-hover" />
           </span>
-          <h3 className="text-[var(--foreground)] text-xl xl:text-2xl font-medium mb-2">Regulatory Compliance</h3>
-          <p className="text-[var(--muted-foreground)] text-base xl:text-lg">HIPAA, CDPR, and SOC2 practices implemented from the ground up so your AI is secure and scalable.</p>
+          <h3 className="text-foreground text-xl xl:text-2xl font-medium mb-2">Regulatory Compliance</h3>
+          <p className="text-muted-foreground text-base xl:text-lg">HIPAA, CDPR, and SOC2 practices implemented from the ground up so your AI is secure and scalable.</p>
         </motion.div>
         {/* Card 4 */}
         <motion.div 
@@ -416,22 +456,22 @@ export default function HomePage() {
           <span className="mb-10">
               <Image src="/images/home/img1_4.png" alt="Proven ROI" width={130} height={130} className="object-contain w-[130px] h-[130px] xl:w-[160px] xl:h-[160px] approach-img-hover" />
           </span>
-          <h3 className="text-[var(--foreground)] text-xl xl:text-2xl font-medium mb-2">Proven ROI</h3>
-          <p className="text-[var(--muted-foreground)] text-base xl:text-lg">Documented case studies with measurable, quantifiable results.</p>
+          <h3 className="text-foreground text-xl xl:text-2xl font-medium mb-2">Proven ROI</h3>
+          <p className="text-muted-foreground text-base xl:text-lg">Documented case studies with measurable, quantifiable results.</p>
         </motion.div>
       </div>
     </section>
 
 <section className="w-full bg-white py-16 px-4 flex flex-col items-center">
   <div>
-    <h2 className="text-[var(--foreground)] text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-medium text-center tracking-tight mb-4">Delight Clients</h2>
-    <p className="text-[var(--foreground)] text-base sm:text-lg lg:text-xl text-center max-w-2xl xl:max-w-4xl mb-12">We blend strategic insight, advanced technology, and a commitment to excellence to drive transformative results for your business.</p>
+    <h2 className="text-foreground text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-medium text-center tracking-tight mb-4">Delight Clients</h2>
+    <p className="text-foreground text-base sm:text-lg lg:text-xl text-center max-w-2xl xl:max-w-4xl mb-12">We blend strategic insight, advanced technology, and a commitment to excellence to drive transformative results for your business.</p>
   </div>
 
 
-      <div className="w-full max-w-7xl px-10 flex flex-col gap-y-0">
+      <div className="w-full px-3 lg:px-10 flex flex-col gap-y-0">
         {/* Row 1: Infinite scroll */}
-        <hr className="w-full border-t border-gray-200" />
+        <hr className="w-full border-t border-border" />
         <div className="overflow-hidden w-full">
           <motion.div
             className="flex flex-row gap-x-4 sm:gap-x-10 py-4 sm:py-6"
@@ -463,7 +503,7 @@ export default function HomePage() {
             ))}
           </motion.div>
         </div>
-        <hr className="w-full border-t border-gray-200" />
+        <hr className="w-full border-t border-border" />
         {/* Row 2: Infinite scroll */}
         <div className="overflow-hidden w-full">
           <motion.div
@@ -478,7 +518,7 @@ export default function HomePage() {
             ))}
           </motion.div>
         </div>
-        <hr className="w-full border-t border-gray-200" />
+        <hr className="w-full border-t border-border" />
         {/* Row 3: Infinite scroll */}
         <div className="overflow-hidden w-full">
           <motion.div
@@ -493,19 +533,19 @@ export default function HomePage() {
             ))}
           </motion.div>
         </div>
-        <hr className="w-full border-t border-gray-200" />
+        <hr className="w-full border-t border-border" />
       </div>
 
 </section>
 
-<section className='w-full   pt-30 bg-[var(--secondary)] mb-20'>
+<section className='w-full   pt-30 bg-secondary mb-20'>
 <div className="w-full   flex flex-col md:flex-row md:justify-between p-6 md:p-10 xl:p-16 gap-8  ">
           <div className="flex-1 flex flex-col ">
-            <h2 className="text-[var(--foreground)] text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-medium leading-tight mb-4">Innovative design is<br />our tool to reshape<br />business</h2>
+            <h2 className="text-foreground text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-medium leading-tight mb-4">Innovative design is<br />our tool to reshape<br />business</h2>
           </div>
           <div className="flex-1 flex flex-col justify-center">
-            <p className="text-[var(--foreground)] text-base sm:text-lg 2xl:text-xl mb-4">We're a passionate team of UI/UX designers dedicated to creating intuitive digital experiences. With years of experience, we blend creativity and strategy to design solutions that engage users and drive business success.</p>
-            <p className="text-[var(--foreground)] text-base sm:text-lg 2xl:xl mb-6">We turn ideas into seamless, Beautiful designs. Let's build digital experiences that not only look stunning but also deliver real results.</p>
+            <p className="text-foreground text-base sm:text-lg 2xl:text-xl mb-4">We're a passionate team of UI/UX designers dedicated to creating intuitive digital experiences. With years of experience, we blend creativity and strategy to design solutions that engage users and drive business success.</p>
+            <p className="text-foreground text-base sm:text-lg 2xl:xl mb-6">We turn ideas into seamless, Beautiful designs. Let's build digital experiences that not only look stunning but also deliver real results.</p>
             <button onClick={() => router.push('/about')}   className="custom-about-btn">More About Us</button>
           </div>
         </div>
@@ -551,7 +591,7 @@ export default function HomePage() {
         </div>
 </section>
 
-<section className="w-full bg-white py-16 space-y-8 px-10 flex flex-col items-center">
+<section className="w-full bg-white py-16 space-y-8 px-3 lg:px-10 flex flex-col items-center">
   <div className="w-full flex md:justify-between items-center">
     <div className="w-full md:w-[50%] flex flex-col justify-center">
       <h2 className="text-[var(--foreground)] text-1xl sm:text-lg lg:text-xl xl:text-4xl 2xl:text-5xl font-medium text-center md:text-left tracking-tight mb-4 md:mb-0 w-full">Words that define our UI/UX<br />design capabilities</h2>

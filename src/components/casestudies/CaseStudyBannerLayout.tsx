@@ -75,7 +75,7 @@ export default function CaseStudyBannerLayout({
             <Link key={study._id} href={`/caseStudiesDetails/${study._id}`}>
               <div className="relative w-full h-[250px]  sm:h-[350px] md:h-[400px] lg:h-[450px] xl:h-[500px] rounded-2xl overflow-hidden group bg-gradient-to-br from-[#132225] to-[#0B1016]">
                 
-                <span className="absolute top-3 left-9 sm:left-19 bg-white text-black px-2 py-1 rounded-xl text-xs sm:text-sm font-semibold z-10 truncate max-w-[150px]">
+                <span className="absolute top-4 left-9 sm:left-25 bg-white text-black px-3 py-1 rounded-xl text-sm font-semibold z-10">
                   {study.caseTitle}
                 </span>
                 

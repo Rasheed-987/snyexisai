@@ -35,7 +35,7 @@ export default function AboutPage() {
       </section>
 
       <section className="w-full  py-16">
-        <div className=" mx-auto px-4 sm:px-8 lg:px-12">
+        <div className=" mx-auto px-3 lg:px-10">
           <p className="text-foreground text-base sm:text-lg  lg:text-xl leading-relaxed">
             We collaborate with forward-thinking leaders, where our generative AI experts provide
             strategic insights that will reshape tomorrow. Our team of AI engineers, developers, and
@@ -290,7 +290,7 @@ everything we do."
 	  
       {/* Expertise & Technologies Section */}
       <section className="w-full mb-11 py-16 ">
-        <div className=" mx-auto flex flex-col lg:flex-row gap-12 px-4 sm:px-8 lg:px-16 items-center">
+        <div className=" mx-auto flex flex-col lg:flex-row gap-12 px-3 lg:px-10 items-center">
           {/* Left: Text Content */}
           <div className="flex-1 mb-10 lg:mb-0">
             <h2

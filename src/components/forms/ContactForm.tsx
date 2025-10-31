@@ -136,8 +136,8 @@ export default function ContactForm() {
   // UI Classes
   // ----------------------------
   const inputClass =
-    'w-full h-[60px] px-4 py-3 bg-[#F9F9F9] border border-gray-200 rounded-lg text-[#0F1C3D]  text-sm focus:outline-none focus:ring-2 focus:ring-[#327AED]/30 focus:border-[#327AED] transition-all'
-  const labelClass = 'block text-sm font-normal text-[#0F1C3D]  mb-2'
+    'w-full h-[60px] px-4 py-3 bg-background border border-gray-200 rounded-lg text-foreground  text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all'
+  const labelClass = 'block text-sm font-normal text-foreground  mb-2'
 
   return (
     <form onSubmit={handleSubmit} className="w-full h-full space-y-6 overflow-visible">
@@ -155,7 +155,7 @@ export default function ContactForm() {
 
       {/* Basic Details */}
       <div className="space-y-4">
-        <h2 className="text-2xl font-normal text-[#0F1C3D] ">
+        <h2 className="text-2xl font-normal text-foreground ">
           Basic Details
         </h2>
 
@@ -233,7 +233,7 @@ export default function ContactForm() {
 
       {/* Project Details */}
       <div className="space-y-4">
-        <h2 className="text-2xl font-normal text-[#0F1C3D] ">
+        <h2 className="text-2xl font-normal text-foreground ">
           Tell us more about the project
         </h2>
         <textarea
@@ -242,7 +242,7 @@ export default function ContactForm() {
           value={formData.projectDetails}
           onChange={handleChange}
           rows={4}
-          className="w-full px-4 py-3 border border-gray-200 rounded-lg text-[#0F1C3D] bg-[#F9F9F9]  text-sm focus:outline-none focus:ring-2 focus:ring-[#327AED]/30 focus:border-[#327AED] transition-all resize-none"
+          className="w-full px-4 py-3 border border-border rounded-lg text-foreground bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all resize-none"
           placeholder="Describe your project, timeline, and services needed..."
         />
       </div>
@@ -256,16 +256,16 @@ export default function ContactForm() {
             name="receiveUpdates"
             checked={formData.receiveUpdates}
             onChange={handleChange}
-            className="w-4 h-4 border-2 border-[#0F1C3D] rounded text-[#0F1C3D] focus:ring-[#327AED]/30 transition-all mt-1"
+            className="w-4 h-4 border-2 border-foreground rounded text-foreground focus:ring-primary/30 transition-all mt-1"
           />
           <div className="flex flex-col sm:flex-row sm:items-start sm:gap-4">
             <label
               htmlFor="receiveUpdates"
-              className="text-sm text-[#0F1C3D]  leading-relaxed"
+              className="text-sm text-foreground leading-relaxed"
             >
               Yes, I want to receive updates from Synexis from time to time.
             </label>
-            <p className="text-xs text-[#0F1C3D]/70  leading-relaxed max-w-xs">
+            <p className="text-xs text-foreground/70  leading-relaxed max-w-xs">
               We promise to only send emails related to our work. You can unsubscribe anytime.
             </p>
           </div>
@@ -292,7 +292,7 @@ export default function ContactForm() {
           type="submit"
           disabled={submitting}
           className={`w-full h-[62px] rounded-full  text-sm text-white transition-all ${
-            submitting ? 'bg-[#327AED]/70 cursor-not-allowed' : 'bg-[#327AED] hover:bg-[#285FCC]'
+            submitting ? 'bg-primary/70 cursor-not-allowed' : 'bg-primary hover:bg-primary/80'
           }`}
         >
           {submitting ? 'Sending...' : 'Send Request'}

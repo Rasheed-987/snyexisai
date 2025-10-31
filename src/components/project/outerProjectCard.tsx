@@ -18,28 +18,28 @@ export default function OuterProjectCard({
   images,
 }: OuterProjectCardProps) {
   return (
-    <main className="px-5 rounded-b-[80px] min-h-screen relative text-foreground z-50 bg-background pb-24 lg:pb-40">
+    <main className=" rounded-b-[80px] min-h-screen relative text-foreground z-50 bg-background pb-24 lg:pb-40">
       {/* Hero Section */}
       <section className="mx-auto py-10">
         <h1 className="md:text-[46.93px] text-[30px] leading-[57.36px] mx-auto py-10 tracking-[-2.35px] text-center  font-medium mb-4 w-[70vw]">
           {title}
         </h1>
-        <div className="relative w-full mx-auto px-2">
+        <div className="relative w-full px-3">
           <Image
             src={images.banner}
             alt="Banner"
             width={1280}
             height={576}
-            className="shadow-lg w-full min-h-[250px] rounded-[20px] object-cover"
+            className="shadow-lg w-full  min-h-[250px] rounded-[20px] object-cover"
           />
         </div>
       </section>
 
       {/* Services Section */}
       <section className="py-16">
-        <h3 className="text-2xl font-regular text-center mb-8">{tagline}</h3>
-        <h2 className="text-3xl sm:text-[30px] md:font-semibold text-center mb-8">{addTitle}</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-1">
+        <h3 className="text-2xl font-regular px-3 text-center mb-8">{tagline}</h3>
+        <h2 className="text-3xl sm:text-[30px] px-3 md:font-semibold text-center mb-8">{addTitle}</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-3 lg:px-10">
           {cards.map((card, index) => (
             <div key={index} className="py-6 rounded-lg">
               <h3 className="text-xl md:font-bold font-medium mb-4">{card.title}</h3>
@@ -50,7 +50,7 @@ export default function OuterProjectCard({
       </section>
 
       {/* Side-by-Side Images */}
-      <section className="w-full max-w-[2000px] mx-auto flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8 mb-16 px-4 sm:px-8">
+      <section className="w-full  mx-auto flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8 mb-16 px-3 lg:px-10">
         {images.gallery.map((img, index) => (
           <div key={index} className="flex-1 w-full">
             <Image
@@ -65,7 +65,7 @@ export default function OuterProjectCard({
       </section>
 
       {/* The Result Section */}
-      <section className="relative w-full mx-auto mb-16 px-4 sm:px-8 flex flex-col lg:flex-row gap-8 lg:gap-16">
+      <section className="relative w-full mx-auto mb-16 lg:px-10 px-3 flex flex-col lg:flex-row gap-8 lg:gap-16">
         {smallCards.map((card, index) => (
           <div key={index} className="flex-1">
             <h2 className=" font-normal text-3xl sm:text-4xl lg:text-[45px] leading-tight capitalize mb-6">

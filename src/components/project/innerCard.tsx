@@ -15,16 +15,16 @@ type InnerCardProps = {
 
 const InnerCard = ({ banner, title, description, requirements, project }: InnerCardProps) => {
   return (
-    <div className="grid md:grid-cols-2 gap-10 px-4 items-center py-10">
+    <div className="grid md:grid-cols-2 gap-10  items-center py-10">
       {/* Left Side - Image */}
-      <div className="flex justify-center">
-        <div className="relative w-[90%] max-w-[500px] aspect-[16/10] rounded-2xl overflow-hidden shadow-md">
+      <div className="flex justify-center px-3 ">
+        <div className="relative w-[90%] max-w-[600px] aspect-[16/10] rounded-2xl overflow-hidden shadow-md">
           <Image src={banner} alt={title} fill className="object-obtain rounded-2xl" />
         </div>
       </div>
 
       {/* Right Side - Content */}
-      <div className="space-y-4 px-4">
+      <div className="space-y-4 px-3">
         <h2 className="text-2xl md:text-3xl text-foreground font-semibold my-7 leading-snug">{title}</h2>
         {/* thin horizontal line */}
         <div className="h-px bg-black my-10" />

@@ -10,8 +10,8 @@ export default function CareersPage() {
   if (loading) {
     return (
       <div className="text-center w-full h-screen flex flex-col justify-center items-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-        <p className="text-gray-600">Loading job postings...</p>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+        <p className="text-foreground">Loading job postings...</p>
       </div>
     );
   }
@@ -22,7 +22,7 @@ export default function CareersPage() {
         <p className="text-red-600 mb-4">Error: {error}</p>
         <button
           onClick={() => window.location.reload()}
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+          className="px-4 py-2 bg-primary text-white rounded hover:bg-primary/80"
         >
           Retry
         </button>
@@ -31,21 +31,21 @@ export default function CareersPage() {
   }
 
   return (
-    <div className="min-h-screen pb-24 rounded-b-[80px] relative z-50 bg-[#f9f9f9]">   
-      <div className="max-w-[100vw] mx-auto px-6">
+    <div className="min-h-screen pb-24 rounded-b-[80px] relative z-50 bg-background">   
+      <div className="max-w-[100vw] mx-auto ">
         {/* Header */}
         <div className="text-center mb-12 w-full max-w-xl mx-auto px-4 py-8 md:py-12 lg:py-16">
-            <h1 className="heading-hero  font-normal text-[70.05px] leading-[84.48px] tracking-[-2px] text-center text-[#0f1c3d]">
+            <h1 className="heading-hero  font-normal text-[70.05px] leading-[84.48px] tracking-[-2px] text-center text-foreground">
                 Let's get to work
             </h1>
         </div>
 
         {/* Job Listings Container */}
-        <div className="w-full  mx-auto opacity-100  rotate-0 relative">
+        <div className="w-full  mx-auto opacity-100 px-3 rotate-0 relative">
           {/* Job Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-2 lg:gap-4  place-items-center">
             {jobListings.map((job,index:number) => (
-              <JobCard
+              <JobCard 
                 key={String(job.id || job._id || job.careerId)}
                 id={job.id || job._id || job.careerId}
                 count={index + 1}
