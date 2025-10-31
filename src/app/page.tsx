@@ -462,7 +462,7 @@ export default function HomePage() {
       </div>
     </section>
 
-<section className="w-full bg-white py-16 px-4 flex flex-col items-center">
+<section className="w-full bg-white py-16 px-3 flex flex-col items-center">
   <div>
     <h2 className="text-foreground text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-medium text-center tracking-tight mb-4">Delight Clients</h2>
     <p className="text-foreground text-base sm:text-lg lg:text-xl text-center max-w-2xl xl:max-w-4xl mb-12">We blend strategic insight, advanced technology, and a commitment to excellence to drive transformative results for your business.</p>
