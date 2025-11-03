@@ -11,11 +11,11 @@ import ServicesCard from '@/components/services/servicesCard';
 import CaseStudyBannerLayout from '@/components/casestudies/CaseStudyBannerLayout';
 import SmoothScroll from '@/components/ui/SmoothScroll';
 import CounterAnimation from '@/components/ui/CounterAnimation';
-
+import { testimonials } from '@/utils/utils';
+import {faqs} from '@/utils/utils';
 
 
 export default function HomePage() {
-
 
 
   const { servicesData:service, loading, error } = useServices();
@@ -41,46 +41,7 @@ export default function HomePage() {
     }
   }, [inView, controls])
 
-  // Testimonial data
-  const testimonials = [
-    {
-      image: "/images/home/img8.png",
-      profileImage: "/images/home/profile.png",
-      name: "Robin Fish",
-      role: "Founder & CEO, Arrive",
-      quote: "They brought our app redesign to life beyond expectations! We're thrilled with the results and truly loved collaborating with their incredibly talented team.",
-      logo: "/images/home/arrive.png",
-      location: "New York, USA"
-    },
-    {
-      image: "/images/chronedo.jpeg",
-      profileImage: "/images/home/profile.png",
-      name: "Sarah Chen",
-      role: "Product Director, TechFlow",
-      quote: "Working with Synexis was a game-changer. Their attention to detail and innovative approach helped us deliver a product that exceeded all our expectations.",
-      logo: "/images/chronedo_logo.jpeg",
-      location: "San Francisco, USA"
-    },
-    {
-      image: "/images/soarfare.jpeg",
-      profileImage: "/images/home/profile.png",
-      name: "James Anderson",
-      role: "CEO, Digital Solutions",
-      quote: "The team's expertise in UI/UX design transformed our platform. Every interaction feels intuitive and seamless. Highly recommend their services!",
-      logo: "/images/sorarFare_logo.jpeg",
-      location: "London, UK"
-    },
-    {
-      image: "/images/client/img1_3.png",
-      profileImage: "/images/home/profile.png",
-      name: "Maria Rodriguez",
-      role: "Founder, Innovation Lab",
-      quote: "From concept to launch, Synexis guided us every step of the way. Their creative vision and technical excellence are unmatched. Truly exceptional work!",
-      logo: null,
-      location: "Barcelona, Spain"
-    }
-  ];
-
+ 
   const scrollTestimonial = (direction: 'left' | 'right') => {
     if (direction === 'left') {
       setCurrentTestimonial((prev) => (prev > 0 ? prev - 1 : testimonials.length - 1));
@@ -112,57 +73,29 @@ export default function HomePage() {
   }
 
 
-  const faqs: { question: string; answer: string }[] = [
-    {
-      question: 'Why should I choose Synexis for my project?',
-      answer:
-        'We combine strategy, design, and engineering to deliver measurable outcomes. Our process focuses on business impact, not just deliverables.'
-    },
-    {
-      question: 'What industries does Synexis specialize in?',
-      answer:
-        'We have experience across SaaS, healthcare, fintech, logistics, and e‑commerce, adapting our UX and engineering practices to each domain.'
-    },
-    {
-      question: 'How does Synexis process differ from other agencies?',
-      answer:
-        'Short feedback loops, iterative delivery, and close collaboration. You see progress weekly and can steer direction early.'
-    },
-    {
-      question: 'Do you exclusively use Webflow for projects?',
-      answer:
-        'No. We pick the right stack per project: Webflow for marketing, Next.js for apps, and custom backends where needed.'
-    },
-    {
-      question: 'Can Synexis handle large-scale projects?',
-      answer:
-        'Yes. We design scalable architectures, CI/CD, observability, and follow security best practices to support growth.'
-    },
-    {
-      question: 'What support can I expect after my project is completed?',
-      answer:
-        'We offer post‑launch support: performance tuning, A/B testing, feature iterations, and maintenance SLAs.'
-    },
-    {
-      question: 'How quickly can Synexis deliver results?',
-      answer:
-        'POCs typically ship in 4–6 weeks. Production releases depend on scope, with milestones delivered every sprint.'
-    },
-    {
-      question: 'Is Synexis a good fit if I’m looking for a branding agency in Dubai?',
-      answer:
-        'Yes. Our team covers brand, product, and web. We can deliver brand systems alongside websites and apps.'
-    }
-  ];
+  
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   return (
       <div className=" bg-background   rounded-b-[80px] mb-30   relative z-50">
-      <section className="bg-background min-h-screen flex flex-col justify-center mt-10 items-center text-center px-3 lg:px-10">
+      <section className="bg-background min-h-screen flex flex-col justify-center mt-10 items-center text-center px-3 lg:px-10 relative overflow-hidden">
+      {/* Background Image */}
+      <div className="absolute w-[80%]  mx-auto inset-0 z-0">
+        <Image
+          src="/images/Mask group.png"
+          alt="Background"
+          fill
+          className="object-cover opacity-60"
+          priority
+        />
+      </div>
+      
+      {/* Content */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
            whileInView="visible"
         animate="visible"
+        className="relative z-10"
       >
         <motion.p
           variants={itemVariants}
@@ -437,10 +370,10 @@ export default function HomePage() {
       </section>
 
     {/* Our Approach to AI Success Section */}
-      <section className="w-full bg-white py-16 xl:py-24 px-4 flex flex-col items-center">
+      <section className="w-full bg-white py-16 xl:py-24 px-3 lg:px-10 flex flex-col items-center">
       <h2 className="text-foreground text-3xl sm:text-3xl lg:text-4xl xl:text-7xl font-medium text-center tracking-tight mb-4">Our Approach to AI Success</h2>
       <p className="text-foreground text-base sm:text-lg lg:text-xl xl:text-2xl text-center max-w-2xl xl:max-w-4xl mb-12">We blend strategic insight, advanced technology, and a commitment to excellence to drive transformative results for your business.</p>
-      <div className="w-full max-w-6xl xl:max-w-8xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="w-full  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         {/* Card 1 */}
         <motion.div 
           initial={{ y: 100, opacity: 0 }}
@@ -628,7 +561,7 @@ export default function HomePage() {
 <section className="w-full bg-white py-16 space-y-8 px-3 lg:px-10 flex flex-col items-center">
   <div className="w-full flex md:justify-between items-center">
     <div className="w-full md:w-[50%] flex flex-col justify-center">
-      <h2 className="text-[var(--foreground)] text-1xl sm:text-lg lg:text-xl xl:text-4xl 2xl:text-5xl font-medium text-center md:text-left tracking-tight mb-4 md:mb-0 w-full">Words that define our UI/UX<br />design capabilities</h2>
+      <h2 className="text-foreground text-1xl sm:text-lg lg:text-xl xl:text-4xl 2xl:text-5xl font-medium text-center md:text-left tracking-tight mb-4 md:mb-0 w-full">Words that define our UI/UX<br />design capabilities</h2>
     </div>
     <div className="hidden md:flex flex-row gap-4 items-center mr-20">
       <button 

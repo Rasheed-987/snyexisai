@@ -89,7 +89,7 @@ export default function Sidebar() {
         isCollapsed ? 'overflow-hidden' : ''
       }`}>
         {/* Header with Logo and Toggle */}
-        <div className="p-6 border-b border-[#0F1C3D]/10">
+        <div className="p-6 border-b border-foreground/10">
           <div className="flex items-center justify-between">
             {!isCollapsed && (
               <div className="flex items-center w-full">
@@ -118,11 +118,11 @@ export default function Sidebar() {
             {/* Toggle Button */}
             <button
               onClick={() => setIsCollapsed(!isCollapsed)}
-              className="p-2 rounded-lg hover:bg-[#FFFFFF]/70 transition-all duration-200 lg:block border border-transparent hover:border-[#0F1C3D]/20"
+              className="p-2 rounded-lg hover:bg-white/70 transition-all duration-200 lg:block border border-transparent hover:border-foreground/20"
               aria-label="Toggle sidebar"
             >
               <svg 
-                className={`w-5 h-5 text-[#0F1C3D] transition-transform duration-200 ${isCollapsed ? 'rotate-180' : ''}`} 
+                className={`w-5 h-5 text-foreground transition-transform duration-200 ${isCollapsed ? 'rotate-180' : ''}`} 
                 fill="none" 
                 stroke="currentColor" 
                 viewBox="0 0 24 24"
@@ -142,12 +142,12 @@ export default function Sidebar() {
                   href={item.href}
                   className={`flex items-center px-4 py-3 rounded-xl transition-all duration-200 relative ${
                     item.active
-                      ? 'text-[#327AED]  hover:bg-[#FFFFFF]/80 hover:shadow-md border border-transparent'
-                      : 'text-[#0F1C3D] hover:bg-[#FFFFFF]/80 hover:shadow-md border border-transparent'
+                      ? 'text-primary  hover:bg-white/80 hover:shadow-md border border-transparent'
+                      : 'text-foreground hover:bg-white/80 hover:shadow-md border border-transparent'
                   } ${isCollapsed ? 'justify-center' : 'space-x-4'}`}
                 >
                   <span className={`flex-shrink-0 w-6 h-6 flex items-center justify-center transition-colors ${
-                    item.active ? 'text-[#FFFFFF]' : 'text-[#0F1C3D] group-hover:text-[#327AED]'
+                    item.active ? 'text-white' : 'text-foreground group-hover:text-primary'
                   }`}>
                     {item.icon}
                   </span>
@@ -161,9 +161,9 @@ export default function Sidebar() {
                 {/* Tooltip for collapsed state */}
                 {isCollapsed && (
                   <div className="absolute left-full ml-2 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-60">
-                    <div className="bg-[#0F1C3D] text-[#FFFFFF] text-sm px-3 py-2 rounded-lg shadow-lg whitespace-nowrap border border-[#327AED]/20">
+                    <div className="bg-foreground text-white text-sm px-3 py-2 rounded-lg shadow-lg whitespace-nowrap border border-primary/20">
                       {item.label}
-                      <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 w-0 h-0 border-t-4 border-b-4 border-r-4 border-transparent border-r-[#0F1C3D]"></div>
+                      <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 w-0 h-0 border-t-4 border-b-4 border-r-4 border-transparent border-r-foreground"></div>
                     </div>
                   </div>
                 )}
@@ -173,7 +173,7 @@ export default function Sidebar() {
         </nav>
 
         {/* Footer space for additional content if needed */}
-        <div className="p-4 border-t border-[#0F1C3D]/10">
+        <div className="p-4 border-t border-foreground/10">
           {/* Add footer content here if needed */}
         </div>
       </div>

@@ -202,7 +202,7 @@ export default function Header() {
           <div className="relative">
             <Menu>
               <MenuButton
-                className="inline-flex items-center gap-3 rounded-full border border-[#F4F0ED] bg-white pl-2 pr-3 py-1.5 text-sm font-medium text-[#0F1C3D] shadow-sm  focus:outline-none  focus:ring-0 "
+                className="inline-flex items-center gap-3 rounded-full border border-secondary bg-white pl-2 pr-3 py-1.5 text-sm font-medium text-foreground shadow-sm  focus:outline-none  focus:ring-0 "
                 aria-label="Open account menu"
               >
                 {/* Compact user pill (avatar + name) */}
@@ -212,9 +212,9 @@ export default function Header() {
                     alt="Alex Smith"
                     className="h-8 w-8 rounded-full object-cover"
                   />
-                  <span className="ml-2 mr-1 text-[#0F1C3D]">Admin</span>
+                  <span className="ml-2 mr-1 text-foreground">Admin</span>
                 </span>
-                <ChevronDownIcon className="h-4 w-4 text-[#327AED]" aria-hidden="true" />
+                <ChevronDownIcon className="h-4 w-4 text-primary" aria-hidden="true" />
               </MenuButton>
               <MenuItems
                 anchor="bottom end"
@@ -239,7 +239,7 @@ export default function Header() {
                   <MenuItem>
                     <button
                       onClick={logout}
-                      className="group flex w-full items-center gap-2 rounded-md px-3 py-2 text-[#0F1C3D] hover:bg-[#ECEFF3] transition-colors duration-150"
+                      className="group flex w-full items-center gap-2 rounded-md px-3 py-2 text-foreground hover:bg-background transition-colors duration-150"
                     >
                       Logout
                     </button>
@@ -247,12 +247,12 @@ export default function Header() {
                   <MenuItem>
                     <a
                       href="/admin/settings"
-                      className="group flex w-full items-center gap-2 rounded-md px-3 py-2 text-[#0F1C3D] hover:bg-[#ECEFF3] transition-colors duration-150"
+                      className="group flex w-full items-center gap-2 rounded-md px-3 py-2 text-foreground hover:bg-background transition-colors duration-150"
                     >
                       Settings
                     </a>
                   </MenuItem>
-                  <div className="my-1 h-px bg-[#F4F0ED]" />
+                  <div className="my-1 h-px bg-secondary" />
                 </div>
               </MenuItems>
             </Menu>

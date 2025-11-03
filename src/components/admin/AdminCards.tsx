@@ -103,7 +103,7 @@ export function ProjectCard({
   onDelete,
 }: ProjectCardProps) {
   return (
-    <div className="bg-[#F5F5F5] rounded-[21px] p-4">
+    <div className="bg-muted rounded-[21px] p-4">
       <div className="mb-4">
         <Image
           src={thumbnail}
@@ -206,7 +206,7 @@ export function CaseStudyCard({
   status
 }: CaseStudyCardProps) {
   return (
-    <div className={`flex flex-col bg-[#F5F5F5] sm:flex-row sm:items-center space-y-3 sm:space-y-0 sm:space-x-4 p-3 sm:p-4 rounded-[21px] border border-gray-100 ${className}`}>
+    <div className={`flex flex-col bg-muted sm:flex-row sm:items-center space-y-3 sm:space-y-0 sm:space-x-4 p-3 sm:p-4 rounded-[21px] border border-gray-100 ${className}`}>
       {/* Thumbnail */}
       <div className="flex-shrink-0 w-full sm:w-auto">
         <Image
@@ -220,7 +220,7 @@ export function CaseStudyCard({
 
       {/* Content */}
       <div className="flex-1 min-w-0">
-        <h3 className="text-base sm:text-lg font-medium text-[#0F1C3D] mb-2 line-clamp-1">
+        <h3 className="text-base sm:text-lg font-medium text-foreground mb-2 line-clamp-1">
           {title}
         </h3>
 
@@ -298,7 +298,7 @@ export function JobCard({ id,jobTitle, location, company, jobType, description, 
 
   return (
      <div
-      className={`bg-[#ECEFF3] border border-gray-200 rounded-[15px] p-6 shadow-sm h-[350px] flex flex-col ${className}`}
+      className={`bg-background border border-gray-200 rounded-[15px] p-6 shadow-sm h-[350px] flex flex-col ${className}`}
     >
       {/* Job Number and Status Badge */}
       <div className="flex items-center justify-between mb-1">
@@ -315,25 +315,25 @@ export function JobCard({ id,jobTitle, location, company, jobType, description, 
       </div>
 
       {/* Title */}
-      <h2 className="text-lg sm:text-xl font-medium text-[#0F1C3D] mb-3 line-clamp-2">
+      <h2 className="text-lg sm:text-xl font-medium text-foreground mb-3 line-clamp-2">
         {jobTitle}
       </h2>
 
       {/* Job Info */}
       <div className="flex flex-col gap-2 mb-3">
-        <div className="flex items-center gap-2 text-[#0F1C3D]">
+        <div className="flex items-center gap-2 text-foreground">
           <MapPin className="w-4 h-4 flex-shrink-0" />
           <span className="text-xs sm:text-sm truncate">
             {location}
           </span>
         </div>
-        <div className="flex items-center gap-2 text-[#0F1C3D]">
+        <div className="flex items-center gap-2 text-foreground">
           <Building className="w-4 h-4 flex-shrink-0" />
           <span className="text-xs sm:text-sm truncate">
             {company}
           </span>
         </div>
-        <div className="flex items-center gap-2 text-[#0F1C3D]">
+        <div className="flex items-center gap-2 text-foreground">
           <Clock className="w-4 h-4 flex-shrink-0" />
           <span className="text-xs sm:text-sm">{jobType}</span>
         </div>
@@ -341,7 +341,7 @@ export function JobCard({ id,jobTitle, location, company, jobType, description, 
 
       {/* About Section - This will grow to fill available space */}
       <div className="flex-1 flex flex-col min-h-0">
-        <h4 className="font-medium text-[#0F1C3D] mb-1 text-sm">
+        <h4 className="font-medium text-foreground mb-1 text-sm">
           About this Role
         </h4>
         <p className="text-gray-600 text-xs sm:text-sm leading-relaxed flex-1 line-clamp-4">

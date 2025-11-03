@@ -100,14 +100,14 @@ export default function AdminSettings() {
   };
 
   const inputClass =
-    'w-full h-[60px] px-4 py-3 bg-[#F9F9F9] border border-gray-200 rounded-lg text-[#0F1C3D] font-chillax text-sm focus:outline-none focus:ring-2 focus:ring-[#F9F9F9] focus:border-transparent transition-all';
+    'w-full h-[60px] px-4 py-3 bg-background border border-gray-200 rounded-lg text-foreground font-chillax text-sm focus:outline-none focus:ring-2 focus:ring-background focus:border-transparent transition-all';
   const labelClass =
-    'block text-sm font-normal text-[#0F1C3D] font-chillax mb-2';
+    'block text-sm font-normal text-foreground font-chillax mb-2';
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-[#ECEFF3] p-4">
+    <div className="flex items-center justify-center min-h-screen bg-background p-4">
       <div className="w-full max-w-md bg-white shadow-md rounded-2xl p-8 space-y-6">
-        <h2 className="text-3xl font-normal text-[#0F1C3D] font-chillax text-center">
+        <h2 className="text-3xl font-normal text-foreground font-chillax text-center">
           Admin Settings
         </h2>
 
@@ -193,7 +193,7 @@ export default function AdminSettings() {
           <Button
             type="submit"
             disabled={loading}
-            className="w-full h-[62px] bg-[#327AED] text-white rounded-full font-chillax text-sm hover:opacity-90 transition-all disabled:opacity-50"
+            className="w-full h-[62px] bg-primary text-white rounded-full font-chillax text-sm hover:opacity-90 transition-all disabled:opacity-50"
           >
             {loading ? 'Updating...' : 'Update Settings'}
           </Button>
