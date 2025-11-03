@@ -10,6 +10,7 @@ import { useCaseStudies } from '@/context/CaseStudyContext';
 import ServicesCard from '@/components/services/servicesCard';
 import CaseStudyBannerLayout from '@/components/casestudies/CaseStudyBannerLayout';
 import SmoothScroll from '@/components/ui/SmoothScroll';
+import CounterAnimation from '@/components/ui/CounterAnimation';
 
 
 
@@ -33,7 +34,7 @@ export default function HomePage() {
       controls.start({
         x: -1800, // adjust to match your total scroll width
         transition: {
-          duration: 15, // speed of scroll (increase for slower)
+          duration: 30, // speed of scroll (increase for slower)
           ease: "easeInOut",
         },
       })
@@ -155,7 +156,6 @@ export default function HomePage() {
   ];
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   return (
-    // <SmoothScroll  >
       <div className=" bg-background   rounded-b-[80px] mb-30   relative z-50">
       <section className="bg-background min-h-screen flex flex-col justify-center mt-10 items-center text-center px-3 lg:px-10">
       <motion.div
@@ -246,37 +246,41 @@ export default function HomePage() {
       </section>
 
       {/* Office Section */}
-      <section className="w-full flex flex-col lg:flex-row min-h-[600px] xl:min-h-[720px] ">
+      <section className="w-full flex flex-col lg:flex-row min-h-[600px] xl:min-h-[720px]">
         <div className="w-full lg:w-1/2 flex items-stretch">
-          <img src="/images/home/img5.png" alt="Office" className="w-full lg:h-[100vh] object-cover rounded-l-xl" />
+          <img 
+            src="/images/home/img5.png" 
+            alt="Office" 
+            className="w-full h-[400px] sm:h-[500px] md:h-[600px] lg:h-auto lg:min-h-[600px] xl:min-h-[720px] object-cover " 
+          />
         </div>  
         {/* cards */}
-        <div className="w-full lg:w-1/2 flex flex-col justify-center bg-white p-8 lg:p-5 ">
-          <h2 className="text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-medium text-foreground mb-6 leading-tight">
+        <div className="w-full lg:w-1/2 flex flex-col justify-center bg-white p-6 sm:p-8 lg:p-10 xl:p-12">
+          <h2 className="text-2xl sm:text-3xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-medium text-foreground mb-4 sm:mb-6 leading-tight">
             Empowering businesses,<br />Redefining experiences...
           </h2>
-          <p className="text-base md:text-sm lg:text-md xl:text-lg 2xl:text-xl font-regular text-foreground mb-4 leading-relaxed">
-            We don’t just design—we craft experiences that engage, convert, and inspire. Backed by innovation and industry expertise, we transform insights into pixel-perfect digital solutions.
+          <p className="text-sm sm:text-base lg:text-lg xl:text-xl 2xl:text-2xl font-regular text-foreground mb-3 sm:mb-4 leading-relaxed">
+            We don't just design—we craft experiences that engage, convert, and inspire. Backed by innovation and industry expertise, we transform insights into pixel-perfect digital solutions.
           </p>
-          <p className="text-base md:text-sm lg:text-md xl:text-lg 2xl:text-xl font-regular text-foreground mb-6 leading-relaxed">
-            From apps to websites, we deliver seamless, high-impact designs that redefine user experience. Let’s build something extraordinary together!
+          <p className="text-sm sm:text-base lg:text-lg xl:text-xl 2xl:text-2xl font-regular text-foreground mb-4 sm:mb-6 leading-relaxed">
+            From apps to websites, we deliver seamless, high-impact designs that redefine user experience. Let's build something extraordinary together!
           </p>
           <button onClick={() => router.push('/about')} className="custom-about-btn">
             More About Us
           </button>
-          <div className="bg-white rounded-xl p-6 mt-6">
-            <p className=" text-foreground xl:text-xl font-medium mb-4">
-              “The team at Synexis made everything
- simple, clear, and exciting. They genuinely
- cared about our goals and treated the
- project like their own. It was a creative
- partnership from start to finish”
+          <div className="bg-white rounded-xl p-4 sm:p-6 mt-4 sm:mt-6">
+            <p className="text-sm sm:text-base lg:text-lg xl:text-xl text-foreground font-medium mb-3 sm:mb-4 leading-relaxed">
+              "The team at Synexis made everything simple, clear, and exciting. They genuinely cared about our goals and treated the project like their own. It was a creative partnership from start to finish"
             </p>
-            <div className="flex items-center gap-4 xl:gap-6">
-              <img src="/images/home/img6.png" alt="Nedin Zahirovic" className="w-12 h-12  xl:w-15 xl:h-15 2xl:w-17 2xl:h-17 rounded-full object-cover" />
+            <div className="flex items-center gap-3 sm:gap-4 xl:gap-6">
+              <img 
+                src="/images/home/img6.png" 
+                alt="Nedin Zahirovic" 
+                className="w-10 h-10 sm:w-12 sm:h-12 xl:w-16 xl:h-16 2xl:w-20 2xl:h-20 rounded-full object-cover flex-shrink-0" 
+              />
               <div>
-                <div className="text-base md:text-lg 2xl:text-xl font-semibold text-foreground">louise Nonweiler</div>
-                <div className="text-xs md:text-sm xl:text-base text-foreground">Founder, Trader 365<br />Starnberg, Germany</div>
+                <div className="text-sm sm:text-base md:text-lg 2xl:text-xl font-semibold text-foreground">louise Nonweiler</div>
+                <div className="text-xs sm:text-xs md:text-sm xl:text-base text-foreground">Founder, Trader 365<br />Starnberg, Germany</div>
               </div>
             </div>
           </div>
@@ -327,28 +331,56 @@ export default function HomePage() {
     <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 text-center">
       
       {/* Stat 1 */}
-      <div>
-  <h3 className="text-3xl sm:text-6xl  font-medium text-black">250+</h3>
-  <p className="text-black mt-2 text-sm sm:text-base xl:text-lg">Projects Completed</p>
-      </div>
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 0.6, delay: 0 }}
+      >
+        <h3 className="text-3xl sm:text-6xl font-medium text-black">
+          <CounterAnimation end={250} duration={2.5} suffix="+" />
+        </h3>
+        <p className="text-black mt-2 text-sm sm:text-base xl:text-lg">Projects Completed</p>
+      </motion.div>
 
       {/* Stat 2 */}
-      <div>
-  <h3 className="text-3xl sm:text-6xl  font-medium text-black">180+</h3>
-  <p className="text-black mt-2 text-sm sm:text-base xl:text-lg">Happy Clients</p>
-      </div>
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+      >
+        <h3 className="text-3xl sm:text-6xl font-medium text-black">
+          <CounterAnimation end={180} duration={2.5} suffix="+" />
+        </h3>
+        <p className="text-black mt-2 text-sm sm:text-base xl:text-lg">Happy Clients</p>
+      </motion.div>
 
       {/* Stat 3 */}
-      <div>
-  <h3 className="text-3xl sm:text-6xl  font-medium text-black">10+</h3>
-  <p className="text-black mt-2 text-sm sm:text-base xl:text-lg">Years of Experience</p>
-      </div>
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+      >
+        <h3 className="text-3xl sm:text-6xl font-medium text-black">
+          <CounterAnimation end={10} duration={2.5} suffix="+" />
+        </h3>
+        <p className="text-black mt-2 text-sm sm:text-base xl:text-lg">Years of Experience</p>
+      </motion.div>
 
       {/* Stat 4 */}
-      <div>
-  <h3 className="text-3xl sm:text-6xl  font-medium text-black">50+</h3>
-  <p className="text-black mt-2 text-sm sm:text-base xl:text-lg">Team Members</p>
-      </div>
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 0.6, delay: 0.3 }}
+      >
+        <h3 className="text-3xl sm:text-6xl font-medium text-black">
+          <CounterAnimation end={50} duration={2.5} suffix="+" />
+        </h3>
+        <p className="text-black mt-2 text-sm sm:text-base xl:text-lg">Team Members</p>
+      </motion.div>
 
     </div>
   </div>
@@ -360,7 +392,7 @@ export default function HomePage() {
         <section className=" px-3 lg:px-10  py-12">
           <div className="mb-12">
             <span className="inline-flex items-center text-sm text-foreground font-regular mb-4">
-              <span className="w-2 h-2 rounded-full bg-foreground mr-2" />
+          
             CASE STUDIES
           </span>
 
@@ -478,7 +510,7 @@ export default function HomePage() {
           <motion.div
             className="flex flex-row gap-x-4 sm:gap-x-10 py-4 sm:py-6"
             animate={{ x: ["0%", "-50%"] }}
-            transition={{ duration: 10, ease: "linear", repeat: Infinity ,repeatType: 'loop',repeatDelay: 0}}
+            transition={{ duration: 30, ease: "linear", repeat: Infinity ,repeatType: 'loop',repeatDelay: 0}}
             style={{ width: "max-content" }}
           >
             {/* Logos duplicated for seamless loop */}
@@ -511,7 +543,7 @@ export default function HomePage() {
           <motion.div
             className="flex flex-row gap-x-4 sm:gap-x-10 py-4 sm:py-6"
             animate={{ x: ["-50%", "0%"] }}
-            transition={{ duration: 10, ease: "linear", repeat: Infinity }}
+            transition={{ duration: 30, ease: "linear", repeat: Infinity }}
             style={{ width: "max-content" }}
           >
             {["/images/client/img7.png","/images/client/img8.png","/images/client/img9.png","/images/client/img10.png","/images/client/img11.png","/images/client/img12.png",
@@ -526,7 +558,7 @@ export default function HomePage() {
           <motion.div
             className="flex flex-row sm:gap-x-3 py-4 sm:py-6 w-full"
             animate={{ x: ["0%", "-50%"] }}
-            transition={{ duration: 10, ease: "linear", repeat: Infinity }}
+            transition={{ duration: 30, ease: "linear", repeat: Infinity }}
             style={{ width: "max-content" }}
           >
             {["/images/client/img13.png","/images/client/img14.png","/images/client/img15.png","/images/client/img16.png","/images/client/img17.png","/images/client/img18.png","/images/client/img19.png",
@@ -723,7 +755,7 @@ export default function HomePage() {
 </section>
 
     {/* FAQ Section */}
-    <section className="w-full py-16 px-7 flex">
+    <section id="faq" className="w-full py-16 px-7 flex">
       <div className="w-full flex flex-col md:flex-row md:justify-between md:gap-[120px] 2xl:gap-[150px]">
         {/* Left: Heading */}
         <div className="md:w-1/3 w-full flex flex-col justify-start items-start pl-4 md:pr-8 mb-8 md:mb-0">
@@ -774,6 +806,5 @@ export default function HomePage() {
       </div>
     </section>
   </div>
-    // </SmoothScroll>
   );
 }

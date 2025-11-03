@@ -5,15 +5,16 @@ import { useRouter } from 'next/navigation'
 import {FlipCard} from '@/components/ui/FlipCard'
 import {CTA} from '@/components/ui/cta'
 import { motion } from 'framer-motion'
+import CounterAnimation from '@/components/ui/CounterAnimation'
 
 export default function AboutPage() {
   const router = useRouter()
 
 
   return (
-    <main className="min-h-screen bg-white mb-30 z-50 relative rounded-b-[80px]   pb-[160px]">
+    <main className="min-h-screen bg-white mb-30 z-50 relative rounded-b-[80px] pb-[160px] pt-16 ">
       <section className="w-full flex justify-center lg:min-h-[500px] items-center py-8 sm:py-12">
-        <div className="text-center max-w-[1020px] w-full mx-auto px-4 ">
+        <div className="text-center max-w-[1020px] w-full mx-auto px-4">
           <h2 className="text-foreground font-medium text-xl sm:text-3xl md:text-4xl lg:text-[50px] leading-snug sm:leading-normal md:leading-[60px] lg:leading-[70px]">
             With expertise across <br />
             ventures and enterprises,
@@ -51,28 +52,56 @@ export default function AboutPage() {
         <div className=" mx-auto px-6 sm:px-12 lg:px-12">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 text-center">
             {/* Stat 1 */}
-            <div>
-              <h3 className="text-3xl sm:text-6xl font-medium text-primary">250+</h3>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.6, delay: 0 }}
+            >
+              <h3 className="text-3xl sm:text-6xl font-medium text-primary">
+                <CounterAnimation end={250} duration={2.5} suffix="+" />
+              </h3>
               <p className="text-foreground mt-2 text-sm sm:text-base">Projects Completed</p>
-            </div>
+            </motion.div>
 
             {/* Stat 2 */}
-            <div>
-              <h3 className="text-3xl sm:text-6xl font-medium text-primary">180+</h3>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+            >
+              <h3 className="text-3xl sm:text-6xl font-medium text-primary">
+                <CounterAnimation end={180} duration={2.5} suffix="+" />
+              </h3>
               <p className="text-foreground mt-2 text-sm sm:text-base">Happy Clients</p>
-            </div>
+            </motion.div>
 
             {/* Stat 3 */}
-            <div>
-              <h3 className="text-3xl sm:text-6xl font-medium text-primary">10+</h3>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <h3 className="text-3xl sm:text-6xl font-medium text-primary">
+                <CounterAnimation end={10} duration={2.5} suffix="+" />
+              </h3>
               <p className="text-foreground mt-2 text-sm sm:text-base">Years of Experience</p>
-            </div>
+            </motion.div>
 
             {/* Stat 4 */}
-            <div>
-              <h3 className="text-3xl sm:text-6xl font-medium text-primary">50+</h3>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              <h3 className="text-3xl sm:text-6xl font-medium text-primary">
+                <CounterAnimation end={50} duration={2.5} suffix="+" />
+              </h3>
               <p className="text-foreground mt-2 text-sm sm:text-base">Team Members</p>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>

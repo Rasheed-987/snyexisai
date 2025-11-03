@@ -2,13 +2,14 @@
 import { useEffect, useRef, useState } from 'react'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
 import type { Variants } from 'motion/react'
 import { stagger } from 'motion/react'
 import Image from 'next/image'
 import * as motion from 'motion/react-client'
 import HomeDropdown from '../ui/HomeDropdown'
+import AboutDropdown from '../ui/AboutDropdown'
 
 
 type Props = {
@@ -20,9 +21,12 @@ type Props = {
 const PortfolioDropdown = ({ textColor, navbarBackground, isCaseStudyPage }: Props) => {
   const [open, setOpen] = useState(false)
   const pathname = usePathname() // Close dropdown when route changes
+  const router = useRouter()
+  
   useEffect(() => {
     setOpen(false)
   }, [pathname])
+
 
   return (
     <div
@@ -52,7 +56,7 @@ const PortfolioDropdown = ({ textColor, navbarBackground, isCaseStudyPage }: Pro
       
       {open && (
      <div
-  className="absolute left-0 mt-2 w-72 bg-white border border-border rounded-xl shadow-xl z-50 transition-all duration-200"
+  className="absolute left-1/2 -translate-x-1/2 mt-2 w-72 bg-white border border-border rounded-xl shadow-xl z-50 transition-all duration-200"
  onMouseEnter={() => setOpen(true)}
           onMouseLeave={() => setTimeout(() => setOpen(false), 4000)}
 >
@@ -61,12 +65,13 @@ const PortfolioDropdown = ({ textColor, navbarBackground, isCaseStudyPage }: Pro
   <Link
     href="/ourproject"
     className="flex items-start gap-4 px-5 py-3 hover:bg-gray-50 transition-all"
+    onClick={() => setOpen(false)}
   >
     <div className="flex-1">
       <div className="text-[15px] font-medium text-foreground">
         Design Projects
       </div>
-      <div className="text-[13px] text-muted-foreground">
+      <div className="text-[13px] text-foreground">
         Work of the past, some still hold significant importance to us.
       </div>
     </div>
@@ -78,12 +83,13 @@ const PortfolioDropdown = ({ textColor, navbarBackground, isCaseStudyPage }: Pro
   <Link
     href="/casestudies"
     className="flex items-start gap-4 px-5 py-3 hover:bg-gray-50 transition-all"
+    onClick={() => setOpen(false)}
   >
     <div className="flex-1">
       <div className="text-[15px] font-medium text-foreground">
         Case Studies
       </div>
-      <div className="text-[13px] text-muted-foreground">
+      <div className="text-[13px] text-foreground">
         Projects that we love and have created the most impact for our clients.
       </div>
     </div>
@@ -468,9 +474,7 @@ export const Navigation = () => {
       <HomeDropdown  textColor={textColor} />
 
            
-        <Link href="/about" className={` font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>
-          ABOUT
-        </Link>
+        <AboutDropdown textColor={textColor} />
            
         <Link
           href="/services"

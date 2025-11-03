@@ -13,7 +13,7 @@ const ServicesCard = ({ title, image, requirements }: ServicesCardProps) => {
   return (
     <div className="w-full">
       <div className="relative w-full h-[350px] rounded-xl overflow-hidden">
-        <Image src={image} alt={title} fill className="object-fit pointer-events-none" />
+        <Image src={image} alt={title} fill className="object-obtain pointer-events-none" />
       </div>
       <div className="mt-4 text-center">
         <h3 className="text-xl font-semibold text-foreground">{title}</h3>

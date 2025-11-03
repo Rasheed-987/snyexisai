@@ -9,6 +9,7 @@ import {ServicesProvider} from '@/context/ServicesContext';
 import { CaseStudyProvider } from '@/context/CaseStudyContext';
 import { ProjectProvider } from '@/context/ProjectContext';
 import { CareerProvider } from '@/context/CareerContext';
+import SmoothScroll from '@/components/ui/SmoothScroll';
 
 
 
@@ -35,8 +36,10 @@ export default function RootLayout({
                   {!isAdmin ? (
                     <>
                       <Navigation />
-                      <main className="flex-1">{children}</main>
-                      <Footer />
+                      <SmoothScroll smoothness={0.08}>
+                        <main className="flex-1">{children}</main>
+                        <Footer />
+                      </SmoothScroll>
                     </>
                   ) : (
                     <main className="flex-1">{children}</main>

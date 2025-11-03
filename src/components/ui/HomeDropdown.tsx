@@ -2,18 +2,43 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 
 export default function HomeDropdown({ textColor }: { textColor: string }) {
 
   const [isOpen, setIsOpen] = useState(false)
+  const router = useRouter()
+
+  const scrollToSection = (sectionId: string) => {
+    setIsOpen(false)
+    
+    // If not on homepage, navigate first
+    if (window.location.pathname !== '/') {
+      router.push(`/#${sectionId}`)
+      setTimeout(() => {
+        const element = document.getElementById(sectionId)
+        if (element) {
+          const elementPosition = element.getBoundingClientRect().top + window.scrollY
+          window.scrollTo({ top: elementPosition - 80, behavior: 'smooth' })
+        }
+      }, 300)
+    } else {
+      // Already on homepage, just scroll
+      const element = document.getElementById(sectionId)
+      if (element) {
+        const elementPosition = element.getBoundingClientRect().top + window.scrollY
+        window.scrollTo({ top: elementPosition - 80, behavior: 'smooth' })
+      }
+    }
+  }
 
 
   return (
     <div
       className="relative"
       onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}
+      onMouseLeave={() => setTimeout(() => setIsOpen(false), 4000)}
     >
       {/* Main Link */}
     
@@ -29,7 +54,7 @@ export default function HomeDropdown({ textColor }: { textColor: string }) {
       {/* Dropdown Menu */}
       {isOpen && (
         <div 
-          className="absolute top-7 left-0 mt-2 w-[600px] bg-white border border-border rounded-2xl shadow-2xl z-50 p-5 transition-all duration-200 grid grid-cols-[1.4fr_1fr] gap-6"
+          className="absolute top-7 left-1/2 -translate-x-1/2 mt-2 w-[600px] bg-white border border-border rounded-2xl shadow-2xl z-50 p-5 transition-all duration-200 grid grid-cols-[1.4fr_1fr] gap-6"
           onMouseEnter={() => setIsOpen(true)}
           onMouseLeave={() => setTimeout(() => setIsOpen(false), 4000)}
         >
@@ -55,53 +80,53 @@ export default function HomeDropdown({ textColor }: { textColor: string }) {
   {/* RIGHT NAV LINKS */}
   <div className="space-y-4">
     {/* ITEM */}
-    <Link href="#case-studies" className="flex gap-3 group">
+    <button onClick={() => scrollToSection('case-studies')} className="flex gap-3 group w-full text-left cursor-pointer">
       <div className="flex-1">
         <p className="font-medium text-sm text-foreground group-hover:text-primary transition">Case Studies</p>
-        <p className="text-xs text-muted-foreground">
+        <p className="text-xs text-foreground">
           Real-world success stories and detailed project showcases.
         </p>
       </div>
       <div className="w-10 h-10 relative flex-shrink-0">
         <Image src="/images/case-studies.png" alt="Case Studies" fill className="object-contain group-hover:scale-105 transition" />
       </div>
-    </Link>
+    </button>
 
-    <Link href="#services" className="flex gap-3 group">
+    <button onClick={() => scrollToSection('services')} className="flex gap-3 group w-full text-left cursor-pointer">
       <div className="flex-1">
         <p className="font-medium text-sm text-foreground group-hover:text-primary transition">Services</p>
-        <p className="text-xs text-muted-foreground">
+        <p className="text-xs text-foreground">
           Comprehensive solutions tailored to your business needs.
         </p>
       </div>
       <div className="w-10 h-10 relative flex-shrink-0">
         <Image src="/images/customer-service.png" alt="Services" fill className="object-contain group-hover:scale-105 transition" />
       </div>
-    </Link>
+    </button>
 
-    <Link href="#testimonials" className="flex gap-3 group">
+    <button onClick={() => scrollToSection('testimonials')} className="flex gap-3 group w-full text-left cursor-pointer">
       <div className="flex-1">
         <p className="font-medium text-sm text-foreground group-hover:text-primary transition">Testimonials</p>
-        <p className="text-xs text-muted-foreground">
+        <p className="text-xs text-foreground">
           Hear what our clients say about their experience with us.
         </p>
       </div>
       <div className="w-10 h-10 relative flex-shrink-0">
         <Image src="/images/testimonial.png" alt="Testimonials" fill className="object-contain group-hover:scale-105 transition" />
       </div>
-    </Link>
+    </button>
 
-    <Link href="#faq" className="flex gap-3 group">
+    <button onClick={() => scrollToSection('faq')} className="flex gap-3 group w-full text-left cursor-pointer">
       <div className="flex-1">
         <p className="font-medium text-sm text-foreground group-hover:text-primary transition">FAQs</p>
-        <p className="text-xs text-muted-foreground">
+        <p className="text-xs text-foreground">
           Quick answers to common questions about our services.
         </p>
       </div>
       <div className="w-10 h-10 relative flex-shrink-0">
         <Image src="/images/faq.png" alt="FAQ" fill className="object-contain group-hover:scale-105 transition" />
       </div>
-    </Link>
+    </button>
   </div>
 
 </div>
