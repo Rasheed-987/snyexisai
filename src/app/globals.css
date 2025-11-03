@@ -71,9 +71,6 @@
   --muted: #EDEDED; 
 }
  
-html{
-  scroll-behavior: smooth;
-}
 
 .dark {
   /* Updated dark mode to use inverted palette */

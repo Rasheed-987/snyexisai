@@ -29,24 +29,23 @@ export default function RootLayout({
       <body className="min-h-screen bg-background font-sans antialiased">
         <div className="relative flex min-h-screen flex-col">
           <CareerProvider>
-          <ProjectProvider>
-        <CaseStudyProvider>
- <ServicesProvider>        
-          {!isAdmin ? (
-            <>
-              <Navigation />
-              <main className="flex-1">{children}</main>
-              <Footer />
-            </>
-          ) : (
-           
-              <main className="flex-1">{children}</main>
-            )}
-            </ServicesProvider>
-            </CaseStudyProvider>
-          </ProjectProvider>
+            <ProjectProvider>
+              <CaseStudyProvider>
+                <ServicesProvider>        
+                  {!isAdmin ? (
+                    <>
+                      <Navigation />
+                      <main className="flex-1">{children}</main>
+                      <Footer />
+                    </>
+                  ) : (
+                    <main className="flex-1">{children}</main>
+                  )}
+                </ServicesProvider>
+              </CaseStudyProvider>
+            </ProjectProvider>
           </CareerProvider>
-            </div>
+        </div>
       </body>
     </html>
   )

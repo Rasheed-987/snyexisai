@@ -9,6 +9,7 @@ import { useServices } from '@/context/ServicesContext';
 import { useCaseStudies } from '@/context/CaseStudyContext';
 import ServicesCard from '@/components/services/servicesCard';
 import CaseStudyBannerLayout from '@/components/casestudies/CaseStudyBannerLayout';
+import SmoothScroll from '@/components/ui/SmoothScroll';
 
 
 
@@ -154,6 +155,7 @@ export default function HomePage() {
   ];
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   return (
+    // <SmoothScroll  >
       <div className=" bg-background   rounded-b-[80px] mb-30   relative z-50">
       <section className="bg-background min-h-screen flex flex-col justify-center mt-10 items-center text-center px-3 lg:px-10">
       <motion.div
@@ -627,11 +629,11 @@ export default function HomePage() {
           <div key={testimonial.name} className="flex flex-col md:flex-row bg-white rounded-3xl interactive-card overflow-hidden flex-shrink-0 w-full">
           {/* Left: Image */}
           <div className="w-full md:w-1/2 h-[300px] md:h-[400px] relative ">
-            <Image src={testimonial.image} alt="Project Screenshot" fill className=" object-obtain" />
+            <Image src={testimonial.image} alt="Project Screenshot" fill className=" object-fit" />
           </div>
           {/* Right: Content */}
-          <div className="w-full md:w-1/2 flex flex-col justify-center p-4 md:p-8 h-full gap-2 md:gap-4">
-            <div className="flex items-center gap-2 md:gap-3 mb-1 md:mb-2">
+          <div className="w-full md:w-1/2 flex flex-col justify-center border-black p-4 md:p-8 h-full gap-2 md:gap-4">
+            <div className="flex items-center border-border gap-2 md:gap-3 mb-1 md:mb-2">
               <img src={testimonial.profileImage} alt={testimonial.name} className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover" />
               <div>
                 <div className="text-[var(--foreground)] font-semibold text-sm md:text-base">{testimonial.name}</div>
@@ -772,5 +774,6 @@ export default function HomePage() {
       </div>
     </section>
   </div>
+    // </SmoothScroll>
   );
 }

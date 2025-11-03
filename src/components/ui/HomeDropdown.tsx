@@ -1,6 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { useState } from 'react'
+import Image from 'next/image'
 
 
 export default function HomeDropdown({ textColor }: { textColor: string }) {
@@ -12,7 +13,7 @@ export default function HomeDropdown({ textColor }: { textColor: string }) {
     <div
       className="relative"
       onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setTimeout(() => setIsOpen(false), 1000)}
+      onMouseLeave={() => setIsOpen(false)}
     >
       {/* Main Link */}
     
@@ -27,7 +28,11 @@ export default function HomeDropdown({ textColor }: { textColor: string }) {
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute top-7 left-0 mt-2 w-[600px] bg-white border border-border rounded-2xl shadow-2xl z-50 p-5 transition-all duration-200 grid grid-cols-[1.4fr_1fr] gap-6">
+        <div 
+          className="absolute top-7 left-0 mt-2 w-[600px] bg-white border border-border rounded-2xl shadow-2xl z-50 p-5 transition-all duration-200 grid grid-cols-[1.4fr_1fr] gap-6"
+          onMouseEnter={() => setIsOpen(true)}
+          onMouseLeave={() => setTimeout(() => setIsOpen(false), 4000)}
+        >
   
   {/* LEFT FEATURE CARD */}
   <div className="relative  rounded-xl overflow-hidden bg-black text-white p-6 flex flex-col justify-end">
@@ -51,50 +56,50 @@ export default function HomeDropdown({ textColor }: { textColor: string }) {
   <div className="space-y-4">
     {/* ITEM */}
     <Link href="#case-studies" className="flex gap-3 group">
-      <div className="text-foreground/70 group-hover:text-primary transition">
-        📰
-      </div>
-      <div>
+      <div className="flex-1">
         <p className="font-medium text-sm text-foreground group-hover:text-primary transition">Case Studies</p>
         <p className="text-xs text-muted-foreground">
-          Behind-the-scenes updates, new projects, and tools we’re exploring.
+          Real-world success stories and detailed project showcases.
         </p>
+      </div>
+      <div className="w-10 h-10 relative flex-shrink-0">
+        <Image src="/images/case-studies.png" alt="Case Studies" fill className="object-contain group-hover:scale-105 transition" />
       </div>
     </Link>
 
     <Link href="#services" className="flex gap-3 group">
-      <div className="text-foreground/70 group-hover:text-primary transition">
-        💡
-      </div>
-      <div>
+      <div className="flex-1">
         <p className="font-medium text-sm text-foreground group-hover:text-primary transition">Services</p>
         <p className="text-xs text-muted-foreground">
-          Ideas, trends, and lessons shaping how we design and build.
+          Comprehensive solutions tailored to your business needs.
         </p>
+      </div>
+      <div className="w-10 h-10 relative flex-shrink-0">
+        <Image src="/images/customer-service.png" alt="Services" fill className="object-contain group-hover:scale-105 transition" />
       </div>
     </Link>
 
     <Link href="#testimonials" className="flex gap-3 group">
-      <div className="text-foreground/70 group-hover:text-primary transition">
-        ✏️
-      </div>
-      <div>
+      <div className="flex-1">
         <p className="font-medium text-sm text-foreground group-hover:text-primary transition">Testimonials</p>
         <p className="text-xs text-muted-foreground">
-          Webflow-focused guides, tips, and updates for designers and founders.
+          Hear what our clients say about their experience with us.
         </p>
+      </div>
+      <div className="w-10 h-10 relative flex-shrink-0">
+        <Image src="/images/testimonial.png" alt="Testimonials" fill className="object-contain group-hover:scale-105 transition" />
       </div>
     </Link>
 
-    <Link href="/tools" className="flex gap-3 group">
-      <div className="text-foreground/70 group-hover:text-primary transition">
-        🧰
-      </div>
-      <div>
-        <p className="font-medium text-sm text-foreground group-hover:text-primary transition">Testimonials</p>
+    <Link href="#faq" className="flex gap-3 group">
+      <div className="flex-1">
+        <p className="font-medium text-sm text-foreground group-hover:text-primary transition">FAQs</p>
         <p className="text-xs text-muted-foreground">
-          Resources and frameworks to help you design and launch better.
+          Quick answers to common questions about our services.
         </p>
+      </div>
+      <div className="w-10 h-10 relative flex-shrink-0">
+        <Image src="/images/faq.png" alt="FAQ" fill className="object-contain group-hover:scale-105 transition" />
       </div>
     </Link>
   </div>

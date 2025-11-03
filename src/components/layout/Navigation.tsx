@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 
 import type { Variants } from 'motion/react'
 import { stagger } from 'motion/react'
+import Image from 'next/image'
 import * as motion from 'motion/react-client'
 import HomeDropdown from '../ui/HomeDropdown'
 
@@ -52,7 +53,11 @@ const PortfolioDropdown = ({ textColor, navbarBackground, isCaseStudyPage }: Pro
       {open && (
      <div
   className="absolute left-0 mt-2 w-72 bg-white border border-border rounded-xl shadow-xl z-50 transition-all duration-200"
+ onMouseEnter={() => setOpen(true)}
+          onMouseLeave={() => setTimeout(() => setOpen(false), 4000)}
 >
+
+
   <Link
     href="/ourproject"
     className="flex items-start gap-4 px-5 py-3 hover:bg-gray-50 transition-all"
@@ -65,9 +70,9 @@ const PortfolioDropdown = ({ textColor, navbarBackground, isCaseStudyPage }: Pro
         Work of the past, some still hold significant importance to us.
       </div>
     </div>
-    <div className="w-5 opacity-70">
-      {/* ✅ Place your SVG icon here */}
-    </div>
+   <div className="w-9 h-9 relative ">
+           <Image src="/images/project.png" alt="Projects" fill className="object-contain group-hover:scale-105 transition" />
+         </div>
   </Link>
 
   <Link
@@ -82,8 +87,10 @@ const PortfolioDropdown = ({ textColor, navbarBackground, isCaseStudyPage }: Pro
         Projects that we love and have created the most impact for our clients.
       </div>
     </div>
-    <div className="w-5 opacity-70">
-      {/* ✅ Place your SVG icon here */}
+    <div className=" opacity-70">
+      <div className="w-9 h-9 relative ">
+              <Image src="/images/case-studies.png" alt="Case Studies" fill className="object-contain group-hover:scale-105 transition" />
+            </div>
     </div>
   </Link>
 </div>
