@@ -125,7 +125,7 @@ export default function AdminDashboardPage() {
           className="w-[21.53px] h-[21.53px]"
         />
       ),
-      bgColor: 'bg-primary',
+      bgColor: 'bg-[#327AED]',
       textColor: 'text-white',
      
     },
@@ -141,7 +141,7 @@ export default function AdminDashboardPage() {
           className="w-[21.53px] h-[21.53px]"
         />
       ),
-      bgColor: 'bg-primary',
+      bgColor: 'bg-[#327AED]',
       textColor: 'text-white',
      
     },
@@ -157,7 +157,7 @@ export default function AdminDashboardPage() {
           className="w-[21.53px] h-[21.53px]"
         />
       ),
-      bgColor: 'bg-primary',
+      bgColor: 'bg-[#327AED]',
       textColor: 'text-white',
      
     },
@@ -173,7 +173,7 @@ export default function AdminDashboardPage() {
           className="w-[21.53px] h-[21.53px]"
         />
       ),
-      bgColor: 'bg-primary',
+      bgColor: 'bg-[#327AED]',
       textColor: 'text-white',
      
     }
@@ -182,13 +182,13 @@ export default function AdminDashboardPage() {
   
 
   return (
-    <div className="p-4 md:p-6 bg-background min-h-screen">
+    <div className="p-4 md:p-6 bg-[#ECEFF3] min-h-screen">
       {/* Header Section */}
       <div className="mb-6 md:mb-8">
         <h1 className="text-2xl md:text-3xl font-medium text-foreground mb-2">
           Welcome back, Admin
         </h1>
-        <p className="text-sm md:text-base text-gray-600">
+        <p className="text-sm md:text-base text-foreground">
           Take a look your progress for today {date}.
         </p>
       </div>
@@ -199,7 +199,7 @@ export default function AdminDashboardPage() {
           <div key={index} className="bg-white  rounded-2xl p-4 md:p-6">
             <div className="flex items-center space-x-3 md:space-x-4">
 
-             <div className=' w-[50px] md:w-[60px] bg-primary/10 rounded-[13px] h-[50px] md:h-[60px] flex items-center justify-center'>
+             <div className=' w-[50px] md:w-[60px] bg-[#E2EDFF] rounded-[13px] h-[50px] md:h-[60px] flex items-center justify-center'>
 
               <div className={`${stat.bgColor} ${stat.textColor} w-[30px] md:w-[35px] h-[30px] md:h-[35px] rounded-full flex items-center justify-center`}>
                 {stat.icon}
@@ -234,8 +234,8 @@ export default function AdminDashboardPage() {
          
 {loading ? (
   <div className="text-center py-8">
-    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-2"></div>
-    <p className="text-gray-600 text-sm">Loading case studies...</p>
+    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border- mx-auto mb-2"></div>
+    <p className="text-foreground text-sm">Loading case studies...</p>
   </div>
 ) : error ? (
   <div className="text-center py-8">
@@ -243,7 +243,7 @@ export default function AdminDashboardPage() {
   </div>
 ) : caseStudies.length === 0 ? (
   <div className="text-center py-8">
-    <p className="text-gray-600 text-sm">No case studies found</p>
+    <p className="text-foreground text-sm">No case studies found</p>
   </div>
 ) : (
   caseStudies.map((caseStudy) => (
@@ -256,7 +256,7 @@ export default function AdminDashboardPage() {
       timeAgo={formatDate(caseStudy.createdAt)}
       thumbnail={caseStudy.images.banner || '/images/placeholder.png'}
       status={(caseStudy.status as 'draft' | 'published') || 'published'}
-      className="flex flex-row items-center bg-secondary rounded-[21px] p-4 space-y-0 space-x-0 [&>div:last-child]:hidden"
+      className="flex flex-row items-center bg-[#F7F7F7] rounded-[21px] p-4 space-y-0 space-x-0 [&>div:last-child]:hidden"
       onEdit={() => router.push(`/admin/case-studies/edit/${caseStudy._id}`)}
       onUnpublish={() => {}}
       onDelete={() => {}}
@@ -268,10 +268,10 @@ export default function AdminDashboardPage() {
         </div>
         <div className="w-full lg:flex-1 bg-white rounded-[21px] p-4 md:p-6">
           <div className="flex items-center justify-between mb-4 md:mb-6">
-            <h2 className="text-lg md:text-xl font-medium text-foreground">
+            <h2 className="text-lg md:text-xl font-medium text-[#0F1C3D]">
               Career Postings
             </h2>
-            <button onClick={()=>router.push('/admin/career')} className="text-primary text-sm font-medium hover:underline">
+            <button onClick={()=>router.push('/admin/career')} className="text-[#327AED] text-sm font-medium hover:underline">
               View All →
             </button>
           </div>

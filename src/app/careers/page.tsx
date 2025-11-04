@@ -53,10 +53,10 @@ export default function CareersPage() {
               <p className="text-base md:text-lg text-foreground mb-2">
                 Feel free to send your resume to{' '}
                 <a 
-                  href="mailto:contact@Synexis.ai" 
+                  href="mailto:careers@aisynexis.com" 
                   className="text-primary font-semibold hover:underline"
                 >
-                  contact@Synexis.ai
+                  careers@aisynexis.com
                 </a>
                 .
               </p>

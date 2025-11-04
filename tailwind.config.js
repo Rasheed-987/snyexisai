@@ -34,6 +34,7 @@ module.exports = {
           DEFAULT: "var(--secondary)",
           foreground: "var(--secondary-foreground)",
         },
+        
        
         popover: {
           DEFAULT: "var(--popover)",

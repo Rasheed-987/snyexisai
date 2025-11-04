@@ -28,7 +28,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
 
   // For all other /admin* routes (including /admin), render sidebar/header + children
   return (
-    <div className="h-screen flex bg-background">
+    <div className="h-screen flex bg-[#ECEFF3]">
       {/* Sidebar */}
       <Sidebar />
       {/* Main Content */}
@@ -38,8 +38,8 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
         {/* Page Title and Date */}
         {pathname !== '/admin' && pathname !== '/admin/dashboard' && (
           <div className="w-full ml-10 flex flex-col py-3">
-            <h1 className="text-2xl font-medium text-[var(--foreground)] mb-1">All {title}</h1>
-            <p className="text-gray-600 text-sm">Take a look at your progress for today {date}.</p>
+            <h1 className="text-2xl font-medium text-foreground mb-1">All {title}</h1>
+            <p className="text-foreground text-sm">Take a look at your progress for today {date}.</p>
           </div>
         )}
         {/* Page Content */}
