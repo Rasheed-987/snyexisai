@@ -30,7 +30,7 @@ export function ActionButtons({
       {/* Edit Button */}
       <button
         onClick={onEdit}
-        className="flex items-center space-x-1 text-blue-500 hover:text-blue-600 transition-colors"
+        className="flex items-center space-x-1 text-primary hover:text-primary/80 transition-colors"
       >
         <Image
           src="/images/admin/edit.svg"
@@ -48,7 +48,7 @@ export function ActionButtons({
       {/* Draft/Unpublish Button */}
       <button
         onClick={onUnpublish}
-        className="flex items-center space-x-1 text-blue-500 hover:text-blue-600 transition-colors"
+        className="flex items-center space-x-1 text-primary hover:text-primary/80 transition-colors"
         title={isDraft ? 'Publish this draft' : 'Unpublish this project'}
       >
         <Image
@@ -67,7 +67,7 @@ export function ActionButtons({
       {/* Delete Button */}
       <button
         onClick={onDelete}
-        className="group flex items-center space-x-1 text-blue-500 hover:text-red-500 transition-colors"
+        className="group flex items-center space-x-1 text-primary hover:text-red-500 transition-colors"
       >
         <div className="relative">
           <Image
@@ -103,7 +103,7 @@ export function ProjectCard({
   onDelete,
 }: ProjectCardProps) {
   return (
-    <div className="bg-muted rounded-[21px] p-4">
+    <div className="bg-[#F5F5F5] rounded-[21px] p-4">
       <div className="mb-4">
         <Image
           src={thumbnail}
@@ -115,7 +115,7 @@ export function ProjectCard({
       </div>
 
       <div className="flex items-center justify-between mb-2">
-        <h3 className="body-medium font-semibold text-[var(--foreground)]">{title}</h3>
+        <h3 className="body-medium font-semibold text-foreground">{title}</h3>
         <span className={`text-xs px-2 py-1 rounded-full ${
           status === 'draft' 
             ? 'bg-yellow-100 text-yellow-800' 
@@ -125,10 +125,10 @@ export function ProjectCard({
         </span>
       </div>
 
-      <p className="body-small text-gray-600 line-clamp-2 mb-4">{description}</p>
+      <p className="body-small text-foreground line-clamp-2 mb-4">{description}</p>
 
       <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-2 text-xs text-gray-500">
+        <div className="flex items-center space-x-2 text-xs text-foreground">
           <div className="w-5 h-5 bg-gray-300 rounded-full flex items-center relative justify-center">
             <Image src="/images/admin/profile.png" alt="Author" fill className="w-3 h-3" />
           </div>
@@ -176,7 +176,7 @@ export function ServiceCard({
       </div>
 
       <div className="flex items-center justify-between mb-2">
-        <h3 className="body-medium font-semibold text-[var(--foreground)]">{title}</h3>
+        <h3 className="body-medium font-semibold text-foreground">{title}</h3>
         <span className={`text-xs px-2 py-1 rounded-full ${
           status === 'draft' 
             ? 'bg-yellow-100 text-yellow-800' 
@@ -206,7 +206,7 @@ export function CaseStudyCard({
   status
 }: CaseStudyCardProps) {
   return (
-    <div className={`flex flex-col bg-muted sm:flex-row sm:items-center space-y-3 sm:space-y-0 sm:space-x-4 p-3 sm:p-4 rounded-[21px] border border-gray-100 ${className}`}>
+    <div className={`flex flex-col bg-[#F5F5F5] sm:flex-row sm:items-center space-y-3 sm:space-y-0 sm:space-x-4 p-3 sm:p-4 rounded-[21px] border border-gray-100 ${className}`}>
       {/* Thumbnail */}
       <div className="flex-shrink-0 w-full sm:w-auto">
         <Image
@@ -224,9 +224,9 @@ export function CaseStudyCard({
           {title}
         </h3>
 
-        <p className="text-sm text-gray-600 line-clamp-2 mb-3">{description}</p>
+        <p className="text-sm text-foreground line-clamp-2 mb-3">{description}</p>
 
-        <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3 text-sm text-gray-500">
+        <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-3 text-sm text-foreground">
           <div className="flex items-center space-x-2">
             <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full overflow-hidden flex-shrink-0">
               <Image
@@ -298,7 +298,7 @@ export function JobCard({ id,jobTitle, location, company, jobType, description, 
 
   return (
      <div
-      className={`bg-background border border-gray-200 rounded-[15px] p-6 shadow-sm h-[350px] flex flex-col ${className}`}
+      className={`bg-[#ECEFF3] border border-gray-200 rounded-[15px] p-6 shadow-sm h-[350px] flex flex-col ${className}`}
     >
       {/* Job Number and Status Badge */}
       <div className="flex items-center justify-between mb-1">
@@ -344,7 +344,7 @@ export function JobCard({ id,jobTitle, location, company, jobType, description, 
         <h4 className="font-medium text-foreground mb-1 text-sm">
           About this Role
         </h4>
-        <p className="text-gray-600 text-xs sm:text-sm leading-relaxed flex-1 line-clamp-4">
+        <p className="text-foreground text-xs sm:text-sm leading-relaxed flex-1 line-clamp-4">
           {truncate(description, 110)}
         </p>
       </div>
