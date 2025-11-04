@@ -28,7 +28,7 @@ const OurProjectPage = () => {
   }
 
   return (
-    <div className="rounded-b-[80px]  min-h-screen  relative z-50 bg-background pb-24 lg:pb-40  ">
+    <div className="rounded-b-[80px]  min-h-screen  pt-20 relative z-50 bg-background pb-24 lg:pb-40  ">
       {projectData?.map((project: any, index: number) => (
         <div key={project._id || index} className="mb-8">
           <InnerCard

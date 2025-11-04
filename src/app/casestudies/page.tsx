@@ -59,11 +59,10 @@ const CaseStudyPage = () => {
       <section className="w-full mx-auto  py-12">
         <div className="mb-12 px-3 lg:px-10">
           <span className="inline-flex items-center text-sm text-foreground font-regular mb-4">
-            <span className="w-2 h-2 rounded-full bg-foreground mr-2" />
             CASE STUDIES
           </span>
 
-          <h2 className=" text-4xl sm:text-5xl text-foreground font-regular leading-tight mb-4">
+          <h2 className=" text-xl lg:text-4xl text-foreground font-regular leading-tight mb-4">
             Featured Projects
           </h2>
 

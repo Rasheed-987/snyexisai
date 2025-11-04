@@ -25,7 +25,7 @@ const InnerCard = ({ banner, title, description, requirements, project }: InnerC
 
       {/* Right Side - Content */}
       <div className="space-y-4 px-3">
-        <h2 className="text-2xl md:text-3xl text-foreground font-semibold my-7 leading-snug">{title}</h2>
+        <h2 className="text-xl md:text-2xl text-foreground font-semibold my-7 leading-snug">{title}</h2>
         {/* thin horizontal line */}
         <div className="h-px bg-black my-10" />
         <p className="text-foreground leading-relaxed">{description}</p>

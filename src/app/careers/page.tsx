@@ -31,11 +31,11 @@ export default function CareersPage() {
 
   if (jobListings.length === 0) {
     return (
-      <div className="min-h-screen pb-24 rounded-b-[80px] relative z-50 bg-background">
+      <div className="min-h-screen pb-24 rounded-b-[80px] pt-10 relative z-50 bg-background">
         <div className="max-w-[100vw] mx-auto">
           {/* Header */}
           <div className="text-center mb-12 w-full max-w-xl mx-auto px-4 py-8 md:py-12 lg:py-16">
-            <h1 className="heading-hero font-normal text-[70.05px] leading-[84.48px] tracking-[-2px] text-center text-foreground">
+            <h1 className="heading-hero font-normal sm:text-xl lg:text-6xl leading-[84.48px] tracking-[-2px] text-center text-foreground">
               Let's get to work
             </h1>
           </div>
@@ -43,7 +43,7 @@ export default function CareersPage() {
           {/* No Open Vacancies Card */}
           <div className="max-w-4xl mx-auto px-4">
             <div className="border border-border rounded-2xl bg-white p-8 md:p-12 text-center shadow-lg">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium text-foreground mb-6">
+              <h2 className="text-xl md:text-2xl lg:text-3xl font-medium text-foreground mb-6">
                 No Open Vacancies
               </h2>
               <div className="border-t-2 border-dotted border-primary my-6"></div>

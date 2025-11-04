@@ -15,7 +15,7 @@ export default function AboutPage() {
     <main className="min-h-screen bg-white mb-30 z-50 relative rounded-b-[80px] pb-[160px] pt-16 ">
       <section className="w-full flex justify-center lg:min-h-[500px] items-center py-8 sm:py-12">
         <div className="text-center max-w-[1020px] w-full mx-auto px-4">
-          <h2 className="text-foreground font-medium text-xl sm:text-3xl md:text-4xl lg:text-[50px] leading-snug sm:leading-normal md:leading-[60px] lg:leading-[70px]">
+          <h2 className="text-foreground font-medium text-lg sm:text-xl md:text-2xl lg:text-[50px] leading-snug sm:leading-normal md:leading-[60px] lg:leading-[70px]">
             With expertise across <br />
             ventures and enterprises,
             <br /> Synexis.ai delivers next.
@@ -37,7 +37,7 @@ export default function AboutPage() {
 
       <section className="w-full  py-16">
         <div className=" mx-auto px-3 lg:px-10">
-          <p className="text-foreground text-base sm:text-lg  lg:text-xl leading-relaxed">
+          <p className="text-foreground text-sm sm:text-base  lg:text-lg leading-relaxed">
             We collaborate with forward-thinking leaders, where our generative AI experts provide
             strategic insights that will reshape tomorrow. Our team of AI engineers, developers, and
             data scientists supports clients through their digital transformation, enhancing
@@ -58,7 +58,7 @@ export default function AboutPage() {
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 0.6, delay: 0 }}
             >
-              <h3 className="text-3xl sm:text-6xl font-medium text-primary">
+              <h3 className="text-2xl sm:text-4xl font-medium text-primary">
                 <CounterAnimation end={250} duration={2.5} suffix="+" />
               </h3>
               <p className="text-foreground mt-2 text-sm sm:text-base">Projects Completed</p>
@@ -71,7 +71,7 @@ export default function AboutPage() {
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <h3 className="text-3xl sm:text-6xl font-medium text-primary">
+              <h3 className="text-2xl sm:text-4xl font-medium text-primary">
                 <CounterAnimation end={180} duration={2.5} suffix="+" />
               </h3>
               <p className="text-foreground mt-2 text-sm sm:text-base">Happy Clients</p>
@@ -84,7 +84,7 @@ export default function AboutPage() {
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <h3 className="text-3xl sm:text-6xl font-medium text-primary">
+              <h3 className="text-2xl sm:text-4xl font-medium text-primary">
                 <CounterAnimation end={10} duration={2.5} suffix="+" />
               </h3>
               <p className="text-foreground mt-2 text-sm sm:text-base">Years of Experience</p>
@@ -97,7 +97,7 @@ export default function AboutPage() {
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <h3 className="text-3xl sm:text-6xl font-medium text-primary">
+              <h3 className="text-2xl sm:text-4xl font-medium text-primary">
                 <CounterAnimation end={50} duration={2.5} suffix="+" />
               </h3>
               <p className="text-foreground mt-2 text-sm sm:text-base">Team Members</p>
@@ -107,7 +107,7 @@ export default function AboutPage() {
       </section>
       <section className="w-full flex justify-center items-center py-10">
         <p
-          className="mx-auto px-4 sm:px-6 lg:px-20"
+          className="mx-auto px-4 sm:px-6 lg:px-20 text-sm sm:text-base  lg:text-lg "
           style={{
         
             fontWeight: 300,
@@ -323,13 +323,14 @@ everything we do."
           {/* Left: Text Content */}
           <div className="flex-1 mb-10 lg:mb-0">
             <h2
-              className="text-foreground font-medium text-2xl sm:text-4xl lg:text-5xl mb-6"
+              className="text-foreground font-medium text-xl sm:text-2xl lg:text-3xl mb-6"
              
             >
-              Expertise across a range of technologies
+              Expertise across a range of <br />  technologies
             </h2>
+            
             <p
-              className="text-foreground text-base sm:text-lg mb-6"
+              className="text-foreground text-sm sm:text-base  mb-6"
              
             >
             At Synexis, our expertise spans a wide spectrum of technologies, allowing us to craft intelligent, scalable, and future-ready solutions. From AI-driven automation to secure cloud architectures, we combine innovation with precision engineering to deliver systems that empower businesses to evolve and thrive in the digital era.
@@ -374,15 +375,15 @@ everything we do."
           {/* Content */}
           <div className="relative z-10 text-center px-4 flex flex-col items-center justify-center transition-all duration-500 group-hover:transform group-hover:-translate-y-2">
             <h1
-              className="text-white font-bold text-2xl sm:text-4xl lg:text-6xl mb-4 sm:mb-6 transition-all duration-500 group-hover:text-shadow-lg"
+              className="text-white font-bold text-xl sm:text-2xl lg:text-3xl mb-4 sm:mb-6 transition-all duration-500 group-hover:text-shadow-lg"
              
             >
               Shaping the next
-              <br />
+
               era together.
             </h1>
             <p
-              className="text-white text-base sm:text-lg lg:text-xl font-light mb-6 sm:mb-8 max-w-[600px] transition-all duration-500 group-hover:opacity-90"
+              className="text-white text-sm sm:text-base lg:text-lg font-light mb-6 sm:mb-8 max-w-[600px] transition-all duration-500 group-hover:opacity-90"
              
             >
               Partner with us to unlock innovation and accelerate your digital future.

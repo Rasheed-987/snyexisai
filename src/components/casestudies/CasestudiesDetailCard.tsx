@@ -49,11 +49,11 @@ export default function CaseStudyDetailPage({
     {/* Hero Section */}
   <section className="w-full flex flex-col justify-center items-center text-center py-16 ">
     {/* Case Title */}
-    <h1 className="text-[40px] text-foreground sm:text-[60px] md:text-[90px] lg:text-[105px] font-medium leading-tight tracking-tight mb-6 break-words">
+    <h1 className=" text-foreground sm:text-3xl md:text-5xl lg:text-7xl font-medium leading-tight tracking-tight mb-6 break-words">
       {caseTitle}
     </h1>
 
-    <p className="text-foreground max-w-3xl mx-auto text-base sm:text-lg px-3 leading-relaxed">
+    <p className="text-foreground max-w-3xl mx-auto text-base sm:text-base  px-3 leading-relaxed">
       {subtitle}
     </p>
   </section>

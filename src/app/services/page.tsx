@@ -39,9 +39,9 @@ const Service = () => {
   }
 
   return (
-    <section className=" bg-background   rounded-b-[80px] pb-[150px]    relative z-50">
+    <section className=" bg-background   rounded-b-[80px] pb-[150px]  pt-10  relative z-50">
       <div className='pt-20'>
-        <h2 className="text-foreground text-3xl text-center sm:text-4xl lg:text-5xl font-medium leading-tight mb-20">
+        <h2 className="text-foreground text-3xl text-center sm:text-4xl lg:text-4xl 2xl:text-5xl font-medium leading-tight mb-20">
           Our Services
         </h2>
       </div>

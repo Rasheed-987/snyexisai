@@ -27,10 +27,10 @@ export const CTA: React.FC<CTAProps> = ({ className = '', ...rest }) => {
         </div>
         <div className="absolute inset-0  bg-opacity-40 transition-all duration-500 group-hover:bg-opacity-30" />
         <div className="relative flex flex-col items-center justify-center h-full z-10 text-center px-6 sm:px-12 transition-all duration-500 group-hover:transform group-hover:-translate-y-2">
-          <h2 className="text-white  font-semibold text-3xl sm:text-4xl lg:text-5xl mb-4 transition-all duration-500 group-hover:text-shadow-lg">
+          <h2 className="text-white  font-semibold text-lg sm:text-xl lg:text-3xl mb-4 transition-all duration-500 group-hover:text-shadow-lg">
             Have A Project in Mind?
           </h2>
-          <p className="text-white  font-normal text-base sm:text-lg lg:text-xl mb-6 max-w-[600px] transition-all duration-500 group-hover:opacity-90">
+          <p className="text-white  font-normal text-sm sm:text-base lg:text-lg mb-6 max-w-[600px] transition-all duration-500 group-hover:opacity-90">
             Partner with us to unlock innovation and accelerate your digital future.
           </p>
           

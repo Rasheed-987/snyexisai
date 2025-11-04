@@ -14,15 +14,15 @@ export default function ContactPage() {
             {/* Main Heading */}
             <div className="space-y-4">
               <div className="space-y-2">
-                <h1 className="text-6xl lg:text-7xl font-normal leading-tight tracking-tight text-foreground ">
+                <h1 className="text-4xl lg:text-6xl font-normal leading-tight tracking-tight text-foreground ">
                   Tell us about
                 </h1>
                 <div className="flex items-center space-x-4">
-                  <span className="text-5xl lg:text-6xl font-normal leading-tight tracking-tight text-foreground ">
+                  <span className="text-4xl lg:text-6xl font-normal leading-tight tracking-tight text-foreground ">
                     your
                   </span>
                 </div>
-                <h1 className="text-5xl lg:text-6xl font-normal leading-tight tracking-tight text-foreground ">
+                <h1 className="text-4xl lg:text-6xl  font-normal leading-tight tracking-tight text-foreground ">
                   project
                 </h1>
               </div>
@@ -30,7 +30,7 @@ export default function ContactPage() {
 
             {/* Description */}
             <div className="max-w-2xl">
-              <p className="text-lg lg:text-xl leading-relaxed text-foreground ">
+              <p className="text-base lg:text-lg leading-relaxed text-foreground ">
                 At Synexis.ai, we believe in building intelligent collaborations, not just client relationships. We don't operate as a typical agency we integrate as your innovation partner, focused on scaling your vision with AI-driven solutions. From advanced digital platforms to smart brand experiences, we deliver end-to-end services that transform ideas into intelligent realities.
               </p>
             </div>
