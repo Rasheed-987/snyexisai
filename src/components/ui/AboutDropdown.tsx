@@ -1,18 +1,48 @@
 'use client'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { useDropdownHover } from '@/utils/utils'
 
 
 export default function AboutDropdown({ textColor }: { textColor: string }) {
 
   const router = useRouter()
+  const pathname = usePathname()
   const { isOpen, handleMouseEnter, handleMouseLeave, closeDropdown } = useDropdownHover()
 
+  // ✅ Fixed: Properly handle hash navigation
   const navigateToPage = (path: string) => {
     closeDropdown()
-    router.push(path)
+    
+    // Check if it's a hash link
+    if (path.includes('#')) {
+      const [route, hash] = path.split('#')
+      
+      // If we're already on the page, just scroll to element
+      if (pathname === route) {
+        const element = document.getElementById(hash)
+        if (element) {
+          const offset = 80 // Adjust for fixed header if needed
+          const elementPosition = element.getBoundingClientRect().top + window.scrollY - offset
+          window.scrollTo({ top: elementPosition, behavior: 'smooth' })
+        }
+      } else {
+        // Navigate to the page first
+        router.push(path)
+        // Wait for navigation and DOM to be ready, then scroll
+        setTimeout(() => {
+          const element = document.getElementById(hash)
+          if (element) {
+            const offset = 80 // Adjust for fixed header if needed
+            const elementPosition = element.getBoundingClientRect().top + window.scrollY - offset
+            window.scrollTo({ top: elementPosition, behavior: 'smooth' })
+          }
+        }, 300) // Increased delay for page load
+      }
+    } else {
+      router.push(path)
+    }
   }
 
 
@@ -23,15 +53,13 @@ export default function AboutDropdown({ textColor }: { textColor: string }) {
       onMouseLeave={handleMouseLeave}
     >
       {/* Main Link */}
-    
-      <button
+      <Link 
+        href="/about" 
         className={`relative font-semibold text-[14px] tracking-[0.5px] ${textColor} flex items-center gap-1`}
       >
-        <Link href="/about" className={`relative font-semibold text-[14px] tracking-[0.5px] ${textColor} flex items-center gap-1`}>
-       ABOUT
-       <span className="text-[12px]">{isOpen ? '▲' : '▼'}</span>
-     </Link>
-      </button>
+        ABOUT
+        <span className="text-[12px]">{isOpen ? '▲' : '▼'}</span>
+      </Link>
 
       {/* Dropdown Menu */}
       {isOpen && (
@@ -65,7 +93,7 @@ export default function AboutDropdown({ textColor }: { textColor: string }) {
     {/* ITEM */}
     <button onClick={() => navigateToPage('/about#story')} className="flex gap-3 group w-full text-left cursor-pointer">
       <div className="flex-1">
-        <p className="font-medium text-sm text-foreground group-hover:text-primary transition">Our Story</p>
+        <p className="font-medium text-sm text-foreground group-hover:text-primary transition">Our Creative</p>
         <p className="text-xs text-foreground">
           Learn about our journey and mission.
         </p>

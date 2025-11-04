@@ -41,15 +41,13 @@ export default function HomeDropdown({ textColor }: { textColor: string }) {
       onMouseLeave={handleMouseLeave}
     >
       {/* Main Link */}
-    
-      <button
+      <Link 
+        href="/" 
         className={`relative font-semibold text-[14px] tracking-[0.5px] ${textColor} flex items-center gap-1`}
       >
-        <Link href="/" className={`relative font-semibold text-[14px] tracking-[0.5px] ${textColor} flex items-center gap-1`}>
-       HOME
-       <span className="text-[12px]">{isOpen ? '▲' : '▼'}</span>
-     </Link>
-      </button>
+        HOME
+        <span className="text-[12px]">{isOpen ? '▲' : '▼'}</span>
+      </Link>
 
       {/* Dropdown Menu */}
       {isOpen && (
