@@ -93,9 +93,9 @@ export default function AboutDropdown({ textColor }: { textColor: string }) {
     {/* ITEM */}
     <button onClick={() => navigateToPage('/about#story')} className="flex gap-3 group w-full text-left cursor-pointer">
       <div className="flex-1">
-        <p className="font-medium text-sm text-foreground group-hover:text-primary transition">Our Creative</p>
+        <p className="font-medium text-sm text-foreground group-hover:text-primary transition">Our Creativity</p>
         <p className="text-xs text-foreground">
-          Learn about our journey and mission.
+          Learn about our journey and creativity
         </p>
       </div>
       <div className="w-10 h-10 relative flex-shrink-0">
