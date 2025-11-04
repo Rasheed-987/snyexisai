@@ -63,7 +63,7 @@ export default function AboutDropdown({ textColor }: { textColor: string }) {
   {/* RIGHT NAV LINKS */}
   <div className="space-y-4">
     {/* ITEM */}
-    <button onClick={() => navigateToPage('/about')} className="flex gap-3 group w-full text-left cursor-pointer">
+    <button onClick={() => navigateToPage('/about#story')} className="flex gap-3 group w-full text-left cursor-pointer">
       <div className="flex-1">
         <p className="font-medium text-sm text-foreground group-hover:text-primary transition">Our Story</p>
         <p className="text-xs text-foreground">
@@ -71,7 +71,7 @@ export default function AboutDropdown({ textColor }: { textColor: string }) {
         </p>
       </div>
       <div className="w-10 h-10 relative flex-shrink-0">
-        <Image src="/images/about.png" alt="Our Story" fill className="object-contain group-hover:scale-105 transition" />
+        <Image src="/images/story.png" alt="Our Story" fill className="object-contain group-hover:scale-105 transition" />
       </div>
     </button>
 
@@ -87,19 +87,9 @@ export default function AboutDropdown({ textColor }: { textColor: string }) {
       </div>
     </button>
 
-    <button onClick={() => navigateToPage('/careers')} className="flex gap-3 group w-full text-left cursor-pointer">
-      <div className="flex-1">
-        <p className="font-medium text-sm text-foreground group-hover:text-primary transition">Careers</p>
-        <p className="text-xs text-foreground">
-          Join our team and grow with us.
-        </p>
-      </div>
-      <div className="w-10 h-10 relative flex-shrink-0">
-        <Image src="/images/career.png" alt="Careers" fill className="object-contain group-hover:scale-105 transition" />
-      </div>
-    </button>
+  
 
-    <button onClick={() => navigateToPage('/contact')} className="flex gap-3 group w-full text-left cursor-pointer">
+    <button onClick={() => navigateToPage('/about#contact')} className="flex gap-3 group w-full text-left cursor-pointer">
       <div className="flex-1">
         <p className="font-medium text-sm text-foreground group-hover:text-primary transition">Contact Us</p>
         <p className="text-xs text-foreground">

@@ -126,7 +126,7 @@ export default function AboutPage() {
         </p>
       </section>
 
-      <section className="w-full py-16">
+      <section id='story' className="w-full py-16">
         <div className=" mx-auto px-4 sm:px-8 lg:px-[130px]">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* First card: text only, custom background - NO FLIP */}
@@ -318,7 +318,7 @@ everything we do."
 
 	  
       {/* Expertise & Technologies Section */}
-      <section className="w-full mb-11 py-16 ">
+      <section id='team' className="w-full mb-11 py-16 ">
         <div className=" mx-auto flex flex-col lg:flex-row gap-12 px-3 lg:px-10 items-center">
           {/* Left: Text Content */}
           <div className="flex-1 mb-10 lg:mb-0">
@@ -364,7 +364,7 @@ everything we do."
         </div>
       </section>
       {/* Hero Section with Background */}
-      <section className="relative w-full flex items-center justify-center px-4 sm:px-8 lg:px-12 sm:mb-7">
+      <section id='contact' className="relative w-full flex items-center justify-center px-4 sm:px-8 lg:px-12 sm:mb-7">
         {/* Inner Container */}
         <div className="relative w-full h-[300px] sm:h-[350px] lg:h-[400px] 2xl:h-[500px] rounded-[32px] overflow-hidden flex items-center justify-center group cursor-pointer transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl">
           {/* Background Image */}
