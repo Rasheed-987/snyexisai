@@ -99,28 +99,28 @@ export default function HomePage() {
       >
         <motion.p
           variants={itemVariants}
-          className="text-sm uppercase tracking-wide 2xl:text-lg font-semibold text-foreground mb-4"
+          className="text-xs uppercase tracking-wide 2xl:text-lg font-semibold text-foreground mb-4"
         >
           Design & Webflow Agency / UAE
         </motion.p>
 
         <motion.h1
           variants={itemVariants}
-          className="text-4xl max-w-[900px] mx-auto sm:text-5xl lg:text-6xl xl:text-7xl 2xl:text-7xl font-medium text-foreground mb-4"
+          className="text-2xl max-w-[950px] mx-auto sm:text-2xl lg:text-4xl xl:text-4xl 2xl:text-6xl font-medium text-foreground mb-4"
         >
           Where Intelligence Meets Imagination
         </motion.h1>
 
         <motion.h2
           variants={itemVariants}
-          className="text-3xl max-w-[900px] sm:text-4xl lg:text-5xl xl:text-6xl font-medium text-primary mb-6"
+          className="text-2xl max-w-[900px] sm:text-2xl lg:text-4xl xl:text-4xl 2xl:text-6xl font-medium text-primary mb-6"
         >
           Crafting Tomorrow’s Digital Experiences, Today.
         </motion.h2>
 
         <motion.p
           variants={itemVariants}
-          className="text-lg xl:text-xl font-regular text-foreground mb-8"
+          className="text-base xl:text-xl font-regular text-foreground mb-8"
         >
           Synexis AI is a future-ready creative & technology agency
         </motion.p>
@@ -131,7 +131,7 @@ export default function HomePage() {
         >
           <button
             onClick={() => router.push('/contact')}
-            className="bg-primary text-primary-foreground pr-3 pl-6 md:px-10 hover:scale-90 py-5 rounded-full flex items-center gap-3 text-base font-normal shadow-md transition-all duration-150"
+            className="bg-primary text-primary-foreground pr-3 pl-6 md:px-10 hover:scale-90 py-5 rounded-full flex items-center gap-3 lg:text-base text-sm font-normal shadow-md transition-all duration-150"
           >
             Work With Us
             <img src="/images/home/button_arrow.png" alt="Arrow Right" className="w-4 h-4 invert" />
@@ -139,7 +139,7 @@ export default function HomePage() {
 
           <button
             onClick={() => router.push('/casestudies')}
-            className="border border-foreground text-foreground px-3 md:px-10 py-5 hover:scale-90 rounded-full flex items-center gap-3 text-base font-normal transition-all duration-150"
+            className="border border-foreground text-foreground px-3 md:px-10 py-5 hover:scale-90 rounded-full flex items-center gap-3 lg:text-base text-sm font-normal transition-all duration-150"
           >
             Explore Our Case Studies
             <img src="/images/home/button_arrow.png" alt="Arrow Right" className="w-4 h-4" />
@@ -152,7 +152,7 @@ export default function HomePage() {
       <section className="bg-secondary lg:min-h-[700px] xl:min-h-[1000px] py-16 xl:py-24 ">
         <div className=" mx-auto flex flex-col lg:gap-[120px] xl:gap-[160px] px-3 lg:px-10">
           <div className="w-full flex items-start justify-start mb-8">
-            <h3 className="text-3xl xl:text-5xl font-normal text-foreground leading-tight">
+            <h3 className="text-xl xl:text-3xl font-normal text-foreground leading-tight">
               Why<br />Synexis AI
             </h3>
           </div>
@@ -164,13 +164,13 @@ export default function HomePage() {
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.35 }}
                 className="max-w-xl xl:max-w-3xl mx-auto text-center">
-                <motion.h4  variants={itemVariants} className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-medium text-foreground mb-2">
+                <motion.h4  variants={itemVariants} className="text-xl sm:text-2xl lg:text-4xl xl:text-3xl font-medium text-foreground mb-2">
                   Meticulous Iteration
                 </motion.h4>
                 <motion.h5 variants={itemVariants} className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl text-foreground mb-4">
                   Uncompromising Quality
                 </motion.h5>
-                <motion.p variants={itemVariants} className="text-md sm:text-lg lg:text-xl xl:text-2xl text-foreground">
+                <motion.p variants={itemVariants} className="text-md sm:text-lg  xl:text-xl text-foreground">
                   Our streamlined process allows for continuous refinement, ensuring every detail aligns with your vision. Don't worry, we craft excellence.
                 </motion.p>
               </motion.div>

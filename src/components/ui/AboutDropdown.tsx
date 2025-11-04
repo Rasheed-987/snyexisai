@@ -1,17 +1,17 @@
 'use client'
 import Link from 'next/link'
-import { useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import { useDropdownHover } from '@/utils/utils'
 
 
 export default function AboutDropdown({ textColor }: { textColor: string }) {
 
-  const [isOpen, setIsOpen] = useState(false)
   const router = useRouter()
+  const { isOpen, handleMouseEnter, handleMouseLeave, closeDropdown } = useDropdownHover()
 
   const navigateToPage = (path: string) => {
-    setIsOpen(false)
+    closeDropdown()
     router.push(path)
   }
 
@@ -19,8 +19,8 @@ export default function AboutDropdown({ textColor }: { textColor: string }) {
   return (
     <div
       className="relative"
-      onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setTimeout(() => setIsOpen(false), 4000)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       {/* Main Link */}
     
@@ -37,8 +37,8 @@ export default function AboutDropdown({ textColor }: { textColor: string }) {
       {isOpen && (
         <div 
           className="absolute top-7 left-1/2 -translate-x-1/2 mt-2 w-[600px] bg-white border border-border rounded-2xl shadow-2xl z-50 p-5 transition-all duration-200 grid grid-cols-[1.4fr_1fr] gap-6"
-          onMouseEnter={() => setIsOpen(true)}
-          onMouseLeave={() => setTimeout(() => setIsOpen(false), 4000)}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
         >
   
   {/* LEFT FEATURE CARD */}
@@ -53,7 +53,7 @@ export default function AboutDropdown({ textColor }: { textColor: string }) {
       <p className="text-sm text-white/90 mb-4">
         Discover our story, values, and what makes us different.
       </p>
-      <Link href="/about" onClick={() => setIsOpen(false)} className="text-white text-sm inline-flex items-center gap-1 font-medium hover:opacity-80">
+      <Link href="/about" onClick={closeDropdown} className="text-white text-sm inline-flex items-center gap-1 font-medium hover:opacity-80">
         Learn More →
       </Link>
     </div>

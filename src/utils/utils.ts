@@ -8,6 +8,46 @@ export function getCurrentDate(setDate: (date: string) => void) {
     setDate(currentDate);
 }
 import React from 'react'
+import { useState, useRef, useEffect } from 'react'
+
+export function useDropdownHover(delay: number = 200) {
+  const [isOpen, setIsOpen] = useState(false)
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  // Clear timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
+    }
+  }, [])
+
+  const handleMouseEnter = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+      timeoutRef.current = null
+    }
+    setIsOpen(true)
+  }
+
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setIsOpen(false)
+    }, delay)
+  }
+
+  const closeDropdown = () => {
+    setIsOpen(false)
+  }
+
+  return {
+    isOpen,
+    handleMouseEnter,
+    handleMouseLeave,
+    closeDropdown,
+  }
+}
 
 function escapeRegExp(str: string) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')

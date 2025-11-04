@@ -10,6 +10,7 @@ import Image from 'next/image'
 import * as motion from 'motion/react-client'
 import HomeDropdown from '../ui/HomeDropdown'
 import AboutDropdown from '../ui/AboutDropdown'
+import { useDropdownHover } from '@/utils/utils'
 
 
 type Props = {
@@ -19,20 +20,20 @@ type Props = {
 }
 
 const PortfolioDropdown = ({ textColor, navbarBackground, isCaseStudyPage }: Props) => {
-  const [open, setOpen] = useState(false)
   const pathname = usePathname() // Close dropdown when route changes
   const router = useRouter()
+  const { isOpen: open, handleMouseEnter, handleMouseLeave, closeDropdown } = useDropdownHover()
   
   useEffect(() => {
-    setOpen(false)
+    closeDropdown()
   }, [pathname])
 
 
   return (
     <div
       className="relative"
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setTimeout(() => setOpen(false), 1000)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       
       <button
@@ -57,15 +58,15 @@ const PortfolioDropdown = ({ textColor, navbarBackground, isCaseStudyPage }: Pro
       {open && (
      <div
   className="absolute left-1/2 -translate-x-1/2 mt-2 w-72 bg-white border border-border rounded-xl shadow-xl z-50 transition-all duration-200"
- onMouseEnter={() => setOpen(true)}
-          onMouseLeave={() => setTimeout(() => setOpen(false), 4000)}
+ onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
 >
 
 
   <Link
     href="/ourproject"
     className="flex items-start gap-4 px-5 py-3 hover:bg-gray-50 transition-all"
-    onClick={() => setOpen(false)}
+    onClick={closeDropdown}
   >
     <div className="flex-1">
       <div className="text-[15px] font-medium text-foreground">
@@ -83,7 +84,7 @@ const PortfolioDropdown = ({ textColor, navbarBackground, isCaseStudyPage }: Pro
   <Link
     href="/casestudies"
     className="flex items-start gap-4 px-5 py-3 hover:bg-gray-50 transition-all"
-    onClick={() => setOpen(false)}
+    onClick={closeDropdown}
   >
     <div className="flex-1">
       <div className="text-[15px] font-medium text-foreground">
@@ -177,14 +178,14 @@ const nav: React.CSSProperties = {
   width: '100%',
 }
 
-const background: React.CSSProperties = {
-  backgroundColor: '#FFFFFF',
+const getBackgroundStyle = (isCaseStudyPage: boolean): React.CSSProperties => ({
+  backgroundColor: isCaseStudyPage ? '#0f1c34' : '#FFFFFF',
   position: 'absolute',
   top: 0,
   left: 0, // background still fills its parent
   bottom: 0,
   width: "100%",
-}
+})
 
 const toggleContainer: React.CSSProperties = {
   outline: 'none',
@@ -193,12 +194,13 @@ const toggleContainer: React.CSSProperties = {
   MozUserSelect: 'none',
   cursor: 'pointer',
   position: 'absolute',
-  top: 7, // MODIFIED: Position on right
-  right: 0,
+  top: 6, // MODIFIED: Position on right
+  right: -5,
   width: 50,
   height: 50,
   borderRadius: '50%',
   background: 'transparent',
+  zIndex: 60,
 }
 
 const list: React.CSSProperties = {
@@ -240,7 +242,7 @@ const Path = (props: PathProps & { strokeColor: string }) => (
   />
 )
 
-const MenuToggle = ({ toggle, color }: { toggle: () => void; color: string }) => (
+const MenuToggle = ({ toggle, color, isOpen }: { toggle: () => void; color: string; isOpen: boolean }) => (
   <button style={toggleContainer} onClick={toggle}>
      
     <svg width="23" height="23" viewBox="0 0 23 23">
@@ -277,8 +279,9 @@ const MenuToggle = ({ toggle, color }: { toggle: () => void; color: string }) =>
 )
 
 // This renders your *actual* mobile links with the animation variants.
-const AnimatedLinkList = ({ closeMenu }: { closeMenu: () => void }) => {
+const AnimatedLinkList = ({ closeMenu, isCaseStudyPage }: { closeMenu: () => void; isCaseStudyPage: boolean }) => {
   const [portfolioOpen, setPortfolioOpen] = useState(false)
+  const linkTextColor = isCaseStudyPage ? 'text-white' : 'text-foreground'
 
   const linkStyle: React.CSSProperties = {
     ...listItem,
@@ -302,7 +305,7 @@ const AnimatedLinkList = ({ closeMenu }: { closeMenu: () => void }) => {
             {/* MODIFIED: Added text-right */}   
         <Link
           href="/"
-          className="text-foreground font-semibold text-[18px] tracking-[0.5px] py-3 w-full text-center"
+          className={`${linkTextColor} font-semibold text-[18px] tracking-[0.5px] py-3 w-full text-center`}
           onClick={closeMenu}
         >
           HOME
@@ -319,7 +322,7 @@ const AnimatedLinkList = ({ closeMenu }: { closeMenu: () => void }) => {
          {/* MODIFIED: Added text-right */}   
         <Link
           href="/about"
-          className="text-foreground font-semibold text-[18px] tracking-[0.5px] py-3 w-full text-center"
+          className={`${linkTextColor} font-semibold text-[18px] tracking-[0.5px] py-3 w-full text-center`}
           onClick={closeMenu}
         >
           ABOUT
@@ -336,7 +339,7 @@ const AnimatedLinkList = ({ closeMenu }: { closeMenu: () => void }) => {
             {/* MODIFIED: Added text-right */}   
         <Link
           href="/services"
-          className="text-foreground font-semibold text-[18px] tracking-[0.5px] py-3 w-full text-center"
+          className={`${linkTextColor} font-semibold text-[18px] tracking-[0.5px] py-3 w-full text-center`}
           onClick={closeMenu}
         >
           SERVICES
@@ -348,7 +351,7 @@ const AnimatedLinkList = ({ closeMenu }: { closeMenu: () => void }) => {
            
         <button
           onClick={() => setPortfolioOpen(!portfolioOpen)}
-          className="text-foreground font-semibold text-[18px] tracking-[0.5px] py-3 focus:outline-none w-full flex items-center justify-center"
+          className={`${linkTextColor} font-semibold text-[18px] tracking-[0.5px] py-3 focus:outline-none w-full flex items-center justify-center`}
         >
                <span>PORTFOLIO</span>    <span>{portfolioOpen ? '▲' : '▼'}</span>  
           
@@ -364,7 +367,7 @@ const AnimatedLinkList = ({ closeMenu }: { closeMenu: () => void }) => {
                  
             <Link
               href="/casestudies"
-              className="text-foreground text-[16px] font-medium py-2"
+              className={`${linkTextColor} text-[16px] font-medium py-2`}
               onClick={closeMenu}
             >
                      Case Studies      
@@ -372,7 +375,7 @@ const AnimatedLinkList = ({ closeMenu }: { closeMenu: () => void }) => {
                  
             <Link
               href="/ourproject"
-              className="text-foreground text-[16px] font-medium py-2"
+              className={`${linkTextColor} text-[16px] font-medium py-2`}
               onClick={closeMenu}
             >
                      My Projects      
@@ -392,7 +395,7 @@ const AnimatedLinkList = ({ closeMenu }: { closeMenu: () => void }) => {
             {/* MODIFIED: Added text-right */}   
         <Link
           href="/careers"
-          className="text-foreground font-semibold text-[18px] tracking-[0.5px] py-3 w-full text-center"
+          className={`${linkTextColor} font-semibold text-[18px] tracking-[0.5px] py-3 w-full text-center`}
           onClick={closeMenu}
         >
           CAREER
@@ -409,7 +412,7 @@ const AnimatedLinkList = ({ closeMenu }: { closeMenu: () => void }) => {
             {/* MODIFIED: Added text-right */}   
         <Link
           href="/contact"
-          className="text-foreground font-semibold text-[18px] tracking-[0.5px] py-3 w-full text-center"
+          className={`${linkTextColor} font-semibold text-[18px] tracking-[0.5px] py-3 w-full text-center`}
           onClick={closeMenu}
         >
           CONTACT US
@@ -451,7 +454,8 @@ export const Navigation = () => {
   const isCaseStudyPage = pathname === '/casestudies'
   const navbarBackground = isCaseStudyPage ? 'bg-foreground' : 'bg-background'
   const textColor = isCaseStudyPage ? 'text-white' : 'text-foreground'
-  const menuColor = isCaseStudyPage ? '#F9F9F9' : '#0F1C3D'
+  const menuColorClosed = isCaseStudyPage ? '#FFFFFF' : '#0f1c34'
+  const menuColorOpen = isCaseStudyPage ? '#F9F9F9' : '#0f1c34'
   const logoSrc = isCaseStudyPage ? '/images/logo_white.png' : '/images/logo.png'
   const border = isCaseStudyPage ? 'border-0' : 'border-muted'
 
@@ -462,7 +466,7 @@ export const Navigation = () => {
          {/* Logo (Unchanged) */}  
       <div className="flex items-center">
            
-        <img src={logoSrc} alt="Synexis Ai" className={`w-[206px] h-[50px] object-contain`} /> 
+        <img src={logoSrc} alt="Synexis Ai" className={` w-[140px] lg:w-[206px] h-[50px] object-contain`} /> 
         
       </div>
          {/* --- DESKTOP NAVIGATION LINKS (Unchanged) --- */}  
@@ -517,10 +521,14 @@ export const Navigation = () => {
      style={nav}
      className=" absolute top-0 right-0 h-dvh bottom-auto z-[100]"
     >
-      <motion.div style={background} variants={sidebarVariants} />
-      <AnimatedLinkList closeMenu={closeMenu} />
+      <motion.div style={getBackgroundStyle(isCaseStudyPage)} variants={sidebarVariants} />
+      <AnimatedLinkList closeMenu={closeMenu} isCaseStudyPage={isCaseStudyPage} />
 
-      <MenuToggle toggle={() => setIsOpen(!isOpen)} color={isOpen ? '#0F1C3D' : menuColor} />
+      <MenuToggle 
+        toggle={() => setIsOpen(!isOpen)} 
+        color={isOpen ? menuColorOpen : menuColorClosed}
+        isOpen={isOpen}
+      />
     </motion.nav>
    </div>
     </nav>
