@@ -58,10 +58,10 @@ export default function AboutPage() {
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 0.6, delay: 0 }}
             >
-              <h3 className="text-2xl sm:text-4xl font-medium text-primary">
+              <h3 className="text-3xl font-inter lg:text-7xl font-semibold text-foreground">
                 <CounterAnimation end={250} duration={2.5} suffix="+" />
               </h3>
-              <p className="text-foreground mt-2 text-sm sm:text-base">Projects Completed</p>
+              <p className="text-foreground mt-2 text-sm font-medium sm:text-base">Projects Completed</p>
             </motion.div>
 
             {/* Stat 2 */}
@@ -71,10 +71,10 @@ export default function AboutPage() {
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <h3 className="text-2xl sm:text-4xl font-medium text-primary">
+              <h3 className="text-3xl font-inter lg:text-7xl font-semibold text-foreground">
                 <CounterAnimation end={180} duration={2.5} suffix="+" />
               </h3>
-              <p className="text-foreground mt-2 text-sm sm:text-base">Happy Clients</p>
+              <p className="text-foreground mt-2 text-sm font-medium sm:text-base">Happy Clients</p>
             </motion.div>
 
             {/* Stat 3 */}
@@ -84,10 +84,10 @@ export default function AboutPage() {
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <h3 className="text-2xl sm:text-4xl font-medium text-primary">
+              <h3 className="text-3xl font-inter lg:text-7xl font-semibold text-foreground">
                 <CounterAnimation end={10} duration={2.5} suffix="+" />
               </h3>
-              <p className="text-foreground mt-2 text-sm sm:text-base">Years of Experience</p>
+              <p className="text-foreground mt-2 text-sm font-medium sm:text-base">Years of Experience</p>
             </motion.div>
 
             {/* Stat 4 */}
@@ -97,10 +97,10 @@ export default function AboutPage() {
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <h3 className="text-2xl sm:text-4xl font-medium text-primary">
+              <h3 className="text-3xl font-inter lg:text-7xl font-semibold text-foreground">
                 <CounterAnimation end={50} duration={2.5} suffix="+" />
               </h3>
-              <p className="text-foreground mt-2 text-sm sm:text-base">Team Members</p>
+              <p className="text-foreground mt-2 text-sm font-medium sm:text-base">Team Members</p>
             </motion.div>
           </div>
         </div>

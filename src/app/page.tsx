@@ -259,66 +259,63 @@ export default function HomePage() {
 
       {/* Stats Section */}
       
-<section className="w-full my-12   py-12">
-  <div className="   px-3 lg:px-10">
-    <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 text-center">
-      
-      {/* Stat 1 */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.5 }}
-        transition={{ duration: 0.6, delay: 0 }}
-      >
-        <h3 className="text-2xl sm:text-4xl font-medium text-black">
-          <CounterAnimation end={250} duration={2.5} suffix="+" />
-        </h3>
-        <p className="text-black mt-2 text-sm sm:text-base xl:text-lg">Projects Completed</p>
-      </motion.div>
+  <section className="w-full  py-12">
+        <div className=" mx-auto px-6 sm:px-12 lg:px-12">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 text-center">
+            {/* Stat 1 */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.6, delay: 0 }}
+            >
+              <h3 className="text-3xl font-inter lg:text-7xl font-semibold text-foreground">
+                <CounterAnimation end={250} duration={2.5} suffix="+" />
+              </h3>
+              <p className="text-foreground mt-2 text-sm font-medium sm:text-base">Projects Completed</p>
+            </motion.div>
 
-      {/* Stat 2 */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.5 }}
-        transition={{ duration: 0.6, delay: 0.1 }}
-      >
-        <h3 className="text-2xl sm:text-4xl font-medium text-black">
-          <CounterAnimation end={180} duration={2.5} suffix="+" />
-        </h3>
-        <p className="text-black mt-2 text-sm sm:text-base xl:text-lg">Happy Clients</p>
-      </motion.div>
+            {/* Stat 2 */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+            >
+              <h3 className="text-3xl font-inter lg:text-7xl font-semibold text-foreground">
+                <CounterAnimation end={180} duration={2.5} suffix="+" />
+              </h3>
+              <p className="text-foreground mt-2 text-sm font-medium sm:text-base">Happy Clients</p>
+            </motion.div>
 
-      {/* Stat 3 */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.5 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-      >
-        <h3 className="text-2xl sm:text-4xl font-medium text-black">
-          <CounterAnimation end={10} duration={2.5} suffix="+" />
-        </h3>
-        <p className="text-black mt-2 text-sm sm:text-base xl:text-lg">Years of Experience</p>
-      </motion.div>
+            {/* Stat 3 */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <h3 className="text-3xl font-inter lg:text-7xl font-semibold text-foreground">
+                <CounterAnimation end={10} duration={2.5} suffix="+" />
+              </h3>
+              <p className="text-foreground mt-2 text-sm font-medium sm:text-base">Years of Experience</p>
+            </motion.div>
 
-      {/* Stat 4 */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.5 }}
-        transition={{ duration: 0.6, delay: 0.3 }}
-      >
-        <h3 className="text-2xl sm:text-4xl font-medium text-black">
-          <CounterAnimation end={50} duration={2.5} suffix="+" />
-        </h3>
-        <p className="text-black mt-2 text-sm sm:text-base xl:text-lg">Team Members</p>
-      </motion.div>
-
-    </div>
-  </div>
-</section>
-
+            {/* Stat 4 */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              <h3 className="text-3xl font-inter lg:text-7xl font-semibold text-foreground">
+                <CounterAnimation end={50} duration={2.5} suffix="+" />
+              </h3>
+              <p className="text-foreground mt-2 text-sm font-medium sm:text-base">Team Members</p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
 
       {/* Case Studies Section */}
       <section id="case-studies" className=" mx-auto ">

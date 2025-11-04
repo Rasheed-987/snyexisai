@@ -46,7 +46,6 @@ export default function CareersPage() {
               <h2 className="text-xl md:text-2xl lg:text-3xl font-medium text-foreground mb-6">
                 No Open Vacancies
               </h2>
-              <div className="border-t-2 border-dotted border-primary my-6"></div>
               <p className="text-base md:text-lg text-foreground mb-2">
                 We're not hiring right now, but we're always happy to hear from talented people.
               </p>

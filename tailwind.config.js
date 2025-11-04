@@ -56,6 +56,7 @@ module.exports = {
         sans: ["Chillax", "sans-serif"],
         chillax: ["Chillax", "sans-serif"],
         roboto: ["Roboto", "sans-serif"],
+        inter: ["Inter", "sans-serif"],
       },
       fontSize: {
         'btn': ['13.78px', '21px'],
