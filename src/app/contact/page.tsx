@@ -4,7 +4,7 @@ import Button from '@/components/ui/Button';
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen rounded-b-[80px] pb-12  relative z-50  overflow-visible">
+    <div className="min-h-screen rounded-b-[80px] pb-12  pt-10 relative z-50  overflow-visible">
       {/* Main container with responsive two-column layout */}
       <div className="relative mx-auto w-full max-w-screen-xl min-h-[874.38px] px-4 sm:px-6 lg:px-8 overflow-visible">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 min-h-screen py-10 sm:py-16 lg:py-20 overflow-visible">
