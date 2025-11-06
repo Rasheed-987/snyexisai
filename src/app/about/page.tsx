@@ -6,6 +6,62 @@ import {FlipCard} from '@/components/ui/FlipCard'
 import {CTA} from '@/components/ui/cta'
 import { motion } from 'framer-motion'
 import CounterAnimation from '@/components/ui/CounterAnimation'
+import { useState } from 'react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
+
+const images = [
+  "/images/grid_9.png",
+  "/images/grid_12.png",
+  "/images/grid_14.png",
+];
+
+function TeamCarousel() {
+  const [current, setCurrent] = useState(0);
+
+  const nextSlide = () => setCurrent((prev) => (prev + 1) % images.length);
+  const prevSlide = () =>
+    setCurrent((prev) => (prev - 1 + images.length) % images.length);
+
+  return (
+    <div className="relative w-full lg:w-[60%]">
+      {/* Image Container */}
+      <div className="relative w-full h-[400px] rounded-2xl overflow-hidden shadow-lg">
+        <motion.div
+          key={current}
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+          className="w-full h-full"
+        >
+          <Image
+            src={images[current]}
+            alt={`Team Image ${current + 1}`}
+            fill
+            className="object-obtain"
+          />
+        </motion.div>
+      </div>
+
+      {/* Carousel Controls Below Image */}
+      <div className="flex justify-center items-center gap-4 mt-6">
+        <button
+          onClick={prevSlide}
+          aria-label="Previous team image"
+          className="bg-white/70 hover:bg-white p-3 rounded-full shadow-md transition-all duration-200 hover:scale-105"
+        >
+          <ChevronLeft className="w-5 h-5 text-foreground" />
+        </button>
+        <button
+          onClick={nextSlide}
+          aria-label="Next team image"
+          className="bg-white/70 hover:bg-white p-3 rounded-full shadow-md transition-all duration-200 hover:scale-105"
+        >
+          <ChevronRight className="w-5 h-5 text-foreground" />
+        </button>
+      </div>
+    </div>
+  );
+}
 
 export default function AboutPage() {
   const router = useRouter()
@@ -37,13 +93,18 @@ export default function AboutPage() {
 
       <section className="w-full  py-16">
         <div className=" mx-auto px-3 lg:px-10">
-          <p className="text-foreground text-sm sm:text-base  lg:text-lg leading-relaxed">
+          {/* <p className="text-foreground text-sm sm:text-base  lg:text-lg leading-relaxed">
             We collaborate with forward-thinking leaders, where our generative AI experts provide
             strategic insights that will reshape tomorrow. Our team of AI engineers, developers, and
             data scientists supports clients through their digital transformation, enhancing
             capabilities across their organization. With over 200 innovative solutions delivered and
             counting, we are dedicated to empowering businesses with cutting-edge generative AI
             expertise for a future-proof world.
+          </p> */}
+           <p className="text-foreground text-sm sm:text-base  lg:text-lg leading-relaxed">
+          Synexis AI is built at the intersection of human creativity and artificial intelligence. With 
+headquarters in Dubai and clients worldwide, our mission is to enable organizations to harness 
+AI and digital technologies to accelerate growth, optimize efficiency, and delight customers.
           </p>
         </div>
       </section>
@@ -58,10 +119,10 @@ export default function AboutPage() {
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 0.6, delay: 0 }}
             >
-              <h3 className="text-3xl font-inter lg:text-7xl font-semibold text-foreground">
+              <h3 className="text-5xl font-bandeins lg:text-8xl font-semibold text-foreground">
                 <CounterAnimation end={250} duration={2.5} suffix="+" />
               </h3>
-              <p className="text-foreground mt-2 text-sm font-medium sm:text-base">Projects Completed</p>
+              <p className="text-foreground mt-2 text-sm font-medium sm:text-lg">Projects Completed</p>
             </motion.div>
 
             {/* Stat 2 */}
@@ -71,10 +132,10 @@ export default function AboutPage() {
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <h3 className="text-3xl font-inter lg:text-7xl font-semibold text-foreground">
+              <h3 className="text-5xl font-bandeins lg:text-8xl font-semibold text-foreground">
                 <CounterAnimation end={180} duration={2.5} suffix="+" />
               </h3>
-              <p className="text-foreground mt-2 text-sm font-medium sm:text-base">Happy Clients</p>
+              <p className="text-foreground mt-2 text-sm font-medium sm:text-lg">Happy Clients</p>
             </motion.div>
 
             {/* Stat 3 */}
@@ -84,10 +145,10 @@ export default function AboutPage() {
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <h3 className="text-3xl font-inter lg:text-7xl font-semibold text-foreground">
+              <h3 className="text-5xl font-bandeins lg:text-8xl font-semibold text-foreground">
                 <CounterAnimation end={10} duration={2.5} suffix="+" />
               </h3>
-              <p className="text-foreground mt-2 text-sm font-medium sm:text-base">Years of Experience</p>
+              <p className="text-foreground mt-2 text-sm font-medium sm:text-lg">Years of Experience</p>
             </motion.div>
 
             {/* Stat 4 */}
@@ -97,14 +158,18 @@ export default function AboutPage() {
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <h3 className="text-3xl font-inter lg:text-7xl font-semibold text-foreground">
+              <h3 className="text-5xl font-bandeins lg:text-8xl font-semibold text-foreground">
                 <CounterAnimation end={50} duration={2.5} suffix="+" />
               </h3>
-              <p className="text-foreground mt-2 text-sm font-medium sm:text-base">Team Members</p>
+              <p className="text-foreground mt-2 text-sm font-medium sm:text-lg">Team Members</p>
             </motion.div>
           </div>
         </div>
       </section>
+
+
+
+      
       <section className="w-full flex justify-center items-center py-10">
         <p
           className="mx-auto px-4 sm:px-6 lg:px-20 text-sm sm:text-base  lg:text-lg "
@@ -126,6 +191,133 @@ export default function AboutPage() {
         </p>
       </section>
 
+
+{/* Vision and Mission Section with Background */}
+<section className="relative w-full py-20  mt-20 px-6 sm:px-10 lg:px-20 overflow-hidden">
+  {/* Background Image */}
+  <div className="absolute inset-0 z-0">
+    <Image 
+      src="/images/blue_geometric_gradient (1).png" 
+      alt="Vision and Mission Background" 
+      fill 
+      className="object-cover"
+      priority
+    />
+  </div>
+  
+  {/* Gradient Overlay */}
+  {/* <div className="absolute inset-0 z-10 opacity-70" style={{background: 'linear-gradient(180deg, #0F1C3D 20%, #0D255C 50%, #0F1C3D 80%)'}}></div> */}
+  
+  {/* Vision and Mission Content */}
+  <div className="relative z-20 max-w-5xl mx-auto">
+    <div className="grid md:grid-cols-2 gap-12">
+      {/* Our Vision */}
+      <div className="text-center md:text-left">
+        <h2 className="text-white font-semibold text-center text-3xl sm:text-4xl mb-6">Our Vision</h2>
+        <p className="text-white text-base sm:text-lg leading-relaxed">
+          Our vision is to be the leading partner for businesses worldwide, driving 
+          innovation and transformation through AI, making technology accessible, 
+          and simplifying complex challenges to enhance business success and enrich 
+          lives.
+        </p>
+      </div>
+      
+      {/* Our Mission */}
+      <div className="text-center md:text-left">
+        <h2 className="text-white font-semibold text-center text-3xl sm:text-4xl mb-6">Our Mission</h2>
+        <p className="text-white text-base sm:text-lg leading-relaxed">
+          To empower companies with cutting-edge AI solutions and expert 
+          consultancy, enabling them to seamlessly integrate AI into their operations, 
+          optimize efficiency, and unlock new growth opportunities while maintaining 
+          a focus on ease of use and accessibility.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{/* Our Values Section */}
+<section className="w-full py-20 bg-secondary rounded-3xl  px-6 sm:px-10 lg:px-20">
+  <div className="max-w-5xl mx-auto">
+    <div className="text-center mb-10">
+      <h2 className="text-foreground font-semibold text-3xl text-center sm:text-4xl mb-10">Our Values</h2>
+    </div>
+
+    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
+      <div className="p-6 border border-foreground/10 rounded-2xl bg-white shadow-sm hover:shadow-lg transition-all">
+        <h3 className="text-foreground text-center font-semibold text-xl mb-2">Innovation First</h3>
+        <p className="text-foreground/80  text-sm leading-relaxed">We challenge conventions, experiment boldly, and bring cutting-edge AI into production.</p>
+      </div>
+
+      <div className="p-6 border border-foreground/10 rounded-2xl bg-white shadow-sm hover:shadow-lg transition-all">
+        <h3 className="text-foreground text-center whitespace-nowrap font-semibold text-xl  mb-2">Quality & Integrity</h3>
+        <p className="text-foreground/80 text-sm leading-relaxed">We deliver work that meets the highest standards of security, scalability and user experience.</p>
+      </div>
+
+      <div className="p-6 border border-foreground/10 rounded-2xl bg-white shadow-sm hover:shadow-lg transition-all">
+        <h3 className="text-foreground text-center font-semibold text-xl mb-2">Collaboration</h3>
+        <p className="text-foreground/80 text-sm leading-relaxed">We work as partners with clients, aligning with your goals and stakeholders at every step.</p>
+      </div>
+
+      <div className="p-6 border border-foreground/10 rounded-2xl bg-white shadow-sm hover:shadow-lg transition-all">
+        <h3 className="text-foreground text-center font-semibold text-xl mb-2">Impact‑Driven</h3>
+        <p className="text-foreground/80 text-sm leading-relaxed">Every solution is built with real business value in mind. KPIs matter, not just features.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{/* Our Team & Culture Section */}
+<section id='team' className="w-full bg-white py-20 mt-20">
+  <div className=" mx-auto px-3 lg:px-10 grid md:grid-cols-2 gap-10 items-center">
+    {/* Left Side Content */}
+    <div className="">
+      <p className="text-foreground font-semibold uppercase tracking-wide mb-2">
+        Our Team & Culture
+      </p>
+      <h2 className="text-4xl font-bold text-foreground mb-6">
+        A culture of innovation, learning, and collaboration
+      </h2>
+      <p className="text-lg text-foreground/80 leading-relaxed">
+        Our team blends seasoned software engineers, AI/ML specialists, UX
+        designers, data scientists, and product strategists. We operate a
+        sprint-based methodology, maintain continuous feedback loops, and
+        encourage a learning culture that keeps us ahead of the tech curve.
+      </p>
+    </div>
+
+    {/* Right Side Carousel */}
+    <div className="flex justify-center">
+      
+    <TeamCarousel />
+      </div> 
+  </div>
+   
+  {/* Join Our Team CTA */}
+  {/* <div className="mt-16 bg-foreground rounded-2xl px-8 py-12 text-center">
+    
+    <div>
+    <h3 className="text-white text-2xl font-bold mb-4">Join our team</h3>
+    <p className="text-white text-lg mb-8 max-w-2xl mx-auto leading-relaxed">
+      Passionate about sustainability, food, and tech? So are we. If you're excited to make a real impact
+      —for the planet and for the people behind the plate—we'd love to meet you.
+    </p>
+     </div>
+
+    <div>
+    <button
+      onClick={() => router.push('/careers')}
+      className=""
+    >
+      SEE CAREERS
+    </button>
+    </div>
+  </div> */}
+</section>
+
+
+    {/* New content to be added here */}
+
       <section id='story' className="w-full py-16">
         <div className=" mx-auto px-4 sm:px-8 lg:px-[130px]">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -146,17 +338,15 @@ export default function AboutPage() {
                 className="text-foreground font-medium text-2xl sm:text-3xl mb-2"
                
               >
-                Where Collaboration
+                Our Approach
                 <br />
-                <span className="italic font-medium">Meets Creativity</span>
+                <span className="italic font-medium">To Work Differently</span>
               </h2>
               <p
                 className="text-foreground text-base sm:text-lg opacity-80 mt-2"
               >
-                We foster an open, inclusive culture where teamwork,
-                <br /> smart thinking, and curiosity spark innovation—
-                <br />
-                balancing growth, fun, and shared success.
+                From first call to launch and beyond,<br />
+                our approach is disciplined yet agile:
               </p>
             </motion.div>
 
@@ -164,16 +354,18 @@ export default function AboutPage() {
             <FlipCard
               frontImage="/images/grid_2.png"
               frontAlt="Grid 2"
-              title="Open & Inclusive"
-              description="Everyone's voice matters, and ideas are welcomed from every corner of the team."
+              title="Discovery & Data Strategy"
+              description=" Understanding business needs, data readiness, 
+opportunity for AI.."
             />
 
             {/* Text Card that flips to Image */}
             <FlipCard
               frontImage="/images/grid_2.png"
               frontAlt="Grid 2"
-              title="Open & Inclusive"
-              description="Everyone's voice matters, and ideas are welcomed from every corner of the team."
+                title="Discovery & Data Strategy"
+              description=" Understanding business needs, data readiness, 
+opportunity for AI.."
               startWithText={true}
             />
 
@@ -181,28 +373,27 @@ export default function AboutPage() {
             <FlipCard
               frontImage="/images/grid_3.png"
               frontAlt="Grid 3"
-              title="Collaboration at the Core"
-              description="We thrive on teamwork, solving challenges together, and celebrating wins as one."
+              title="Prototype & Validation"
+              description="Rapid Proof-of-Concept (POC) in 4-6 weeks to de-risk and 
+show value early. "
               bgColor="foreground"
             />
 
             <FlipCard
 			  frontImage="/images/grid_3.png"
 			  frontAlt="Grid 3"
-              title="Collaboration at the Core"
-              description="We thrive on teamwork, solving challenges together, and celebrating wins as one."
+              title="Prototype & Validation"
+        description='Rapid Proof-of-Concept (POC) in 4-6 weeks to de-risk and 
+show value early. '
 			  startWithText={true}
             />
 
             <FlipCard
               frontImage="/images/grid_6.png"
               frontAlt="Grid 5"
-              title="Work + Fun Balance"
-              description="From team hangouts to
-lighthearted traditions,
-we make space for
-laughter as much as for
-results."
+              title="Engineering & AI Model Development"
+              description="Building web/mobile front-end, backend 
+architecture, training custom models, integrating agents."
               startWithText={true}
             />
 
@@ -210,22 +401,18 @@ results."
             <FlipCard
               frontImage="/images/grid_6.png"
               frontAlt="Grid 6"
-              title="Creative Freedom"
-              description="Encouraging curiosity
-and experimentation so
-great ideas can spark
-anywhere, anytime."
+             title="Engineering & AI Model Development"
+              description="Building web/mobile front-end, backend 
+architecture, training custom models, integrating agents."
               bgColor="foreground"
             />
 
             <FlipCard
               frontImage="/images/grid_8.png"
               frontAlt="Grid 8"
-              title="Creative Freedom"
-              description="Encouraging curiosity
-and experimentation so
-great ideas can spark
-anywhere, anytime."
+              title="Deployment & Scaling"
+              description=" CI/CD pipelines, secure infrastructure, observability, 
+compliance. "
               startWithText={true}
             />
 
@@ -233,11 +420,9 @@ anywhere, anytime."
             <FlipCard
               frontImage="/images/grid_8.png"
               frontAlt="Grid 8"
-              title="Celebrating Diversity"
-              description="Different perspectives
-make us stronger, more
-creative, and better
-problem-solvers."
+            title="Deployment & Scaling"
+              description=" CI/CD pipelines, secure infrastructure, observability, 
+compliance. "
               bgColor="foreground"
             />
 
@@ -245,23 +430,18 @@ problem-solvers."
             <FlipCard
               frontImage="/images/grid_9.png"
               frontAlt="Grid 9"
-              title="Growth Together"
-              description="We learn, mentor, and
-support one another to
-achieve both personal
-and professional
-milestones."
+              title="Monitoring, Iteration & Growth"
+              description="Post-launch support, A/B testing, feature evolution, 
+optimization."
               bgColor="foreground"
             />
 
             <FlipCard
               frontImage="/images/grid_9.png"
               frontAlt="Grid 9"
-              title="Celebrating Diversity"
-              description="Different perspectives
-make us stronger, more
-creative, and better
-problem-solvers."
+            title="Monitoring, Iteration & Growth"
+              description="Post-launch support, A/B testing, feature evolution, 
+optimization."
               startWithText={true}
             />
 
@@ -314,11 +494,79 @@ everything we do."
         </div>
       </section>
 
+{/* Why Choose Synexis AI Section */}
+<section className="relative w-full min-h-screen flex items-center justify-center text-white overflow-hidden">
+  {/* Background Image */}
+  <Image
+    src="/images/AI_background.webp"
+    alt="Background"
+    fill
+    className="object-cover bg-fixed  brightness-75"
+    priority
+  />
 
+  {/* Overlay Content */}
+  <div className="relative z-10 max-w-6xl mx-auto px-6 py-20">
+    <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
+      Why Choose Synexis AI
+    </h2>
 
+    <div className="grid md:grid-cols-2 gap-x-12 gap-y-10">
+      {/* Row 1 */}
+      <div className="flex items-start space-x-3 bg-foreground/10 backdrop-blur-sm p-5 rounded-xl border border-white/20 hover:bg-foreground/20 transition">
+        <div className="w-3 h-3 mt-2 bg-blue-400 rounded-full flex-shrink-0" />
+        <p className="text-lg leading-relaxed">
+          We combine strategy, design, engineering and AI into one integrated service.
+        </p>
+      </div>
+
+      <div className="flex items-start space-x-3 bg-foreground/10 backdrop-blur-sm p-5 rounded-xl border border-white/20 hover:bg-foreground/20 transition">
+        <div className="w-3 h-3 mt-2 bg-blue-400 rounded-full flex-shrink-0" />
+        <p className="text-lg leading-relaxed">
+          Experience across industries (SaaS, healthcare, fintech, logistics, e-commerce) — we
+          adapt our UX and engineering practices to your domain.
+        </p>
+      </div>
+
+      {/* Row 2 */}
+      <div className="flex items-start space-x-3 bg-foreground/10 backdrop-blur-sm p-5 rounded-xl border border-white/20 hover:bg-foreground/20 transition">
+        <div className="w-3 h-3 mt-2 bg-blue-400 rounded-full flex-shrink-0" />
+        <p className="text-lg leading-relaxed">
+          Short feedback loops, iterative delivery, and close collaboration. You'll see progress
+          weekly and steer direction early.
+        </p>
+      </div>
+
+      <div className="flex items-start space-x-3 bg-foreground/10 backdrop-blur-sm p-5 rounded-xl border border-white/20 hover:bg-foreground/20 transition">
+        <div className="w-3 h-3 mt-2 bg-blue-400 rounded-full flex-shrink-0" />
+        <p className="text-lg leading-relaxed">
+          We pick the right stack for your project: not just Webflow, but Next.js, custom
+          Node/Django backends, AI-first architectures.
+        </p>
+      </div>
+
+      {/* Row 3 */}
+      <div className="flex items-start space-x-3 bg-foreground/10 backdrop-blur-sm p-5 rounded-xl border border-white/20 hover:bg-foreground/20 transition">
+        <div className="w-3 h-3 mt-2 bg-blue-400 rounded-full flex-shrink-0" />
+        <p className="text-lg leading-relaxed">
+          We design scalable systems: microservices, observability, performance tuning, and
+          security best practices.
+        </p>
+      </div>
+
+      <div className="flex items-start space-x-3 bg-foreground/10 backdrop-blur-sm p-5 rounded-xl border border-white/20 hover:bg-foreground/20 transition">
+        <div className="w-3 h-3 mt-2 bg-blue-400 rounded-full flex-shrink-0" />
+        <p className="text-lg leading-relaxed">
+          After launch, we remain your partner: support, improvement, optimization, new AI
+          capabilities.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
 	  
       {/* Expertise & Technologies Section */}
-      <section id='team' className="w-full mb-11 py-16 ">
+      <section  className="w-full mb-11 py-16 ">
         <div className=" mx-auto flex flex-col lg:flex-row gap-12 px-3 lg:px-10 items-center">
           {/* Left: Text Content */}
           <div className="flex-1 mb-10 lg:mb-0">
@@ -386,7 +634,7 @@ everything we do."
               className="text-white text-sm sm:text-base lg:text-lg font-light mb-6 sm:mb-8 max-w-[600px] transition-all duration-500 group-hover:opacity-90"
              
             >
-              Partner with us to unlock innovation and accelerate your digital future.
+          What problem are you trying to solve — and how could AI play a role? 
             </p>
             <button
               onClick={() => router.push('/contact')}

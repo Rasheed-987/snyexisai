@@ -69,14 +69,21 @@ export default function CareersPage() {
     );
   }
 
-  return (
-    <div className="min-h-screen pb-24 rounded-b-[80px] relative z-50 bg-background">   
-      <div className="max-w-[100vw] mx-auto ">
+  return ( 
+    <div className="min-h-screen pb-24 rounded-b-[80px] relative z-50 mt-5 bg-background">   
+      <div className="max-w-[100vw] mx-auto ">  
         {/* Header */}
-        <div className="text-center mb-12 w-full max-w-xl mx-auto px-4 py-8 md:py-12 lg:py-16">
-            <h1 className="heading-hero  font-normal text-[70.05px] leading-[84.48px] tracking-[-2px] text-center text-foreground">
-                Let's get to work
-            </h1>
+        <div className="text-center mb-12 w-full  mx-auto px-4 py-8 md:py-12 lg:py-16">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-medium text-foreground mb-6 leading-tight">
+            Join the Synexis AI Team
+          </h1>
+          <p className="text-base sm:text-lg lg:text-xl text-foreground mb-8 leading-relaxed max-w-3xl mx-auto">
+            At Synexis AI, we're building the future of intelligence-powered digital experiences — and we're 
+            always looking for talented, curious, mission-driven people to join us. If you're passionate about 
+            AI, full-stack development, UX design, or product engineering — we'd love to meet you.
+          </p>
+          
+      
         </div>
 
         {/* Job Listings Container */}

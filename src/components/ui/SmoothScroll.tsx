@@ -23,9 +23,9 @@ export default function SmoothScroll({
   
   // Create smooth scroll effect with spring physics
   const smoothScrollY = useSpring(scrollY, {
-    stiffness: 100,
-    damping: 30,
-    mass: smoothness,
+    stiffness: 100,    // default pull strength
+  damping: 30,       // how quickly it settles
+  mass: 1,
   })
 
   useEffect(() => {

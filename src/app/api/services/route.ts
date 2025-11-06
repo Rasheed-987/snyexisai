@@ -14,6 +14,9 @@ export async function POST(req: Request) {
     const serviceTitle = formData.get('title') as string;
     const imageFile = formData.get('image') as File;
     const requirements = JSON.parse(String(formData.get('requirements') || '[]'));
+    const requirementsTitle = formData.get('requirementsTitle') as string || '';
+    const description = formData.get('description') as string || '';
+    const largeCard = JSON.parse(String(formData.get('largeCard') || '{"title":"","body":""}'));
     // Validation
     if (status === 'published') {
       if (!serviceTitle || !imageFile) {
@@ -48,13 +51,17 @@ export async function POST(req: Request) {
         gallery: []
       },
       status: status as 'published' | 'draft',
-      requirements
+      requirements,
+      requirementsTitle,
+      description,
+      largeCard
     };
 
+  
     const service = new Services(serviceDoc);
     await service.save();
 
-    console.log('✅ Service uploaded successfully:', service._id);
+   
 
     return NextResponse.json({
       success: true,

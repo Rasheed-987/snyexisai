@@ -46,7 +46,20 @@ export default function HomeDropdown({ textColor }: { textColor: string }) {
         className={`relative font-semibold text-[14px] tracking-[0.5px] ${textColor} flex items-center gap-1`}
       >
         HOME
-        <span className="text-[12px]">{isOpen ? '▲' : '▼'}</span>
+        <span 
+          className="text-[12px] cursor-pointer" 
+          onClick={(e) => {
+            e.preventDefault();
+            if (isOpen) {
+              closeDropdown();
+            }
+            else {
+              handleMouseEnter();
+            }
+          }}
+        >
+          {isOpen ? '▲' : '▼'}
+        </span>
       </Link>
 
       {/* Dropdown Menu */}
@@ -64,7 +77,7 @@ export default function HomeDropdown({ textColor }: { textColor: string }) {
     </div>
 
     <div className="relative z-10">
-      <h3 className="text-xl font-semibold mb-2">Learn SEO for Webflow</h3>
+      <h3 className="text-xl font-semibold mb-2"></h3>
       <p className="text-sm text-gray-300 mb-4">
         Practical guides to improve your Webflow site's visibility.
       </p>

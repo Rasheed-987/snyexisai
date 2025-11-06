@@ -62,8 +62,18 @@ export async function PUT(
     if (serviceTitle) updateData.serviceTitle = String(serviceTitle)
     const requirements = formData.get('requirements')
     if (requirements) updateData.requirements = JSON.parse(String(requirements))
+    const requirementsTitle = formData.get('requirementsTitle')
+    if (requirementsTitle) updateData.requirementsTitle = String(requirementsTitle)
     const status = formData.get('status')
     if (status) updateData.status = String(status)
+    const description = formData.get('description')
+    if (description) updateData.description = String(description)
+    const largeCardData = formData.get('largeCard')
+    if (largeCardData) {
+      updateData.largeCard = JSON.parse(String(largeCardData))
+    }
+
+    console.log('🔍 Update Data:', updateData)
 
 
 
@@ -122,7 +132,9 @@ export async function PUT(
         },
         status: newStatus,
         requirements: mergedData.requirements,
-
+        requirementsTitle: mergedData.requirementsTitle,
+        description: mergedData.description,
+        largeCard: mergedData.largeCard,
       },
       { new: true } // Return updated document
     );

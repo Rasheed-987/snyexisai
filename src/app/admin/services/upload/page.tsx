@@ -7,6 +7,7 @@ import { UploadBox } from '@/components/upload/UploadBox'
 import { handleImageUpload } from '@/utils/dashboard'
 import { useRouter } from 'next/navigation';
 import RequirementsInput from '@/components/admin/RequirementsInput'
+import { json } from 'stream/consumers'
 
 
 interface ImageSlot {
@@ -28,8 +29,19 @@ export default function ServicesUploadPage() {
 
   // Requirements state
   const [requirements, setRequirements] = useState<string[]>([]);
+  const [requirementsTitle, setRequirementsTitle] = useState<string>('');
   const [editingReqIndex, setEditingReqIndex] = useState<number | null>(null);
   const [editingReqText, setEditingReqText] = useState<string>('');
+
+  // Description state
+  const [descriptionText, setDescriptionText] = useState<string>('');
+
+  // Large card state
+  const [largeCard, setLargeCard] = useState<{ title: string; body: string }>({
+    title: '',
+    body: ''
+  });
+
 
   useEffect(() => {
     setIsRouterMounted(true);
@@ -59,6 +71,18 @@ export default function ServicesUploadPage() {
       form.append('title', serviceTitle);
       form.append('status', 'draft');
       form.append('requirements', JSON.stringify(requirements));
+      form.append('requirementsTitle', requirementsTitle);
+      form.append('description', descriptionText);
+      form.append('largeCard', JSON.stringify(largeCard));
+      
+      console.log('📤 Sending data:', {
+        title: serviceTitle,
+        description: descriptionText,
+        largeCard: largeCard,
+        requirements: requirements,
+        requirementsTitle: requirementsTitle
+      });
+      
       if (imageSlots[0].file) {
         form.append('image', imageSlots[0].file);
       }
@@ -97,6 +121,18 @@ export default function ServicesUploadPage() {
   form.append('image', imageSlots[0].file);
   form.append('status', 'published');
   form.append('requirements', JSON.stringify(requirements));
+  form.append('requirementsTitle', requirementsTitle);
+  form.append('description', descriptionText);
+  form.append('largeCard', JSON.stringify(largeCard));
+  
+  console.log('📤 Publishing data:', {
+    title: serviceTitle,
+    description: descriptionText,
+    largeCard: largeCard,
+    requirements: requirements,
+    requirementsTitle: requirementsTitle
+  });
+  
       const response = await fetch('/api/services', {
         method: 'POST',
         body: form,
@@ -138,10 +174,24 @@ export default function ServicesUploadPage() {
         />
       </div>
 
+    <textarea
+        placeholder="description Textarea"
+        className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded text-sm min-h-[100px] resize-y focus:outline-none focus:ring-2 focus:ring-blue-200"
+        value={descriptionText}
+        onChange={(e) => setDescriptionText(e.target.value)}
+      />
+
 
       {/* Requirements */}
-      <div className="space-y-2">
-        <label className="block text-sm font-medium text-gray-700">Bullets Points</label>
+      <div className="space-y-2 mb-6">
+        <label className="block text-sm font-medium text-gray-700 mb-2">Bullet Points Section</label>
+        <input
+          type="text"
+          placeholder="Section Title (e.g., Key Features, Benefits, etc.)"
+          className="w-full mb-3 font-medium text-base px-3 py-2 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+          value={requirementsTitle}
+          onChange={(e) => setRequirementsTitle(e.target.value)}
+        />
         <div className="space-y-2">
           <RequirementsInput onAdd={(text: string) => addRequirement(text, setRequirements)} />
           <ul className="list-disc pl-5 space-y-1">
@@ -194,7 +244,23 @@ export default function ServicesUploadPage() {
           </ul>
         </div>
       </div>
-      
+     {/* Large Title + Body card */}
+      <div className="w-full max-w-4xl border-2 border-dashed rounded-lg p-6 mb-6">
+        <input
+          type="text"
+          placeholder="Title here"
+          className="w-full mb-3 font-semibold text-lg px-3 py-2 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+          value={largeCard.title}
+          onChange={(e) => setLargeCard({ ...largeCard, title: e.target.value })}
+        />
+        <textarea
+          placeholder="Body text"
+          className="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-200 rounded min-h-[140px] resize-y focus:outline-none focus:ring-2 focus:ring-blue-200"
+          value={largeCard.body}
+          onChange={(e) => setLargeCard({ ...largeCard, body: e.target.value })}
+        />
+      </div>
+  
 
  {/* Error and Success Messages */}
       {uploadError && (

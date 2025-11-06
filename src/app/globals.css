@@ -45,6 +45,73 @@
   font-display: swap;
 }
 
+/* Bandeins Strange Font Family */
+@font-face {
+  font-family: 'Bandeins Strange';
+  src: url('/fonts/bandeins-strange-font-family-1762393731-0/Bandeins-Strange-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bandeins Strange';
+  src: url('/fonts/bandeins-strange-font-family-1762393731-0/Bandeins-Strange-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bandeins Strange';
+  src: url('/fonts/bandeins-strange-font-family-1762393731-0/Bandeins-Strange-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bandeins Strange';
+  src: url('/fonts/bandeins-strange-font-family-1762393731-0/Bandeins-Strange-Semi-Bold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bandeins Strange';
+  src: url('/fonts/bandeins-strange-font-family-1762393731-0/Bandeins-Strange-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Bandeins Strange Extended Variants */
+@font-face {
+  font-family: 'Bandeins Strange Extended';
+  src: url('/fonts/bandeins-strange-font-family-1762393731-0/Bandeins-Strange-Regular-Extended-Full.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bandeins Strange Extended';
+  src: url('/fonts/bandeins-strange-font-family-1762393731-0/Bandeins-Strange-Bold-Extended-Full.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Bandeins Strange Variable Font (Recommended for performance) */
+@font-face {
+  font-family: 'Bandeins Strange Variable';
+  src: url('/fonts/bandeins-strange-font-family-1762393731-0/Bandeins-Strange-Variable-VF.ttf') format('truetype-variations');
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

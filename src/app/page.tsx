@@ -25,23 +25,9 @@ export default function HomePage() {
   // Testimonial carousel state
   const testimonialScrollRef = useRef<HTMLDivElement>(null);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
-   const carouselRef = useRef(null)
-   const controls = useAnimation()
-  const inView = useInView(carouselRef, { once: true }) // triggers once when visible
+  const carouselRef = useRef(null)
+  const inView = useInView(carouselRef, { once: true })
 
-  useEffect(() => {
-    if (inView) {
-      controls.start({
-        x: -1800, // adjust to match your total scroll width
-        transition: {
-          duration: 30, // speed of scroll (increase for slower)
-          ease: "easeInOut",
-        },
-      })
-    }
-  }, [inView, controls])
-
- 
   const scrollTestimonial = (direction: 'left' | 'right') => {
     if (direction === 'left') {
       setCurrentTestimonial((prev) => (prev > 0 ? prev - 1 : testimonials.length - 1));
@@ -77,7 +63,7 @@ export default function HomePage() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   return (
       <div className=" bg-background   rounded-b-[80px] mb-30   relative z-50">
-      <section className="bg-background min-h-screen flex flex-col justify-center mt-10 items-center text-center px-3 lg:px-10 relative overflow-hidden">
+      <section className="bg-background min-h-screen flex flex-col justify-center mt-6 items-center text-center px-3 lg:px-10 relative overflow-hidden">
       {/* Background Image */}
       <div className="absolute w-[80%]  mx-auto inset-0 z-0">
         <Image
@@ -106,23 +92,25 @@ export default function HomePage() {
 
         <motion.h1
           variants={itemVariants}
-          className="text-2xl max-w-[950px] mx-auto sm:text-2xl lg:text-4xl xl:text-4xl 2xl:text-6xl font-medium text-foreground mb-4"
+          className="text-2xl max-w-[950px] mx-auto sm:text-2xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-medium text-foreground mb-4"
         >
           Where Intelligence Meets Imagination
         </motion.h1>
 
         <motion.h2
           variants={itemVariants}
-          className="text-2xl max-w-[900px] sm:text-2xl lg:text-4xl xl:text-4xl 2xl:text-6xl font-medium text-primary mb-6"
+          className="text-2xl max-w-[1200px] sm:text-2xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-medium text-primary mb-6"
         >
           Crafting Tomorrow’s Digital Experiences, Today.
         </motion.h2>
 
         <motion.p
           variants={itemVariants}
-          className="text-base xl:text-xl font-regular text-foreground mb-8"
+          className="text-base mx-auto xl:text-lg max-w-[800px] font-regular text-foreground mb-8"
         >
-          Synexis AI is a future-ready creative & technology agency
+    Synexis AI is a future-ready creative & technology agency headquartered in Dubai, blending 
+advanced artificial intelligence, web & mobile development, and bespoke solutions to deliver 
+digital experiences that engage, convert, and inspire. 
         </motion.p>
 
         <motion.div
@@ -148,7 +136,9 @@ export default function HomePage() {
       </motion.div>
     </section>
 
-      {/* Why Synexis AI Section */}
+
+{/* 
+  {
       <section className="bg-secondary lg:min-h-[700px] xl:min-h-[1000px] py-16 xl:py-24 ">
         <div className=" mx-auto flex flex-col lg:gap-[120px] xl:gap-[160px] px-3 lg:px-10">
           <div className="w-full flex items-start justify-start mb-8">
@@ -174,6 +164,77 @@ export default function HomePage() {
                   Our streamlined process allows for continuous refinement, ensuring every detail aligns with your vision. Don't worry, we craft excellence.
                 </motion.p>
               </motion.div>
+          </div>
+        </div>
+      </section> */}
+
+      {/* Why Synexis AI Section */}
+      <section className="bg-secondary py-16 xl:py-24">
+        <div className="mx-auto px-3 lg:px-10">
+          <div className="w-full flex items-start justify-start mb-12 lg:mb-16">
+            <h3 className="text-xl xl:text-3xl font-normal text-foreground leading-tight">
+              Why<br />Synexis AI
+            </h3>
+          </div>
+          
+          {/* Grid Layout for Three Sections */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6 xl:gap-8">
+            {/* First Section: Meticulous Iteration */}
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              className="flex flex-col items-center text-center p-6 lg:p-8 min-w-0"
+            >
+              <motion.h4 variants={itemVariants} className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-medium text-foreground mb-2 whitespace-nowrap">
+                Meticulous Iteration
+              </motion.h4>
+              <motion.h5 variants={itemVariants} className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-foreground mb-4 whitespace-nowrap">
+                Uncompromising Quality
+              </motion.h5>
+              <motion.p variants={itemVariants} className="text-sm sm:text-base lg:text-lg text-foreground">
+                Our streamlined process allows for continuous refinement, ensuring every detail aligns with your vision.
+              </motion.p>
+            </motion.div>
+
+            {/* Second Section: Empowering Businesses */}
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              className="flex flex-col items-center text-center p-6 lg:p-8 min-w-0"
+            >
+              <motion.h4 variants={itemVariants} className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-medium text-foreground mb-2 whitespace-nowrap">
+                Empowering Businesses
+              </motion.h4>
+              <motion.h5 variants={itemVariants} className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-foreground mb-4 whitespace-nowrap">
+                Redefining Experiences
+              </motion.h5>
+              <motion.p variants={itemVariants} className="text-sm sm:text-base lg:text-lg text-foreground">
+                We don't just design—we craft experiences backed by intelligence, innovation and industry expertise.
+              </motion.p>
+            </motion.div>
+
+            {/* Third Section: From Apps to Websites */}
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              className="flex flex-col items-center text-center p-6 lg:p-8 md:col-span-2 lg:col-span-1 min-w-0"
+            >
+              <motion.h4 variants={itemVariants} className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-medium text-foreground mb-2 whitespace-nowrap">
+                From Apps to Websites
+              </motion.h4>
+              <motion.h5 variants={itemVariants} className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-foreground mb-4 whitespace-nowrap">
+                To AI Agents
+              </motion.h5>
+              <motion.p variants={itemVariants} className="text-sm sm:text-base lg:text-lg text-foreground">
+                We deliver seamless, high-impact digital solutions that reshape business.
+              </motion.p>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -228,32 +289,33 @@ export default function HomePage() {
         </h2>
       </div>
     
-   <div className="mx-auto px-3 lg:px-10">
-      <motion.div
-        ref={carouselRef}
-        className="overflow-hidden cursor-grab"
-          whileTap={{ cursor: "grabbing" }}
-      >
+<div className="mx-auto px-3 lg:px-10 overflow-hidden">
+      <div ref={carouselRef}>
         <motion.div
-          className="flex gap-8"
-          initial={{ x: 0 }}
-          drag="x"
-          animate={controls}
-           dragConstraints={{ right: 0, left: -1800 }} // limit drag range
+          className="flex gap-8 mt-2"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ duration: 80, ease: "linear", repeat: Infinity, repeatType: 'loop', repeatDelay: 0 }}
+          style={{ width: "max-content" }}
         >
-          {service.map((item: any) => (
-            <motion.div
-              key={item._id}
-              className="min-w-[90%] sm:min-w-[45%] lg:min-w-[30%]"
+          {/* Duplicate items for seamless looping */}
+          {[...service, ...service].map((item, index) => (
+            <div
+              key={item._id + "-" + index}
+              className="w-[280px] sm:w-[320px] md:w-[360px] lg:w-[400px] xl:w-[450px] flex-shrink-0"
             >
               <ServicesCard
                 title={item.serviceTitle}
                 image={item.images?.banner}
+                description=""
+                requirements={[]}
+                requirementsTitle=""
+                largeCard={{ title: "", body: "" }}
+                showOnlyTitleAndImage={true}
               />
-            </motion.div>
+            </div>
           ))}
         </motion.div>
-      </motion.div>
+      </div>
     </div>
       </section>
 
@@ -269,10 +331,10 @@ export default function HomePage() {
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 0.6, delay: 0 }}
             >
-              <h3 className="text-3xl font-inter lg:text-7xl font-semibold text-foreground">
+              <h3 className="text-5xl font-bandeins  lg:text-8xl font-bold text-foreground">
                 <CounterAnimation end={250} duration={2.5} suffix="+" />
               </h3>
-              <p className="text-foreground mt-2 text-sm font-medium sm:text-base">Projects Completed</p>
+              <p className="text-foreground font-inter mt-2 text-sm font-medium sm:text-lg">Projects Completed</p>
             </motion.div>
 
             {/* Stat 2 */}
@@ -282,10 +344,10 @@ export default function HomePage() {
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <h3 className="text-3xl font-inter lg:text-7xl font-semibold text-foreground">
+              <h3 className="text-5xl font-bandeins lg:text-8xl font-semibold text-foreground">
                 <CounterAnimation end={180} duration={2.5} suffix="+" />
               </h3>
-              <p className="text-foreground mt-2 text-sm font-medium sm:text-base">Happy Clients</p>
+              <p className="text-foreground  font-inter mt-2 text-sm font-medium sm:text-lg">Happy Clients</p>
             </motion.div>
 
             {/* Stat 3 */}
@@ -295,10 +357,10 @@ export default function HomePage() {
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <h3 className="text-3xl font-inter lg:text-7xl font-semibold text-foreground">
+              <h3 className="text-5xl font-bandeins lg:text-8xl font-semibold text-foreground">
                 <CounterAnimation end={10} duration={2.5} suffix="+" />
               </h3>
-              <p className="text-foreground mt-2 text-sm font-medium sm:text-base">Years of Experience</p>
+              <p className="text-foreground mt-2 font-inter text-sm font-medium sm:text-lg">Years of Experience</p>
             </motion.div>
 
             {/* Stat 4 */}
@@ -308,15 +370,14 @@ export default function HomePage() {
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <h3 className="text-3xl font-inter lg:text-7xl font-semibold text-foreground">
+              <h3 className="text-5xl font-bandeins lg:text-8xl font-semibold text-foreground">
                 <CounterAnimation end={50} duration={2.5} suffix="+" />
               </h3>
-              <p className="text-foreground mt-2 text-sm font-medium sm:text-base">Team Members</p>
+              <p className="text-foreground mt-2 font-inter text-sm font-medium sm:text-lg">Team Members</p>
             </motion.div>
           </div>
         </div>
       </section>
-
       {/* Case Studies Section */}
       <section id="case-studies" className=" mx-auto ">
         <section className=" px-3 lg:px-10  py-12">
@@ -395,7 +456,7 @@ export default function HomePage() {
               <Image src="/images/home/img1_2.png" alt="End-to-End AI Delivery" width={130} height={130} className="object-contain w-[130px] h-[130px] xl:w-[160px] xl:h-[160px] approach-img-hover" />
           </span>
           <h3 className="text-foreground text-lg xl:text-xl font-medium mb-2">End-to-End AI Delivery</h3>
-          <p className="text-foreground text-sm xl:text-base">From data prep to deployment to monitoring we handle it all.</p>
+          <p className="text-foreground text-sm xl:text-base">From data prep to deployment to monitoring.</p>
         </motion.div>
         {/* Card 3 */}
         <motion.div 
@@ -408,7 +469,7 @@ export default function HomePage() {
               <Image src="/images/home/img1_3.png" alt="Regulatory Compliance" width={130} height={130} className="object-contain w-[130px] h-[130px] xl:w-[160px] xl:h-[160px] approach-img-hover" />
           </span>
           <h3 className="text-foreground text-lg xl:text-xl font-medium mb-2">Regulatory Compliance</h3>
-          <p className="text-muted-foreground text-sm xl:text-base">HIPAA, CDPR, and SOC2 practices implemented from the ground up so your AI is secure and scalable.</p>
+          <p className="text-muted-foreground text-sm xl:text-base">HIPAA, CDPR, and SOC2 built in .</p>
         </motion.div>
         {/* Card 4 */}
         <motion.div 
@@ -508,8 +569,11 @@ export default function HomePage() {
             <h2 className="text-foreground text-lg sm:text-xl lg:text-2xl xl:text-4xl 2xl:text-5xl font-medium leading-tight mb-4">Innovative design is<br />our tool to reshape<br />business</h2>
           </div>
           <div className="flex-1 flex flex-col justify-center">
-            <p className="text-foreground text-sm sm:text-base 2xl:text-lg mb-4">We're a passionate team of UI/UX designers dedicated to creating intuitive digital experiences. With years of experience, we blend creativity and strategy to design solutions that engage users and drive business success.</p>
-            <p className="text-foreground text-sm sm:text-base 2xl:text-lg mb-6">We turn ideas into seamless, Beautiful designs. Let's build digital experiences that not only look stunning but also deliver real results.</p>
+            <p className="text-foreground text-sm sm:text-base 2xl:text-lg mb-4">We're a passionate team of UI/UX designers dedicated to creating intuitive digital experiences. With years of experience, we blend creativity and strategy to design solutions that engage users and drive business success.
+
+We turn ideas into seamless, Beautiful designs. Let's build digital experiences that not only look stunning but also deliver real results.</p>
+            {/* <p className="text-foreground text-sm sm:text-base 2xl:text-lg mb-4">We're a passionate team of UI/UX designers dedicated to creating intuitive digital experiences. With years of experience, we blend creativity and strategy to design solutions that engage users and drive business success.</p> */}
+            {/* <p className="text-foreground text-sm sm:text-base 2xl:text-lg mb-6">We turn ideas into seamless, Beautiful designs. Let's build digital experiences that not only look stunning but also deliver real results.</p> */}
             <button onClick={() => router.push('/about')} className="custom-about-btn">More About Us</button>
           </div>
         </div>

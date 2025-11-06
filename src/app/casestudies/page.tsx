@@ -58,19 +58,115 @@ const CaseStudyPage = () => {
          <div className="w-full mx-auto">
       <section className="w-full mx-auto  py-12">
         <div className="mb-12 px-3 lg:px-10">
-          <span className="inline-flex items-center text-sm text-foreground font-regular mb-4">
-            CASE STUDIES
-          </span>
+  <span className="inline-flex items-center text-sm text-foreground font-regular mb-4">
+    CASE STUDIES
+  </span>
 
-          <h2 className=" text-xl lg:text-4xl text-foreground font-regular leading-tight mb-4">
-            Featured Projects
-          </h2>
+  <h2 className="text-xl lg:text-4xl text-foreground font-regular leading-tight mb-4">
+    Featured Projects
+  </h2>
 
-          <p className="text-foreground max-w-md">
-            As a UI/UX design company in Dubai, we don't just build websites — we craft immersive digital
-            experiences that push boundaries and deliver business results.
-          </p>
+  <p className="text-foreground max-w-lg mb-6">
+    Explore how we’ve helped clients across industries launch AI-powered digital experiences. 
+    From SaaS startups to enterprise platforms, from chatbots to computer-vision systems — 
+    each case study demonstrates our end-to-end capabilities and the measurable business 
+    impact we achieved.
+  </p>
+
+ 
+
+</div>
+ <section className="max-w-6xl mx-auto px-4 sm:px-8 py-12">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        {/* Left Column */}
+        <div>
+          <h3 className="text-base font-semibold text-foreground mb-4">
+            What you’ll see:
+          </h3>
+
+          <div className="space-y-2 text-sm text-muted-foreground">
+            <div className="flex items-start gap-2">
+              <span className="text-primary font-bold leading-relaxed">•</span>
+              <p className="text-foreground leading-relaxed">
+                Project overview: client challenge, solution, our approach
+              </p>
+            </div>
+
+            <div className="flex items-start gap-2">
+              <span className="text-primary font-bold leading-relaxed">•</span>
+              <p className="text-foreground leading-relaxed">
+                AI component breakdown: model type, data used, deployment
+                strategy
+              </p>
+            </div>
+
+            <div className="flex items-start gap-2">
+              <span className="text-primary font-bold leading-relaxed">•</span>
+              <p className="text-foreground leading-relaxed">
+                UX & engineering highlights: web/mobile design, integrations,
+                performance results
+              </p>
+            </div>
+
+            <div className="flex items-start gap-2">
+              <span className="text-primary font-bold leading-relaxed">•</span>
+              <p className="text-foreground leading-relaxed">
+                Results & metrics: conversion uplift, cost savings, user
+                engagement, ROI
+              </p>
+            </div>
+
+            <div className="flex items-start gap-2">
+              <span className="text-primary font-bold leading-relaxed">•</span>
+              <p className="text-foreground leading-relaxed">
+                Tech stack: front-end, backend, AI/ML frameworks, infrastructure
+              </p>
+            </div>
+          </div>
         </div>
+
+        {/* Right Column */}
+        <div>
+          <h3 className="text-base font-semibold text-foreground mb-4">
+            Featured industries:
+          </h3>
+
+          <div className="space-y-2 text-sm text-muted-foreground">
+            <div className="flex items-start gap-2">
+              <span className="text-primary font-bold leading-relaxed">•</span>
+              <p className="text-foreground leading-relaxed">
+                Fintech: loan-approval automation with NLP and rule-based
+                decision-making
+              </p>
+            </div>
+
+            <div className="flex items-start gap-2">
+              <span className="text-primary font-bold leading-relaxed">•</span>
+              <p className="text-foreground leading-relaxed">
+                Healthcare: image-based screening tools and predictive analytics
+              </p>
+            </div>
+
+            <div className="flex items-start gap-2">
+              <span className="text-primary font-bold leading-relaxed">•</span>
+              <p className="text-foreground leading-relaxed">
+                Logistics: route optimisation and predictive maintenance using
+                AI
+              </p>
+            </div>
+
+            <div className="flex items-start gap-2">
+              <span className="text-primary font-bold leading-relaxed">•</span>
+              <p className="text-foreground leading-relaxed">
+                eCommerce: personalization engine driving repeat-purchase and
+                retention
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
       </section>
       {caseStudiesLoading ? (
         <div className="flex items-center justify-center py-20">

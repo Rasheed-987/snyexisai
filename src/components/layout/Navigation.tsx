@@ -472,9 +472,7 @@ export const Navigation = () => {
          {/* --- DESKTOP NAVIGATION LINKS (Unchanged) --- */}  
       <div className={`hidden md:flex mt-2 ml-3 items-center mr-3 gap-7 ${textColor}`}>
            
-        {/* <Link href="/" className={` font-semibold text-[14px] tracking-[0.5px] ${textColor}`}>
-          HOME
-        </Link> */}
+       
       <HomeDropdown  textColor={textColor} />
 
            

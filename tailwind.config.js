@@ -57,6 +57,9 @@ module.exports = {
         chillax: ["Chillax", "sans-serif"],
         roboto: ["Roboto", "sans-serif"],
         inter: ["Inter", "sans-serif"],
+        bandeins: ["Bandeins Strange", "sans-serif"],
+        "bandeins-extended": ["Bandeins Strange Extended", "sans-serif"],
+        "bandeins-variable": ["Bandeins Strange Variable", "sans-serif"],
       },
       fontSize: {
         'btn': ['13.78px', '21px'],
@@ -101,6 +104,21 @@ module.exports = {
           lineHeight: '34.19px',
           letterSpacing: '0.57px',
           verticalAlign: 'middle',
+        },
+        '.heading-bandeins': {
+          fontFamily: 'Bandeins Strange, sans-serif',
+          fontWeight: '600',
+          letterSpacing: '0.02em',
+        },
+        '.title-bandeins': {
+          fontFamily: 'Bandeins Strange, sans-serif',
+          fontWeight: '700',
+          letterSpacing: '0.01em',
+        },
+        '.text-bandeins-extended': {
+          fontFamily: 'Bandeins Strange Extended, sans-serif',
+          fontWeight: '400',
+          letterSpacing: '0.01em',
         },
       }
       addUtilities(newUtilities)

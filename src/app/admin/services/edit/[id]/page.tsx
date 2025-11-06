@@ -22,8 +22,16 @@ const ServiceEditPage = () => {
   
   const [serviceTitle, setServiceTitle] = useState('')
   const [requirements, setRequirements] = useState<string[]>([]);
+  const [requirementsTitle, setRequirementsTitle] = useState<string>('');
   const [editingReqIndex, setEditingReqIndex] = useState<number | null>(null);
   const [editingReqText, setEditingReqText] = useState<string>('');
+  
+  // New fields state
+  const [descriptionText, setDescriptionText] = useState<string>('');
+  const [largeCard, setLargeCard] = useState<{ title: string; body: string }>({
+    title: '',
+    body: ''
+  });
   
   // Add loading and error states
   const [isLoading, setIsLoading] = useState(true)
@@ -67,6 +75,12 @@ const ServiceEditPage = () => {
           // Populate form fields
           setServiceTitle(service.serviceTitle || '')
           setRequirements(service.requirements || []);
+          setRequirementsTitle(service.requirementsTitle || '');
+          setDescriptionText(service.description || '');
+          setLargeCard({
+            title: service.largeCard?.title || '',
+            body: service.largeCard?.body || ''
+          });
           
           // Set existing image if available
           if (service.images?.banner) {
@@ -107,6 +121,9 @@ const ServiceEditPage = () => {
       formData.append('title', serviceTitle)
       formData.append('status', 'draft')
       formData.append('requirements', JSON.stringify(requirements))
+      formData.append('requirementsTitle', requirementsTitle)
+      formData.append('description', descriptionText)
+      formData.append('largeCard', JSON.stringify(largeCard))
       if (imageSlots[0].file) {
         formData.append('image', imageSlots[0].file)
       }
@@ -143,6 +160,9 @@ const ServiceEditPage = () => {
   formData.append('image', imageSlots[0].file)
   formData.append('status', 'published')
   formData.append('requirements', JSON.stringify(requirements))
+  formData.append('requirementsTitle', requirementsTitle)
+  formData.append('description', descriptionText)
+  formData.append('largeCard', JSON.stringify(largeCard))
       const response = await fetch(`/api/services/${serviceId}`, {
         method: 'PUT',
         body: formData
@@ -235,7 +255,15 @@ const ServiceEditPage = () => {
 
       {/* Requirements */}
       <div className="space-y-2 mb-6">
-        <label className="block text-sm font-medium text-gray-700">Bullets Points</label>
+        <label className="block text-sm font-medium text-gray-700 mb-2">Bullet Points Section</label>
+        <input
+          type="text"
+          placeholder="Section Title (e.g., Key Features, Benefits, etc.)"
+          className="w-full mb-3 font-medium text-base px-3 py-2 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+          value={requirementsTitle}
+          onChange={(e) => setRequirementsTitle(e.target.value)}
+          disabled={isUpdating}
+        />
         <div className="space-y-2">
           <RequirementsInput onAdd={(text: string) => setRequirements(prev => [...prev, text.trim()])} />
           <ul className="list-disc pl-5 space-y-1">
@@ -287,6 +315,37 @@ const ServiceEditPage = () => {
             ))}
           </ul>
         </div>
+      </div>
+
+      {/* Description Textarea */}
+      <div className="mb-6">
+        <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+        <textarea
+          placeholder="Service description"
+          className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded text-sm min-h-[100px] resize-y focus:outline-none focus:ring-2 focus:ring-blue-200"
+          value={descriptionText}
+          onChange={(e) => setDescriptionText(e.target.value)}
+          disabled={isUpdating}
+        />
+      </div>
+
+      {/* Large Title + Body card */}
+      <div className="w-full max-w-4xl border-2 border-dashed rounded-lg p-6 mb-6">
+        <input
+          type="text"
+          placeholder="Card Title"
+          className="w-full mb-3 font-semibold text-lg px-3 py-2 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
+          value={largeCard.title}
+          onChange={(e) => setLargeCard({ ...largeCard, title: e.target.value })}
+          disabled={isUpdating}
+        />
+        <textarea
+          placeholder="Card body text"
+          className="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-200 rounded min-h-[140px] resize-y focus:outline-none focus:ring-2 focus:ring-blue-200"
+          value={largeCard.body}
+          onChange={(e) => setLargeCard({ ...largeCard, body: e.target.value })}
+          disabled={isUpdating}
+        />
       </div>
 
   {updateError && (

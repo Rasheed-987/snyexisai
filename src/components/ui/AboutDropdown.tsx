@@ -58,7 +58,17 @@ export default function AboutDropdown({ textColor }: { textColor: string }) {
         className={`relative font-semibold text-[14px] tracking-[0.5px] ${textColor} flex items-center gap-1`}
       >
         ABOUT
-        <span className="text-[12px]">{isOpen ? '▲' : '▼'}</span>
+        <span 
+          className="text-[12px] cursor-pointer" 
+          onClick={(e) => {
+            e.preventDefault();
+            if (isOpen) {
+              closeDropdown();
+            }
+          }}
+        >
+          {isOpen ? '▲' : '▼'}
+        </span>
       </Link>
 
       {/* Dropdown Menu */}

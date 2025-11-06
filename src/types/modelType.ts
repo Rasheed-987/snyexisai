@@ -79,6 +79,12 @@ export interface IServices extends Document {
     gallery?: string[]
   },
   requirements: string[],
+  requirementsTitle?: string,
+  description?: string,
+  largeCard?: {
+    title: string
+    body: string
+  },
   status: 'draft' | 'published' | 'archived'
   createdAt: Date
   updatedAt: Date

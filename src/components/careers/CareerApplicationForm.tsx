@@ -9,6 +9,7 @@ interface CareerFormData {
   location: string;
   websiteOrPortfolio: string;
   socialLinks: string;
+  aiExcitement: string;
   cv: string[];
 }
 
@@ -24,13 +25,14 @@ export function CareerApplicationForm({ jobTitle, Id }: CareerApplicationFormPro
     location: '',
     websiteOrPortfolio: '',
     socialLinks: '',
+    aiExcitement: '',
     cv: []
   });
 
   const [errors, setErrors] = useState<Partial<CareerFormData>>({});
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -89,8 +91,8 @@ export function CareerApplicationForm({ jobTitle, Id }: CareerApplicationFormPro
         location: '',
         websiteOrPortfolio: '',
         socialLinks: '',
+        aiExcitement: '',
         cv: []
-
       });
     } catch (error) {
       console.error('Error submitting application:', error);
@@ -107,7 +109,7 @@ export function CareerApplicationForm({ jobTitle, Id }: CareerApplicationFormPro
       <h3 className="text-[35px] font-medium text-[#0f1c3d] mb-2">
         Don't Overthink It.
       </h3>
-      <p className="text-gray-600 text-sm mb-6">
+      <p className="text- text-sm mb-6">
         Apply for the {jobTitle} position
       </p>
 
@@ -178,6 +180,18 @@ export function CareerApplicationForm({ jobTitle, Id }: CareerApplicationFormPro
           />
         </div>
 
+        {/* AI Excitement Field */}
+        <div>
+          <textarea
+            name="aiExcitement"
+            placeholder="Tell us why you're excited about AI and Synexis AI* (Keep it short and sweet)"
+            value={formData.aiExcitement}
+            onChange={handleChange}
+            rows={4}
+            className={`${inputFieldStyles} resize-none`}
+          />
+        </div>
+
         {/* Upload CV Field */}
         <div>
           <label htmlFor="cv" className="block text-sm font-medium text-gray-700 mb-1">Upload Your CV</label>
@@ -203,19 +217,21 @@ export function CareerApplicationForm({ jobTitle, Id }: CareerApplicationFormPro
         <Button
           type="submit"
           disabled={isLoading}
-          className="w-[70%] py-3 px-6 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-[70%] py-3 px-6 bg-primary hover:bg-blue-700 text-white rounded-full font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isLoading ? 'Submitting...' : 'Apply Now'}
         </Button>
 
         {/* Social Share */}
-        <div className="pt-4 border-t border-gray-200 flex items-center gap-4">
-          <p className="text-xs text-gray-500">SHARE</p>
+        <div className="pt-4 border-t border-gray-200 flex items-start gap-4">
+          <p className="text-xs text-foreground leading-relaxed max-w-[200px]">Follow us for insights on AI, design and development:</p>
           <div className="flex gap-3">
             <button
               type="button"
               className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors"
-              onClick={() => {/* Add LinkedIn share */}}
+              onClick={() => {
+                window.open('https://www.linkedin.com/company/synexis-ai/', '_blank', 'noopener,noreferrer');
+              }}
             >
               <img src="/images/linkedin.png" alt="LinkedIn" className="object-cover" />
             </button>

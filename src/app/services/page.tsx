@@ -54,6 +54,10 @@ const Service = () => {
               title={service.serviceTitle}
               image={service.images?.banner}
               requirements={service.requirements}
+              requirementsTitle={service.requirementsTitle}
+              description={service.description}
+              largeCard={service.largeCard}
+            
             />
           ))}
         </div>

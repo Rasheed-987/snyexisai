@@ -73,6 +73,12 @@ const ServiceSchema = new Schema<IServices>({
     gallery: [{ type: String }]
   },
   requirements: [{ type: String }],
+  requirementsTitle: { type: String },
+  description: { type: String },
+  largeCard: {
+    title: { type: String },
+    body: { type: String }
+  },
   status: { type: String, enum: ['draft', 'published', 'archived'], default: 'draft' },
 },
 {
@@ -105,9 +111,15 @@ const AdminSchema = new Schema<IAdmin>({
   timestamps: true
 })
 
-// Export models
+// Export models with cache clearing for Services to ensure schema updates are applied
 export const Project = mongoose.models.Project || mongoose.model<IProject>('Project', ProjectSchema)
 export const CaseStudy = mongoose.models.CaseStudy || mongoose.model<ICaseStudy>('CaseStudy', CaseStudySchema)
-export const Services = mongoose.models.Services || mongoose.model<IServices>('Services', ServiceSchema)
+
+// Force refresh Services model to pick up schema changes
+if (mongoose.models.Services) {
+  delete mongoose.models.Services;
+}
+export const Services = mongoose.model<IServices>('Services', ServiceSchema)
+
 export const Career = mongoose.models.Career || mongoose.model<ICareer>('Career', CareerSchema)
 export const Admin = mongoose.models.Admin || mongoose.model<IAdmin>('Admin', AdminSchema)
