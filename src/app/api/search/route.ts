@@ -15,7 +15,7 @@ export async function GET(req: Request) {
   if (pathname.includes('career')) {
     const careers = await Career.find({ jobTitle: { $regex: q, $options: 'i' } }).limit(2);
     results = careers.map((c) => ({
-      id: c._id,
+      id: c._id.toString(),
       title: c.jobTitle,
       type: 'Career',
       href: `/admin/career/edit/${c._id}`,
@@ -23,7 +23,7 @@ export async function GET(req: Request) {
   } else if (pathname.includes('project')) {
     const projects = await Project.find({ title: { $regex: q, $options: 'i' } }).limit(2);
     results = projects.map((p) => ({
-      id: p._id,
+      id: p._id.toString(),
       title: p.title,
       type: 'Project',
       href: `/admin/projects/edit/${p._id}`,
@@ -31,7 +31,7 @@ export async function GET(req: Request) {
   } else if (pathname.includes('case-studies')) {
     const caseStudies = await CaseStudy.find({ caseTitle: { $regex: q, $options: 'i' } }).limit(2);
     results = caseStudies.map((cs) => ({
-      id: cs._id,
+      id: cs._id.toString(),
       title: cs.caseTitle,
       type: 'Case Study',
       href: `/admin/case-studies/edit/${cs._id}`,
@@ -39,7 +39,7 @@ export async function GET(req: Request) {
   } else if (pathname.includes('services')) {
     const services = await Services.find({ serviceTitle: { $regex: q, $options: 'i' } }).limit(2);
     results = services.map((s) => ({
-      id: s._id,
+      id: s._id.toString(),
       title: s.serviceTitle,
       type: 'Service',
       href: `/admin/services/edit/${s._id}`,
