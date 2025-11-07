@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import { Career, Project, CaseStudy, Services } from '@/utils/models';
+import { Types } from 'mongoose';
 
 export async function GET(req: Request) {
   await connectDB();
@@ -39,7 +40,7 @@ export async function GET(req: Request) {
   } else if (pathname.includes('services')) {
     const services = await Services.find({ serviceTitle: { $regex: q, $options: 'i' } }).limit(2);
     results = services.map((s) => ({
-      id: s._id.toString(),
+      id: String((s._id as any)),
       title: s.serviceTitle,
       type: 'Service',
       href: `/admin/services/edit/${s._id}`,
