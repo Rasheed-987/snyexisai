@@ -5,8 +5,8 @@ import AdminContentLayout from '@/components/admin/AdminContentLayout'
 import { ProjectCard } from '@/components/admin/AdminCards'
 import { useTitle } from '@/hooks/titleContext'
 import { useRouter } from 'next/navigation'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { formatDate } from '@/utils/dashboard'
-
 
 interface Project {
   _id: string
@@ -27,139 +27,70 @@ interface Project {
 }
 
 export default function ProjectsPage() {
-  const router = useRouter()
-  const { setTitle } = useTitle()
-  
-  const [projects, setProjects] = useState<Project[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-  const [mounted, setMounted] = useState(false)
+  const router = useRouter();
+  const { setTitle } = useTitle();
+  const queryClient = useQueryClient();
+  const [mounted, setMounted] = useState(false);
 
-  // Fix hydration issues
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  useEffect(() => setMounted(true), []);
 
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        setLoading(true)
-        const response = await fetch('/api/projects')
-        
-        if (!response.ok) {
-          throw new Error('Failed to fetch projects')
-        }
-        
-        const projectsData = await response.json()
-        console.log('Fetched projects:', projectsData)
-        
-        if (projectsData.success) {
-          setProjects(projectsData.projects)
-          
-        } else {
-          throw new Error('API returned unsuccessful response')
-        }
-      } catch (error) {
-        console.error('Error fetching projects:', error)
-        setError(error instanceof Error ? error.message : 'Failed to fetch projects')
-      } finally {
-        setLoading(false)
-      }
+  useEffect(() => setTitle('Projects'), [setTitle]);
+
+  // Fetch projects using TanStack Query
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ['projects'],
+    queryFn: async () => {
+      const res = await fetch('/api/projects');
+      if (!res.ok) throw new Error('Failed to fetch projects');
+      const data = await res.json();
+      if (!data.success) throw new Error('API returned unsuccessful response');
+      return data.projects as Project[];
     }
+  });
 
-    if (mounted) {
-      fetchProjects()
+  // Mutation for toggling publish/draft status
+  const toggleStatusMutation = useMutation({
+    mutationFn: async ({ id, status }: { id: string; status: string }) => {
+      const formData = new FormData();
+      formData.append('status', status);
+      
+      const res = await fetch(`/api/projects/${id}`, {
+        method: 'PUT',
+        body: formData
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to update project status');
+      return data;
+    },
+    onSuccess: (_, { id, status }) => {
+      queryClient.setQueryData<Project[]>(['projects'], old =>
+        old?.map(project => (project._id === id ? { ...project, status } : project)) || []
+      );
     }
-  }, [mounted])
+  });
 
-  useEffect(() => {
-    setTitle('Projects')
-  }, [setTitle])
-
-
-
-
-  const handleUpload = () => {
-    console.log('Upload Project clicked')
-    router.push('/admin/projects/upload')
-  }
-
-  const handleEdit = (id: string) => {
-    console.log('Edit project:', id)
-    // Navigate to edit page (you can create this later)
-    router.push(`/admin/projects/edit/${id}`)
-  }
-
-  const handleUnpublish = async (id: string, currentStatus: string) => {
-    try {
-      setLoading(true)
-        const formData = new FormData()
-        formData.append('status', 'draft')
-        
-        
-        const response = await fetch(`/api/projects/${id}`, {
-          method: 'PUT',
-          body: formData
-        })
-        
-        const result = await response.json()
-          console.log(result)
-        if (!response.ok) {
-          throw new Error(result.error || 'Failed to unpublish project')
-        }
-        
-        
-        // Update project in local state
-        setProjects(prev => prev.map(project => 
-          project._id === id 
-            ? { ...project, ...result.project }
-            : project
-        ))
-      
-      
-    } catch (error) {
-      console.error('Error toggling project status:', error)
-      // You can add toast notification here
-    } finally {
-      setLoading(false)
+  // Mutation for deleting a project
+  const deleteMutation = useMutation({
+    mutationFn: async (id: string) => {
+      const res = await fetch(`/api/projects/${id}`, { method: 'DELETE' });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to delete project');
+      return data;
+    },
+    onSuccess: (_, id) => {
+      queryClient.setQueryData<Project[]>(['projects'], old =>
+        old?.filter(project => project._id !== id) || []
+      );
     }
-  }
+  });
 
-  const handleDelete = async (id: string) => {
-    // Show confirmation dialog
-    const confirmed = window.confirm('Are you sure you want to delete this project? This action cannot be undone.')
-    
-    if (!confirmed) return
-    
-    try {
-      setLoading(true)
-      console.log('Deleting project:', id)
-      
-      const response = await fetch(`/api/projects/${id}`, {
-        method: 'DELETE'
-      })
-      
-      const result = await response.json()
-      
-      if (!response.ok) {
-        throw new Error(result.error || 'Failed to delete project')
-      }
-      
-      console.log('✅ Project deleted successfully')
-      
-      // Remove project from local state
-      setProjects(projects.filter(project => project._id !== id))
-      
-      // Show success message (optional - you can add a toast notification)
-      alert('Project deleted successfully!')
-      
-    } catch (error) {
-      console.error('❌ Error deleting project:', error)
-      alert(error instanceof Error ? error.message : 'Failed to delete project')
-    } finally {
-      setLoading(false)
-    }
-  }
+  const handleUpload = () => router.push('/admin/projects/upload');
+  const handleEdit = (id: string) => router.push(`/admin/projects/edit/${id}`);
+  const handleUnpublish = (id: string, currentStatus: string) =>
+    toggleStatusMutation.mutate({ id, status: currentStatus === 'draft' ? 'published' : 'draft' });
+  const handleDelete = (id: string) => {
+      deleteMutation.mutate(id);
+  };
 
   // Don't render until mounted to prevent hydration issues
   if (!mounted) {
@@ -174,11 +105,11 @@ export default function ProjectsPage() {
           <div className="animate-pulse bg-gray-200 h-8 w-32 rounded mx-auto"></div>
         </div>
       </AdminContentLayout>
-    )
+    );
   }
 
   // Loading state
-  if (loading) {
+  if (isLoading) {
     return (
       <AdminContentLayout
         title="Projects"
@@ -191,11 +122,11 @@ export default function ProjectsPage() {
           <p className="text-gray-600">Loading projects...</p>
         </div>
       </AdminContentLayout>
-    )
+    );
   }
 
   // Error state
-  if (error) {
+  if (isError) {
     return (
       <AdminContentLayout
         title="Projects"
@@ -204,20 +135,20 @@ export default function ProjectsPage() {
         className="flex items-center justify-center min-h-[400px]"
       >
         <div className="text-center">
-          <p className="text-red-600 mb-4">Error: {error}</p>
-          <button 
-            onClick={() => window.location.reload()} 
+          <p className="text-red-600 mb-4">Error: {(error as Error).message}</p>
+          <button
+            onClick={() => queryClient.invalidateQueries({ queryKey: ['projects'] })}
             className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
           >
             Retry
           </button>
         </div>
       </AdminContentLayout>
-    )
+    );
   }
 
   // Empty state
-  if (projects.length === 0) {
+  if (!data || data.length === 0) {
     return (
       <AdminContentLayout
         title="Projects"
@@ -235,7 +166,7 @@ export default function ProjectsPage() {
           </button>
         </div>
       </AdminContentLayout>
-    )
+    );
   }
 
   return (
@@ -245,13 +176,13 @@ export default function ProjectsPage() {
       onUpload={handleUpload}
       className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
     >
-      {projects.map((project: Project) => (
+      {data.map((project: Project) => (
         <ProjectCard
           key={project._id}
           id={project._id}
           title={project.title}
           description={project.tagline || project.addTitle}
-          author="Admin" // You can modify this based on your user system
+          author="Admin"
           timeAgo={formatDate(project.createdAt)}
           thumbnail={project.images.banner || '/images/placeholder.png'}
           status={project.status as 'draft' | 'published'}
@@ -261,5 +192,5 @@ export default function ProjectsPage() {
         />
       ))}
     </AdminContentLayout>
-  )
+  );
 }

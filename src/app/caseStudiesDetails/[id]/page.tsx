@@ -1,32 +1,24 @@
 "use client"
 
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useParams } from 'next/navigation'
 import CaseStudyDetailPage from '@/components/casestudies/CasestudiesDetailCard'
+import { useQuery } from '@tanstack/react-query'
 
 const CaseStudiesDetailPage = () => {
-    const params = useParams()
-    const [caseStudy, setCaseStudy] = useState<any | null>(null)
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState<string | null>(null)
+    const params = useParams() as { id?: string }
 
-    useEffect(() => {
-        const fetchCaseStudy = async () => {
-            try {
-                const response = await fetch(`/api/case-studies/${params.id}`)
-                if (!response.ok) throw new Error(`HTTP ${response.status}`)
-                const data = await response.json()
-            console.log('case-study detail response:', data)
-                setCaseStudy(data.caseStudy)
-            } catch (err: any) {
-                setError(err?.message ?? 'Failed to load')
-            } finally {
-                setLoading(false)
-            }
-        }
-
-        if (params?.id) fetchCaseStudy()
-    }, [params?.id])
+    const { data: caseStudy, isLoading: loading, error } = useQuery({
+        queryKey: ['caseStudy', params?.id],
+        queryFn: async () => {
+            const response = await fetch(`/api/case-studies/${params?.id}`)
+            if (!response.ok) throw new Error(`HTTP ${response.status}`)
+            const data = await response.json()
+            const cs = data.caseStudy
+            return cs ? { id: cs.id || cs._id, ...cs } : null
+        },
+        enabled: !!params?.id,
+    })
 
  
 if (loading) {
@@ -42,7 +34,7 @@ if (loading) {
 
 
 
-    if (error) return <div>Error: {error}</div>
+    if (error) return <div>Error: {(error as Error).message}</div>
     if (!caseStudy) return <div>No case study found.</div>
 
     return (

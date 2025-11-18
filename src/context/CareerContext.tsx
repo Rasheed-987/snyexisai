@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 interface CareerContextType {
   careersData: any[];
@@ -8,32 +9,27 @@ interface CareerContextType {
 
 const CareerContext = createContext<CareerContextType | undefined>(undefined);
 
+const fetchCareers = async () => {
+  const response = await fetch('/api/careers?status=published');
+  if (!response.ok) {
+    throw new Error('Failed to fetch careers');
+  }
+  const data = await response.json();
+  return data.careers || [];
+};
+
 export const CareerProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [careersData, setCareersData] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchCareersData = async () => {
-      try {
-        const response = await fetch('/api/careers?status=published');
-        if (!response.ok) {
-          throw new Error('Failed to fetch careers');
-        }
-        const data = await response.json();
-        setCareersData(data.careers || []);
-      } catch (err: any) {
-        setError(err.message || 'Something went wrong');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCareersData();
-  }, []);
+  const { data: careersData = [], isLoading: loading, error } = useQuery({
+    queryKey: ['careers'],
+    queryFn: fetchCareers,
+  });
 
   return (
-    <CareerContext.Provider value={{ careersData, loading, error }}>
+    <CareerContext.Provider value={{ 
+      careersData, 
+      loading, 
+      error: error ? (error as Error).message : null 
+    }}>
       {children}
     </CareerContext.Provider>
   );

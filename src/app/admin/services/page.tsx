@@ -5,6 +5,7 @@ import AdminContentLayout from '@/components/admin/AdminContentLayout'
 import { ServiceCard } from '@/components/admin/AdminCards'
 import { useTitle } from '@/hooks/titleContext'
 import { useRouter } from 'next/navigation'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { formatDate } from '@/utils/dashboard'
 
 interface Service {
@@ -21,128 +22,70 @@ interface Service {
 }
 
 export default function ServicesPage() {
-  const { setTitle } = useTitle();
   const router = useRouter();
-  const [services, setServices] = useState<Service[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const { setTitle } = useTitle();
+  const queryClient = useQueryClient();
   const [mounted, setMounted] = useState(false);
 
-  // Fix hydration issues
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  useEffect(() => setMounted(true), []);
 
-  useEffect(() => {
-    const fetchServices = async () => {
-      try {
-        setLoading(true)
-        const response = await fetch('/api/services')
-        
-        if (!response.ok) {
-          throw new Error('Failed to fetch services')
-        }
-        
-        const servicesData = await response.json()
-        console.log('Fetched services:', servicesData)
-        
-        if (servicesData.success) {
-          setServices(servicesData.services)
-        } else {
-          throw new Error('API returned unsuccessful response')
-        }
-      } catch (error) {
-        console.error('Error fetching services:', error)
-        setError(error instanceof Error ? error.message : 'Failed to fetch services')
-      } finally {
-        setLoading(false)
-      }
+  useEffect(() => setTitle('Services'), [setTitle]);
+
+  // Fetch services using TanStack Query
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ['services'],
+    queryFn: async () => {
+      const res = await fetch('/api/services');
+      if (!res.ok) throw new Error('Failed to fetch services');
+      const data = await res.json();
+      if (!data.success) throw new Error('API returned unsuccessful response');
+      return data.services as Service[];
     }
+  });
 
-    if (mounted) {
-      fetchServices()
-    }
-  }, [mounted])
-
-  useEffect(() => {
-    setTitle('Services');
-  }, [setTitle]);
-
-  const handleUpload = () => {
-    console.log('Upload Service clicked')
-    router.push('/admin/services/upload');
-  };
-
-  const handleEdit = (id: string) => {
-    console.log('Edit service:', id)
-    router.push(`/admin/services/edit/${id}`);
-  };
-
-  const handleUnpublish = async (id: string) => {
-    try {
-      setLoading(true);
+  // Mutation for toggling publish/draft status
+  const toggleStatusMutation = useMutation({
+    mutationFn: async ({ id, status }: { id: string; status: string }) => {
       const formData = new FormData();
-      formData.append('status', 'draft');
-
-      const response = await fetch(`/api/services/${id}`, {
+      formData.append('status', status);
+      
+      const res = await fetch(`/api/services/${id}`, {
         method: 'PUT',
-        body: formData,
+        body: formData
       });
-
-      const result = await response.json();
-      console.log(result);
-      if (!response.ok) {
-        throw new Error(result.error || 'Failed to unpublish service');
-      }
-
-      // Update service in local state
-      setServices((prev) =>
-        prev.map((service) =>
-          service._id === id ? { ...service, ...result.service } : service
-        )
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to update service status');
+      return data;
+    },
+    onSuccess: (_, { id, status }) => {
+      queryClient.setQueryData<Service[]>(['services'], old =>
+        old?.map(service => (service._id === id ? { ...service, status } : service)) || []
       );
-    } catch (error) {
-      console.error('Error toggling service status:', error);
-      // You can add toast notification here
-    } finally {
-      setLoading(false);
     }
-  };
+  });
 
-  const handleDelete = async (id: string) => {
-    // Show confirmation dialog
-    const confirmed = window.confirm('Are you sure you want to delete this service? This action cannot be undone.')
-    
-    if (!confirmed) return
-    
-    try {
-      setLoading(true)
-      console.log('Deleting service:', id)
-      
-      const response = await fetch(`/api/services/${id}`, {
-        method: 'DELETE'
-      })
-      
-      const result = await response.json()
-      
-      if (!response.ok) {
-        throw new Error(result.error || 'Failed to delete service')
-      }
-      
-      console.log('✅ Service deleted successfully')
-      
-      // Remove service from local state
-      setServices(services.filter(service => service._id !== id))
-      
-      // Show success message (optional - you can add a toast notification)
-      alert('Service deleted successfully!')
-      
-    } catch (error) {
-      console.error('❌ Error deleting service:', error)
-      alert(error instanceof Error ? error.message : 'Failed to delete service')
-    } finally {
-      setLoading(false)
+  // Mutation for deleting a service
+  const deleteMutation = useMutation({
+    mutationFn: async (id: string) => {
+      const res = await fetch(`/api/services/${id}`, { method: 'DELETE' });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to delete service');
+      return data;
+    },
+    onSuccess: (_, id) => {
+      queryClient.setQueryData<Service[]>(['services'], old =>
+        old?.filter(service => service._id !== id) || []
+      );
     }
+  });
+
+  const handleUpload = () => router.push('/admin/services/upload');
+  const handleEdit = (id: string) => router.push(`/admin/services/edit/${id}`);
+  const handleUnpublish = (id: string, currentStatus: string) =>
+    toggleStatusMutation.mutate({ id, status: currentStatus === 'draft' ? 'published' : 'draft' });
+  const handleDelete = (id: string) => {
+      deleteMutation.mutate(id);
+    
   };
 
   // Don't render until mounted to prevent hydration issues
@@ -158,11 +101,11 @@ export default function ServicesPage() {
           <div className="animate-pulse bg-gray-200 h-8 w-32 rounded mx-auto"></div>
         </div>
       </AdminContentLayout>
-    )
+    );
   }
 
   // Loading state
-  if (loading) {
+  if (isLoading) {
     return (
       <AdminContentLayout
         title="Services"
@@ -175,11 +118,11 @@ export default function ServicesPage() {
           <p className="text-gray-600">Loading services...</p>
         </div>
       </AdminContentLayout>
-    )
+    );
   }
 
   // Error state
-  if (error) {
+  if (isError) {
     return (
       <AdminContentLayout
         title="Services"
@@ -188,20 +131,20 @@ export default function ServicesPage() {
         className="flex items-center justify-center min-h-[400px]"
       >
         <div className="text-center">
-          <p className="text-red-600 mb-4">Error: {error}</p>
-          <button 
-            onClick={() => window.location.reload()} 
+          <p className="text-red-600 mb-4">Error: {(error as Error).message}</p>
+          <button
+            onClick={() => queryClient.invalidateQueries({ queryKey: ['services'] })}
             className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
           >
             Retry
           </button>
         </div>
       </AdminContentLayout>
-    )
+    );
   }
 
   // Empty state
-  if (services.length === 0) {
+  if (!data || data.length === 0) {
     return (
       <AdminContentLayout
         title="Services"
@@ -211,7 +154,7 @@ export default function ServicesPage() {
       >
         <div className="text-center">
           <p className="text-gray-600 mb-4">No services found</p>
-          <button 
+          <button
             onClick={handleUpload}
             className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
           >
@@ -219,7 +162,7 @@ export default function ServicesPage() {
           </button>
         </div>
       </AdminContentLayout>
-    )
+    );
   }
 
   return (
@@ -229,21 +172,21 @@ export default function ServicesPage() {
       onUpload={handleUpload}
       className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
     >
-      {services.map((service: Service) => (
+      {data.map((service: Service) => (
         <ServiceCard
           key={service._id}
           id={service._id}
           title={service.serviceTitle}
-          description={service.serviceTitle} // You can modify this based on your service data structure
-          author="Admin" // You can modify this based on your user system
+          description={service.serviceTitle}
+          author="Admin"
           timeAgo={formatDate(service.createdAt)}
           thumbnail={service.images.banner || '/images/placeholder.png'}
-          onEdit={() => handleEdit(service._id)}
           status={service.status as 'draft' | 'published'}
-          onUnpublish={() => handleUnpublish(service._id)}
+          onEdit={() => handleEdit(service._id)}
+          onUnpublish={() => handleUnpublish(service._id, service.status)}
           onDelete={() => handleDelete(service._id)}
         />
       ))}
     </AdminContentLayout>
-  )
+  );
 }

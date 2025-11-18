@@ -3,33 +3,25 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import OuterProjectCard from '@/components/project/outerProjectCard'
+import { useQuery } from 'node_modules/@tanstack/react-query/build/modern/useQuery'
 
 
  const ProjectDetailPage = () => {
    const params = useParams()
    const id = params?.id as string
 
-  const [project, setProject] = useState<any | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-
-   useEffect(() => {
-     if (!id) return
-     const load = async () => {
-       try {
-         setLoading(true)
-         const res = await fetch(`/api/projects/${id}`)
-         if (!res.ok) throw new Error('Failed to load project')
-         const json = await res.json()
-         setProject(json.project || null)
-       } catch (err: any) {
-         setError(err?.message || 'Failed to load')
-       } finally {
-         setLoading(false)
-       }
-     }
-     load()
-   }, [id])
+     const { data: project, isLoading: loading, error } = useQuery({
+           queryKey: ['project', params?.id],
+           queryFn: async () => {
+               const response = await fetch(`/api/projects/${params?.id}`)
+               if (!response.ok) throw new Error(`HTTP ${response.status}`)
+               const data = await response.json()
+               const project = data.project
+               return project ? { id: project.id || project._id, ...project } : null
+           },
+           enabled: !!params?.id,
+       })
+   
 
    if (loading) {
      return (

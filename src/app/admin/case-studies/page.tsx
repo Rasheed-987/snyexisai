@@ -5,76 +5,75 @@ import AdminContentLayout from '@/components/admin/AdminContentLayout';
 import { CaseStudyCard } from '@/components/admin/AdminCards';
 import { useTitle } from '@/hooks/titleContext';
 import { useRouter } from 'next/navigation';
-import { formatDate, fetchCaseStudies, deleteCaseStudy, CaseStudy } from '@/utils/dashboard';
+import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
+import { formatDate, CaseStudy } from '@/utils/dashboard';
 
 export default function CaseStudiesPage() {
-  const { setTitle } = useTitle();
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([]);
+  const { setTitle } = useTitle();
+  const queryClient = useQueryClient();
   const [mounted, setMounted] = useState(false);
 
-  // Fix hydration issues
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  useEffect(() => setMounted(true), []);
 
-  // Set title when page loads
-  useEffect(() => {
-    setTitle('Case Studies');
-  }, [setTitle]);
+  useEffect(() => setTitle('Case Studies'), [setTitle]);
 
-  useEffect(() => {
- 
-    if (mounted) {
-      fetchCaseStudies(setCaseStudies, setLoading, setError);
+  // Fetch case studies using TanStack Query
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ['case-studies'],
+    queryFn: async () => {
+      const res = await fetch('/api/case-studies');
+      if (!res.ok) throw new Error('Failed to fetch case studies');
+      const data = await res.json();
+      if (!data.success) throw new Error('API returned unsuccessful response');
+      return data.caseStudies as CaseStudy[];
     }
-  }, [mounted]);
+  });
 
-  const handleUpload = () => {
-    console.log('Upload Case Study clicked');
-    router.push('/admin/case-studies/upload');
-  };
-
-  const handleEdit = (id: string) => {
-    console.log('Edit case study:', id);
-    router.push(`/admin/case-studies/edit/${id}`);
-  };
-
-  const handleUnpublish = async (id: string) => {
-    try {
-      setLoading(true);
+  // Mutation for toggling publish/draft status
+  const toggleStatusMutation = useMutation({
+    mutationFn: async ({ id, status }: { id: string; status: string }) => {
       const formData = new FormData();
-      formData.append('status', 'draft');
-
-      const response = await fetch(`/api/case-studies/${id}`, {
+      formData.append('status', status);
+      
+      const res = await fetch(`/api/case-studies/${id}`, {
         method: 'PUT',
-        body: formData,
+        body: formData
       });
-
-      const result = await response.json();
-      console.log(result);
-      if (!response.ok) {
-        throw new Error(result.error || 'Failed to unpublish case study');
-      }
-
-      // Update case study in local state
-      setCaseStudies((prev) =>
-        prev.map((caseStudy) =>
-          caseStudy._id === id ? { ...caseStudy, ...result.caseStudy } : caseStudy
-        )
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to update case study status');
+      return data;
+    },
+    onSuccess: (_, { id, status }) => {
+      queryClient.setQueryData<CaseStudy[]>(['case-studies'], old =>
+        old?.map(caseStudy => (caseStudy._id === id ? { ...caseStudy, status } : caseStudy)) || []
       );
-    } catch (error) {
-      console.error('Error toggling case study status:', error);
-      // You can add toast notification here
-    } finally {
-      setLoading(false);
     }
-  };
+  });
 
-  const handleDelete = async (id: string) => {
-    await deleteCaseStudy(id, caseStudies, setCaseStudies, setLoading);
+  // Mutation for deleting a case study
+  const deleteMutation = useMutation({
+    mutationFn: async (id: string) => {
+      const res = await fetch(`/api/case-studies/${id}`, { method: 'DELETE' });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to delete case study');
+      return data;
+    },
+    onSuccess: (_, id) => {
+      queryClient.setQueryData<CaseStudy[]>(['case-studies'], old =>
+        old?.filter(caseStudy => caseStudy._id !== id) || []
+      );
+    }
+  });
+
+  const handleUpload = () => router.push('/admin/case-studies/upload');
+  const handleEdit = (id: string) => router.push(`/admin/case-studies/edit/${id}`);
+  const handleUnpublish = (id: string, currentStatus: string) =>
+    toggleStatusMutation.mutate({ id, status: currentStatus === 'draft' ? 'published' : 'draft' });
+  const handleDelete = (id: string) => {
+    if (window.confirm('Are you sure you want to delete this case study?')) {
+      deleteMutation.mutate(id);
+    }
   };
 
   // Don't render until mounted to prevent hydration issues
@@ -91,10 +90,10 @@ export default function CaseStudiesPage() {
         </div>
       </AdminContentLayout>
     );
-  };
+  }
 
   // Loading state
-  if (loading) {
+  if (isLoading) {
     return (
       <AdminContentLayout
         title="Case Studies"
@@ -111,7 +110,7 @@ export default function CaseStudiesPage() {
   }
 
   // Error state
-  if (error) {
+  if (isError) {
     return (
       <AdminContentLayout
         title="Case Studies"
@@ -120,9 +119,9 @@ export default function CaseStudiesPage() {
         className="flex items-center justify-center min-h-[400px]"
       >
         <div className="text-center">
-          <p className="text-red-600 mb-4">Error: {error}</p>
+          <p className="text-red-600 mb-4">Error: {(error as Error).message}</p>
           <button
-            onClick={() => window.location.reload()}
+            onClick={() => queryClient.invalidateQueries({ queryKey: ['case-studies'] })}
             className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
           >
             Retry
@@ -133,7 +132,7 @@ export default function CaseStudiesPage() {
   }
 
   // Empty state
-  if (!caseStudies || caseStudies.length === 0) {
+  if (!data || data.length === 0) {
     return (
       <AdminContentLayout
         title="Case Studies"
@@ -161,7 +160,7 @@ export default function CaseStudiesPage() {
       onUpload={handleUpload}
       className="space-y-6"
     >
-      {caseStudies.map((caseStudy: CaseStudy) => (
+      {data.map((caseStudy: CaseStudy) => (
         <CaseStudyCard
           key={caseStudy._id}
           id={caseStudy._id}
@@ -170,9 +169,9 @@ export default function CaseStudiesPage() {
           author="Admin"
           timeAgo={formatDate(caseStudy.createdAt)}
           thumbnail={caseStudy.images.banner || '/images/placeholder.png'}
-          onEdit={() => handleEdit(caseStudy._id)}
           status={caseStudy.status as 'draft' | 'published'}
-          onUnpublish={() => handleUnpublish(caseStudy._id)}
+          onEdit={() => handleEdit(caseStudy._id)}
+          onUnpublish={() => handleUnpublish(caseStudy._id, caseStudy.status)}
           onDelete={() => handleDelete(caseStudy._id)}
         />
       ))}

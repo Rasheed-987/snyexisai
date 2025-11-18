@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 interface ProjectContextType {
   projectsData: any[];
@@ -8,32 +9,27 @@ interface ProjectContextType {
 
 const ProjectContext = createContext<ProjectContextType | undefined>(undefined);
 
+const fetchProjects = async () => {
+  const response = await fetch('/api/projects?status=published');
+  if (!response.ok) {
+    throw new Error('Failed to fetch projects');
+  }
+  const data = await response.json();
+  return data.projects || [];
+};
+
 export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [projectsData, setProjectsData] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchProjectsData = async () => {
-      try {
-        const response = await fetch('/api/projects?status=published');
-        if (!response.ok) {
-          throw new Error('Failed to fetch projects');
-        }
-        const data = await response.json();
-        setProjectsData(data.projects || []);
-      } catch (err: any) {
-        setError(err.message || 'Something went wrong');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProjectsData();
-  }, []);
+  const { data: projectsData = [], isLoading: loading, error } = useQuery({
+    queryKey: ['projects'],
+    queryFn: fetchProjects,
+  });
 
   return (
-    <ProjectContext.Provider value={{ projectsData, loading, error }}>
+    <ProjectContext.Provider value={{ 
+      projectsData, 
+      loading, 
+      error: error ? (error as Error).message : null 
+    }}>
       {children}
     </ProjectContext.Provider>
   );

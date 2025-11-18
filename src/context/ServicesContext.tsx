@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 interface ServicesContextType {
   servicesData: any[];
@@ -8,32 +9,27 @@ interface ServicesContextType {
 
 const ServicesContext = createContext<ServicesContextType | undefined>(undefined);
 
+const fetchServices = async () => {
+  const response = await fetch('/api/services?status=published');
+  if (!response.ok) {
+    throw new Error('Failed to fetch services');
+  }
+  const data = await response.json();
+  return data.services || [];
+};
+
 export const ServicesProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [servicesData, setServicesData] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchServicesData = async () => {
-      try {
-        const response = await fetch('/api/services?status=published');
-        if (!response.ok) {
-          throw new Error('Failed to fetch services');
-        }
-        const data = await response.json();
-        setServicesData(data.services);
-      } catch (err: any) {
-        setError(err.message || 'Something went wrong');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchServicesData();
-  }, []);
+  const { data: servicesData = [], isLoading: loading, error } = useQuery({
+    queryKey: ['services'],
+    queryFn: fetchServices,
+  });
 
   return (
-    <ServicesContext.Provider value={{ servicesData, loading, error }}>
+    <ServicesContext.Provider value={{ 
+      servicesData, 
+      loading, 
+      error: error ? (error as Error).message : null 
+    }}>
       {children}
     </ServicesContext.Provider>
   );

@@ -5,6 +5,7 @@ import AdminContentLayout from '@/components/admin/AdminContentLayout'
 import { JobCard } from '@/components/admin/AdminCards'
 import { useTitle } from '@/hooks/titleContext'
 import { useRouter } from 'next/navigation'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 
 interface Career {
   _id: string
@@ -22,167 +23,68 @@ interface Career {
 export default function CareersPage() {
   const router = useRouter()
   const { setTitle } = useTitle()
-  
-  const [careers, setCareers] = useState<Career[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  const queryClient = useQueryClient()
   const [mounted, setMounted] = useState(false)
 
-  // Fix hydration issues
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  useEffect(() => setMounted(true), [])
 
-  useEffect(() => {
-    const fetchCareers = async () => {
-      try {
-        setLoading(true)
-        const response = await fetch('/api/careers')
-        
-        if (!response.ok) {
-          throw new Error('Failed to fetch careers')
-        }
-        
-        const careersData = await response.json()
-        console.log('Fetched careers:', careersData)
-        
-        if (careersData.success) {
-          setCareers(careersData.careers)
-        } else {
-          throw new Error('API returned unsuccessful response')
-        }
-      } catch (error) {
-        console.error('Error fetching careers:', error)
-        setError(error instanceof Error ? error.message : 'Failed to fetch careers')
-      } finally {
-        setLoading(false)
-      }
+  useEffect(() => setTitle('Career'), [setTitle])
+
+  // Fetch careers using TanStack Query
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ['careers'],
+    queryFn: async () => {
+      const res = await fetch('/api/careers')
+      if (!res.ok) throw new Error('Failed to fetch careers')
+      const data = await res.json()
+      if (!data.success) throw new Error('API returned unsuccessful response')
+      return data.careers as Career[]
     }
+  })
 
-    if (mounted) {
-      fetchCareers()
-    }
-  }, [mounted])
-
-  useEffect(() => {
-    setTitle('Career')
-  }, [setTitle])
-
-  const handleUpload = () => {
-    console.log('Upload Career clicked')
-    router.push('/admin/career/upload')
-  }
-
-  const handleEdit = (id: string) => {
-    console.log('Edit career:', id)
-    // Navigate to edit page (you can create this later)
-    router.push(`/admin/career/edit/${id}`)
-  }
-
-  const handleUnpublish = async (id: string, currentStatus: string) => {
-    try {
-      setLoading(true)
-      
-      if (currentStatus === 'draft') {
-        // For draft careers, publish them
-        console.log('Publishing draft career:', id)
-        
-        const response = await fetch(`/api/careers/${id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ status: 'published' })
-        })
-        
-        const result = await response.json()
-        
-        if (!response.ok) {
-          throw new Error(result.error || 'Failed to publish career')
-        }
-        
-        console.log('✅ Career published successfully')
-        
-        // Update career in local state
-        setCareers(prev => prev.map(career => 
-          career._id === id 
-            ? { ...career, status: 'published' }
-            : career
-        ))
-        
-      } else {
-        // For published careers, unpublish them (set to draft)
-        console.log('Unpublishing career:', id)
-        
-        const response = await fetch(`/api/careers/${id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ status: 'draft' })
-        })
-        
-        const result = await response.json()
-        
-        if (!response.ok) {
-          throw new Error(result.error || 'Failed to unpublish career')
-        }
-        
-        console.log('✅ Career unpublished successfully')
-        
-        // Update career in local state
-        setCareers(prev => prev.map(career => 
-          career._id === id 
-            ? { ...career, status: 'draft' }
-            : career
-        ))
-      }
-      
-    } catch (error) {
-      console.error('Error toggling career status:', error)
-      // You can add toast notification here
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const handleDelete = async (id: string) => {
-    // Show confirmation dialog
-    const confirmed = window.confirm('Are you sure you want to delete this job posting? This action cannot be undone.')
-    
-    if (!confirmed) return
-    
-    try {
-      setLoading(true)
-      console.log('Deleting career:', id)
-      
-      const response = await fetch(`/api/careers/${id}`, {
-        method: 'DELETE'
+  // Mutation for toggling publish/draft status
+  const toggleStatusMutation = useMutation({
+    mutationFn: async ({ id, status }: { id: string; status: string }) => {
+      const res = await fetch(`/api/careers/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status })
       })
-      
-      const result = await response.json()
-      
-      if (!response.ok) {
-        throw new Error(result.error || 'Failed to delete career')
-      }
-      
-      console.log('✅ Career deleted successfully')
-      
-      // Remove career from local state
-      setCareers(careers.filter(career => career._id !== id))
-      
-      // Show success message (optional - you can add a toast notification)
-      alert('Job posting deleted successfully!')
-      
-    } catch (error) {
-      console.error('❌ Error deleting career:', error)
-      alert(error instanceof Error ? error.message : 'Failed to delete job posting')
-    } finally {
-      setLoading(false)
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Failed to update career status')
+      return data
+    },
+    onSuccess: (_, { id, status }) => {
+      queryClient.setQueryData<Career[]>(['careers'], old =>
+        old?.map(career => (career._id === id ? { ...career, status } : career)) || []
+      )
     }
+  })
+
+  // Mutation for deleting a career
+  const deleteMutation = useMutation({
+    mutationFn: async (id: string) => {
+      const res = await fetch(`/api/careers/${id}`, { method: 'DELETE' })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Failed to delete career')
+      return data
+    },
+    onSuccess: (_, id) => {
+      queryClient.setQueryData<Career[]>(['careers'], old =>
+        old?.filter(career => career._id !== id) || []
+      )
+    }
+  })
+
+  const handleUpload = () => router.push('/admin/career/upload')
+  const handleEdit = (id: string) => router.push(`/admin/career/edit/${id}`)
+  const handleUnpublish = (id: string, currentStatus: string) =>
+    toggleStatusMutation.mutate({ id, status: currentStatus === 'draft' ? 'published' : 'draft' })
+  const handleDelete = (id: string) => {
+      deleteMutation.mutate(id)
+    
   }
 
-  // Don't render until mounted to prevent hydration issues
   if (!mounted) {
     return (
       <AdminContentLayout
@@ -198,8 +100,7 @@ export default function CareersPage() {
     )
   }
 
-  // Loading state
-  if (loading) {
+  if (isLoading) {
     return (
       <AdminContentLayout
         title="Career"
@@ -215,8 +116,7 @@ export default function CareersPage() {
     )
   }
 
-  // Error state
-  if (error) {
+  if (isError) {
     return (
       <AdminContentLayout
         title="Career"
@@ -225,9 +125,9 @@ export default function CareersPage() {
         className="flex items-center justify-center min-h-[400px]"
       >
         <div className="text-center">
-          <p className="text-red-600 mb-4">Error: {error}</p>
-          <button 
-            onClick={() => window.location.reload()} 
+          <p className="text-red-600 mb-4">Error: {(error as Error).message}</p>
+          <button
+            onClick={() => queryClient.invalidateQueries({ queryKey: ['careers'] })}
             className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
           >
             Retry
@@ -237,8 +137,7 @@ export default function CareersPage() {
     )
   }
 
-  // Empty state
-  if (careers.length === 0) {
+  if (!data || data.length === 0) {
     return (
       <AdminContentLayout
         title="Career"
@@ -248,7 +147,7 @@ export default function CareersPage() {
       >
         <div className="text-center">
           <p className="text-gray-600 mb-4">No job postings found</p>
-          <button 
+          <button
             onClick={handleUpload}
             className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
           >
@@ -266,7 +165,7 @@ export default function CareersPage() {
       onUpload={handleUpload}
       className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
     >
-      {careers.map((career: Career, index: number) => (
+      {data.map((career, index) => (
         <JobCard
           key={career._id}
           id={(index + 1).toString()}
@@ -275,7 +174,6 @@ export default function CareersPage() {
           location={career.location}
           jobType={career.jobType}
           description={career.description}
-          className=""
           status={career.status as 'draft' | 'published'}
           onEdit={() => handleEdit(career._id)}
           onUnpublish={() => handleUnpublish(career._id, career.status)}

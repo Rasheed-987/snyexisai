@@ -45,7 +45,6 @@ export default function CareerEditPage() {
 
         const response_data = await response.json()
         const career = response_data.career
-        console.log('Fetched Career Data', career)
         
         // Populate form fields
         setJobTitle(career.jobTitle || '')
@@ -124,7 +123,6 @@ export default function CareerEditPage() {
         throw new Error(result.error || 'Save draft failed')
       }
 
-      console.log('✅ Career saved as draft:', result)
       setUpdateSuccess(true)
       
       // Navigate back to careers list after successful save
@@ -133,7 +131,6 @@ export default function CareerEditPage() {
       }, 2000)
       
     } catch (error) {
-      console.error('❌ Save draft failed:', error)
       setUpdateError(error instanceof Error ? error.message : 'Save draft failed')
     } finally {
       setIsUpdating(false)
@@ -177,7 +174,6 @@ export default function CareerEditPage() {
         throw new Error(result.error || 'Update failed')
       }
 
-      console.log('✅ Career published successfully:', result)
       setUpdateSuccess(true)
       
       // Navigate back to careers list after successful update
@@ -186,7 +182,6 @@ export default function CareerEditPage() {
       }, 2000)
       
     } catch (error) {
-      console.error('❌ Publish failed:', error)
       setUpdateError(error instanceof Error ? error.message : 'Publish failed')
     } finally {
       setIsUpdating(false)

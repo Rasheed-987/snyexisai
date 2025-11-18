@@ -5,29 +5,14 @@ import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { CareerCard } from '@/components/admin/CareerCard'
 import { CaseStudyCard } from '@/components/admin/AdminCards'
-import {Stat, CareerPosting, CaseStudy as CaseStudyCardType} from '@/types/admin'
-import { fetchCaseStudies, formatDate, CaseStudy } from '@/utils/dashboard'
-import {useRouter} from 'next/navigation'
+import { Stat, CareerPosting, CaseStudy as CaseStudyCardType } from '@/types/admin'
+import { formatDate, CaseStudy } from '@/utils/dashboard'
+import { useRouter } from 'next/navigation'
+import { useQuery } from '@tanstack/react-query'
 
 export default function AdminDashboardPage() {
- 
-  const [date,setDate] = useState('');
+  const [date, setDate] = useState('');
   const router = useRouter();
-
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([]);
-  const [careers, setCareers] = useState<CareerPosting[]>([]);
-  const [careersLoading, setCareersLoading] = useState(true);
-  
-  // Add state for dynamic stats
-  const [statsData, setStatsData] = useState({
-    projects: 0,
-    services: 0,
-    caseStudies: 0,
-    careers: 0
-  });
-  const [statsLoading, setStatsLoading] = useState(true);
 
   useEffect(() => {
     const currentDate = new Date().toLocaleDateString('en-US', {
@@ -37,84 +22,73 @@ export default function AdminDashboardPage() {
     });
     setDate(currentDate);
   }, []);
-  
-  useEffect(() => {
-    fetchCaseStudies(setCaseStudies, setLoading, setError, { limit: 7, status: 'published' });
-  }, []);
 
-  // Fetch stats data from all APIs
-  useEffect(() => {
-    const fetchStatsData = async () => {
-      try {
-        setStatsLoading(true);
-        
-        // Fetch all data in parallel
-        const [projectsRes, servicesRes, caseStudiesRes, careersRes] = await Promise.all([
-          fetch('/api/projects'),
-          fetch('/api/services'),
-          fetch('/api/case-studies'),
-          fetch('/api/careers')
-        ]);
+  // Fetch case studies using TanStack Query
+  const { data: caseStudies = [], isLoading: loading, isError, error } = useQuery({
+    queryKey: ['caseStudies', 'dashboard'],
+    queryFn: async () => {
+      const res = await fetch('/api/case-studies?limit=7&status=published');
+      if (!res.ok) throw new Error('Failed to fetch case studies');
+      const data = await res.json();
+      if (!data.success) throw new Error('API returned unsuccessful response');
+      return data.caseStudies as CaseStudy[];
+    }
+  });
 
-        const [projectsData, servicesData, caseStudiesData, careersData] = await Promise.all([
-          projectsRes.json(),
-          servicesRes.json(),
-          caseStudiesRes.json(),
-          careersRes.json()
-        ]);
+  // Fetch careers using TanStack Query
+  const { data: careersData = [], isLoading: careersLoading } = useQuery({
+    queryKey: ['careers', 'dashboard'],
+    queryFn: async () => {
+      const res = await fetch('/api/careers?limit=5&status=published');
+      if (!res.ok) throw new Error('Failed to fetch careers');
+      const data = await res.json();
+      if (!data.success || !data.careers) throw new Error('API returned unsuccessful response');
+      return data.careers.map((career: any) => ({
+        id: career._id,
+        jobTitle: career.jobTitle,
+        jobType: career.jobType,
+        company: career.company
+      })) as CareerPosting[];
+    }
+  });
 
-        setStatsData({
-          projects: projectsData.statusCounts?.total || 0,
-          services: servicesData.statusCounts?.total || 0,
-          caseStudies: caseStudiesData.statusCounts?.total || 0,
-          careers: careersData.statusCounts?.total || 0
-        });
-      } catch (error) {
-        console.error('Error fetching stats data:', error);
-      } finally {
-        setStatsLoading(false);
-      }
-    };
+  // Fetch stats data using TanStack Query
+  const { data: statsData, isLoading: statsLoading } = useQuery({
+    queryKey: ['stats', 'dashboard'],
+    queryFn: async () => {
+      const [projectsRes, servicesRes, caseStudiesRes, careersRes] = await Promise.all([
+        fetch('/api/projects'),
+        fetch('/api/services'),
+        fetch('/api/case-studies'),
+        fetch('/api/careers')
+      ]);
 
-    fetchStatsData();
-  }, []);
+      const [projectsData, servicesData, caseStudiesData, careersData] = await Promise.all([
+        projectsRes.json(),
+        servicesRes.json(),
+        caseStudiesRes.json(),
+        careersRes.json()
+      ]);
 
-  // Fetch careers for dashboard
-  useEffect(() => {
-    const fetchCareers = async () => {
-      try {
-        setCareersLoading(true);
-        const response = await fetch('/api/careers?limit=5&status=published');
-        
-        if (!response.ok) {
-          throw new Error('Failed to fetch careers');
-        }
-        
-        const data = await response.json();
-        
-        if (data.success && data.careers) {
-          // Transform API data to match our CareerPosting interface
-          const careerPostings: CareerPosting[] = data.careers.map((career: any, index: number) => ({
-            id: career._id,
-            jobTitle: career.jobTitle,
-            jobType: career.jobType,
-            company: career.company
-          }));
-          setCareers(careerPostings);
-        }
-      } catch (error) {
-        console.error('Error fetching careers:', error);
-      } finally {
-        setCareersLoading(false);
-      }
-    };
+      console.log('Stats API Responses:', {
+        projects: projectsData,
+        services: servicesData,
+        caseStudies: caseStudiesData,
+        careers: careersData
+      });
 
-    fetchCareers();
-  }, []);
+      return {
+        projects: projectsData.statusCounts?.total || projectsData.projects?.length || 0,
+        services: servicesData.statusCounts?.total || servicesData.services?.length || 0,
+        caseStudies: caseStudiesData.statusCounts?.total || caseStudiesData.caseStudies?.length || 0,
+        careers: careersData.statusCounts?.total || careersData.careers?.length || 0
+      };
+    }
+  });
 
   const stats: Stat[] = [
     {
-      title: statsLoading ? '...' : statsData.projects.toString().padStart(2, '0'),
+      title: statsLoading ? '...' : (statsData?.projects || 0).toString().padStart(2, '0'),
       subtitle: 'Projects',
       icon: (
         <Image
@@ -130,7 +104,7 @@ export default function AdminDashboardPage() {
      
     },
     {
-      title: statsLoading ? '...' : statsData.services.toString().padStart(2, '0'),
+      title: statsLoading ? '...' : (statsData?.services || 0).toString().padStart(2, '0'),
       subtitle: 'Services',
       icon: (
         <Image
@@ -146,7 +120,7 @@ export default function AdminDashboardPage() {
      
     },
     {
-      title: statsLoading ? '...' : statsData.caseStudies.toString().padStart(2, '0'),
+      title: statsLoading ? '...' : (statsData?.caseStudies || 0).toString().padStart(2, '0'),
       subtitle: 'Case Studies',
       icon: (
         <Image
@@ -162,7 +136,7 @@ export default function AdminDashboardPage() {
      
     },
     {
-      title: statsLoading ? '...' : statsData.careers.toString().padStart(2, '0'),
+      title: statsLoading ? '...' : (statsData?.careers || 0).toString().padStart(2, '0'),
       subtitle: 'Jobs',
       icon: (
         <Image
@@ -234,12 +208,12 @@ export default function AdminDashboardPage() {
          
 {loading ? (
   <div className="text-center py-8">
-    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border- mx-auto mb-2"></div>
+    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-2"></div>
     <p className="text-foreground text-sm">Loading case studies...</p>
   </div>
-) : error ? (
+) : isError ? (
   <div className="text-center py-8">
-    <p className="text-red-600 text-sm">Error: {error}</p>
+    <p className="text-red-600 text-sm">Error: {(error as Error).message}</p>
   </div>
 ) : caseStudies.length === 0 ? (
   <div className="text-center py-8">
@@ -281,8 +255,8 @@ export default function AdminDashboardPage() {
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
                 <p className="text-gray-600 text-sm mt-2">Loading careers...</p>
               </div>
-            ) : careers.length > 0 ? (
-              careers.map((career) => (
+            ) : careersData.length > 0 ? (
+              careersData.map((career) => (
                 <CareerCard 
                   key={career.id}
                   career={career} 
