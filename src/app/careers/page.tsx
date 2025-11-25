@@ -35,21 +35,21 @@ export default function CareersPage() {
         <div className="max-w-[100vw] mx-auto">
           {/* Header */}
           <div className="text-center mb-12 w-full max-w-xl mx-auto px-4 py-8 md:py-12 lg:py-16">
-            <h1 className="heading-hero font-normal text-4xl lg:text-6xl leading-[84.48px] tracking-[-2px] text-center text-foreground">
+            <h1 className="heading-hero font-normal text-4xl lg:text-6xl 2xl:text-8xl leading-[84.48px] tracking-[-2px] text-center text-foreground">
               Let's get to work
             </h1>
           </div>
 
           {/* No Open Vacancies Card */}
-          <div className="max-w-4xl mx-auto px-4">
+          <div className="max-w-4xl mx-auto px-3 lg:px-12 2xl:px-24">
             <div className="border border-border rounded-2xl bg-white p-8 md:p-12 text-center shadow-lg">
-              <h2 className="text-xl md:text-2xl lg:text-3xl font-medium text-foreground mb-6">
+              <h2 className="text-xl md:text-2xl lg:text-3xl 2xl:text-5xl font-medium text-foreground mb-6">
                 No Open Vacancies
               </h2>
-              <p className="text-base md:text-lg text-foreground mb-2">
+              <p className="text-base md:text-lg 2xl:text-xl text-foreground mb-2">
                 We're not hiring right now, but we're always happy to hear from talented people.
               </p>
-              <p className="text-base md:text-lg text-foreground mb-2">
+              <p className="text-base md:text-lg 2xl:text-xl text-foreground mb-2">
                 Feel free to send your resume to{' '}
                 <a 
                   href="mailto:careers@aisynexis.com" 
@@ -59,7 +59,7 @@ export default function CareersPage() {
                 </a>
                 .
               </p>
-              <p className="text-base md:text-lg text-foreground">
+              <p className="text-base md:text-lg 2xl:text-xl text-foreground">
                 We'll be in touch if something opens up!
               </p>
             </div>
@@ -73,11 +73,11 @@ export default function CareersPage() {
     <div className="min-h-screen pb-24 rounded-b-[80px] relative z-50 mt-5 bg-background">   
       <div className="max-w-[100vw] mx-auto ">  
         {/* Header */}
-        <div className="text-center mb-12 w-full  mx-auto px-4 py-8 md:py-12 lg:py-16">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-medium text-foreground mb-6 leading-tight">
+        <div className="text-center mb-12 w-full  mx-auto px-3 lg:px-12 2xl:px-24 py-8 md:py-12 lg:py-16">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl 2xl:text-8xl font-medium text-foreground mb-6 leading-tight">
             Join the Synexis AI Team
           </h1>
-          <p className="text-base sm:text-lg lg:text-xl text-foreground mb-8 leading-relaxed max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg lg:text-xl 2xl:text-2xl text-foreground mb-8 leading-relaxed max-w-3xl mx-auto">
             At Synexis AI, we're building the future of intelligence-powered digital experiences — and we're 
             always looking for talented, curious, mission-driven people to join us. If you're passionate about 
             AI, full-stack development, UX design, or product engineering — we'd love to meet you.
@@ -87,7 +87,7 @@ export default function CareersPage() {
         </div>
 
         {/* Job Listings Container */}
-        <div className="w-full  mx-auto opacity-100 px-3 rotate-0 relative">
+        <div className="w-full  mx-auto opacity-100 px-3 lg:px-12 2xl:px-24 rotate-0 relative">
           {/* Job Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-2 lg:gap-4  place-items-center">
             {jobListings.map((job,index:number) => (

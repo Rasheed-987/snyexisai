@@ -38,17 +38,17 @@ const CaseStudyPage = () => {
       
 
         <div className="absolute top-30 lg:right-20 max-w-[500px] px-4  ">
-          <p className=" font-normal text-[16px] mb-4 sm:text-[18px] lg:text-[20px] 2xl:text-[24px] text-white">
+          <p className=" font-normal text-[16px] mb-4 sm:text-[18px] lg:text-[15px] 2xl:text-[24px] text-white">
             Every solution we create is powered by intelligence and intent. Our case studies highlight how Synexis.ai transforms challenges into opportunities — blending AI, creativity, and strategy to deliver outcomes that truly move businesses forward.
           </p>
-          <button className="px-6 py-3 bg-white rounded-full  font-medium text-[16px] sm:text-[18px] text-foreground shadow-lg hover:scale-105 hover:border transition-colors">
+          <button className="px-6 py-3 bg-white rounded-full  font-medium text-[16px] sm:text-[18px] 2xl:text-[22px] text-foreground shadow-lg hover:scale-105 hover:border transition-colors">
             Get Started Now
           </button>
         </div>
 
         {/* Bottom centered heading */}
         <div className="absolute bottom-1 w-full flex justify-center">
-          <h1 className=" font-medium text-[40px] sm:text-[60px] lg:text-[158px] 2xl:text-[180px ] leading-tight text-white">
+          <h1 className=" font-medium text-[40px] sm:text-[60px] lg:text-[158px] 2xl:text-[200px ] leading-tight text-white">
             Case Studies
           </h1>
         </div>
@@ -57,16 +57,16 @@ const CaseStudyPage = () => {
 
          <div className="w-full mx-auto">
       <section className="w-full mx-auto  py-12">
-        <div className="mb-12 px-3 lg:px-10">
-  <span className="inline-flex items-center text-sm text-foreground font-regular mb-4">
+        <div className="mb-12 px-3 lg:px-12 2xl:px-24">
+  <span className="inline-flex items-center text-sm 2xl:text-lg text-foreground font-regular mb-4">
     CASE STUDIES
   </span>
 
-  <h2 className="text-xl lg:text-4xl text-foreground font-regular leading-tight mb-4">
+  <h2 className="text-xl lg:text-4xl 2xl:text-6xl text-foreground font-regular leading-tight mb-4">
     Featured Projects
   </h2>
 
-  <p className="text-foreground max-w-lg mb-6">
+  <p className="text-foreground text-base 2xl:text-xl max-w-lg mb-6">
     Explore how we’ve helped clients across industries launch AI-powered digital experiences. 
     From SaaS startups to enterprise platforms, from chatbots to computer-vision systems — 
     each case study demonstrates our end-to-end capabilities and the measurable business 
@@ -76,25 +76,25 @@ const CaseStudyPage = () => {
  
 
 </div>
- <section className="max-w-6xl mx-auto px-4 sm:px-8 py-12">
+ <section className="max-w-6xl mx-auto px-3 lg:px-12 2xl:px-24 py-12">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
         {/* Left Column */}
         <div>
-          <h3 className="text-base font-semibold text-foreground mb-4">
+          <h3 className="text-base 2xl:text-2xl font-semibold text-foreground mb-4">
             What you’ll see:
           </h3>
 
-          <div className="space-y-2 text-sm text-muted-foreground">
+          <div className="space-y-2 text-sm 2xl:text-lg text-muted-foreground">
             <div className="flex items-start gap-2">
               <span className="text-primary font-bold leading-relaxed">•</span>
-              <p className="text-foreground leading-relaxed">
+              <p className="text-foreground text-sm 2xl:text-lg leading-relaxed">
                 Project overview: client challenge, solution, our approach
               </p>
             </div>
 
             <div className="flex items-start gap-2">
               <span className="text-primary font-bold leading-relaxed">•</span>
-              <p className="text-foreground leading-relaxed">
+              <p className="text-foreground text-sm 2xl:text-lg leading-relaxed">
                 AI component breakdown: model type, data used, deployment
                 strategy
               </p>
@@ -102,7 +102,7 @@ const CaseStudyPage = () => {
 
             <div className="flex items-start gap-2">
               <span className="text-primary font-bold leading-relaxed">•</span>
-              <p className="text-foreground leading-relaxed">
+              <p className="text-foreground text-sm 2xl:text-lg leading-relaxed">
                 UX & engineering highlights: web/mobile design, integrations,
                 performance results
               </p>
@@ -110,7 +110,7 @@ const CaseStudyPage = () => {
 
             <div className="flex items-start gap-2">
               <span className="text-primary font-bold leading-relaxed">•</span>
-              <p className="text-foreground leading-relaxed">
+              <p className="text-foreground text-sm 2xl:text-lg leading-relaxed">
                 Results & metrics: conversion uplift, cost savings, user
                 engagement, ROI
               </p>
@@ -118,7 +118,7 @@ const CaseStudyPage = () => {
 
             <div className="flex items-start gap-2">
               <span className="text-primary font-bold leading-relaxed">•</span>
-              <p className="text-foreground leading-relaxed">
+              <p className="text-foreground text-sm 2xl:text-lg leading-relaxed">
                 Tech stack: front-end, backend, AI/ML frameworks, infrastructure
               </p>
             </div>
@@ -127,14 +127,14 @@ const CaseStudyPage = () => {
 
         {/* Right Column */}
         <div>
-          <h3 className="text-base font-semibold text-foreground mb-4">
+          <h3 className="text-base 2xl:text-2xl font-semibold text-foreground mb-4">
             Featured industries:
           </h3>
 
-          <div className="space-y-2 text-sm text-muted-foreground">
+          <div className="space-y-2 text-sm 2xl:text-lg text-muted-foreground">
             <div className="flex items-start gap-2">
               <span className="text-primary font-bold leading-relaxed">•</span>
-              <p className="text-foreground leading-relaxed">
+              <p className="text-foreground text-sm 2xl:text-lg leading-relaxed">
                 Fintech: loan-approval automation with NLP and rule-based
                 decision-making
               </p>
@@ -142,14 +142,14 @@ const CaseStudyPage = () => {
 
             <div className="flex items-start gap-2">
               <span className="text-primary font-bold leading-relaxed">•</span>
-              <p className="text-foreground leading-relaxed">
+              <p className="text-foreground text-sm 2xl:text-lg leading-relaxed">
                 Healthcare: image-based screening tools and predictive analytics
               </p>
             </div>
 
             <div className="flex items-start gap-2">
               <span className="text-primary font-bold leading-relaxed">•</span>
-              <p className="text-foreground leading-relaxed">
+              <p className="text-foreground text-sm 2xl:text-lg leading-relaxed">
                 Logistics: route optimisation and predictive maintenance using
                 AI
               </p>
@@ -157,7 +157,7 @@ const CaseStudyPage = () => {
 
             <div className="flex items-start gap-2">
               <span className="text-primary font-bold leading-relaxed">•</span>
-              <p className="text-foreground leading-relaxed">
+              <p className="text-foreground text-sm 2xl:text-lg leading-relaxed">
                 eCommerce: personalization engine driving repeat-purchase and
                 retention
               </p>

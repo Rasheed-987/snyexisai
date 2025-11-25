@@ -38,7 +38,7 @@ export default function CaseStudyBannerLayout({
   const otherStudies = displayedStudies.slice(1)
 
   return (
-    <section className="w-full px-3  lg:px-10 py-8">
+    <section className="w-full px-3 lg:px-12  2xl:px-24 py-8">
       {/* Large Featured Banner */}
       <div className="mb-8">
         <Link href={`/caseStudiesDetails/${featuredStudy._id}`}>

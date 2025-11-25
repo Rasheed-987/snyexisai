@@ -23,15 +23,15 @@ export function CareerDetail({ job }: CareerDetailProps) {
       <div className="h-20"></div>
       
       {/* Back Button */}
-      <div className="max-w-7xl mx-auto px-6 py-4">
-        <Link href="/careers" className="inline-flex items-center text-sm text-foreground hover:text-foreground">
+      <div className=" mx-auto px-3 lg:px-12 2xl:px-24 py-4">
+        <Link href="/careers" className="inline-flex items-center text-sm 2xl:text-lg text-foreground hover:text-foreground">
           <Image src="/images/arrow_left.png" alt="Back" width={16} height={16} className=" mr-2" />
           All Positions
         </Link>
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-3 py-8">
+      <div className=" mx-auto px-3 lg:px-12 2xl:px-24 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           
           {/* Left Column - Job Details */}
@@ -39,10 +39,10 @@ export function CareerDetail({ job }: CareerDetailProps) {
             
             {/* Job Title */}
             <div>
-              <h1 className="text-4xl lg:text-[30px] font-medium text-foreground mb-5">
+              <h1 className="text-4xl lg:text-[30px] 2xl:text-6xl font-medium text-foreground mb-5">
                 {job.jobTitle}
               </h1>
-              <div className="text-sm text-foreground space-y-1">
+              <div className="text-sm 2xl:text-lg text-foreground space-y-1">
                 <p>{job.location}</p>
       
               </div>
@@ -50,22 +50,22 @@ export function CareerDetail({ job }: CareerDetailProps) {
 
             {/* Position Overview */}
             <section>
-              <h2 className="text-lg-[29px] font-medium text-foreground mb-4">Position Overview</h2>
-              <p className="text-foreground leading-relaxed text-sm">
+              <h2 className="text-lg-[29px] 2xl:text-4xl font-medium text-foreground mb-4">Position Overview</h2>
+              <p className="text-foreground leading-relaxed text-sm 2xl:text-xl">
                  {highlightJobTitle(job, job.jobTitle)}
               </p>
             </section>
 
             {/* Key Responsibilities */}
             <section>
-              <h2 className="font-medium text-[29.88px] text-foreground mb-4">Key Responsibilities:</h2>
+              <h2 className="font-medium text-[29.88px] 2xl:text-5xl text-foreground mb-4">Key Responsibilities:</h2>
               {Array.isArray(job.responsibilities) && job.responsibilities.length > 0 ? (
                 <div className="space-y-6">
                   {job.responsibilities.map((r: any, idx: number) => {
                     // If responsibility is a plain string, render as simple bullet
                     if (typeof r === 'string') {
                       return (
-                        <div key={idx} className="text-sm text-foreground">
+                        <div key={idx} className="text-sm 2xl:text-lg text-foreground">
                           <div className="flex items-start gap-2">
                             <span className="font-semibold mr-2">{idx + 1}.</span>
                             <div>{r}</div>
@@ -89,9 +89,9 @@ const bullets = (
 
                     return (
                       <div key={idx}>
-                        <h3 className="text-lg font-semibold text-foreground">{idx + 1}. {title}</h3>
+                        <h3 className="text-lg 2xl:text-2xl font-semibold text-foreground">{idx + 1}. {title}</h3>
                         {bullets.length > 0 && (
-                          <ul className="mt-2 space-y-2 text-sm text-foreground list-disc pl-6">
+                          <ul className="mt-2 space-y-2 text-sm 2xl:text-lg text-foreground list-disc pl-6">
                             {bullets.map((b: string, bi: number) => (
                               <li key={bi}>{b}</li>
                             ))}
@@ -102,15 +102,15 @@ const bullets = (
                   })}
                 </div>
               ) : (
-                <p className="text-sm text-foreground">No responsibilities listed.</p>
+                <p className="text-sm 2xl:text-lg text-foreground">No responsibilities listed.</p>
               )}
             </section>
 
             {/* Key Requirements */}
             <section>
-              <h2 className="font-medium text-[29.88px] text-foreground mb-4">Key Requirements:</h2>
+              <h2 className="font-medium text-[29.88px] 2xl:text-5xl text-foreground mb-4">Key Requirements:</h2>
               {Array.isArray(job.requirements) && job.requirements.length > 0 ? (
-                <ul className="space-y-2 text-sm text-foreground">
+                <ul className="space-y-2 text-sm 2xl:text-lg text-foreground">
                   {job.requirements.map((requirement, index) => (
                     <li key={index} className="flex items-start gap-2">
                       <span className="text-foreground mt-1">•</span>
@@ -119,7 +119,7 @@ const bullets = (
                   ))}
                 </ul>
               ) : (
-                <p className="text-sm text-foreground">No requirements listed.</p>
+                <p className="text-sm 2xl:text-lg text-foreground">No requirements listed.</p>
               )}
             </section>
 

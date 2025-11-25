@@ -36,12 +36,12 @@ export default function ServicesCard({
       <motion.div
         layout
         className={`w-full bg-card rounded-2xl shadow-lg hover:shadow-xl transition-all flex flex-col items-center p-6 text-center ${
-          showOnlyTitleAndImage ? 'h-[400px]' : 'h-[450px]'
+          showOnlyTitleAndImage ? 'h-[400px] 2xl:h-[550px]' : 'h-[450px] 2xl:h-[600px]'
         }`}
       >
         {/* Image at the top */}
         <div className={`relative w-full rounded-xl overflow-hidden ${
-          showOnlyTitleAndImage ? 'h-[350px]' : 'h-[250px]'
+          showOnlyTitleAndImage ? 'h-[300px] 2xl:h-[400px]' : 'h-[450px] 2xl:h-[600px]'
         }`}>
           <Image
             src={image}
@@ -53,7 +53,7 @@ export default function ServicesCard({
 
         {/* Title below the image */}
         <div className="mt-4 flex flex-col items-center">
-          <h3 className="text-xl font-semibold  text-foreground">{title}</h3>
+          <h3 className="text-xl 2xl:text-4xl font-semibold  text-foreground">{title}</h3>
         </div>
 
         {/* Content - only show if not simplified version */}
@@ -78,6 +78,7 @@ export default function ServicesCard({
 
       {/* Popup Modal - only show if not simplified version */}
       {!showOnlyTitleAndImage && (
+        
         <AnimatePresence>
        {open && (
     <AnimatePresence>
@@ -158,6 +159,7 @@ export default function ServicesCard({
 )}
         </AnimatePresence>
       )}
+
     </>
   )
 }

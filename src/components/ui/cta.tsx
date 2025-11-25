@@ -42,7 +42,7 @@ export const CTA: React.FC<CTAProps> = ({ className = '', ...rest }) => {
       </section> */}
 
 {/* Enhanced CTA Section */}
-<section className="w-full  mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+<section className="w-full  mx-auto px-3 lg:px-12  2xl:px-24 mt-8">
   <div className="max-w-5xl 2xl:max-w-7xl mx-auto rounded-2xl sm:rounded-[30px] lg:rounded-[40px] group overflow-hidden cursor-pointer relative shadow-lg transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl">
     
     {/* Background Image: Scales up on group hover */}

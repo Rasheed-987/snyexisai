@@ -25,7 +25,7 @@ function TeamCarousel() {
   return (
     <div className="relative w-full lg:w-[60%]">
       {/* Image Container */}
-      <div className="relative w-full h-[400px] rounded-2xl overflow-hidden shadow-lg">
+      <div className="relative w-full h-[400px] 2xl:h-[600px] rounded-2xl overflow-hidden shadow-lg">
         <motion.div
           key={current}
           initial={{ opacity: 0, scale: 0.95 }}
@@ -71,7 +71,7 @@ export default function AboutPage() {
     <main className="min-h-screen bg-white mb-30 z-50 relative rounded-b-[80px] pb-[160px] pt-16 ">
       <section className="w-full flex justify-center lg:min-h-[500px] items-center py-8 sm:py-12">
         <div className="text-center max-w-[1020px] w-full mx-auto px-4">
-          <h2 className="text-foreground font-medium text-lg sm:text-xl md:text-2xl lg:text-[50px] leading-snug sm:leading-normal md:leading-[60px] lg:leading-[70px]">
+          <h2 className="text-foreground font-medium text-lg sm:text-xl md:text-2xl lg:text-[50px] 2xl:text-[70px] leading-snug sm:leading-normal md:leading-[60px] lg:leading-[70px] 2xl:leading-[90px]">
             With expertise across <br />
             ventures and enterprises,
             <br /> Synexis.ai delivers next.
@@ -80,28 +80,21 @@ export default function AboutPage() {
       </section>
 
       <section className="relative  mt-8 w-full">
-        <div className="relative h-[400px] sm:h-[500px] lg:h-[600px] 2xl:h-[700px] ">
+        <div className="relative h-[400px] sm:h-[500px] lg:h-[600px] 2xl:h-[1050px] ">
           <Image
             src="/images/img14.png"
             alt="Team grid"
             fill
-            className="w-full h-auto"
+            className="w-full object-cover h-auto"
             priority
           />
         </div>
       </section>
 
       <section className="w-full  py-16">
-        <div className=" mx-auto px-3 lg:px-10">
-          {/* <p className="text-foreground text-sm sm:text-base  lg:text-lg leading-relaxed">
-            We collaborate with forward-thinking leaders, where our generative AI experts provide
-            strategic insights that will reshape tomorrow. Our team of AI engineers, developers, and
-            data scientists supports clients through their digital transformation, enhancing
-            capabilities across their organization. With over 200 innovative solutions delivered and
-            counting, we are dedicated to empowering businesses with cutting-edge generative AI
-            expertise for a future-proof world.
-          </p> */}
-           <p className="text-foreground text-sm sm:text-base  lg:text-lg leading-relaxed">
+        <div className=" mx-auto px-3 lg:px-12 2xl:px-24">
+       
+           <p className="text-foreground text-sm sm:text-base lg:text-lg 2xl:text-2xl leading-relaxed">
           Synexis AI is built at the intersection of human creativity and artificial intelligence. With 
 headquarters in Dubai and clients worldwide, our mission is to enable organizations to harness 
 AI and digital technologies to accelerate growth, optimize efficiency, and delight customers.
@@ -110,7 +103,7 @@ AI and digital technologies to accelerate growth, optimize efficiency, and delig
       </section>
 
       <section className="w-full  py-12">
-        <div className=" mx-auto px-6 sm:px-12 lg:px-12">
+        <div className=" mx-auto px-3 lg:px-6 2xl:px-0">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 text-center">
             {/* Stat 1 */}
             <motion.div
@@ -119,10 +112,10 @@ AI and digital technologies to accelerate growth, optimize efficiency, and delig
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 0.6, delay: 0 }}
             >
-              <h3 className="text-5xl font-bandeins  lg:text-8xl font-bold text-foreground">
+              <h3 className="text-5xl font-bandeins  lg:text-8xl 2xl:text-9xl font-bold text-foreground">
                 <CounterAnimation end={250} duration={2.5} suffix="+" />
               </h3>
-              <p className="text-foreground font-inter mt-2 text-sm font-medium sm:text-lg">Projects Completed</p>
+              <p className="text-foreground font-inter mt-2 text-sm font-medium sm:text-lg 2xl:text-2xl">Projects Completed</p>
             </motion.div>
 
             {/* Stat 2 */}
@@ -132,10 +125,10 @@ AI and digital technologies to accelerate growth, optimize efficiency, and delig
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 0.6, delay: 0.1 }}
             >
-              <h3 className="text-5xl font-bandeins lg:text-8xl font-semibold text-foreground">
+              <h3 className="text-5xl font-bandeins lg:text-8xl 2xl:text-9xl font-semibold text-foreground">
                 <CounterAnimation end={180} duration={2.5} suffix="+" />
               </h3>
-              <p className="text-foreground  font-inter mt-2 text-sm font-medium sm:text-lg">Happy Clients</p>
+              <p className="text-foreground  font-inter mt-2 text-sm font-medium sm:text-lg 2xl:text-2xl">Happy Clients</p>
             </motion.div>
 
             {/* Stat 3 */}
@@ -145,10 +138,10 @@ AI and digital technologies to accelerate growth, optimize efficiency, and delig
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <h3 className="text-5xl font-bandeins lg:text-8xl font-semibold text-foreground">
+              <h3 className="text-5xl font-bandeins lg:text-8xl 2xl:text-9xl font-semibold text-foreground">
                 <CounterAnimation end={10} duration={2.5} suffix="+" />
               </h3>
-              <p className="text-foreground mt-2 font-inter text-sm font-medium sm:text-lg">Years of Experience</p>
+              <p className="text-foreground mt-2 font-inter text-sm font-medium sm:text-lg 2xl:text-2xl">Years of Experience</p>
             </motion.div>
 
             {/* Stat 4 */}
@@ -158,10 +151,10 @@ AI and digital technologies to accelerate growth, optimize efficiency, and delig
               viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <h3 className="text-5xl font-bandeins lg:text-8xl font-semibold text-foreground">
+              <h3 className="text-5xl font-bandeins lg:text-8xl 2xl:text-9xl font-semibold text-foreground">
                 <CounterAnimation end={50} duration={2.5} suffix="+" />
               </h3>
-              <p className="text-foreground mt-2 font-inter text-sm font-medium sm:text-lg">Team Members</p>
+              <p className="text-foreground mt-2 font-inter text-sm font-medium sm:text-lg 2xl:text-2xl">Team Members</p>
             </motion.div>
           </div>
         </div>
@@ -171,7 +164,7 @@ AI and digital technologies to accelerate growth, optimize efficiency, and delig
       
       <section className="w-full flex justify-center items-center py-10">
         <p
-          className="mx-auto px-4 sm:px-6 lg:px-20 text-sm sm:text-base  lg:text-lg "
+          className="mx-auto px-3 lg:px-12  2xl:px-24 text-sm sm:text-base  lg:text-lg "
           style={{
         
             fontWeight: 300,
@@ -191,8 +184,10 @@ AI and digital technologies to accelerate growth, optimize efficiency, and delig
       </section>
 
 
+
 {/* Vision and Mission Section with Background */}
-<section className="relative w-full py-20  mt-20 px-6 sm:px-10 lg:px-20 overflow-hidden">
+<section className="relative w-full py-20 2xl:py-44 mt-20 px-3 lg:px-12 2xl:px-24 overflow-hidden min-h-[500px] 2xl:min-h-[850px] flex items-center">
+
   {/* Background Image */}
   <div className="absolute inset-0 z-0">
     <Image 
@@ -203,81 +198,111 @@ AI and digital technologies to accelerate growth, optimize efficiency, and delig
       priority
     />
   </div>
-  
-  {/* Gradient Overlay */}
-  {/* <div className="absolute inset-0 z-10 opacity-70" style={{background: 'linear-gradient(180deg, #0F1C3D 20%, #0D255C 50%, #0F1C3D 80%)'}}></div> */}
-  
-  {/* Vision and Mission Content */}
-  <div className="relative z-20 max-w-5xl mx-auto">
-    <div className="grid md:grid-cols-2 gap-12">
-      {/* Our Vision */}
+
+  {/* Content */}
+  <div className="relative z-20  mx-auto w-full">
+    <div className="grid md:grid-cols-2 gap-12 items-start">
+
+      {/* Vision */}
       <div className="text-center md:text-left">
-        <h2 className="text-white font-semibold text-center text-3xl sm:text-4xl mb-6">Our Vision</h2>
-        <p className="text-white text-base sm:text-lg leading-relaxed">
-          Our vision is to be the leading partner for businesses worldwide, driving 
-          innovation and transformation through AI, making technology accessible, 
-          and simplifying complex challenges to enhance business success and enrich 
-          lives.
+        <h2 className="text-white font-semibold text-center text-3xl sm:text-4xl 2xl:text-6xl mb-6 2xl:mb-10">
+          Our Vision
+        </h2>
+        <p className="text-white text-base sm:text-lg 2xl:text-2xl leading-relaxed">
+          Our vision is to be the leading partner for businesses worldwide —
+          driving innovation and transformation through AI, making technology
+          accessible, and simplifying complex challenges to enhance business
+          success and enrich lives.
         </p>
       </div>
-      
-      {/* Our Mission */}
+
+      {/* Mission */}
       <div className="text-center md:text-left">
-        <h2 className="text-white font-semibold text-center text-3xl sm:text-4xl mb-6">Our Mission</h2>
-        <p className="text-white text-base sm:text-lg leading-relaxed">
-          To empower companies with cutting-edge AI solutions and expert 
-          consultancy, enabling them to seamlessly integrate AI into their operations, 
-          optimize efficiency, and unlock new growth opportunities while maintaining 
-          a focus on ease of use and accessibility.
+        <h2 className="text-white font-semibold text-center text-3xl sm:text-4xl 2xl:text-6xl mb-6 2xl:mb-10">
+          Our Mission
+        </h2>
+        <p className="text-white text-base sm:text-lg 2xl:text-2xl leading-relaxed">
+          To empower companies with cutting-edge AI solutions and expert
+          consultancy, enabling them to integrate AI seamlessly, optimize
+          efficiency, and unlock new growth opportunities — all while maintaining
+          accessibility and ease of use.
         </p>
       </div>
+
     </div>
   </div>
 </section>
 
-{/* Our Values Section */}
-<section className="w-full py-20 bg-secondary rounded-3xl  px-6 sm:px-10 lg:px-20">
-  <div className="max-w-5xl mx-auto">
-    <div className="text-center mb-10">
-      <h2 className="text-foreground font-semibold text-3xl text-center sm:text-4xl mb-10">Our Values</h2>
+
+{/* Values Section */}
+<section className="w-full py-20 2xl:py-44 bg-secondary rounded-3xl px-3 lg:px-12 2xl:px-24 min-h-[500px] 2xl:min-h-[850px] flex items-center">
+  <div className=" mx-auto w-full">
+
+    {/* Header */}
+    <div className="text-center mb-12 2xl:mb-20">
+      <h2 className="text-foreground font-semibold text-3xl sm:text-4xl 2xl:text-6xl">
+        Our Values
+      </h2>
     </div>
 
-    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
-      <div className="p-6 border border-foreground/10 rounded-2xl bg-white shadow-sm hover:shadow-lg transition-all">
-        <h3 className="text-foreground text-center font-semibold text-xl mb-2">Innovation First</h3>
-        <p className="text-foreground/80  text-sm leading-relaxed">We challenge conventions, experiment boldly, and bring cutting-edge AI into production.</p>
+    {/* Value Cards */}
+    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 2xl:gap-10 justify-items-center">
+
+      {/* Card */}
+      <div className="p-6 2xl:p-10 bg-white border border-foreground/10 rounded-2xl shadow-sm hover:shadow-lg transition-all w-full max-w-[350px]">
+        <h3 className="text-foreground text-center font-semibold text-xl 2xl:text-3xl mb-3">
+          Innovation First
+        </h3>
+        <p className="text-foreground/80 text-sm 2xl:text-lg leading-relaxed text-center">
+          We challenge conventions, experiment boldly, and bring cutting-edge AI into production.
+        </p>
       </div>
 
-      <div className="p-6 border border-foreground/10 rounded-2xl bg-white shadow-sm hover:shadow-lg transition-all">
-        <h3 className="text-foreground text-center whitespace-nowrap font-semibold text-xl  mb-2">Quality & Integrity</h3>
-        <p className="text-foreground/80 text-sm leading-relaxed">We deliver work that meets the highest standards of security, scalability and user experience.</p>
+      <div className="p-6 2xl:p-10 bg-white border border-foreground/10 rounded-2xl shadow-sm hover:shadow-lg transition-all w-full max-w-[350px]">
+        <h3 className="text-foreground text-center font-semibold  text-xl 2xl:text-3xl mb-3">
+          Quality & Integrity
+        </h3>
+        <p className="text-foreground/80 text-sm 2xl:text-lg leading-relaxed text-center">
+          We deliver work that meets the highest standards of security, scalability, and user experience.
+        </p>
       </div>
 
-      <div className="p-6 border border-foreground/10 rounded-2xl bg-white shadow-sm hover:shadow-lg transition-all">
-        <h3 className="text-foreground text-center font-semibold text-xl mb-2">Collaboration</h3>
-        <p className="text-foreground/80 text-sm leading-relaxed">We work as partners with clients, aligning with your goals and stakeholders at every step.</p>
+      <div className="p-6 2xl:p-10 bg-white border border-foreground/10 rounded-2xl shadow-sm hover:shadow-lg transition-all w-full max-w-[350px]">
+        <h3 className="text-foreground text-center font-semibold text-xl 2xl:text-3xl mb-3">
+          Collaboration
+        </h3>
+        <p className="text-foreground/80 text-sm 2xl:text-lg leading-relaxed text-center">
+          We work as partners with clients, aligning with goals and stakeholders at every step.
+        </p>
       </div>
 
-      <div className="p-6 border border-foreground/10 rounded-2xl bg-white shadow-sm hover:shadow-lg transition-all">
-        <h3 className="text-foreground text-center font-semibold text-xl mb-2">Impact‑Driven</h3>
-        <p className="text-foreground/80 text-sm leading-relaxed">Every solution is built with real business value in mind. KPIs matter, not just features.</p>
+      <div className="p-6 2xl:p-10 bg-white border border-foreground/10 rounded-2xl shadow-sm hover:shadow-lg transition-all w-full max-w-[350px]">
+        <h3 className="text-foreground text-center font-semibold text-xl 2xl:text-3xl mb-3">
+          Impact-Driven
+        </h3>
+        <p className="text-foreground/80 text-sm 2xl:text-lg leading-relaxed text-center">
+          Every solution is built with real business value in mind. KPIs matter, not just features.
+        </p>
       </div>
+
     </div>
   </div>
 </section>
+
+
 
 {/* Our Team & Culture Section */}
 <section id='team' className="w-full bg-white py-20 mt-20">
-  <div className=" mx-auto px-3 lg:px-10 grid md:grid-cols-2 gap-10 items-center">
+  <div className=" mx-auto px-3 lg:px-12 2xl:px-24 grid md:grid-cols-2 gap-10 items-center">
     {/* Left Side Content */}
     <div className="">
       <p className="text-foreground font-semibold uppercase tracking-wide mb-2">
         Our Team & Culture
       </p>
-      <h2 className="text-4xl font-bold text-foreground mb-6">
+      <h2 className="text-4xl 2xl:text-6xl font-bold text-foreground mb-6">
         A culture of innovation, learning, and collaboration
       </h2>
-      <p className="text-lg text-foreground/80 leading-relaxed">
+      <p className="text-lg 2xl:text-2xl text-foreground/80 leading-relaxed">
         Our team blends seasoned software engineers, AI/ML specialists, UX
         designers, data scientists, and product strategists. We operate a
         sprint-based methodology, maintain continuous feedback loops, and
@@ -286,7 +311,7 @@ AI and digital technologies to accelerate growth, optimize efficiency, and delig
     </div>
 
     {/* Right Side Carousel */}
-    <div className="flex justify-center">
+    <div className="flex justify-end">
       
     <TeamCarousel />
       </div> 
@@ -318,7 +343,7 @@ AI and digital technologies to accelerate growth, optimize efficiency, and delig
     {/* New content to be added here */}
 
       <section id='story' className="w-full py-16">
-        <div className=" mx-auto px-4 sm:px-8 lg:px-[130px]">
+        <div className=" mx-auto px-3 lg:px-12 2xl:px-24">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* First card: text only, custom background - NO FLIP */}
 
@@ -332,9 +357,9 @@ AI and digital technologies to accelerate growth, optimize efficiency, and delig
       }}
       viewport={{ once: false }} 
             
-            className="col-span-1 sm:col-span-2 lg:col-span-2 flex flex-col justify-center items-start p-8 bg-cover bg-center rounded-xl min-h-[400px]">
+            className="col-span-1 sm:col-span-2 lg:col-span-2 flex flex-col items-start py-8 bg-cover bg-center rounded-xl min-h-[400px]">
               <h2
-                className="text-foreground font-medium text-2xl sm:text-3xl mb-2"
+                className="text-foreground font-medium text-2xl sm:text-3xl 2xl:text-5xl mb-2"
                
               >
                 Our Approach
@@ -342,7 +367,7 @@ AI and digital technologies to accelerate growth, optimize efficiency, and delig
                 <span className="italic font-medium">To Work Differently</span>
               </h2>
               <p
-                className="text-foreground text-base sm:text-lg opacity-80 mt-2"
+                className="text-foreground text-base sm:text-lg 2xl:text-2xl opacity-80 mt-2"
               >
                 From first call to launch and beyond,<br />
                 our approach is disciplined yet agile:
@@ -506,7 +531,7 @@ everything we do."
 
   {/* Overlay Content */}
   <div className="relative z-10 max-w-6xl mx-auto px-6 py-20">
-    <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
+    <h2 className="text-4xl md:text-5xl 2xl:text-7xl font-bold text-center mb-12">
       Why Choose Synexis AI
     </h2>
 
@@ -514,7 +539,7 @@ everything we do."
       {/* Row 1 */}
       <div className="flex items-start space-x-3 bg-foreground/10 backdrop-blur-sm p-5 rounded-xl border border-white/20 hover:bg-foreground/20 transition">
         <div className="w-3 h-3 mt-2 bg-blue-400 rounded-full flex-shrink-0" />
-        <p className="text-lg leading-relaxed">
+        <p className="text-lg 2xl:text-2xl leading-relaxed">
           We combine strategy, design, engineering and AI into one integrated service.
         </p>
       </div>
@@ -566,18 +591,18 @@ everything we do."
 	  
       {/* Expertise & Technologies Section */}
       <section  className="w-full mb-11 py-16 ">
-        <div className=" mx-auto flex flex-col lg:flex-row gap-12 px-3 lg:px-10 items-center">
+        <div className=" mx-auto flex flex-col lg:flex-row gap-12 px-3 lg:px-12 2xl:px-24 items-center">
           {/* Left: Text Content */}
           <div className="flex-1 mb-10 lg:mb-0">
             <h2
-              className="text-foreground font-medium text-xl sm:text-2xl lg:text-3xl mb-6"
+              className="text-foreground font-medium text-xl sm:text-2xl lg:text-3xl 2xl:text-5xl mb-6"
              
             >
               Expertise across a range of <br />  technologies
             </h2>
             
             <p
-              className="text-foreground text-sm sm:text-base  mb-6"
+              className="text-foreground text-sm sm:text-base 2xl:text-xl mb-6"
              
             >
             At Synexis, our expertise spans a wide spectrum of technologies, allowing us to craft intelligent, scalable, and future-ready solutions. From AI-driven automation to secure cloud architectures, we combine innovation with precision engineering to deliver systems that empower businesses to evolve and thrive in the digital era.

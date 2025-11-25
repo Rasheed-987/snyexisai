@@ -46,7 +46,7 @@ const Service = () => {
         </h2>
       </div>
 
-      <div className=" mx-auto px-3 lg:px-10">
+      <div className=" mx-auto px-3 lg:px-12  2xl:px-24">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {servicesData.map((service: any) => (
             <ServicesCard
