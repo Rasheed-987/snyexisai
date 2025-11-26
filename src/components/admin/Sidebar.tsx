@@ -15,7 +15,7 @@ export default function Sidebar() {
           alt="Overview"
           width={24}
           height={24}
-          className="w-6 h-6"
+          className="w-6 h-6 2xl:w-8 2xl:h-8"
         />
       ),
       label: 'Overview',
@@ -29,7 +29,7 @@ export default function Sidebar() {
           alt="Projects"
           width={24}
           height={24}
-          className="w-6 h-6"
+          className="w-6 h-6 2xl:w-8 2xl:h-8"
         />
       ),
       label: 'Projects',
@@ -43,7 +43,7 @@ export default function Sidebar() {
           alt="Case Studies"
           width={24}
           height={24}
-          className="w-6 h-6"
+          className="w-6 h-6 2xl:w-8 2xl:h-8"
         />
       ),
       label: 'Case Studies',
@@ -57,7 +57,7 @@ export default function Sidebar() {
           alt="Services"
           width={24}
           height={24}
-          className="w-6 h-6"
+          className="w-6 h-6 2xl:w-8 2xl:h-8"
         />
       ),
       label: 'Services',
@@ -71,7 +71,7 @@ export default function Sidebar() {
           alt="Career"
           width={24}
           height={24}
-          className="w-6 h-6"
+          className="w-6 h-6 2xl:w-8 2xl:h-8"
         />
       ),
       label: 'Career',
@@ -84,12 +84,12 @@ export default function Sidebar() {
     <>
       
       <div className={`hidden lg:flex transition-all duration-300 ${
-        isCollapsed ? 'w-16' : 'w-64'
+        isCollapsed ? 'w-16 2xl:w-24' : 'w-64 2xl:w-80'
       } h-screen flex-col fixed lg:relative z-50 lg:z-auto  ${
         isCollapsed ? 'overflow-hidden' : ''
       }`}>
         {/* Header with Logo and Toggle */}
-        <div className="p-6 border-b border-[#0F1C3D]/10">
+        <div className="p-6 2xl:p-8 border-b border-[#0F1C3D]/10">
           <div className="flex items-center justify-between">
             {!isCollapsed && (
               <div className="flex items-center w-full">
@@ -98,7 +98,7 @@ export default function Sidebar() {
                   alt="Synexis Ai"
                   width={180}
                   height={36}
-                  className="w-auto h-8 object-contain"
+                  className="w-auto h-8 2xl:h-10 object-contain"
                 />
               </div>
             )}
@@ -110,7 +110,7 @@ export default function Sidebar() {
                   alt="Synexis Ai"
                   width={32}
                   height={32}
-                  className="rounded"
+                  className="rounded 2xl:w-10 2xl:h-10"
                 />
               </div>
             )}
@@ -122,7 +122,7 @@ export default function Sidebar() {
               aria-label="Toggle sidebar"
             >
               <svg 
-                className={`w-5 h-5 text-[#0F1C3D] transition-transform duration-200 ${isCollapsed ? 'rotate-180' : ''}`} 
+                className={`w-5 h-5 2xl:w-6 2xl:h-6 text-[#0F1C3D] transition-transform duration-200 ${isCollapsed ? 'rotate-180' : ''}`} 
                 fill="none" 
                 stroke="currentColor" 
                 viewBox="0 0 24 24"
@@ -134,25 +134,25 @@ export default function Sidebar() {
         </div>
 
         {/* Navigation Menu */}
-        <nav className="flex-1 p-4">
-          <ul className="space-y-3">
+        <nav className="flex-1 p-4 2xl:p-6">
+          <ul className="space-y-3 2xl:space-y-4">
             {menuItems.map((item, index) => (
               <li key={index} className="relative group">
                 <Link
                   href={item.href}
-                  className={`flex items-center px-4 py-3 rounded-xl transition-all duration-200 relative ${
+                  className={`flex items-center px-4 py-3 2xl:px-6 2xl:py-4 rounded-xl transition-all duration-200 relative ${
                     item.active
                       ? 'text-[#327AED]  hover:bg-[#FFFFFF]/80 hover:shadow-md border border-transparent'
                       : 'text-[#0F1C3D] hover:bg-[#FFFFFF]/80 hover:shadow-md border border-transparent'
                   } ${isCollapsed ? 'justify-center' : 'space-x-4'}`}
                 >
-                  <span className={`flex-shrink-0 w-6 h-6 flex items-center justify-center transition-colors ${
+                  <span className={`flex-shrink-0 w-6 h-6 2xl:w-8 2xl:h-8 flex items-center justify-center transition-colors ${
                     item.active ? 'text-[#FFFFFF]' : 'text-[#0F1C3D] group-hover:text-[#327AED]'
                   }`}>
                     {item.icon}
                   </span>
                   {!isCollapsed && (
-                    <span className="font-medium text-base leading-relaxed transition-colors">
+                    <span className="font-medium text-base 2xl:text-xl leading-relaxed transition-colors">
                       {item.label}
                     </span>
                   )}

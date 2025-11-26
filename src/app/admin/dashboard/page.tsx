@@ -156,35 +156,35 @@ export default function AdminDashboardPage() {
   
 
   return (
-    <div className="p-4 md:p-6 bg-[#ECEFF3] min-h-screen">
+    <div className="p-4 md:p-6 2xl:p-10 bg-[#ECEFF3] min-h-screen">
       {/* Header Section */}
-      <div className="mb-6 md:mb-8">
-        <h1 className="text-2xl md:text-3xl font-medium text-foreground mb-2">
+      <div className="mb-6 md:mb-8 2xl:mb-12">
+        <h1 className="text-2xl md:text-3xl 2xl:text-5xl font-medium text-foreground mb-2 2xl:mb-3">
           Welcome back, Admin
         </h1>
-        <p className="text-sm md:text-base text-foreground">
+        <p className="text-sm md:text-base 2xl:text-xl text-foreground">
           Take a look your progress for today {date}.
         </p>
       </div>
 
       {/* Statistics Cards */}
-      <div className="grid grid-cols-2 md:bg-white rounded-[21px]  lg:grid-cols-4 gap-4 md:gap-6 mb-6 md:mb-8">
+      <div className="grid grid-cols-2 md:bg-white rounded-[21px]  lg:grid-cols-4 gap-4 md:gap-6 2xl:gap-8 mb-6 md:mb-8 2xl:mb-12">
         {stats.map((stat, index) => (
-          <div key={index} className="bg-white  rounded-2xl p-4 md:p-6">
+          <div key={index} className="bg-white  rounded-2xl p-4 md:p-6 2xl:p-8">
             <div className="flex items-center space-x-3 md:space-x-4">
 
-             <div className=' w-[50px] md:w-[60px] bg-[#E2EDFF] rounded-[13px] h-[50px] md:h-[60px] flex items-center justify-center'>
+             <div className=' w-[50px] md:w-[60px] 2xl:w-[80px] bg-[#E2EDFF] rounded-[13px] h-[50px] md:h-[60px] 2xl:h-[80px] flex items-center justify-center'>
 
-              <div className={`${stat.bgColor} ${stat.textColor} w-[30px] md:w-[35px] h-[30px] md:h-[35px] rounded-full flex items-center justify-center`}>
+              <div className={`${stat.bgColor} ${stat.textColor} w-[30px] md:w-[35px] 2xl:w-[45px] h-[30px] md:h-[35px] 2xl:h-[45px] rounded-full flex items-center justify-center`}>
                 {stat.icon}
               </div>
              </div>
 
               <div className="flex-1 min-w-0">
-                <h3 className="text-xl md:text-2xl font-medium text-foreground mb-1">
+                <h3 className="text-xl md:text-2xl 2xl:text-4xl font-medium text-foreground mb-1">
                   {stat.title}
                 </h3>
-                <p className="text-xs md:text-sm text-foreground/70 font-medium">
+                <p className="text-xs md:text-sm 2xl:text-lg text-foreground/70 font-medium">
                   {stat.subtitle}
                 </p>
               </div>
@@ -196,12 +196,12 @@ export default function AdminDashboardPage() {
       {/* Latest Case Studies Section */}
       <div className="flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-5 gap-4 lg:gap-5">
 
-        <div className="space-y-4 rounded-[21px] w-full lg:w-[65%] bg-white p-4 md:p-6">
-          <div className="flex items-center justify-between mb-4 md:mb-6">
-          <h2 className="text-lg md:text-xl font-medium text-foreground">
+        <div className="space-y-4 rounded-[21px] w-full lg:w-[65%] bg-white p-4 md:p-6 2xl:p-10">
+          <div className="flex items-center justify-between mb-4 md:mb-6 2xl:mb-8">
+          <h2 className="text-lg md:text-xl 2xl:text-3xl font-medium text-foreground">
             Latest Case Studies
           </h2>
-          <button onClick={()=>router.push('/admin/case-studies')} className="text-primary text-sm font-medium hover:underline">
+          <button onClick={()=>router.push('/admin/case-studies')} className="text-primary text-sm 2xl:text-lg font-medium hover:underline">
             View All →
           </button>
         </div>
@@ -209,15 +209,15 @@ export default function AdminDashboardPage() {
 {loading ? (
   <div className="text-center py-8">
     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-2"></div>
-    <p className="text-foreground text-sm">Loading case studies...</p>
+    <p className="text-foreground text-sm 2xl:text-lg">Loading case studies...</p>
   </div>
 ) : isError ? (
   <div className="text-center py-8">
-    <p className="text-red-600 text-sm">Error: {(error as Error).message}</p>
+    <p className="text-red-600 text-sm 2xl:text-lg">Error: {(error as Error).message}</p>
   </div>
 ) : caseStudies.length === 0 ? (
   <div className="text-center py-8">
-    <p className="text-foreground text-sm">No case studies found</p>
+    <p className="text-foreground text-sm 2xl:text-lg">No case studies found</p>
   </div>
 ) : (
   caseStudies.map((caseStudy) => (
@@ -240,12 +240,12 @@ export default function AdminDashboardPage() {
 
 
         </div>
-        <div className="w-full lg:flex-1 bg-white rounded-[21px] p-4 md:p-6">
-          <div className="flex items-center justify-between mb-4 md:mb-6">
-            <h2 className="text-lg md:text-xl font-medium text-[#0F1C3D]">
+        <div className="w-full lg:flex-1 bg-white rounded-[21px] p-4 md:p-6 2xl:p-10">
+          <div className="flex items-center justify-between mb-4 md:mb-6 2xl:mb-8">
+            <h2 className="text-lg md:text-xl 2xl:text-3xl font-medium text-[#0F1C3D]">
               Career Postings
             </h2>
-            <button onClick={()=>router.push('/admin/career')} className="text-[#327AED] text-sm font-medium hover:underline">
+            <button onClick={()=>router.push('/admin/career')} className="text-[#327AED] text-sm 2xl:text-lg font-medium hover:underline">
               View All →
             </button>
           </div>
@@ -253,7 +253,7 @@ export default function AdminDashboardPage() {
             {careersLoading ? (
               <div className="text-center py-4">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-                <p className="text-gray-600 text-sm mt-2">Loading careers...</p>
+                <p className="text-gray-600 text-sm 2xl:text-lg mt-2">Loading careers...</p>
               </div>
             ) : careersData.length > 0 ? (
               careersData.map((career) => (
@@ -265,7 +265,7 @@ export default function AdminDashboardPage() {
               ))
             ) : (
               <div className="text-center py-4">
-                <p className="text-gray-600 text-sm">No career postings found</p>
+                <p className="text-gray-600 text-sm 2xl:text-lg">No career postings found</p>
               </div>
             )}
           </div>

@@ -35,7 +35,7 @@ const sidebarMenuItems = [
         alt="Overview"
         width={24}
         height={24}
-        className="w-5 h-5"
+        className="w-5 h-5 2xl:w-7 2xl:h-7"
       />
     ),
     label: 'Overview',
@@ -48,7 +48,7 @@ const sidebarMenuItems = [
         alt="Projects"
         width={24}
         height={24}
-        className="w-5 h-5"
+        className="w-5 h-5 2xl:w-7 2xl:h-7"
       />
     ),
     label: 'Projects',
@@ -61,7 +61,7 @@ const sidebarMenuItems = [
         alt="Case Studies"
         width={24}
         height={24}
-        className="w-5 h-5"
+        className="w-5 h-5 2xl:w-7 2xl:h-7"
       />
     ),
     label: 'Case Studies',
@@ -74,7 +74,7 @@ const sidebarMenuItems = [
         alt="Services"
         width={24}
         height={24}
-        className="w-5 h-5"
+        className="w-5 h-5 2xl:w-7 2xl:h-7"
       />
     ),
     label: 'Services',
@@ -87,7 +87,7 @@ const sidebarMenuItems = [
         alt="Career"
         width={24}
         height={24}
-        className="w-5 h-5"
+        className="w-5 h-5 2xl:w-7 2xl:h-7"
       />
     ),
     label: 'Career',
@@ -135,7 +135,7 @@ export default function Header() {
   }
 
   return (
-    <header className=" px-4 sm:px-6 py-4">
+    <header className=" px-4 sm:px-6 2xl:px-10 py-4 2xl:py-6">
       <div className="flex items-center justify-between w-full">
         {/* Center - Search Bar */}
         {pathname !== '/admin/dashboard' && (
@@ -143,7 +143,7 @@ export default function Header() {
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <svg
-                  className="h-5 w-5 text-gray-400"
+                  className="h-5 w-5 2xl:h-7 2xl:w-7 text-gray-400"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -160,13 +160,13 @@ export default function Header() {
   {/* White container wrapping input + results */}
   <div className="bg-white rounded-[18px] shadow-md w-full">
     <div className="relative">
-      <Image src="/images/admin/search.png" alt="Search" className="absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none" width={16} height={16} />
+      <Image src="/images/admin/search.png" alt="Search" className="absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none 2xl:w-5 2xl:h-5" width={16} height={16} />
       <input
         type="text"
         placeholder="Search..."
         value={searchQuery}
         onChange={onInputChange}
-        className="block w-full pl-10 pr-3 outline-none py-2 rounded-[18px] text-sm"
+        className="block w-full pl-10 pr-3 outline-none py-2 2xl:py-3 rounded-[18px] text-sm 2xl:text-lg"
         onFocus={() => searchQuery && setShowResults(true)}
         onBlur={() => setTimeout(() => setShowResults(false), 200)}
       />
@@ -178,11 +178,11 @@ export default function Header() {
         {searchResults.map((item: any) => (
           <div
             key={item.id || item.href}
-            className="px-4 py-2 cursor-pointer hover:bg-gray-100"
+            className="px-4 py-2 2xl:px-6 2xl:py-3 cursor-pointer hover:bg-gray-100"
             onMouseDown={() => handleResultClick(item)}
           >
-            <span className="font-medium">{item.title}</span>
-            <span className="ml-2 text-xs text-gray-500">{item.type}</span>
+            <span className="font-medium 2xl:text-lg">{item.title}</span>
+            <span className="ml-2 text-xs 2xl:text-sm text-gray-500">{item.type}</span>
           </div>
         ))}
       </div>
@@ -202,7 +202,7 @@ export default function Header() {
           <div className="relative">
             <Menu>
               <MenuButton
-                className="inline-flex items-center gap-3 rounded-full border border-secondary bg-white pl-2 pr-3 py-1.5 text-sm font-medium text-foreground shadow-sm  focus:outline-none  focus:ring-0 "
+                className="inline-flex items-center gap-3 rounded-full border border-secondary bg-white pl-2 pr-3 py-1.5 2xl:py-2.5 2xl:px-4 text-sm 2xl:text-lg font-medium text-foreground shadow-sm  focus:outline-none  focus:ring-0 "
                 aria-label="Open account menu"
               >
                 {/* Compact user pill (avatar + name) */}
@@ -210,15 +210,15 @@ export default function Header() {
                   <img
                     src="/images/admin/profile.png"
                     alt="Alex Smith"
-                    className="h-8 w-8 rounded-full object-cover"
+                    className="h-8 w-8 2xl:h-10 2xl:w-10 rounded-full object-cover"
                   />
                   <span className="ml-2 mr-1 text-foreground">Admin</span>
                 </span>
-                <ChevronDownIcon className="h-4 w-4 text-primary" aria-hidden="true" />
+                <ChevronDownIcon className="h-4 w-4 2xl:h-6 2xl:w-6 text-primary" aria-hidden="true" />
               </MenuButton>
               <MenuItems
                 anchor="bottom end"
-                className="absolute right-0 z-50 mt-2 w-56 origin-top-right rounded-[12px]   bg-white p-1 text-sm shadow-lg  "
+                className="absolute right-0 z-50 mt-2 w-56 2xl:w-72 origin-top-right rounded-[12px]   bg-white p-1 text-sm 2xl:text-lg shadow-lg  "
               >
                 {/* Mobile: Sidebar menu items */}
                 <div className="md:hidden">
@@ -239,7 +239,7 @@ export default function Header() {
                   <MenuItem>
                     <button
                       onClick={logout}
-                      className="group flex w-full items-center gap-2 rounded-md px-3 py-2 text-foreground hover:bg-background transition-colors duration-150"
+                      className="group flex w-full items-center gap-2 rounded-md px-3 py-2 2xl:py-3 text-foreground hover:bg-background transition-colors duration-150"
                     >
                       Logout
                     </button>
@@ -247,7 +247,7 @@ export default function Header() {
                   <MenuItem>
                     <a
                       href="/admin/settings"
-                      className="group flex w-full items-center gap-2 rounded-md px-3 py-2 text-foreground hover:bg-background transition-colors duration-150"
+                      className="group flex w-full items-center gap-2 rounded-md px-3 py-2 2xl:py-3 text-foreground hover:bg-background transition-colors duration-150"
                     >
                       Settings
                     </a>

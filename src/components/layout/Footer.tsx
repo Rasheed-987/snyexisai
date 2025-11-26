@@ -13,17 +13,17 @@ style={{
 }}
 
     >
-  <div className="max-w-[1440px] 2xl:w-full mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-4 2xl:gap-8">
+  <div className="max-w-[1550px] 2xl:w-full mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-4 2xl:gap-8">
     {/* Explore Column */}
     <div>
   <h3 className=" font-semibold text-lg mb-1 2xl:text-2xl 2xl:mb-3">Explore</h3>
   <ul className="space-y-1 2xl:space-y-2">
-    <li><a href="/" className="hover:underline 2xl:text-lg">Home</a></li>
-    <li><a href="/about" className="hover:underline 2xl:text-lg">About Us</a></li>
-    <li><a href="/services" className="hover:underline 2xl:text-lg">Services</a></li>
-    <li><a href="/casestudies" className="hover:underline 2xl:text-lg">Case Studies</a></li>
-    <li><a href="/careers" className="hover:underline 2xl:text-lg">Careers</a></li>
-    <li><a href="/contact" className="hover:underline 2xl:text-lg">Contact Us</a></li>
+    <li><a href="/" className="text-base hover:underline 2xl:text-lg">Home</a></li>
+    <li><a href="/about" className="text-base hover:underline 2xl:text-lg">About Us</a></li>
+    <li><a href="/services" className="text-base hover:underline 2xl:text-lg">Services</a></li>
+    <li><a href="/casestudies" className="text-base hover:underline 2xl:text-lg">Case Studies</a></li>
+    <li><a href="/careers" className="text-base hover:underline 2xl:text-lg">Careers</a></li>
+    <li><a href="/contact" className="text-base hover:underline 2xl:text-lg">Contact Us</a></li>
       </ul>
     </div>
 
@@ -31,9 +31,9 @@ style={{
     <div>
   <h3 className=" font-semibold text-lg mb-1 2xl:text-2xl 2xl:mb-3">Learn</h3>
   <ul className="space-y-1 2xl:space-y-2">
-        <li><a href="#" className="hover:underline 2xl:text-lg">Who We Are</a></li>
-        <li><a href="#" className="hover:underline 2xl:text-lg">Our Approach</a></li>
-        <li><a href="#" className="hover:underline 2xl:text-lg">Technologies</a></li>
+        <li><a href="#" className="text-base hover:underline 2xl:text-lg">Who We Are</a></li>
+        <li><a href="#" className="text-base hover:underline 2xl:text-lg">Our Approach</a></li>
+        <li><a href="#" className="text-base hover:underline 2xl:text-lg">Technologies</a></li>
       </ul>
     </div>
 
@@ -41,9 +41,9 @@ style={{
     <div>
   <h3 className=" font-semibold text-lg mb-1 2xl:text-2xl 2xl:mb-3">Resources</h3>
   <ul className="space-y-1 2xl:space-y-2">
-        <li><a href="#" className="hover:underline 2xl:text-lg">Portfolio</a></li>
-        <li><a href="#" className="hover:underline 2xl:text-lg">FAQ's</a></li>
-        <li><a href="#" className="hover:underline 2xl:text-lg">Support</a></li>
+        <li><a href="#" className="text-base hover:underline 2xl:text-lg">Portfolio</a></li>
+        <li><a href="#" className="text-base hover:underline 2xl:text-lg">FAQ's</a></li>
+        <li><a href="#" className="text-base hover:underline 2xl:text-lg">Support</a></li>
       </ul>
     </div>
 

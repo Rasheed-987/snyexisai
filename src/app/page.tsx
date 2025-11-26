@@ -74,6 +74,7 @@ export default function HomePage() {
           fill
           className="object-cover opacity-60"
           priority
+          fetchPriority="high"
         />
       </div>
       

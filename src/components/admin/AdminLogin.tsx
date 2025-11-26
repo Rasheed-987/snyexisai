@@ -43,19 +43,19 @@ export default function AdminLogin() {
   };
 
   const inputClass =
-    'w-full h-[60px] px-4 py-3 bg-background border border-gray-200 rounded-lg text-foreground font-chillax text-sm focus:outline-none focus:ring-2 focus:ring-background focus:border-transparent transition-all';
+    'w-full h-[60px] 2xl:h-[80px] px-4 py-3 2xl:px-6 2xl:py-5 bg-background border border-gray-200 rounded-lg text-foreground font-chillax text-sm 2xl:text-xl focus:outline-none focus:ring-2 focus:ring-background focus:border-transparent transition-all';
   const labelClass =
-    'block text-sm font-normal text-foreground font-chillax mb-2';
+    'block text-sm 2xl:text-xl font-normal text-foreground font-chillax mb-2 2xl:mb-3';
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-background">
-      <div className="w-full max-w-md bg-white shadow-md rounded-2xl p-8 space-y-6">
-        <h2 className="text-3xl font-normal text-foreground font-chillax text-center">
+      <div className="w-full max-w-md 2xl:max-w-2xl bg-white shadow-md rounded-2xl p-8 2xl:p-12 space-y-6 2xl:space-y-10">
+        <h2 className="text-3xl 2xl:text-5xl font-normal text-foreground font-chillax text-center">
           Admin Login
         </h2>
 
         {error && (
-          <p className="text-red-500 text-sm text-center mt-2">{error}</p>
+          <p className="text-red-500 text-sm 2xl:text-lg text-center mt-2">{error}</p>
         )}
 
         <form onSubmit={handleLogin} className="space-y-6">
@@ -97,7 +97,7 @@ export default function AdminLogin() {
           <Button
             type="submit"
             disabled={loading}
-            className="w-full h-[62px] bg-primary text-white rounded-full font-chillax text-sm hover:opacity-90 transition-all disabled:opacity-50"
+            className="w-full h-[62px] 2xl:h-[80px] bg-primary text-white rounded-full font-chillax text-sm 2xl:text-xl hover:opacity-90 transition-all disabled:opacity-50"
           >
             {loading ? 'Logging in...' : 'Login'}
           </Button>

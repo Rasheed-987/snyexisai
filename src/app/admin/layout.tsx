@@ -37,9 +37,9 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
         <Header />
         {/* Page Title and Date */}
         {pathname !== '/admin' && pathname !== '/admin/dashboard' && (
-          <div className="w-full ml-10 flex flex-col py-3">
-            <h1 className="text-2xl font-medium text-foreground mb-1">All {title}</h1>
-            <p className="text-foreground text-sm">Take a look at your progress for today {date}.</p>
+          <div className="w-full ml-10 2xl:ml-16 flex flex-col py-3 2xl:py-5">
+            <h1 className="text-2xl 2xl:text-4xl font-medium text-foreground mb-1 2xl:mb-2">All {title}</h1>
+            <p className="text-foreground text-sm 2xl:text-lg">Take a look at your progress for today {date}.</p>
           </div>
         )}
         {/* Page Content */}
