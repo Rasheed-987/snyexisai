@@ -23,7 +23,7 @@ export const CareerProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     queryKey: ['careers'],
     queryFn: fetchCareers,
     staleTime: 5 * 60 * 1000, // 5 minutes - data considered fresh
-    cacheTime: 10 * 60 * 1000, // 10 minutes - cache retention
+    gcTime: 10 * 60 * 1000, // 10 minutes - cache retention (renamed from cacheTime in v5)
     refetchOnMount: false, // Don't refetch if data is fresh
     refetchOnReconnect: true, // Refetch when internet reconnects
   });
