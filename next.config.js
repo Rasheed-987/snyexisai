@@ -33,9 +33,6 @@ const nextConfig = {
   
   // Reduce unnecessary polyfills for modern browsers
   swcMinify: true,
-  experimental: {
-    optimizeCss: true,
-  },
   
   // Headers for security
   async headers() {
