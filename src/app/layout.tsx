@@ -41,14 +41,15 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         
-        {/* Google Fonts - async loaded */}
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
+        {/* Google Fonts - combined for fewer requests */}
+        <link 
+          href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" 
+          rel="stylesheet"
+        />
         
         {/* Preload critical WOFF2 fonts */}
-        <link rel="preload" as="font" href="/fonts/chillax/Chillax-Regular.woff2" type="font/woff2" crossOrigin="anonymous" />
-        <link rel="preload" as="font" href="/fonts/chillax/Chillax-Medium.woff2" type="font/woff2" crossOrigin="anonymous" />
-        <link rel="preload" as="font" href="/fonts/chillax/Chillax-Bold.woff2" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" as="font" href="/fonts/WEB/fonts/Chillax-Regular.woff2" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" as="font" href="/fonts/WEB/fonts/Chillax-Medium.woff2" type="font/woff2" crossOrigin="anonymous" />
         
         {/* Preload LCP image for faster rendering */}
         <link rel="preload" as="image" href="/images/Mask group.png" fetchPriority="high" />
