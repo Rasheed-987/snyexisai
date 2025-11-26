@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
 interface ProjectContextType {
@@ -22,14 +22,21 @@ export const ProjectProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const { data: projectsData = [], isLoading: loading, error } = useQuery({
     queryKey: ['projects'],
     queryFn: fetchProjects,
+    staleTime: 5 * 60 * 1000, // 5 minutes - data considered fresh
+    cacheTime: 10 * 60 * 1000, // 10 minutes - cache retention
+    refetchOnMount: false, // Don't refetch if data is fresh
+    refetchOnReconnect: true, // Refetch when internet reconnects
   });
 
+  // Memoize context value to prevent re-renders of all consuming components
+  const contextValue = useMemo(() => ({ 
+    projectsData, 
+    loading, 
+    error: error ? (error as Error).message : null 
+  }), [projectsData, loading, error]);
+
   return (
-    <ProjectContext.Provider value={{ 
-      projectsData, 
-      loading, 
-      error: error ? (error as Error).message : null 
-    }}>
+    <ProjectContext.Provider value={contextValue}>
       {children}
     </ProjectContext.Provider>
   );

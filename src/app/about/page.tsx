@@ -103,7 +103,7 @@ AI and digital technologies to accelerate growth, optimize efficiency, and delig
       </section>
 
       <section className="w-full  py-12">
-        <div className=" mx-auto px-3 lg:px-6 2xl:px-0">
+        <div className=" mx-auto px-3 lg:px-6 2xl:mr-1   2xl:px-0">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 text-center">
             {/* Stat 1 */}
             <motion.div

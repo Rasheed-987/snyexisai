@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
 interface CaseStudyContextType {
@@ -22,14 +22,21 @@ export const CaseStudyProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const { data: caseStudiesData = [], isLoading: loading, error } = useQuery({
     queryKey: ['caseStudies'],
     queryFn: fetchCaseStudies,
+    staleTime: 5 * 60 * 1000, // 5 minutes - data considered fresh
+    cacheTime: 10 * 60 * 1000, // 10 minutes - cache retention
+    refetchOnMount: false, // Don't refetch if data is fresh
+    refetchOnReconnect: true, // Refetch when internet reconnects
   });
 
+  // Memoize context value to prevent re-renders of all consuming components
+  const contextValue = useMemo(() => ({ 
+    caseStudiesData, 
+    loading, 
+    error: error ? (error as Error).message : null 
+  }), [caseStudiesData, loading, error]);
+
   return (
-    <CaseStudyContext.Provider value={{ 
-      caseStudiesData, 
-      loading, 
-      error: error ? (error as Error).message : null 
-    }}>
+    <CaseStudyContext.Provider value={contextValue}>
       {children}
     </CaseStudyContext.Provider>
   );

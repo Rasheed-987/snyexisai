@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 interface FooterProps {
   className?: string;
 }
@@ -55,7 +57,7 @@ style={{
       </p>
       <div>
         <p className="text-sm 2xl:text-lg">Dubai, UAE</p>
-  <img src="/images/image.png" alt="" className="w-[70%] mt-[-20px] 2xl:w-[90%]" />
+  <Image src="/images/image.png" alt="Location map" width={400} height={200} className="w-[70%] mt-[-20px] 2xl:w-[90%]" />
       </div>
     </div>
   </div>

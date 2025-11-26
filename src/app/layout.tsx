@@ -1,16 +1,70 @@
 'use client'
 import './globals.css'
 import { useState } from 'react'
+import dynamic from 'next/dynamic'
+import { Roboto, Inter } from 'next/font/google'
+import localFont from 'next/font/local'
 
 import { Navigation } from '@/components/layout/Navigation'
-import Footer from '@/components/layout/Footer'
 import { usePathname } from 'next/navigation'
 import {ServicesProvider} from '@/context/ServicesContext';
 import { CaseStudyProvider } from '@/context/CaseStudyContext';
 import { ProjectProvider } from '@/context/ProjectContext';
 import { CareerProvider } from '@/context/CareerContext';
-import SmoothScroll from '@/components/ui/SmoothScroll';
 import { QueryClient,QueryClientProvider } from '@tanstack/react-query';
+
+// Optimize font loading with next/font
+const roboto = Roboto({
+  weight: ['300', '400', '500', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-roboto',
+})
+
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+})
+
+const chillax = localFont({
+  src: [
+    {
+      path: '../../public/fonts/WEB/fonts/Chillax-Regular.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/WEB/fonts/Chillax-Medium.woff2',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/WEB/fonts/Chillax-Bold.woff2',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-chillax',
+  display: 'swap',
+})
+
+const bandeins = localFont({
+  src: '../../public/fonts/bandeins-strange-font-family-1762393731-0/Bandeins-Strange-Variable-VF.ttf',
+  variable: '--font-bandeins',
+  display: 'swap',
+})
+
+// Dynamic imports for heavy components - loads only when needed
+const Footer = dynamic(() => import('@/components/layout/Footer'), {
+  loading: () => <div className="h-[400px] bg-background" />,
+  ssr: true
+})
+
+const SmoothScroll = dynamic(() => import('@/components/ui/SmoothScroll'), {
+  ssr: false, // Client-side only animation
+  loading: () => <div />
+})
 
 
 
@@ -35,21 +89,8 @@ export default function RootLayout({
   const isAdmin = pathUrl?.startsWith('/admin')
 
   return (
-    <html lang="en" >
+    <html lang="en" className={`${roboto.variable} ${inter.variable} ${chillax.variable} ${bandeins.variable}`}>
       <head>
-        {/* Preconnect hints for faster resource loading */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        
-        {/* Google Fonts - async loaded */}
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
-        
-        {/* Preload critical WOFF2 fonts */}
-        <link rel="preload" as="font" href="/fonts/chillax/Chillax-Regular.woff2" type="font/woff2" crossOrigin="anonymous" />
-        <link rel="preload" as="font" href="/fonts/chillax/Chillax-Medium.woff2" type="font/woff2" crossOrigin="anonymous" />
-        <link rel="preload" as="font" href="/fonts/chillax/Chillax-Bold.woff2" type="font/woff2" crossOrigin="anonymous" />
-        
         {/* Preload LCP image for faster rendering */}
         <link rel="preload" as="image" href="/images/Mask group.png" fetchPriority="high" />
       </head>
@@ -63,7 +104,7 @@ export default function RootLayout({
                   {!isAdmin ? (
                     <>
                       <Navigation />
-                      <SmoothScroll smoothness={0.08}>
+                      <SmoothScroll>
                         <main className="flex-1">{children}</main>
                         <Footer />
                       </SmoothScroll>

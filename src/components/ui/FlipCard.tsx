@@ -45,28 +45,28 @@ export const FlipCard = ({ frontImage, frontAlt, title, description, bgColor = "
               </div>
               
               {/* Back Side - Image */}
-              <div className="absolute inset-0 w-full h-full backface-hidden flex"
+              <div className="absolute rounded-xl  inset-0 w-full h-full backface-hidden flex"
                    style={{ backgroundColor: bgColor, transform: "rotateX(180deg)" }}>
                 <Image
                   src={frontImage}
                   alt={frontAlt}
                   width={400}
                   height={260}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover rounded-xl"
                 />
               </div>
             </>
           ) : (
             <>
               {/* Front Side - Image */}
-              <div className="absolute inset-0 w-full h-full backface-hidden flex"
+              <div className="absolute inset-0  rounded-xl w-full h-full backface-hidden flex"
                    style={{ backgroundColor: bgColor }}>
                 <Image
                   src={frontImage}
                   alt={frontAlt}
                   width={400}
                   height={260}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover rounded-xl"
                 />
               </div>
               

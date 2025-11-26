@@ -71,18 +71,27 @@ export default function HomeDropdown({ textColor }: { textColor: string }) {
         >
   
   {/* LEFT FEATURE CARD */}
-  <div className="relative  rounded-xl overflow-hidden bg-black text-white p-6 flex flex-col justify-end">
-    <div className="absolute inset-0">
-      {/* You can drop the background image or SVG circles here */}
+  <div className="relative rounded-xl overflow-hidden text-white p-6 flex flex-col justify-end h-[280px] group hover:scale-[1.02] transition-transform duration-300" style={{ backgroundColor: '#0f1c34' }}>
+    {/* Background Image with Overlay */}
+    <div className="absolute inset-0 z-0">
+      <Image 
+        src="/images/home/img5.png" 
+        alt="Synexis AI" 
+        fill
+        className="object-cover opacity-40 group-hover:opacity-50 transition-opacity duration-300"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0f1c34] via-[#0f1c34]/60 to-transparent"></div>
     </div>
 
+
     <div className="relative z-10">
-      <h3 className="text-xl font-semibold mb-2"></h3>
-      <p className="text-sm text-gray-300 mb-4">
-        Practical guides to improve your Webflow site's visibility.
+      <h3 className="text-xl font-bold mb-2">Transform Your Digital Presence</h3>
+      <p className="text-sm text-gray-200 mb-4">
+        Synexis AI delivers next-generation solutions that blend creativity with cutting-edge technology.
       </p>
-      <Link href="/learn-seo" className="text-white text-sm inline-flex items-center gap-1 font-medium hover:opacity-80">
-        Start Learning →
+      <Link href="/" className="text-white text-sm inline-flex items-center gap-2 font-semibold hover:gap-3 transition-all duration-200 bg-primary/20 hover:bg-primary px-4 py-2 rounded-full">
+        Start Exploring
+        <span className="text-lg">→</span>
       </Link>
     </div>
   </div>

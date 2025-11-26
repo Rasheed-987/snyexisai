@@ -62,8 +62,12 @@ export function highlightJobTitle(
 
   if (!title) return [description];
 
-  // Create a regex for only the first match (no global flag)
-  const regex = new RegExp(`(${escapeRegExp(title)})`, 'i');
+  // Memoize regex creation - though in utils, pattern is consistent per title
+  // This prevents regex recompilation for the same title string
+  const regex = React.useMemo(
+    () => new RegExp(`(${escapeRegExp(title)})`, 'i'),
+    [title]
+  );
 
   const parts = description.split(regex);
 

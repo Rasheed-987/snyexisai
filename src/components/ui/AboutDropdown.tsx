@@ -80,26 +80,35 @@ export default function AboutDropdown({ textColor }: { textColor: string }) {
         >
   
   {/* LEFT FEATURE CARD */}
-  <div className="relative rounded-xl overflow-hidden bg-gradient-to-br from-primary to-blue-600 text-white p-6 flex flex-col justify-end">
-    <div className="absolute inset-0 opacity-10">
-      <div className="absolute top-4 right-4 w-32 h-32 bg-white rounded-full blur-3xl"></div>
-      <div className="absolute bottom-4 left-4 w-24 h-24 bg-white rounded-full blur-2xl"></div>
+  <div className="relative rounded-xl overflow-hidden text-white p-6 flex flex-col justify-end h-[280px] group hover:scale-[1.02] transition-transform duration-300" style={{ backgroundColor: '#0f1c34' }}>
+    {/* Background Image with Overlay */}
+    <div className="absolute inset-0 z-0">
+      <Image 
+        src="/images/home/img5.png" 
+        alt="About Synexis AI" 
+        fill
+        className="object-cover opacity-30 group-hover:opacity-40 transition-opacity duration-300"
+      />
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/60 via-[#0f1c34]/80 to-[#0f1c34]"></div>
     </div>
 
+   
+
     <div className="relative z-10">
-      <h3 className="text-xl font-semibold mb-2">Why Choose Us?</h3>
+      <h3 className="text-xl font-bold mb-2">Why Choose Us?</h3>
       <p className="text-sm text-white/90 mb-4">
-        Discover our story, values, and what makes us different.
+        Discover our story, values, and what makes us different in delivering exceptional digital experiences.
       </p>
-      <Link href="/about" onClick={closeDropdown} className="text-white text-sm inline-flex items-center gap-1 font-medium hover:opacity-80">
-        Learn More →
+      <Link href="/about" onClick={closeDropdown} className="text-white text-sm inline-flex items-center gap-2 font-semibold hover:gap-3 transition-all duration-200 bg-white/20 hover:bg-white hover:text-primary px-4 py-2 rounded-full">
+        Learn More
+        <span className="text-lg">→</span>
       </Link>
     </div>
   </div>
 
 
   {/* RIGHT NAV LINKS */}
-  <div className="space-y-4">
+  <div className="space-y-4 flex flex-col justify-center">
     {/* ITEM */}
     <button onClick={() => navigateToPage('/about#story')} className="flex gap-3 group w-full text-left cursor-pointer">
       <div className="flex-1">

@@ -53,13 +53,11 @@ module.exports = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["Chillax", "sans-serif"],
-        chillax: ["Chillax", "sans-serif"],
-        roboto: ["Roboto", "sans-serif"],
-        inter: ["Inter", "sans-serif"],
-        bandeins: ["Bandeins Strange", "sans-serif"],
-        "bandeins-extended": ["Bandeins Strange Extended", "sans-serif"],
-        "bandeins-variable": ["Bandeins Strange Variable", "sans-serif"],
+        sans: ["var(--font-chillax)", "sans-serif"],
+        chillax: ["var(--font-chillax)", "sans-serif"],
+        roboto: ["var(--font-roboto)", "sans-serif"],
+        inter: ["var(--font-inter)", "sans-serif"],
+        bandeins: ["var(--font-bandeins)", "sans-serif"],
       },
       fontSize: {
         'btn': ['13.78px', '21px'],

@@ -43,13 +43,15 @@ const PortfolioDropdown = ({ textColor, navbarBackground, isCaseStudyPage }: Pro
          
         <span className={`transition-colors duration-200 ${textColor}`}>   PORTFOLIO   </span>
          
-        <img
+        <Image
           src={
             isCaseStudyPage
               ? '/images/Services/arrow-down-white.svg'
               : '/images/arrow-down-solid-full.svg'
           }
           alt="Portfolio Icon"
+          width={16}
+          height={16}
           className={`w-4 mb-1 h-4 ml-1 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
         />
           
@@ -232,11 +234,11 @@ interface PathProps {
   transition?: { duration: number }
 }
 
-const Path = (props: PathProps & { strokeColor: string }) => (
+const Path = ({ strokeColor, ...props }: PathProps & { strokeColor: string }) => (
   <motion.path
     fill="transparent"
     strokeWidth="3"
-    stroke={props.strokeColor}
+    stroke={strokeColor}
     strokeLinecap="round"
     {...props}
   />
@@ -466,7 +468,7 @@ export const Navigation = () => {
          {/* Logo (Unchanged) */}  
       <div className="flex items-center">
            
-        <img src={logoSrc} alt="Synexis Ai" className={` w-[140px] lg:w-[206px] h-[50px] object-contain`} /> 
+        <Image src={logoSrc} alt="Synexis Ai" width={206} height={50} className={` w-[140px] lg:w-[206px] h-[50px] object-contain`} priority /> 
         
       </div>
          {/* --- DESKTOP NAVIGATION LINKS (Unchanged) --- */}  

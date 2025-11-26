@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { motion,useAnimation,useInView } from 'framer-motion';
-import { useState,useEffect,useRef } from 'react';
+import { useState,useEffect,useRef,useMemo } from 'react';
 import { useServices } from '@/context/ServicesContext';
 import { useCaseStudies } from '@/context/CaseStudyContext';
 import ServicesCard from '@/components/services/servicesCard';
@@ -38,8 +38,8 @@ export default function HomePage() {
     }
   };
 
-   // Parent controls the stagger timing
-  const containerVariants:any = {
+   // Parent controls the stagger timing - memoized to prevent motion recalculations
+  const containerVariants:any = useMemo(() => ({
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -48,17 +48,17 @@ export default function HomePage() {
         delayChildren: 0.3, // initial delay before animation starts
       },
     },
-  }
+  }), [])
 
-  // Children animation (slide-up + fade-in)
-  const itemVariants:any = {
+  // Children animation (slide-up + fade-in) - memoized for performance
+  const itemVariants:any = useMemo(() => ({
     hidden: { y: 40, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: { duration: 0.6, ease: 'easeOut' },
     },
-  }
+  }), [])
 
 
   
@@ -125,7 +125,7 @@ digital experiences that engage, convert, and inspire.
             className="bg-primary text-primary-foreground pr-3 pl-6 md:px-10 hover:scale-90 py-5 rounded-full flex items-center gap-3 lg:text-base 2xl:text-xl text-sm font-normal shadow-md transition-all duration-150"
           >
             Work With Us
-            <img src="/images/home/button_arrow.png" alt="Arrow Right" className="w-4 h-4 invert" />
+            <Image src="/images/home/button_arrow.png" alt="Arrow Right" width={16} height={16} className="w-4 h-4 invert" />
           </button>
 
           <button
@@ -133,7 +133,7 @@ digital experiences that engage, convert, and inspire.
             className="border border-foreground text-foreground px-3 md:px-10 py-5 hover:scale-90 rounded-full flex items-center gap-3 lg:text-base 2xl:text-xl text-sm font-normal transition-all duration-150"
           >
             Explore Our Case Studies
-            <img src="/images/home/button_arrow.png" alt="Arrow Right" className="w-4 h-4" />
+            <Image src="/images/home/button_arrow.png" alt="Arrow Right" width={16} height={16} className="w-4 h-4" />
           </button>
         </motion.div>
       </motion.div>
@@ -215,9 +215,12 @@ digital experiences that engage, convert, and inspire.
       {/* Office Section */}
       <section className="w-full flex flex-col lg:flex-row min-h-[600px] xl:min-h-[720px]">
         <div className="w-full lg:w-1/2 flex items-stretch">
-          <img 
+          <Image 
             src="/images/home/img5.png" 
             alt="Office" 
+            width={960}
+            height={720}
+            priority
             className="w-full h-[400px] sm:h-[500px] md:h-[600px] lg:h-auto lg:min-h-[600px] xl:min-h-[720px] object-cover " 
           />
         </div>  
@@ -240,9 +243,11 @@ digital experiences that engage, convert, and inspire.
               "The team at Synexis made everything simple, clear, and exciting. They genuinely cared about our goals and treated the project like their own. It was a creative partnership from start to finish"
             </p>
             <div className="flex items-center gap-3 sm:gap-4 xl:gap-6">
-              <img 
+              <Image 
                 src="/images/home/img6.png" 
                 alt="Nedin Zahirovic" 
+                width={80}
+                height={80}
                 className="w-10 h-10 sm:w-12 sm:h-12 xl:w-16 xl:h-16 2xl:w-20 2xl:h-20 rounded-full object-cover flex-shrink-0" 
               />
               <div>
@@ -387,7 +392,7 @@ digital experiences that engage, convert, and inspire.
                 className="bg-white text-foreground px-3 lg:px-12  2xl:px-24 py-3 rounded-full flex items-center gap-2 font-medium transition-all hover:bg-border"
               >
                 View All Case Studies
-                <img src="/images/home/button_arrow.png" alt="Arrow Right" className="w-4 h-4" />
+                <Image src="/images/home/button_arrow.png" alt="Arrow Right" width={16} height={16} className="w-4 h-4" />
               </Link>
             </div>
           )}
@@ -467,41 +472,59 @@ digital experiences that engage, convert, and inspire.
   </div>
 
 
+      {/* Memoize logo arrays outside render to prevent recreating 54+ items */}
+      {useMemo(() => {
+        const logoRow1 = [
+          "/images/client/img1.png",
+          "/images/client/img2.png",
+          "/images/client/img3.png",
+          "/images/client/img4.png",
+          "/images/client/img5.png",
+          "/images/client/img6.png"
+        ];
+        const tripledRow1 = [...logoRow1, ...logoRow1, ...logoRow1];
+
+        const logoRow2 = [
+          "/images/client/img7.png",
+          "/images/client/img8.png",
+          "/images/client/img9.png",
+          "/images/client/img10.png",
+          "/images/client/img11.png",
+          "/images/client/img12.png"
+        ];
+        const tripledRow2 = [...logoRow2, ...logoRow2, ...logoRow2];
+
+        const logoRow3 = [
+          "/images/client/img13.png",
+          "/images/client/img14.png",
+          "/images/client/img15.png",
+          "/images/client/img16.png",
+          "/images/client/img17.png",
+          "/images/client/img18.png",
+          "/images/client/img19.png"
+        ];
+        const tripledRow3 = [...logoRow3, ...logoRow3, ...logoRow3];
+
+        return (
       <div className="w-full flex flex-col gap-y-0">
         {/* Row 1: Infinite scroll */}
         <hr className="w-full border-t border-border" />
-        <div className="overflow-hidden w-full">
+        <div className="overflow-hidden w-full relative">
+          <div className="absolute left-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
           <motion.div
             className="flex flex-row gap-x-4 sm:gap-x-10 py-4 sm:py-6"
             animate={{ x: ["0%", "-66.66%"] }}
             transition={{ duration: 45, ease: "linear", repeat: Infinity ,repeatType: 'loop',repeatDelay: 0}}
             style={{ width: "max-content" }}
           >
-            {/* Logos tripled for seamless loop */}
-            {[
-              "/images/client/img1.png",
-              "/images/client/img2.png",
-              "/images/client/img3.png",
-              "/images/client/img4.png",
-              "/images/client/img5.png",
-              "/images/client/img6.png",
-              "/images/client/img1.png",
-              "/images/client/img2.png",
-              "/images/client/img3.png",
-              "/images/client/img4.png",
-              "/images/client/img5.png",
-              "/images/client/img6.png",
-              "/images/client/img1.png",
-              "/images/client/img2.png",
-              "/images/client/img3.png",
-              "/images/client/img4.png",
-              "/images/client/img5.png",
-              "/images/client/img6.png"
-            ].map((src, i) => (
-              <img
+            {tripledRow1.map((src, i) => (
+              <Image
                 key={i}
                 src={src}
                 alt={`Logo ${i + 1}`}
+                width={150}
+                height={61}
                 className="h-[40px] w-[90px] sm:h-[61px] sm:w-[150px] object-contain flex-shrink-0"
               />
             ))}
@@ -509,38 +532,40 @@ digital experiences that engage, convert, and inspire.
         </div>
         <hr className="w-full border-t border-border" />
         {/* Row 2: Infinite scroll */}
-        <div className="overflow-hidden w-full">
+        <div className="overflow-hidden w-full relative">
+          <div className="absolute left-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
           <motion.div
             className="flex flex-row gap-x-4 sm:gap-x-10 py-4 sm:py-6"
             animate={{ x: ["-66.66%", "0%"] }}
             transition={{ duration: 45, ease: "linear", repeat: Infinity }}
             style={{ width: "max-content" }}
           >
-            {["/images/client/img7.png","/images/client/img8.png","/images/client/img9.png","/images/client/img10.png","/images/client/img11.png","/images/client/img12.png",
-              "/images/client/img7.png","/images/client/img8.png","/images/client/img9.png","/images/client/img10.png","/images/client/img11.png","/images/client/img12.png",
-              "/images/client/img7.png","/images/client/img8.png","/images/client/img9.png","/images/client/img10.png","/images/client/img11.png","/images/client/img12.png"].map((src, i) => (
-              <img key={i} src={src} alt={`Logo ${i+7}`} className="h-[40px] w-[90px] sm:h-[61px] sm:w-[150px] object-contain flex-shrink-0" />
+            {tripledRow2.map((src, i) => (
+              <Image key={i} src={src} alt={`Logo ${i+7}`} width={150} height={61} className="h-[40px] w-[90px] sm:h-[61px] sm:w-[150px] object-contain flex-shrink-0" />
             ))}
           </motion.div>
         </div>
         <hr className="w-full border-t border-border" />
         {/* Row 3: Infinite scroll */}
-        <div className="overflow-hidden w-full">
+        <div className="overflow-hidden w-full relative">
+          <div className="absolute left-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
           <motion.div
             className="flex flex-row sm:gap-x-3 py-4 sm:py-6 w-full"
             animate={{ x: ["0%", "-66.66%"] }}
             transition={{ duration: 45, ease: "linear", repeat: Infinity }}
             style={{ width: "max-content" }}
           >
-            {["/images/client/img13.png","/images/client/img14.png","/images/client/img15.png","/images/client/img16.png","/images/client/img17.png","/images/client/img18.png","/images/client/img19.png",
-              "/images/client/img13.png","/images/client/img14.png","/images/client/img15.png","/images/client/img16.png","/images/client/img17.png","/images/client/img18.png","/images/client/img19.png",
-              "/images/client/img13.png","/images/client/img14.png","/images/client/img15.png","/images/client/img16.png","/images/client/img17.png","/images/client/img18.png","/images/client/img19.png"].map((src, i) => (
-              <img key={i} src={src} alt={`Logo ${i+13}`} className="h-[40px] w-[90px] sm:h-[61px] sm:w-[150px] object-contain flex-shrink-0 inline-block" />
+            {tripledRow3.map((src, i) => (
+              <Image key={i} src={src} alt={`Logo ${i+13}`} width={150} height={61} className="h-[40px] w-[90px] sm:h-[61px] sm:w-[150px] object-contain flex-shrink-0 inline-block" />
             ))}
           </motion.div>
         </div>
         <hr className="w-full border-t border-border" />
       </div>
+        ); // Close useMemo
+      }, [])}
 
 </section>
 
@@ -568,7 +593,7 @@ We turn ideas into seamless, Beautiful designs. Let's build digital experiences 
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0 }}
             >
-              <img src="/images/client/img1_1.png" alt="Office 1" className="w-[370px] h-[274px] 2xl:w-[500px] 2xl:h-[360px] object-cover rounded-lg" style={{ scrollSnapAlign: 'start' }} />
+              <Image src="/images/client/img1_1.png" alt="Office 1" width={500} height={360} className="w-[370px] h-[274px] 2xl:w-[500px] 2xl:h-[360px] object-cover rounded-lg" style={{ scrollSnapAlign: 'start' }} />
             </motion.div>
             <motion.div 
               className="flex-shrink-0"
@@ -577,7 +602,7 @@ We turn ideas into seamless, Beautiful designs. Let's build digital experiences 
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.1 }}
             >
-              <img src="/images/client/img1_4.png" alt="Office 2" className="w-[370px] h-[499px] 2xl:w-[500px] 2xl:h-[640px] object-cover rounded-lg" style={{ scrollSnapAlign: 'start' }} />
+              <Image src="/images/client/img1_4.png" alt="Office 2" width={500} height={640} className="w-[370px] h-[499px] 2xl:w-[500px] 2xl:h-[640px] object-cover rounded-lg" style={{ scrollSnapAlign: 'start' }} />
             </motion.div>
             <motion.div 
               className="flex-shrink-0"
@@ -586,7 +611,7 @@ We turn ideas into seamless, Beautiful designs. Let's build digital experiences 
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <img src="/images/client/img1_2.png" alt="Office 3" className="w-[370px] h-[273px] 2xl:w-[500px] 2xl:h-[360px] object-cover rounded-lg" style={{ scrollSnapAlign: 'start' }} />
+              <Image src="/images/client/img1_2.png" alt="Office 3" width={500} height={360} className="w-[370px] h-[273px] 2xl:w-[500px] 2xl:h-[360px] object-cover rounded-lg" style={{ scrollSnapAlign: 'start' }} />
             </motion.div>
             <motion.div 
               className="flex-shrink-0"
@@ -595,7 +620,7 @@ We turn ideas into seamless, Beautiful designs. Let's build digital experiences 
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
-              <img src="/images/client/img1_3.png" alt="Office 4" className="w-[370px] h-[499px] 2xl:w-[500px] 2xl:h-[640px] object-cover rounded-lg" style={{ scrollSnapAlign: 'start' }} />
+              <Image src="/images/client/img1_3.png" alt="Office 4" width={500} height={640} className="w-[370px] h-[499px] 2xl:w-[500px] 2xl:h-[640px] object-cover rounded-lg" style={{ scrollSnapAlign: 'start' }} />
             </motion.div>
           </div>
         </div>
@@ -613,7 +638,7 @@ We turn ideas into seamless, Beautiful designs. Let's build digital experiences 
         className="bg-white shadow flex items-center justify-center cursor-pointer hover:scale-110 transition-transform" 
         style={{ borderRadius: '21px', width: '43px', height: '43px' }}
       >
-        <img src="/images/home/arrow-left-solid-full.svg" alt="Left Arrow" style={{ width: '35px', height: '21px' }} />
+        <Image src="/images/home/arrow-left-solid-full.svg" alt="Left Arrow" width={35} height={21} style={{ width: '35px', height: '21px' }} />
       </button>
       <button 
         onClick={() => scrollTestimonial('right')}

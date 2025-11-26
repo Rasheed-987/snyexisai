@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
+import { useMemo } from 'react'
 
 interface CaseStudy {
   _id: string
@@ -24,18 +25,21 @@ export default function CaseStudyBannerLayout({
   caseStudies, 
   maxDisplay = 3 
 }: CaseStudyBannerLayoutProps) {
-  // Take only the first maxDisplay case studies
-  const displayedStudies = caseStudies.slice(0, maxDisplay)
+  // Memoize array slicing to prevent unnecessary operations on re-renders
+  const displayedStudies = useMemo(() => 
+    caseStudies.slice(0, maxDisplay), 
+    [caseStudies, maxDisplay]
+  )
   
   if (displayedStudies.length === 0) {
     return null
   }
 
-  // Get the first case study for the large banner
-  const featuredStudy = displayedStudies[0]
-  
-  // Get the remaining studies for the bottom row
-  const otherStudies = displayedStudies.slice(1)
+  // Memoize featured and other studies to avoid recalculating on every render
+  const { featuredStudy, otherStudies } = useMemo(() => ({
+    featuredStudy: displayedStudies[0],
+    otherStudies: displayedStudies.slice(1)
+  }), [displayedStudies])
 
   return (
     <section className="w-full px-3 lg:px-12  2xl:px-24 py-8">
