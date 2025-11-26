@@ -31,9 +31,6 @@ const nextConfig = {
     removeConsole: process.env.NODE_ENV === 'production',
   },
   
-  // Reduce unnecessary polyfills for modern browsers
-  swcMinify: true,
-  
   // Headers for security
   async headers() {
     return [
