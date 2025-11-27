@@ -78,13 +78,15 @@ export interface IServices extends Document {
     banner?: string,
     gallery?: string[]
   },
-  requirements: string[],
-  requirementsTitle?: string,
   description?: string,
-  largeCard?: {
+  servicesOffered?: Array<{
     title: string
     body: string
-  },
+  }>,
+  whyItMatters?: Array<{
+    title: string
+    body: string
+  }>,
   status: 'draft' | 'published' | 'archived'
   createdAt: Date
   updatedAt: Date

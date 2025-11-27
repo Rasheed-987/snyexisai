@@ -13,10 +13,17 @@ export async function POST(req: Request) {
     const status = (formData.get('status') as string) || 'published';
     const serviceTitle = formData.get('title') as string;
     const imageFile = formData.get('image') as File;
-    const requirements = JSON.parse(String(formData.get('requirements') || '[]'));
-    const requirementsTitle = formData.get('requirementsTitle') as string || '';
     const description = formData.get('description') as string || '';
-    const largeCard = JSON.parse(String(formData.get('largeCard') || '{"title":"","body":""}'));
+    const servicesOffered = JSON.parse(String(formData.get('servicesOffered') || '[]'));
+    const whyItMatters = JSON.parse(String(formData.get('whyItMatters') || '[]'));
+    
+    console.log('📥 Received data:', {
+      serviceTitle,
+      description,
+      servicesOffered,
+      whyItMatters
+    });
+    
     // Validation
     if (status === 'published') {
       if (!serviceTitle || !imageFile) {
@@ -51,15 +58,17 @@ export async function POST(req: Request) {
         gallery: []
       },
       status: status as 'published' | 'draft',
-      requirements,
-      requirementsTitle,
       description,
-      largeCard
+      servicesOffered,
+      whyItMatters
     };
 
+    console.log('💾 Saving document:', serviceDoc);
   
     const service = new Services(serviceDoc);
     await service.save();
+    
+    console.log('✅ Saved service:', service.toObject());
 
    
 

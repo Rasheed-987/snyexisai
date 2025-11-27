@@ -70,19 +70,27 @@ export function CareerApplicationForm({ jobTitle, Id }: CareerApplicationFormPro
     setIsLoading(true);
     
     try {
-      // Here you would typically send the application data to your backend
-      console.log('Application submitted:', {
-        ...formData,
-        jobTitle,
-        Id,
-        submittedAt: new Date().toISOString()
+      const response = await fetch('/api/careers/apply', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          jobTitle,
+          Id,
+          submittedAt: new Date().toISOString()
+        }),
       });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || 'Failed to submit application');
+      }
       
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Show success message or redirect
-      alert('Application submitted successfully!');
+      // Show success message
+      alert(data.message || 'Application submitted successfully!');
       
       // Reset form
       setFormData({
@@ -96,7 +104,6 @@ export function CareerApplicationForm({ jobTitle, Id }: CareerApplicationFormPro
       });
     } catch (error) {
       console.error('Error submitting application:', error);
-      alert('Error submitting application. Please try again.');
     } finally {
       setIsLoading(false);
     }

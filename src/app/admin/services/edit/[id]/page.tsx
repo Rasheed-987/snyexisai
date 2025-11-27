@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import RequirementsInput from '@/components/admin/RequirementsInput'
+import ResponsibilityInput from '@/components/admin/ResponsibilityInput'
 import { useState, useEffect } from 'react'
 import { UploadBox } from '@/components/upload/UploadBox'
 import { useRouter, useParams } from 'next/navigation'
@@ -21,17 +21,15 @@ const ServiceEditPage = () => {
   const serviceId = params.id as string
   
   const [serviceTitle, setServiceTitle] = useState('')
-  const [requirements, setRequirements] = useState<string[]>([]);
-  const [requirementsTitle, setRequirementsTitle] = useState<string>('');
-  const [editingReqIndex, setEditingReqIndex] = useState<number | null>(null);
-  const [editingReqText, setEditingReqText] = useState<string>('');
   
   // New fields state
   const [descriptionText, setDescriptionText] = useState<string>('');
-  const [largeCard, setLargeCard] = useState<{ title: string; body: string }>({
-    title: '',
-    body: ''
-  });
+  
+  // Services Offered state
+  const [servicesOffered, setServicesOffered] = useState<Array<{ title: string; body: string }>>([]);
+  
+  // Why It Matters state
+  const [whyItMatters, setWhyItMatters] = useState<Array<{ title: string; body: string }>>([]);
   
   // Add loading and error states
   const [isLoading, setIsLoading] = useState(true)
@@ -74,13 +72,9 @@ const ServiceEditPage = () => {
           
           // Populate form fields
           setServiceTitle(service.serviceTitle || '')
-          setRequirements(service.requirements || []);
-          setRequirementsTitle(service.requirementsTitle || '');
           setDescriptionText(service.description || '');
-          setLargeCard({
-            title: service.largeCard?.title || '',
-            body: service.largeCard?.body || ''
-          });
+          setServicesOffered(service.servicesOffered || []);
+          setWhyItMatters(service.whyItMatters || []);
           
           // Set existing image if available
           if (service.images?.banner) {
@@ -120,10 +114,9 @@ const ServiceEditPage = () => {
       const formData = new FormData()
       formData.append('title', serviceTitle)
       formData.append('status', 'draft')
-      formData.append('requirements', JSON.stringify(requirements))
-      formData.append('requirementsTitle', requirementsTitle)
       formData.append('description', descriptionText)
-      formData.append('largeCard', JSON.stringify(largeCard))
+      formData.append('servicesOffered', JSON.stringify(servicesOffered))
+      formData.append('whyItMatters', JSON.stringify(whyItMatters))
       if (imageSlots[0].file) {
         formData.append('image', imageSlots[0].file)
       }
@@ -159,10 +152,9 @@ const ServiceEditPage = () => {
   formData.append('title', serviceTitle)
   formData.append('image', imageSlots[0].file)
   formData.append('status', 'published')
-  formData.append('requirements', JSON.stringify(requirements))
-  formData.append('requirementsTitle', requirementsTitle)
   formData.append('description', descriptionText)
-  formData.append('largeCard', JSON.stringify(largeCard))
+  formData.append('servicesOffered', JSON.stringify(servicesOffered))
+  formData.append('whyItMatters', JSON.stringify(whyItMatters))
       const response = await fetch(`/api/services/${serviceId}`, {
         method: 'PUT',
         body: formData
@@ -253,70 +245,6 @@ const ServiceEditPage = () => {
         />
       </div>
 
-      {/* Requirements */}
-      <div className="space-y-2 mb-6">
-        <label className="block text-sm font-medium text-gray-700 mb-2">Bullet Points Section</label>
-        <input
-          type="text"
-          placeholder="Section Title (e.g., Key Features, Benefits, etc.)"
-          className="w-full mb-3 font-medium text-base px-3 py-2 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
-          value={requirementsTitle}
-          onChange={(e) => setRequirementsTitle(e.target.value)}
-          disabled={isUpdating}
-        />
-        <div className="space-y-2">
-          <RequirementsInput onAdd={(text: string) => setRequirements(prev => [...prev, text.trim()])} />
-          <ul className="list-disc pl-5 space-y-1">
-            {requirements.map((r, idx) => (
-              <li key={idx} className="flex items-center justify-between">
-                {editingReqIndex === idx ? (
-                  <div className="flex-1 flex items-center gap-2">
-                    <input
-                      value={editingReqText}
-                      onChange={(e) => setEditingReqText(e.target.value)}
-                      placeholder="Edit requirement"
-                      className="flex-1 border p-2 rounded"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => {
-                        const newText = editingReqText.trim();
-                        if (newText.length) {
-                          setRequirements(prev => prev.map((it, i) => i === idx ? newText : it));
-                        }
-                        setEditingReqIndex(null);
-                        setEditingReqText('');
-                      }}
-                      className="text-sm text-blue-600 hover:underline"
-                    >
-                      Save
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setEditingReqIndex(null);
-                        setEditingReqText('');
-                      }}
-                      className="text-sm text-gray-600 hover:underline"
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                ) : (
-                  <>
-                    <span className="flex-1">{r}</span>
-                    <div className="flex gap-3 items-center">
-                      <button type="button" onClick={() => setRequirements(prev => prev.filter((_, i) => i !== idx))} className="text-sm text-red-600 hover:underline">Remove</button>
-                      <button type="button" onClick={() => { setEditingReqIndex(idx); setEditingReqText(r); }} className="text-sm text-blue-600 hover:underline">Edit</button>
-                    </div>
-                  </>
-                )}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-
       {/* Description Textarea */}
       <div className="mb-6">
         <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
@@ -329,23 +257,60 @@ const ServiceEditPage = () => {
         />
       </div>
 
-      {/* Large Title + Body card */}
-      <div className="w-full max-w-4xl border-2 border-dashed rounded-lg p-6 mb-6">
-        <input
-          type="text"
-          placeholder="Card Title"
-          className="w-full mb-3 font-semibold text-lg px-3 py-2 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
-          value={largeCard.title}
-          onChange={(e) => setLargeCard({ ...largeCard, title: e.target.value })}
-          disabled={isUpdating}
+      {/* Services Offered Section */}
+      <div className="space-y-4 mb-6">
+        <label className="block text-lg font-semibold text-gray-800 mb-2">Services Offered</label>
+        <ResponsibilityInput 
+          onAdd={(item) => setServicesOffered(prev => [...prev, item])} 
+          titlePlaceholder="Service title (e.g., Custom Model Development)"
+          bodyPlaceholder="Service description"
         />
-        <textarea
-          placeholder="Card body text"
-          className="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-200 rounded min-h-[140px] resize-y focus:outline-none focus:ring-2 focus:ring-blue-200"
-          value={largeCard.body}
-          onChange={(e) => setLargeCard({ ...largeCard, body: e.target.value })}
-          disabled={isUpdating}
+        <div className="space-y-3 mt-4">
+          {servicesOffered.map((service, idx) => (
+            <div key={idx} className="bg-white border border-gray-200 rounded-lg p-4">
+              <div className="flex justify-between items-start mb-2">
+                <h4 className="font-semibold text-gray-800">{service.title}</h4>
+                <button 
+                  type="button"
+                  onClick={() => setServicesOffered(prev => prev.filter((_, i) => i !== idx))}
+                  className="text-sm text-red-600 hover:underline"
+                  disabled={isUpdating}
+                >
+                  Remove
+                </button>
+              </div>
+              <p className="text-sm text-gray-600">{service.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Why It Matters Section */}
+      <div className="space-y-4 mb-6">
+        <label className="block text-lg font-semibold text-gray-800 mb-2">Why it matters</label>
+        <ResponsibilityInput 
+          onAdd={(item) => setWhyItMatters(prev => [...prev, item])} 
+          titlePlaceholder="Benefit title (e.g., Gain an Edge)"
+          bodyPlaceholder="Benefit description"
         />
+        <div className="space-y-3 mt-4">
+          {whyItMatters.map((matter, idx) => (
+            <div key={idx} className="bg-white border border-gray-200 rounded-lg p-4">
+              <div className="flex justify-between items-start mb-2">
+                <h4 className="font-semibold text-gray-800">{matter.title}</h4>
+                <button 
+                  type="button"
+                  onClick={() => setWhyItMatters(prev => prev.filter((_, i) => i !== idx))}
+                  className="text-sm text-red-600 hover:underline"
+                  disabled={isUpdating}
+                >
+                  Remove
+                </button>
+              </div>
+              <p className="text-sm text-gray-600">{matter.body}</p>
+            </div>
+          ))}
+        </div>
       </div>
 
   {updateError && (

@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react'
 import { UploadBox } from '@/components/upload/UploadBox'
 import { handleImageUpload } from '@/utils/dashboard'
 import { useRouter } from 'next/navigation';
-import RequirementsInput from '@/components/admin/RequirementsInput'
+import ResponsibilityInput from '@/components/admin/ResponsibilityInput'
 import { json } from 'stream/consumers'
 
 
@@ -27,34 +27,19 @@ export default function ServicesUploadPage() {
   ])
   const [isRouterMounted, setIsRouterMounted] = useState(false);
 
-  // Requirements state
-  const [requirements, setRequirements] = useState<string[]>([]);
-  const [requirementsTitle, setRequirementsTitle] = useState<string>('');
-  const [editingReqIndex, setEditingReqIndex] = useState<number | null>(null);
-  const [editingReqText, setEditingReqText] = useState<string>('');
-
   // Description state
   const [descriptionText, setDescriptionText] = useState<string>('');
 
-  // Large card state
-  const [largeCard, setLargeCard] = useState<{ title: string; body: string }>({
-    title: '',
-    body: ''
-  });
+  // Services Offered state
+  const [servicesOffered, setServicesOffered] = useState<Array<{ title: string; body: string }>>([]);
+  
+  // Why It Matters state
+  const [whyItMatters, setWhyItMatters] = useState<Array<{ title: string; body: string }>>([]);
 
 
   useEffect(() => {
     setIsRouterMounted(true);
   }, []);
-
-  // Add requirement
-  const addRequirement = (text: string, setter: typeof setRequirements) => {
-    if (text.trim().length) setter(prev => [...prev, text.trim()]);
-  };
-  // Remove requirement
-  const removeRequirement = (idx: number, setter: typeof setRequirements) => {
-    setter(prev => prev.filter((_, i) => i !== idx));
-  };
 
   // Save as draft (only requires title)
   const onSaveDraft = async () => {
@@ -70,17 +55,15 @@ export default function ServicesUploadPage() {
       const form = new FormData();
       form.append('title', serviceTitle);
       form.append('status', 'draft');
-      form.append('requirements', JSON.stringify(requirements));
-      form.append('requirementsTitle', requirementsTitle);
       form.append('description', descriptionText);
-      form.append('largeCard', JSON.stringify(largeCard));
+      form.append('servicesOffered', JSON.stringify(servicesOffered));
+      form.append('whyItMatters', JSON.stringify(whyItMatters));
       
       console.log('📤 Sending data:', {
         title: serviceTitle,
         description: descriptionText,
-        largeCard: largeCard,
-        requirements: requirements,
-        requirementsTitle: requirementsTitle
+        servicesOffered: servicesOffered,
+        whyItMatters: whyItMatters
       });
       
       if (imageSlots[0].file) {
@@ -120,17 +103,15 @@ export default function ServicesUploadPage() {
   form.append('title', serviceTitle);
   form.append('image', imageSlots[0].file);
   form.append('status', 'published');
-  form.append('requirements', JSON.stringify(requirements));
-  form.append('requirementsTitle', requirementsTitle);
   form.append('description', descriptionText);
-  form.append('largeCard', JSON.stringify(largeCard));
+  form.append('servicesOffered', JSON.stringify(servicesOffered));
+  form.append('whyItMatters', JSON.stringify(whyItMatters));
   
   console.log('📤 Publishing data:', {
     title: serviceTitle,
     description: descriptionText,
-    largeCard: largeCard,
-    requirements: requirements,
-    requirementsTitle: requirementsTitle
+    servicesOffered: servicesOffered,
+    whyItMatters: whyItMatters
   });
   
       const response = await fetch('/api/services', {
@@ -181,86 +162,59 @@ export default function ServicesUploadPage() {
         onChange={(e) => setDescriptionText(e.target.value)}
       />
 
-
-      {/* Requirements */}
-      <div className="space-y-2 mb-6">
-        <label className="block text-sm font-medium text-gray-700 mb-2">Bullet Points Section</label>
-        <input
-          type="text"
-          placeholder="Section Title (e.g., Key Features, Benefits, etc.)"
-          className="w-full mb-3 font-medium text-base px-3 py-2 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
-          value={requirementsTitle}
-          onChange={(e) => setRequirementsTitle(e.target.value)}
+      {/* Services Offered Section */}
+      <div className="space-y-4 mb-6">
+        <label className="block text-lg font-semibold text-gray-800 mb-2">Services Offered</label>
+        <ResponsibilityInput 
+          onAdd={(item) => setServicesOffered(prev => [...prev, item])} 
+          titlePlaceholder="Service title (e.g., Custom Model Development)"
+          bodyPlaceholder="Service description"
         />
-        <div className="space-y-2">
-          <RequirementsInput onAdd={(text: string) => addRequirement(text, setRequirements)} />
-          <ul className="list-disc pl-5 space-y-1">
-            {requirements.map((r, idx) => (
-              <li key={idx} className="flex items-center justify-between">
-                {editingReqIndex === idx ? (
-                  <div className="flex-1 flex items-center gap-2">
-                    <input
-                      value={editingReqText}
-                      onChange={(e) => setEditingReqText(e.target.value)}
-                      placeholder="Edit requirement"
-                      className="flex-1 border p-2 rounded"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => {
-                        const newText = editingReqText.trim();
-                        if (newText.length) {
-                          setRequirements(prev => prev.map((it, i) => i === idx ? newText : it));
-                        }
-                        setEditingReqIndex(null);
-                        setEditingReqText('');
-                      }}
-                      className="text-sm text-blue-600 hover:underline"
-                    >
-                      Save
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setEditingReqIndex(null);
-                        setEditingReqText('');
-                      }}
-                      className="text-sm text-gray-600 hover:underline"
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                ) : (
-                  <>
-                    <span className="flex-1">{r}</span>
-                    <div className="flex gap-3 items-center">
-                      <button type="button" onClick={() => removeRequirement(idx, setRequirements)} className="text-sm text-red-600 hover:underline">Remove</button>
-                      <button type="button" onClick={() => { setEditingReqIndex(idx); setEditingReqText(r); }} className="text-sm text-blue-600 hover:underline">Edit</button>
-                    </div>
-                  </>
-                )}
-              </li>
-            ))}
-          </ul>
+        <div className="space-y-3 mt-4">
+          {servicesOffered.map((service, idx) => (
+            <div key={idx} className="bg-white border border-gray-200 rounded-lg p-4">
+              <div className="flex justify-between items-start mb-2">
+                <h4 className="font-semibold text-gray-800">{service.title}</h4>
+                <button 
+                  type="button"
+                  onClick={() => setServicesOffered(prev => prev.filter((_, i) => i !== idx))}
+                  className="text-sm text-red-600 hover:underline"
+                >
+                  Remove
+                </button>
+              </div>
+              <p className="text-sm text-gray-600">{service.body}</p>
+            </div>
+          ))}
         </div>
       </div>
-     {/* Large Title + Body card */}
-      <div className="w-full max-w-4xl border-2 border-dashed rounded-lg p-6 mb-6">
-        <input
-          type="text"
-          placeholder="Title here"
-          className="w-full mb-3 font-semibold text-lg px-3 py-2 bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-300"
-          value={largeCard.title}
-          onChange={(e) => setLargeCard({ ...largeCard, title: e.target.value })}
+
+      {/* Why It Matters Section */}
+      <div className="space-y-4 mb-6">
+        <label className="block text-lg font-semibold text-gray-800 mb-2">Why it matters</label>
+        <ResponsibilityInput 
+          onAdd={(item) => setWhyItMatters(prev => [...prev, item])} 
+          titlePlaceholder="Benefit title (e.g., Gain an Edge)"
+          bodyPlaceholder="Benefit description"
         />
-        <textarea
-          placeholder="Body text"
-          className="w-full text-sm px-3 py-2 bg-gray-50 border border-gray-200 rounded min-h-[140px] resize-y focus:outline-none focus:ring-2 focus:ring-blue-200"
-          value={largeCard.body}
-          onChange={(e) => setLargeCard({ ...largeCard, body: e.target.value })}
-        />
+        <div className="space-y-3 mt-4">
+          {whyItMatters.map((matter, idx) => (
+            <div key={idx} className="bg-white border border-gray-200 rounded-lg p-4">
+              <div className="flex justify-between items-start mb-2">
+                <h4 className="font-semibold text-gray-800">{matter.title}</h4>
+                <button 
+                  type="button"
+                  onClick={() => setWhyItMatters(prev => prev.filter((_, i) => i !== idx))}
+                  className="text-sm text-red-600 hover:underline"
+                >
+                  Remove
+                </button>
+              </div>
+              <p className="text-sm text-gray-600">{matter.body}</p>
+            </div>
+          ))}
+        </div>
       </div>
-  
 
  {/* Error and Success Messages */}
       {uploadError && (

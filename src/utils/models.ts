@@ -72,13 +72,15 @@ const ServiceSchema = new Schema<IServices>({
     banner: { type: String },
     gallery: [{ type: String }]
   },
-  requirements: [{ type: String }],
-  requirementsTitle: { type: String },
   description: { type: String },
-  largeCard: {
+  servicesOffered: [{
     title: { type: String },
     body: { type: String }
-  },
+  }],
+  whyItMatters: [{
+    title: { type: String },
+    body: { type: String }
+  }],
   status: { type: String, enum: ['draft', 'published', 'archived'], default: 'draft' },
 },
 {

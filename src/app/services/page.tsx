@@ -51,6 +51,7 @@ const Service = () => {
           {servicesData.map((service: any) => (
             <ServicesCard
               key={service._id}
+              id={service._id}
               title={service.serviceTitle}
               image={service.images?.banner}
               requirements={service.requirements}

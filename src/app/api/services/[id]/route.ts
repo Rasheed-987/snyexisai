@@ -60,17 +60,17 @@ export async function PUT(
 
     const serviceTitle = formData.get('title')
     if (serviceTitle) updateData.serviceTitle = String(serviceTitle)
-    const requirements = formData.get('requirements')
-    if (requirements) updateData.requirements = JSON.parse(String(requirements))
-    const requirementsTitle = formData.get('requirementsTitle')
-    if (requirementsTitle) updateData.requirementsTitle = String(requirementsTitle)
     const status = formData.get('status')
     if (status) updateData.status = String(status)
     const description = formData.get('description')
     if (description) updateData.description = String(description)
-    const largeCardData = formData.get('largeCard')
-    if (largeCardData) {
-      updateData.largeCard = JSON.parse(String(largeCardData))
+    const servicesOfferedData = formData.get('servicesOffered')
+    if (servicesOfferedData) {
+      updateData.servicesOffered = JSON.parse(String(servicesOfferedData))
+    }
+    const whyItMattersData = formData.get('whyItMatters')
+    if (whyItMattersData) {
+      updateData.whyItMatters = JSON.parse(String(whyItMattersData))
     }
 
     console.log('🔍 Update Data:', updateData)
@@ -131,10 +131,9 @@ export async function PUT(
           gallery: existingService.images.gallery || [],
         },
         status: newStatus,
-        requirements: mergedData.requirements,
-        requirementsTitle: mergedData.requirementsTitle,
         description: mergedData.description,
-        largeCard: mergedData.largeCard,
+        servicesOffered: mergedData.servicesOffered,
+        whyItMatters: mergedData.whyItMatters,
       },
       { new: true } // Return updated document
     );
