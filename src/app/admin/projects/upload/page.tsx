@@ -93,6 +93,11 @@ const ProjectUploadPage = () => {
         }
       })
 
+      // Debug: Log what we're sending
+      console.log('📤 Sending to API:')
+      console.log('- title:', projectTitle)
+      console.log('- tagline:', tagline)
+      console.log('- addTitle:', addtitle)
       console.log('Form data prepared:', Array.from(formData.entries()))
 
       // Send to API
@@ -131,7 +136,17 @@ const ProjectUploadPage = () => {
 
     try {
       // Validation
-     if (!projectTitle || !tagline || !addtitle || cards.some(c => !c.title || !c.body) || !largeCard.title || !largeCard.body || smallCardsA.some(c => !c.title || !c.body) || imageSlots.some(slot => !slot.file) || !descriptionText) {
+      if (!projectTitle?.trim()) {
+        throw new Error('Please provide a project title')
+      }
+      if (!tagline?.trim()) {
+        throw new Error('Please provide a tagline')
+      }
+      if (!addtitle?.trim()) {
+        throw new Error('Please provide an additional title')
+      }
+      
+     if (cards.some(c => !c.title || !c.body) || !largeCard.title || !largeCard.body || smallCardsA.some(c => !c.title || !c.body) || imageSlots.some(slot => !slot.file) || !descriptionText) {
         throw new Error('Please fill in all fields and upload all images for Publish')
       }
       if (!imageSlots[0]?.file) {

@@ -32,10 +32,19 @@ export async function POST(request: NextRequest) {
       status: status as 'published' | 'draft'
     }
 
+    // Debug logging
+    console.log('🔍 API Debug - Received data:')
+    console.log('- status:', status)
+    console.log('- title:', projectData.title)
+    console.log('- tagline:', projectData.tagline)
+    console.log('- addTitle:', projectData.addTitle)
+    console.log('- All form keys:', Array.from(formData.keys()))
+
     // Different validation rules for drafts vs published
     if (status === 'published') {
       // Published projects require all fields
       if (!projectData.title || !projectData.tagline || !projectData.addTitle) {
+        console.log('❌ Validation failed - missing required fields')
         return NextResponse.json(
           { error: 'Title, tagline, and addTitle are required for published projects' },
           { status: 400 }

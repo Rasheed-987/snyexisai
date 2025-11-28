@@ -20,17 +20,16 @@ export function ActionButtons({
   status = 'published',
 }: ActionButtonsProps) {
   const isDraft = status === 'draft'
-  const buttonText = isDraft ? 'Draft' : 'Unpublish'
-  const buttonAlt = isDraft ? 'Draft' : 'Unpublish'
   
   return (
     <div
       className={`flex items-center bg-white rounded-[26px] justify-center gap-1 sm:gap-2 md:gap-3 lg:gap-4  p-2 sm:p-3 2xl:p-4 ${className}`}
     >
-      {/* Edit Button */}
+      {/* First Button - Always Edit */}
       <button
         onClick={onEdit}
         className="flex items-center space-x-1 text-primary hover:text-primary/80 transition-colors"
+        title="Edit"
       >
         <Image
           src="/images/admin/edit.svg"
@@ -45,26 +44,37 @@ export function ActionButtons({
       {/* Divider */}
       <div className="w-px h-3 sm:h-4 bg-gray-300"></div>
 
-      {/* Draft/Unpublish Button */}
+      {/* Second Button - Publish for draft, Unpublish for published */}
       <button
         onClick={onUnpublish}
         className="flex items-center space-x-1 text-primary hover:text-primary/80 transition-colors"
-        title={isDraft ? 'Publish this draft' : 'Unpublish this project'}
+        title={isDraft ? 'Publish this draft' : 'Unpublish this item'}
       >
-        <Image
-          src="/images/admin/unpublish.svg"
-          alt={buttonAlt}
-          width={14}
-          height={14}
-          className="w-3.5 h-3.5 sm:w-4 sm:h-4"
-        />
-        <span className="text-xs 2xl:text-sm font-medium">{buttonText}</span>
+        {isDraft ? (
+          <svg 
+            className="w-3.5 h-3.5 sm:w-4 sm:h-4" 
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+          </svg>
+        ) : (
+          <Image
+            src="/images/admin/unpublish.svg"
+            alt="Unpublish"
+            width={14}
+            height={14}
+            className="w-3.5 h-3.5 sm:w-4 sm:h-4"
+          />
+        )}
+        <span className="text-xs 2xl:text-sm font-medium">{isDraft ? 'Publish' : 'Unpublish'}</span>
       </button>
 
       {/* Divider */}
       <div className="w-px h-3 sm:h-4 bg-gray-300"></div>
 
-      {/* Delete Button */}
+      {/* Delete Button - Always present */}
       <button
         onClick={onDelete}
         className="group flex items-center space-x-1 text-primary hover:text-red-500 transition-colors"

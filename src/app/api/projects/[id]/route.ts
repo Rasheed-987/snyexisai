@@ -151,7 +151,17 @@ export async function PUT(
 
     // Validate if trying to publish a draft
     if (updateData.status === 'published') {
-      if (!updateData.title || !updateData.tagline || !updateData.addTitle) {
+      // Check both new data and existing data for required fields
+      const finalTitle = updateData.title || existingProject.title
+      const finalTagline = updateData.tagline || existingProject.tagline
+      const finalAddTitle = updateData.addTitle || existingProject.addTitle
+      
+      console.log('🔍 Publishing validation:')
+      console.log('- finalTitle:', finalTitle)
+      console.log('- finalTagline:', finalTagline)
+      console.log('- finalAddTitle:', finalAddTitle)
+      
+      if (!finalTitle || !finalTagline || !finalAddTitle) {
         return NextResponse.json(
           { error: 'Title, tagline, and addTitle are required for published projects' },
           { status: 400 }
