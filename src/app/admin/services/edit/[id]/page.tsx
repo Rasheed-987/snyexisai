@@ -3,6 +3,9 @@
 import React from 'react'
 import ResponsibilityInput from '@/components/admin/ResponsibilityInput'
 import { useState, useEffect } from 'react'
+import { useForm, Controller, SubmitHandler } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
 import { UploadBox } from '@/components/upload/UploadBox'
 import { useRouter, useParams } from 'next/navigation'
 import { handleImageUpload } from '@/utils/dashboard'
@@ -15,28 +18,63 @@ interface ImageSlot {
   existingUrl?: string | null // For existing images from S3
 }
 
+// Form data type
+type ServiceFormData = {
+  serviceTitle: string
+  descriptionText?: string
+  servicesOffered: { title: string; body: string }[]
+  whyItMatters: { title: string; body: string }[]
+  image?: any
+}
+
+// Zod validation schema
+const serviceFormSchema = z.object({
+  serviceTitle: z.string().min(1, 'Service title is required'),
+  descriptionText: z.string().optional(),
+  servicesOffered: z.array(z.object({
+    title: z.string().min(1, 'Service title is required'),
+    body: z.string().min(1, 'Service description is required')
+  })),
+  whyItMatters: z.array(z.object({
+    title: z.string().min(1, 'Benefit title is required'),
+    body: z.string().min(1, 'Benefit description is required')
+  })),
+  image: z.any().optional()
+}) satisfies z.ZodType<ServiceFormData>
+
 const ServiceEditPage = () => {
   const router = useRouter()
   const params = useParams()
   const serviceId = params.id as string
-  
-  const [serviceTitle, setServiceTitle] = useState('')
-  
-  // New fields state
-  const [descriptionText, setDescriptionText] = useState<string>('');
-  
-  // Services Offered state
-  const [servicesOffered, setServicesOffered] = useState<Array<{ title: string; body: string }>>([]);
-  
-  // Why It Matters state
-  const [whyItMatters, setWhyItMatters] = useState<Array<{ title: string; body: string }>>([]);
+
+  // React Hook Form setup
+  const {
+    control,
+    handleSubmit,
+    watch,
+    setValue,
+    getValues,
+    reset,
+    formState: { errors, isSubmitting }
+  } = useForm<ServiceFormData>({
+    resolver: zodResolver(serviceFormSchema),
+    defaultValues: {
+      serviceTitle: '',
+      descriptionText: '',
+      servicesOffered: [],
+      whyItMatters: []
+    }
+  })
   
   // Add loading and error states
   const [isLoading, setIsLoading] = useState(true)
-  const [isUpdating, setIsUpdating] = useState(false)
   const [updateError, setUpdateError] = useState<string | null>(null)
   const [updateSuccess, setUpdateSuccess] = useState(false)
   const [mounted, setMounted] = useState(false)
+
+  // Watch form values for real-time updates
+  const watchedServicesOffered = watch('servicesOffered')
+  const watchedWhyItMatters = watch('whyItMatters')
 
   const initialImageSlots: ImageSlot[] = [
     { id: 'banner', file: null, previewUrl: null, existingUrl: null }
@@ -70,11 +108,13 @@ const ServiceEditPage = () => {
           const service = data.service
           console.log('Loaded service:', service)
           
-          // Populate form fields
-          setServiceTitle(service.serviceTitle || '')
-          setDescriptionText(service.description || '');
-          setServicesOffered(service.servicesOffered || []);
-          setWhyItMatters(service.whyItMatters || []);
+          // Populate form fields using React Hook Form's reset
+          reset({
+            serviceTitle: service.serviceTitle || '',
+            descriptionText: service.description || '',
+            servicesOffered: service.servicesOffered || [],
+            whyItMatters: service.whyItMatters || []
+          })
           
           // Set existing image if available
           if (service.images?.banner) {
@@ -101,75 +141,62 @@ const ServiceEditPage = () => {
     loadService()
   }, [serviceId, mounted])
 
-  // Save as draft (only requires title)
-  const onSaveDraft = async () => {
-    if (!serviceTitle.trim()) {
-      alert('Please provide a service title.')
-      return
-    }
+  // Submit handler function
+  const submitForm = async (data: ServiceFormData, status: 'draft' | 'published') => {
     try {
-      setIsUpdating(true)
       setUpdateError(null)
       setUpdateSuccess(false)
+
+      // Validation for publish action
+      if (status === 'published' && !imageSlots[0].existingUrl && !imageSlots[0].file) {
+        setUpdateError('Please provide a service title and upload an image.')
+        return
+      }
+
       const formData = new FormData()
-      formData.append('title', serviceTitle)
-      formData.append('status', 'draft')
-      formData.append('description', descriptionText)
-      formData.append('servicesOffered', JSON.stringify(servicesOffered))
-      formData.append('whyItMatters', JSON.stringify(whyItMatters))
+      formData.append('title', data.serviceTitle)
+      formData.append('status', status)
+      formData.append('description', data.descriptionText || '')
+      formData.append('servicesOffered', JSON.stringify(data.servicesOffered))
+      formData.append('whyItMatters', JSON.stringify(data.whyItMatters))
+      
       if (imageSlots[0].file) {
         formData.append('image', imageSlots[0].file)
       }
+
       const response = await fetch(`/api/services/${serviceId}`, {
         method: 'PUT',
         body: formData
       })
+
       const result = await response.json()
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to save draft')
+        throw new Error(result.error || `Failed to ${status === 'draft' ? 'save draft' : 'update service'}`)
       }
+
+      const message = status === 'draft' 
+        ? 'Service draft saved successfully!' 
+        : 'Service published successfully!'
       setUpdateSuccess(true)
-      router.push('/admin/services')
+      
+      setTimeout(() => {
+        setUpdateSuccess(false)
+        router.push('/admin/services')
+      }, 2000)
     } catch (error) {
-      setUpdateError(error instanceof Error ? error.message : 'Save draft failed')
-    } finally {
-      setIsUpdating(false)
+      console.error(`Error ${status === 'draft' ? 'saving' : 'publishing'} service:`, error)
+      setUpdateError(error instanceof Error ? error.message : `${status === 'draft' ? 'Save draft' : 'Publish'} failed`)
     }
   }
 
-  // Publish (requires title and image)
-  const onPublish = async () => {
+  // Save as draft handler
+  const handleSaveDraft = () => {
+    handleSubmit((data: any) => submitForm(data as ServiceFormData, 'draft'))()
+  }
 
-    if (!serviceTitle.trim() || !imageSlots[0].existingUrl) {
-      alert('Please provide a service title and upload an image.')
-      return
-    }
-    try {
-      setIsUpdating(true)
-      setUpdateError(null)
-      setUpdateSuccess(false)
-  const formData = new FormData()
-  formData.append('title', serviceTitle)
-  formData.append('image', imageSlots[0].file)
-  formData.append('status', 'published')
-  formData.append('description', descriptionText)
-  formData.append('servicesOffered', JSON.stringify(servicesOffered))
-  formData.append('whyItMatters', JSON.stringify(whyItMatters))
-      const response = await fetch(`/api/services/${serviceId}`, {
-        method: 'PUT',
-        body: formData
-      })
-      const result = await response.json()
-      if (!response.ok) {
-        throw new Error(result.error || 'Failed to update service')
-      }
-      setUpdateSuccess(true)
-      router.push('/admin/services')
-    } catch (error) {
-      setUpdateError(error instanceof Error ? error.message : 'Publish failed')
-    } finally {
-      setIsUpdating(false)
-    }
+  // Publish handler  
+  const handlePublish = () => {
+    handleSubmit((data: any) => submitForm(data as ServiceFormData, 'published'))()
   }
 
   const onCancel = () => {
@@ -197,8 +224,8 @@ const ServiceEditPage = () => {
     )
   }
 
-  // Error state
-  if (updateError && !serviceTitle) {
+  // Error state (only show if we failed to load initial data)
+  if (updateError && isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 p-8 flex items-center justify-center">
         <div className="text-center">
@@ -234,26 +261,43 @@ const ServiceEditPage = () => {
         <label htmlFor="serviceTitle" className="block text-sm font-medium text-gray-700 mb-2">
           Service Title
         </label>
-        <input
-          id="serviceTitle"
-          type="text"
-          placeholder="Enter service title"
-          value={serviceTitle}
-          onChange={(e) => setServiceTitle(e.target.value)}
-          className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
-          disabled={isUpdating}
+        <Controller
+          name="serviceTitle"
+          control={control}
+          render={({ field }) => (
+            <div>
+              <input
+                id="serviceTitle"
+                type="text"
+                placeholder="Enter service title"
+                {...field}
+                className={`w-full px-3 py-2 bg-white border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 ${
+                  errors.serviceTitle ? 'border-red-500' : 'border-gray-300'
+                }`}
+                disabled={isSubmitting}
+              />
+              {errors.serviceTitle && (
+                <p className="text-red-500 text-sm mt-1">{errors.serviceTitle.message}</p>
+              )}
+            </div>
+          )}
         />
       </div>
 
       {/* Description Textarea */}
       <div className="mb-6">
         <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
-        <textarea
-          placeholder="Service description"
-          className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded text-sm min-h-[100px] resize-y focus:outline-none focus:ring-2 focus:ring-blue-200"
-          value={descriptionText}
-          onChange={(e) => setDescriptionText(e.target.value)}
-          disabled={isUpdating}
+        <Controller
+          name="descriptionText"
+          control={control}
+          render={({ field }) => (
+            <textarea
+              placeholder="Service description"
+              {...field}
+              className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded text-sm min-h-[100px] resize-y focus:outline-none focus:ring-2 focus:ring-blue-200"
+              disabled={isSubmitting}
+            />
+          )}
         />
       </div>
 
@@ -261,20 +305,26 @@ const ServiceEditPage = () => {
       <div className="space-y-4 mb-6">
         <label className="block text-lg font-semibold text-gray-800 mb-2">Services Offered</label>
         <ResponsibilityInput 
-          onAdd={(item) => setServicesOffered(prev => [...prev, item])} 
+          onAdd={(item) => {
+            const currentServices = getValues('servicesOffered') || []
+            setValue('servicesOffered', [...currentServices, item])
+          }} 
           titlePlaceholder="Service title (e.g., Custom Model Development)"
           bodyPlaceholder="Service description"
         />
         <div className="space-y-3 mt-4">
-          {servicesOffered.map((service, idx) => (
+          {watchedServicesOffered?.map((service: { title: string; body: string }, idx: number) => (
             <div key={idx} className="bg-white border border-gray-200 rounded-lg p-4">
               <div className="flex justify-between items-start mb-2">
                 <h4 className="font-semibold text-gray-800">{service.title}</h4>
                 <button 
                   type="button"
-                  onClick={() => setServicesOffered(prev => prev.filter((_, i) => i !== idx))}
+                  onClick={() => {
+                    const currentServices = getValues('servicesOffered') || []
+                    setValue('servicesOffered', currentServices.filter((_: any, i: number) => i !== idx))
+                  }}
                   className="text-sm text-red-600 hover:underline"
-                  disabled={isUpdating}
+                  disabled={isSubmitting}
                 >
                   Remove
                 </button>
@@ -289,20 +339,26 @@ const ServiceEditPage = () => {
       <div className="space-y-4 mb-6">
         <label className="block text-lg font-semibold text-gray-800 mb-2">Why it matters</label>
         <ResponsibilityInput 
-          onAdd={(item) => setWhyItMatters(prev => [...prev, item])} 
+          onAdd={(item) => {
+            const currentMatters = getValues('whyItMatters') || []
+            setValue('whyItMatters', [...currentMatters, item])
+          }} 
           titlePlaceholder="Benefit title (e.g., Gain an Edge)"
           bodyPlaceholder="Benefit description"
         />
         <div className="space-y-3 mt-4">
-          {whyItMatters.map((matter, idx) => (
+          {watchedWhyItMatters?.map((matter: { title: string; body: string }, idx: number) => (
             <div key={idx} className="bg-white border border-gray-200 rounded-lg p-4">
               <div className="flex justify-between items-start mb-2">
                 <h4 className="font-semibold text-gray-800">{matter.title}</h4>
                 <button 
                   type="button"
-                  onClick={() => setWhyItMatters(prev => prev.filter((_, i) => i !== idx))}
+                  onClick={() => {
+                    const currentMatters = getValues('whyItMatters') || []
+                    setValue('whyItMatters', currentMatters.filter((_: any, i: number) => i !== idx))
+                  }}
                   className="text-sm text-red-600 hover:underline"
-                  disabled={isUpdating}
+                  disabled={isSubmitting}
                 >
                   Remove
                 </button>
@@ -313,36 +369,42 @@ const ServiceEditPage = () => {
         </div>
       </div>
 
-  {updateError && (
-        <Alert type="error" message={updateError} onClose={() => setUpdateError(null)} />
+      {/* Error and Success Messages */}
+      {updateError && (
+        <div className="w-full max-w-lg mb-4">
+          <Alert type="error" message={updateError} onClose={() => setUpdateError(null)} />
+        </div>
       )}
-
       {updateSuccess && (
-        <Alert type="success" message="Service updated successfully!" onClose={() => setUpdateSuccess(false)} />
+        <div className="w-full max-w-lg mb-4">
+          <Alert type="success" message="Service updated successfully!" onClose={() => setUpdateSuccess(false)} />
+        </div>
       )}
-
 
       <div className="flex gap-4">
         <button 
-          onClick={onCancel}
+          type="button"
+          onClick={() => router.push('/admin/services')}
           className="px-6 py-2 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors"
-          disabled={isUpdating}
+          disabled={isSubmitting}
         >
           Cancel
         </button>
         <button 
-          onClick={onSaveDraft}
+          type="button"
+          onClick={handleSaveDraft}
           className="px-6 py-2 rounded-full bg-gray-300 hover:bg-gray-400 transition-colors"
-          disabled={isUpdating}
+          disabled={isSubmitting}
         >
-          {isUpdating ? 'Saving...' : 'Save Draft'}
+          {isSubmitting ? 'Saving...' : 'Save Draft'}
         </button>
         <button 
-          onClick={onPublish}
+          type="button"
+          onClick={handlePublish}
           className="px-6 py-2 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition-colors disabled:opacity-50"
-          disabled={isUpdating}
+          disabled={isSubmitting}
         >
-          {isUpdating ? 'Publishing...' : 'Publish Service'}
+          {isSubmitting ? 'Publishing...' : 'Publish Service'}
         </button>
       </div>
     </div>
