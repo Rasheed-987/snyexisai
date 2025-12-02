@@ -10,6 +10,7 @@ import { UploadBox } from '@/components/upload/UploadBox'
 import { handleImageUpload } from '@/utils/dashboard'
 import { useRouter } from 'next/navigation'
 import ResponsibilityInput from '@/components/admin/ResponsibilityInput'
+import { useQueryClient } from '@tanstack/react-query'
 
 interface ImageSlot {
   id: string
@@ -43,6 +44,7 @@ const serviceFormSchema = z.object({
 
 export default function ServicesUploadPage() {
   const router = useRouter()
+  const queryClient = useQueryClient()
 
   // React Hook Form setup
   const {
@@ -126,6 +128,9 @@ export default function ServicesUploadPage() {
       })
 
       if (response.ok) {
+        // Invalidate cache to refresh the services list
+        queryClient.invalidateQueries({ queryKey: ['services'] })
+        
         const message = status === 'draft' 
           ? 'Service draft saved successfully!' 
           : 'Service published successfully!'

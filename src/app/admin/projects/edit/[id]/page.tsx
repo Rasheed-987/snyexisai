@@ -8,6 +8,7 @@ import { useRouter, useParams } from 'next/navigation'
 import {handleImageUpload} from '@/utils/dashboard'
 import { addRequirement, removeRequirement } from '@/utils/utils'
 import RequirementsInput from '@/components/admin/RequirementsInput'
+import { useQueryClient } from '@tanstack/react-query'
 
 interface ImageSlot {
   id: string
@@ -19,6 +20,7 @@ interface ImageSlot {
 const ProjectEditPage = () => {
   const router = useRouter()
   const params = useParams()
+  const queryClient = useQueryClient()
   const projectId = params.id as string
   const [projectTitle, setProjectTitle] = useState('')
   const [tagline, setTagline] = useState('')
@@ -175,6 +177,9 @@ const ProjectEditPage = () => {
         throw new Error(result.error || 'Save draft failed')
       }
 
+      // Invalidate cache to refresh the projects list
+      queryClient.invalidateQueries({ queryKey: ['projects'] })
+
       console.log('✅ Project saved as draft:', result)
       setUpdateSuccess(true)
       
@@ -248,6 +253,9 @@ const ProjectEditPage = () => {
       if (!response.ok) {
         throw new Error(result.error || 'Update failed')
       }
+
+      // Invalidate cache to refresh the projects list
+      queryClient.invalidateQueries({ queryKey: ['projects'] })
 
       console.log('✅ Project published successfully:', result)
       setUpdateSuccess(true)

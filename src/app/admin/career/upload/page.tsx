@@ -7,9 +7,11 @@ import ResponsibilityInput from '@/components/admin/ResponsibilityInput'
 import { useState, useEffect } from 'react'
 import { addRequirement,removeRequirement } from '@/utils/utils'
 import { useRouter } from 'next/navigation';
+import { useQueryClient } from '@tanstack/react-query'
 
 export default function CareersUploadPage() {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const [jobTitle, setJobTitle] = useState<string>('')
   const [company, setCompany] = useState<string>('')
@@ -71,6 +73,9 @@ export default function CareersUploadPage() {
       });
 
       if (response.ok) {
+        // Invalidate cache to refresh the careers list
+        queryClient.invalidateQueries({ queryKey: ['careers'] })
+        
         setUploadSuccess(true)
         setTimeout(() => {
           router.push('/admin/career');
@@ -127,6 +132,9 @@ export default function CareersUploadPage() {
 
       if (response.ok) {
         console.log('jobData:', jobData)
+        // Invalidate cache to refresh the careers list
+        queryClient.invalidateQueries({ queryKey: ['careers'] })
+        
         setUploadSuccess(true)
         setTimeout(() => {
           router.push('/admin/career');

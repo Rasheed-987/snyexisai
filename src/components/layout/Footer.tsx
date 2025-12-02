@@ -1,10 +1,13 @@
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 interface FooterProps {
   className?: string;
 }
 
 export default function Footer({ className = "" }: FooterProps) {
+  const router = useRouter()
+
   return (
     <footer
       className="w-full overflow-hidden mt-[-80px] pt-[130px] text-white"
@@ -65,7 +68,10 @@ style={{
       {/* Synexis.Ai Text */}
       <div className="w-full text-white pt-6">
        <div className="  lg:h-[180px] xl:h-[200px] 2xl:h-[320px] overflow-hidden flex items-start justify-start">
-  <h1 className=" font-medium w-full block text-[19vw] leading-none ">
+  <h1 
+    className=" font-medium w-full block text-[19vw] leading-none cursor-pointer hover:opacity-80 transition-opacity duration-300"
+    onClick={() => router.push('/')}
+  >
     Synexis.Ai
   </h1>
 </div>

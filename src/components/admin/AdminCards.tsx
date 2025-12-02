@@ -224,7 +224,7 @@ export function CaseStudyCard({
           alt={title}
           width={120}
           height={80}
-          className="w-full w-35 md:w-40 h-[90px]  object-cover rounded-[12px]"
+          className="w-full w-35 md:w-40 h-[90px]  object-fit rounded-[12px]"
         />
       </div>
 

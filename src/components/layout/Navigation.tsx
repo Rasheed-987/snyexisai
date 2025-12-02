@@ -465,10 +465,18 @@ export const Navigation = () => {
     <nav
       className={`w-full h-[60px] border ${border} ${navbarBackground} flex items-center justify-between px-6 relative z-[100]`}
     >
-         {/* Logo (Unchanged) */}  
+         {/* Logo */}  
       <div className="flex items-center">
            
-        <Image src={logoSrc} alt="Synexis Ai" width={206} height={50} className={` w-[140px] lg:w-[206px] h-[50px] object-contain`} priority /> 
+        <Image 
+          src={logoSrc} 
+          alt="Synexis Ai" 
+          width={206} 
+          height={50} 
+          className={`w-[140px] lg:w-[206px] h-[50px] object-contain cursor-pointer hover:opacity-80 transition-opacity duration-300`} 
+          priority
+          onClick={() => window.location.href = '/'}
+        /> 
         
       </div>
          {/* --- DESKTOP NAVIGATION LINKS (Unchanged) --- */}  

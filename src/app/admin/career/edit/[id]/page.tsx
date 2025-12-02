@@ -6,10 +6,12 @@ import { useRouter, useParams } from 'next/navigation'
 import Alert from '@/components/ui/Alert'
 import RequirementsInput from '@/components/admin/RequirementsInput'
 import ResponsibilityInput from '@/components/admin/ResponsibilityInput'
+import { useQueryClient } from '@tanstack/react-query'
 
 export default function CareerEditPage() {
   const router = useRouter()
   const params = useParams()
+  const queryClient = useQueryClient()
   const careerId = params.id as string
 
   const [jobTitle, setJobTitle] = useState<string>('')
@@ -123,6 +125,9 @@ export default function CareerEditPage() {
         throw new Error(result.error || 'Save draft failed')
       }
 
+      // Invalidate cache to refresh the careers list
+      queryClient.invalidateQueries({ queryKey: ['careers'] })
+
       setUpdateSuccess(true)
       
       // Navigate back to careers list after successful save
@@ -173,6 +178,9 @@ export default function CareerEditPage() {
       if (!response.ok) {
         throw new Error(result.error || 'Update failed')
       }
+
+      // Invalidate cache to refresh the careers list
+      queryClient.invalidateQueries({ queryKey: ['careers'] })
 
       setUpdateSuccess(true)
       

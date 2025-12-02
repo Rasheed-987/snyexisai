@@ -8,6 +8,7 @@ import { handleImageUpload } from '@/utils/dashboard'
 import Alert from '@/components/ui/Alert'
 import RequirementsInput from '@/components/admin/RequirementsInput'
 import { addRequirement, removeRequirement } from '@/utils/utils'
+import { useQueryClient } from '@tanstack/react-query'
 
 interface ImageSlot {
   id: string
@@ -19,6 +20,7 @@ interface ImageSlot {
 const CaseStudyEditPage = () => {
   const router = useRouter()
   const params = useParams()
+  const queryClient = useQueryClient()
   const caseStudyId = params.id as string
   
   const [caseTitle, setCaseTitle] = useState('')
@@ -186,6 +188,10 @@ const CaseStudyEditPage = () => {
       if (!response.ok) {
         throw new Error(result.error || 'Failed to save draft')
       }
+      
+      // Invalidate cache to refresh the case studies list
+      queryClient.invalidateQueries({ queryKey: ['case-studies'] })
+      
       setUpdateSuccess(true)
       setTimeout(() => {
         router.push('/admin/case-studies')
@@ -242,6 +248,10 @@ const CaseStudyEditPage = () => {
       if (!response.ok) {
         throw new Error(result.error || 'Failed to update case study')
       }
+      
+      // Invalidate cache to refresh the case studies list
+      queryClient.invalidateQueries({ queryKey: ['case-studies'] })
+      
       setUpdateSuccess(true)
       setTimeout(() => {
         router.push('/admin/case-studies')
