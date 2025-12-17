@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import ContactForm from '../../components/forms/ContactForm';
 import Button from '@/components/ui/Button';
@@ -41,10 +43,13 @@ export default function ContactPage() {
                 Hate forms? Chat now or schedule a call with our founder to discuss your project directly.
               </p>
               
-              <Button 
+              <Button
                 variant="nav-contact"
                 size="nav-contact"
                 className="bg-background border border-foreground text-foreground text-base 2xl:text-xl hover:bg-foreground hover:text-white rounded-full px-8 py-4  transition-all duration-300"
+                onClick={() => {
+                  window.location.href = '/book-meeting';
+                }}
               >
                 Book A Meeting
                 <svg className="ml-2 w-4 h-4" fill="currentColor" viewBox="0 0 16 16">
