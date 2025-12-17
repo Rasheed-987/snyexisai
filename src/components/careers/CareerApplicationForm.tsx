@@ -249,6 +249,16 @@ export function CareerApplicationForm({ jobTitle, Id }: CareerApplicationFormPro
             >
               <img src="/images/twitter.png" alt="Twitter" className="object-cover" />
             </button>
+            <button
+              type="button"
+              className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors"
+              onClick={() => {
+                window.open('https://wa.me/971565574998', '_blank', 'noopener,noreferrer');
+              }}
+              title="WhatsApp"
+            >
+              <img src="/images/whatsapp.svg" alt="WhatsApp" className="object-cover" />
+            </button>
           </div>
         </div>
       </form>

@@ -463,10 +463,10 @@ export const Navigation = () => {
 
   return (
     <nav
-      className={`w-full h-[60px] border ${border} ${navbarBackground} flex items-center justify-between px-6 relative z-[100]`}
+      className={`w-full md:fixed h-[60px] border ${border} ${navbarBackground} flex items-center justify-between px-6 relative z-[100]`}
     >
          {/* Logo */}  
-      <div className="flex items-center">
+      <div className="flex  items-center">
            
         <Image 
           src={logoSrc} 
@@ -480,7 +480,7 @@ export const Navigation = () => {
         
       </div>
          {/* --- DESKTOP NAVIGATION LINKS (Unchanged) --- */}  
-      <div className={`hidden md:flex mt-2 ml-3 items-center mr-3 gap-7 ${textColor}`}>
+      <div className={`hidden  md:flex mt-2 ml-3 items-center mr-3 gap-7 ${textColor}`}>
            
        
       <HomeDropdown  textColor={textColor} />
