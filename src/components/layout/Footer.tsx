@@ -54,13 +54,14 @@ style={{
 
     {/* Location Column */}
     <div>
-  <h3 className=" font-semibold text-lg mb-1 2xl:text-2xl 2xl:mb-3">Our Location</h3>
-  <p className="text-sm mb-2 2xl:text-lg">
+      <h3 className=" font-semibold text-lg mb-1 2xl:text-2xl 2xl:mb-3">Our Location</h3>
+      <p className="text-sm mb-2 2xl:text-lg">
         At Synexis.ai, we connect innovation with intelligence. With headquarters in Dubai and projects delivered worldwide, we design solutions that scale across industries and time zones.
       </p>
-      <div>
-        <p className="text-sm 2xl:text-lg">Dubai, UAE</p>
-  <Image src="/images/image.png" alt="Location map" width={400} height={200} className="w-[70%] mt-[-20px] 2xl:w-[90%]" />
+      <div className="space-y-1 mt-4 2xl:space-y-2 text-center text-sm 2xl:text-lg">
+        <p>info@synexisai.com</p>
+        <p>+971 56 557 4998</p>
+        <p>Ajman, UAE</p>
       </div>
     </div>
   </div>

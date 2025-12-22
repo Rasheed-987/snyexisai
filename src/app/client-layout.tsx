@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation'
 import dynamic from 'next/dynamic'
 import { Navigation } from '@/components/layout/Navigation'
+import StickyContact from '@/components/ui/StickyContact'
 
 // Dynamic imports for heavy components
 const Footer = dynamic(() => import('@/components/layout/Footer'), {
@@ -34,6 +35,7 @@ export default function ClientLayout({
             <main className="flex-1">{children}</main>
             <Footer />
           </SmoothScroll>
+          <StickyContact />
         </>
       ) : (
         <main className="flex-1">{children}</main>

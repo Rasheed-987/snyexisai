@@ -48,7 +48,7 @@ export default function ContactPage() {
                 size="nav-contact"
                 className="bg-background border border-foreground text-foreground text-base 2xl:text-xl hover:bg-foreground hover:text-white rounded-full px-8 py-4  transition-all duration-300"
                 onClick={() => {
-                  window.location.href = '/book-meeting';
+                  window.location.href = 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ0e51-7g7VNou-xYBqQFrg4SVY95RPNdmj7slp11RhkjCFK7LX-uWFkjelslByXErt4kq2dn2WT?gv=true';
                 }}
               >
                 Book A Meeting
