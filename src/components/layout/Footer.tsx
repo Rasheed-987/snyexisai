@@ -68,9 +68,9 @@ style={{
 
       {/* Synexis.Ai Text */}
       <div className="w-full text-white pt-6">
-       <div className="  lg:h-[180px] xl:h-[200px] 2xl:h-[320px] overflow-hidden flex items-start justify-start">
+       <div className="flex items-start justify-start">
   <h1 
-    className=" font-medium w-full block text-[19vw] leading-none cursor-pointer hover:opacity-80 transition-opacity duration-300"
+    className=" font-medium w-full pb-16 block text-[19vw] leading-none cursor-pointer hover:opacity-80 transition-opacity duration-300"
     onClick={() => router.push('/')}
   >
     Synexis.Ai

@@ -60,6 +60,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${roboto.variable} ${inter.variable} ${chillax.variable} ${bandeins.variable}`}>
       <head>
+        <link rel="icon" href="/icons/logo.png" />
         {/* Preload LCP image for faster rendering */}
         <link rel="preload" as="image" href="/images/Mask group.png" fetchPriority="high" />
       </head>
