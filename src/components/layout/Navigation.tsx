@@ -466,7 +466,7 @@ export const Navigation = () => {
       className={`w-full md:fixed h-[60px] border ${border} ${navbarBackground} flex items-center justify-between px-6 relative z-[100]`}
     >
          {/* Logo */}  
-      <div className="flex  items-center">
+      <div className="flex md:flex-1 items-center">
            
         <Image 
           src={logoSrc} 
@@ -479,47 +479,62 @@ export const Navigation = () => {
         /> 
         
       </div>
-         {/* --- DESKTOP NAVIGATION LINKS (Unchanged) --- */}  
-      <div className={`hidden  md:flex mt-2 ml-3 items-center mr-3 gap-7 ${textColor}`}>
-           
-       
-      <HomeDropdown  textColor={textColor} />
 
-           
+      {/* --- DESKTOP NAVIGATION LINKS (Centered) --- */}  
+      <div className={`hidden md:flex flex-none items-center gap-7 ${textColor}`}>
+        <HomeDropdown textColor={textColor} />
         <AboutDropdown textColor={textColor} />
            
         <Link
           href="/services"
-          className={` font-semibold text-[14px] tracking-[0.5px] ${textColor}`}
+          className={`font-semibold text-[14px] tracking-[0.5px] ${textColor}`}
         >
           SERVICES
         </Link>
            
-        <div className="flex items-center ">
-              
+        <div className="flex items-center">
           <PortfolioDropdown
             textColor={textColor}
             navbarBackground={navbarBackground}
             isCaseStudyPage={isCaseStudyPage}
           />
-             
         </div>
            
         <Link
           href="/careers"
-          className={` font-semibold text-[14px] tracking-[0.5px] ${textColor}`}
+          className={`font-semibold text-[14px] tracking-[0.5px] ${textColor}`}
         >
           CAREER
         </Link>
            
         <Link
           href="/contact"
-          className={` font-semibold text-[14px] tracking-[0.5px] uppercase ${textColor}`}
+          className={`font-semibold text-[14px] tracking-[0.5px] uppercase ${textColor}`}
         >
           CONTACT US
         </Link>
-          
       </div>
+
+      {/* --- DESKTOP CTA BUTTON (Right End) --- */}
+      <div className="hidden md:flex md:flex-1 justify-end items-center">
+        <Link
+          href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0e51-7g7VNou-xYBqQFrg4SVY95RPNdmj7slp11RhkjCFK7LX-uWFkjelslByXErt4kq2dn2WT?gv=true"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`flex items-center gap-2 px-6 py-2.5 rounded-full text-[14px] font-bold tracking-[0.5px] transition-all hover:scale-105 active:scale-95 whitespace-nowrap ${
+            isCaseStudyPage 
+              ? 'bg-white text-foreground' 
+              : 'bg-foreground text-white'
+          }`}
+        >
+          FREE CONSULTATION
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </Link>
+      </div>
+
      <div className="md:hidden">
     <motion.nav
      initial={false}
