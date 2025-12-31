@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { Facebook, Instagram, Linkedin, Twitter } from 'lucide-react'
 
 interface FooterProps {
   className?: string;
@@ -11,7 +12,7 @@ export default function Footer({ className = "" }: FooterProps) {
 
   return (
     <footer
-      className="w-full overflow-hidden mt-[-80px] pt-[130px] text-white"
+      className="w-full mt-[-80px] pt-[130px] pb-20 text-white"
 
 style={{
   background: 'linear-gradient(180deg, #0F1C3D 20%, #0D255C 50%, #0F1C3D 80%)',
@@ -19,9 +20,9 @@ style={{
 }}
 
     >
-  <div className="max-w-[1550px] 2xl:w-full mx-auto px-6 grid grid-cols-2 md:grid-cols-5 gap-4 2xl:gap-8">
+  <div className="mx-auto px-6 flex flex-col lg:flex-row justify-between gap-10 2xl:gap-20">
     {/* Brand Column */}
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col items-center gap-3">
       <Link href="/">
         <Image 
           src="/images/logo_white.png" 
@@ -31,13 +32,30 @@ style={{
           className="w-[140px] lg:w-[180px] h-auto object-contain cursor-pointer hover:opacity-80 transition-opacity duration-300" 
         />
       </Link>
-      <p className="text-sm mb-2 2xl:text-lg leading-[1.5] text-gray-300">
-        At Synexis.ai, we connect innovation with intelligence. With headquarters in Dubai and projects delivered worldwide, we design solutions that scale across industries.
+      <p className="text-sm mb-2 2xl:text-lg leading-[1.1] text-center lg:text-start text-gray-300">
+        At Synexis.ai, we connect innovation with intelligence.
       </p>
+      <div className="flex justify-center gap-4 mt-2">
+        <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors duration-300">
+          <Facebook size={20} />
+        </a>
+        <a href="https://twitter.com/synexis_ai" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors duration-300">
+          <Twitter size={20} />
+        </a>
+        <a href="https://www.instagram.com/synexis_ai/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors duration-300">
+          <Instagram size={20} />
+        </a>
+        <a href="https://www.linkedin.com/company/synexis-ai/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors duration-300">
+          <Linkedin size={20} />
+        </a>
+      </div>
     </div>
   
     {/* Explore Column */}
-    <div>
+    <div className="flex-grow grid grid-cols-2 md:grid-cols-4 gap-8 2xl:gap-16">
+
+
+<div>
       <h3 className="font-semibold text-lg mb-2 2xl:text-2xl 2xl:mb-4">Explore</h3>
       <ul className="space-y-1 2xl:space-y-2">
         <li><a href="/" className="text-base hover:underline 2xl:text-lg">Home</a></li>
@@ -78,19 +96,12 @@ style={{
         <p className="flex items-center gap-2">Ajman, UAE</p>
       </div>
     </div>
+
+</div>
+    
   </div>
 
-      
-      {/* <div className="w-full text-white pt-6">
-       <div className="flex items-start justify-start">
-  <h1 
-    className=" font-medium w-full pb-16 block text-[19vw] leading-none cursor-pointer hover:opacity-80 transition-opacity duration-300"
-    onClick={() => router.push('/')}
-  >
-    Synexis.Ai
-  </h1>
-</div>
-      </div> */}
+
     </footer>
 
   );
