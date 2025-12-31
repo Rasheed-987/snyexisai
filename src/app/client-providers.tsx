@@ -6,6 +6,8 @@ import { ServicesProvider } from '@/context/ServicesContext'
 import { CaseStudyProvider } from '@/context/CaseStudyContext'
 import { ProjectProvider } from '@/context/ProjectContext'
 import { CareerProvider } from '@/context/CareerContext'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export function ClientProviders({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(() => new QueryClient({
@@ -24,6 +26,7 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
           <CaseStudyProvider>
             <ServicesProvider>
               {children}
+              <ToastContainer position="bottom-right" />
             </ServicesProvider>
           </CaseStudyProvider>
         </ProjectProvider>

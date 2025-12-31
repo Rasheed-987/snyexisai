@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Button from '@/components/ui/Button';
+import { toast } from 'react-toastify';
 
 interface CareerFormData {
   name: string;
@@ -10,7 +11,7 @@ interface CareerFormData {
   websiteOrPortfolio: string;
   socialLinks: string;
   aiExcitement: string;
-  cv: string[];
+  cv: { name: string, data: string }[];
 }
 
 interface CareerApplicationFormProps {
@@ -31,6 +32,19 @@ export function CareerApplicationForm({ jobTitle, Id }: CareerApplicationFormPro
 
   const [errors, setErrors] = useState<Partial<CareerFormData>>({});
   const [isLoading, setIsLoading] = useState(false);
+
+  // Helper to convert file to base64
+  const fileToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const base64String = (reader.result as string).split(',')[1];
+        resolve(base64String);
+      };
+      reader.onerror = (error) => reject(error);
+    });
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -90,7 +104,7 @@ export function CareerApplicationForm({ jobTitle, Id }: CareerApplicationFormPro
       }
       
       // Show success message
-      alert(data.message || 'Application submitted successfully!');
+      toast.success(data.message || 'Application submitted successfully!');
       
       // Reset form
       setFormData({
@@ -104,6 +118,7 @@ export function CareerApplicationForm({ jobTitle, Id }: CareerApplicationFormPro
       });
     } catch (error) {
       console.error('Error submitting application:', error);
+      toast.error('Failed to submit application. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -207,14 +222,19 @@ export function CareerApplicationForm({ jobTitle, Id }: CareerApplicationFormPro
             id="cv"
             name="cv"
             accept=".pdf,.doc,.docx"
-            onChange={(e) => {
-              if (e.target.files && e.target.files[0]) {
-                console.log('Uploaded CV:', e.target.files[0]);
+            onChange={async (e) => {
+              if (e.target.files && e.target.files.length > 0) {
+                const files = await Promise.all(
+                  Array.from(e.target.files).map(async (file) => ({
+                    name: file.name,
+                    data: await fileToBase64(file),
+                  }))
+                );
+                setFormData(prev => ({
+                  ...prev,
+                  cv: files
+                }));
               }
-              setFormData(prev => ({
-                ...prev,
-                cv: e.target.files ? Array.from(e.target.files).map(file => file.name) : []
-              }));
             }}
             className={`${inputFieldStyles}`}
           />
@@ -235,7 +255,7 @@ export function CareerApplicationForm({ jobTitle, Id }: CareerApplicationFormPro
           <div className="flex gap-3">
             <button
               type="button"
-              className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors"
+              className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 transition-colors"
               onClick={() => {
                 window.open('https://www.linkedin.com/company/synexis-ai/', '_blank', 'noopener,noreferrer');
               }}
@@ -244,21 +264,12 @@ export function CareerApplicationForm({ jobTitle, Id }: CareerApplicationFormPro
             </button>
             <button
               type="button"
-              className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors"
+              className="w-8 h-8  flex items-center justify-center hover:bg-gray-100 transition-colors"
               onClick={() => {/* Add Twitter share */}}
             >
               <img src="/images/twitter.png" alt="Twitter" className="object-cover" />
             </button>
-            <button
-              type="button"
-              className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors"
-              onClick={() => {
-                window.open('https://wa.me/971565574998', '_blank', 'noopener,noreferrer');
-              }}
-              title="WhatsApp"
-            >
-              <img src="/images/whatsapp.svg" alt="WhatsApp" className="object-cover" />
-            </button>
+         
           </div>
         </div>
       </form>

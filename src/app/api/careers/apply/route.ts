@@ -35,40 +35,45 @@ export async function POST(req: Request) {
       }, { status: 400 });
     }
 
-    // Create nodemailer transporter for Hostinger
+    // Create nodemailer transporter for Gmail
     const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST || 'smtp.hostinger.com',
-      port: parseInt(process.env.SMTP_PORT || '465'),
-      secure: true, // true for 465, false for other ports
+      service: 'gmail',
       auth: {
-        user: process.env.EMAIL_USER, // your Hostinger email
-        pass: process.env.EMAIL_PASSWORD, // your Hostinger email password
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
       },
     });
 
     // Email content for admin
-    const adminMailOptions = {
+    const adminMailOptions: any = {
       from: process.env.EMAIL_USER,
       to: process.env.ADMIN_EMAIL || process.env.EMAIL_USER, // admin email
       subject: `New Job Application: ${jobTitle}`,
       html: `
-        <h2>New Job Application Received</h2>
-        <p><strong>Position:</strong> ${jobTitle}</p>
-        <p><strong>Job ID:</strong> ${Id || 'N/A'}</p>
-        <hr>
-        <h3>Applicant Details:</h3>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Location:</strong> ${location}</p>
-        <p><strong>Website/Portfolio:</strong> ${websiteOrPortfolio || 'Not provided'}</p>
-        <p><strong>Social Links:</strong> ${socialLinks || 'Not provided'}</p>
-        <hr>
-        <h3>Why AI & Synexis AI?</h3>
-        <p>${aiExcitement || 'Not provided'}</p>
-        <hr>
-        <p><strong>CV Files:</strong> ${cv && cv.length > 0 ? cv.join(', ') : 'No CV uploaded'}</p>
-        <p><strong>Submitted At:</strong> ${submittedAt}</p>
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
+          <h2 style="color: #007bff;">New Job Application Received</h2>
+          <p><strong>Position:</strong> ${jobTitle}</p>
+          <p><strong>Job ID:</strong> ${Id || 'N/A'}</p>
+          <hr style="border: 0; border-top: 1px solid #eee;">
+          <h3>Applicant Details:</h3>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Location:</strong> ${location}</p>
+          <p><strong>Website/Portfolio:</strong> ${websiteOrPortfolio || 'Not provided'}</p>
+          <p><strong>Social Links:</strong> ${socialLinks || 'Not provided'}</p>
+          <hr style="border: 0; border-top: 1px solid #eee;">
+          <h3>Why AI & Synexis AI?</h3>
+          <p style="white-space: pre-wrap;">${aiExcitement || 'Not provided'}</p>
+          <hr style="border: 0; border-top: 1px solid #eee;">
+          <p><strong>CV Files:</strong> ${cv && cv.length > 0 ? cv.map((f: any) => f.name).join(', ') : 'No CV uploaded'}</p>
+          <p><strong>Submitted At:</strong> ${new Date(submittedAt).toLocaleString()}</p>
+        </div>
       `,
+      attachments: cv && cv.length > 0 ? cv.map((f: any) => ({
+        filename: f.name,
+        content: f.data,
+        encoding: 'base64'
+      })) : []
     };
 
     // Email content for applicant (confirmation)

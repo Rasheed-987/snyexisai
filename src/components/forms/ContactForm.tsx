@@ -4,6 +4,7 @@ import React, { useState, useRef } from 'react'
 import Button from '@/components/ui/Button'
 import ReCAPTCHA from 'react-google-recaptcha'
 import Alert from '@/components/ui/Alert'
+import { toast } from 'react-toastify'
 
 interface FormData {
   name: string
@@ -107,7 +108,7 @@ export default function ContactForm() {
 
       if (res.ok) {
         setStatus('success')
-        setUploadSuccess(true)
+        toast.success('Message sent successfully!')
         setFormData({
           name: '',
           email: '',
@@ -145,11 +146,6 @@ export default function ContactForm() {
       {uploadError && (
         <div className="mb-4">
           <Alert type="error" message={uploadError} onClose={() => setUploadError(null)} />
-        </div>
-      )}
-      {uploadSuccess && (
-        <div className="mb-4">
-          <Alert type="success" message="Form submitted successfully!" onClose={() => setUploadSuccess(false)} />
         </div>
       )}
 
